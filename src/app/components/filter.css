@@ -1,0 +1,122 @@
+ .location-suggestions {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    max-height: 300px;
+    margin-top: 8px;
+    padding: 0;
+    list-style: none;
+    overflow-y: auto;
+    box-shadow: none;
+}
+.location-suggestions li {
+    cursor: pointer;
+    padding: 8px 0px;
+    padding-right: 15px;
+    color: #000;
+}
+.location-suggestions li:hover {
+  color: #000;
+  background: transparent;
+}
+/* For selected filter chip */
+/* Selected filter pill */
+.filter-chip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 6px;
+  width: 100%; /* Ensure full width so close goes to right end */
+  box-sizing: border-box;
+}
+
+/* Close (X) icon aligned to end */
+.filter-chip-close {
+    color: #fff;
+    cursor: pointer;
+    background-color: #999;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    padding: 3px;
+    fill: #fff;
+}
+.suggestion-item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: #ffffff;
+  color: #ec7200; /* hover color */
+}
+
+.suggestion-item.selected {
+  background-color: #ffffff; /* your selected bg color */
+  font-weight: 500;
+  color: #ec7200;
+}
+
+
+
+.cfs-links-section {
+  display: none;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+ 
+.cfs-links-group {
+  margin-bottom: 16px;
+}
+
+.cfs-links-group:last-child {
+  margin-bottom: 0;
+}
+
+.cfs-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.cfs-links-item {
+  flex: 0 0 auto;
+}
+.cfs-links-link {
+  display: inline-block;
+  padding: 4px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #333;
+  text-decoration: none;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+.cfs-links-link:hover {
+  background: #f37920;
+  color: #fff;
+  border-color: #f37920;
+}
+.cfs-links-loading {
+  text-align: center;
+  padding: 12px;
+  color: #888;
+  font-size: 13px;
+}
