@@ -89,7 +89,7 @@ export default function Navbar() {
           <div className="logo_left">
             <a className="navbar-brand" href="/">
               <Image
-                src="/images/mfs-logo-black.svg?=1"
+                src="/images/cfs-logo-black.svg?=1"
                 alt="Caravans For Sale"
                 width={150}
                 height={50}
