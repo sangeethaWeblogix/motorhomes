@@ -24,7 +24,7 @@ export default function Home() {
             >
               Templates
             </a>{" "}
-            the{" "}
+           or the{" "}
             <a
               href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
               className="font-medium text-zinc-950 dark:text-zinc-50"
