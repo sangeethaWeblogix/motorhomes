@@ -11,6 +11,7 @@
     fetchHomeSearchList, // GET /home_search (base list)
     fetchKeywordSuggestions, // GET /home_search/?keyword=<q> (typed list)
   } from "@/api/homeSearch/api";
+  import "bootstrap/dist/js/bootstrap.bundle.min.js";
     
   type Item = {
    title?: string;
@@ -190,13 +191,13 @@ console.log("navigating ", navigateBySelect)
     };
   
  
-    useEffect(() => {
-   // dynamically import bootstrap JS only in the browser
-   if (typeof window === "undefined") return;
-   import("bootstrap/dist/js/bootstrap.bundle.min.js").catch((err) =>
-     console.error("Failed to load bootstrap JS", err)
-   );
- }, []);
+//     useEffect(() => {
+//    // dynamically import bootstrap JS only in the browser
+//    if (typeof window === "undefined") return;
+//    import("bootstrap/dist/js/bootstrap.bundle.min.js").catch((err) =>
+//      console.error("Failed to load bootstrap JS", err)
+//    );
+//  }, []);
     //   const navigateWithKeyword = (kwRaw: string) => {
     //     const kw = kwRaw.trim();
     //     if (!kw) return;

@@ -15,7 +15,7 @@ const SITE_URL =
     const searchItems = json?.data ?? [];
 
     const urls = searchItems
-      .map((item) => {
+      .map((item: any) => {
         let finalUrl = "";
 
         if (item.url && item.url.trim() !== "") {

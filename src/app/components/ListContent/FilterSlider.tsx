@@ -472,11 +472,11 @@ const FilterSlider = ({
     };
 
     // remove empty filters
-    Object.keys(newFilters).forEach((k) => {
-      if (newFilters[k] === undefined || newFilters[k] === null) {
-        delete newFilters[k];
-      }
-    });
+ (Object.keys(newFilters) as (keyof typeof newFilters)[]).forEach((k) => {
+  if (newFilters[k] === undefined || newFilters[k] === null) {
+    delete newFilters[k];
+  }
+});
 
     const slugPath = buildSlugFromFilters(newFilters);
     const safeSlug = slugPath.endsWith("/") ? slugPath : `${slugPath}/`;

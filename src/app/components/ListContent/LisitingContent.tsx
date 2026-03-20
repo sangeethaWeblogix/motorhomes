@@ -271,7 +271,7 @@ export default function ListingContent({
     }
   };
 
-  const handleProductClick = (id) => {
+  const handleProductClick = (id: any) => {
     postTrackEvent(
       "https://admin.caravansforsale.com.au/wp-json/cfs/v1/update-clicks",
       id,

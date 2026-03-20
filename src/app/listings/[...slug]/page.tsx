@@ -121,7 +121,7 @@ export default async function Listings({
     const makeSlug = normalizeSlug(slug[0]);
 
     const matchedMake = makesData.find(
-      (m) => normalizeSlug(m.slug) === makeSlug,
+      (m: any) => normalizeSlug(m.slug) === makeSlug,
     );
 
     if (!matchedMake) redirect("/404");
@@ -130,7 +130,7 @@ export default async function Listings({
       const modelSlug = normalizeSlug(slug[1]);
 
       const matchedModel = matchedMake.models?.some(
-        (mod) => normalizeSlug(mod.slug) === modelSlug,
+        (mod: any) => normalizeSlug(mod.slug) === modelSlug,
       );
 
       if (!matchedModel) redirect("/404");

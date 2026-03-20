@@ -29,6 +29,7 @@ import CaravansByStateSkeleton from "./components/Caravansbystateskeleton";
 import SearchSuggestionSkeleton from "./components/Searchsuggestionskeleton ";
 import { useBanners } from "@/components/BannerHandler";
 import { useBannerTracking } from "@/hooks/useBannerTracking";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 interface TabsItem {
   label: string;
@@ -63,6 +64,13 @@ type Item = {
   label?: string;
 } & Record<string, unknown>;
 
+
+type StateMeta = {
+  [key: string]: {
+    code: string;
+    image: string;
+  };
+};
 export default function SearchSection() {
   const router = useRouter();
   const searchInputRef = useRef<HTMLInputElement | null>(null);
@@ -82,7 +90,7 @@ export default function SearchSection() {
   const isSearchEnabled = category || location || conditionValue;
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const stateMeta = {
+const stateMeta: StateMeta = {
     victoria: { code: "VIC", image: "/images/vic_map.svg?=1" },
     "new-south-wales": { code: "NSW", image: "/images/nsw_map.svg?=1" },
     queensland: { code: "QLD", image: "/images/qld_map.svg?=1" },
@@ -384,13 +392,13 @@ export default function SearchSection() {
     if (!isSuggestionBoxOpen) setIsSuggestionBoxOpen(true);
   };
 
-  useEffect(() => {
-    // dynamically import bootstrap JS only in the browser
-    if (typeof window === "undefined") return;
-    import("bootstrap/dist/js/bootstrap.bundle.min.js").catch((err) =>
-      console.error("Failed to load bootstrap JS", err),
-    );
-  }, []);
+  // useEffect(() => {
+  //   // dynamically import bootstrap JS only in the browser
+  //   if (typeof window === "undefined") return;
+  //   import("bootstrap/dist/js/bootstrap.bundle.min.js").catch((err) =>
+  //     console.error("Failed to load bootstrap JS", err),
+  //   );
+  // }, []);
   //   const navigateWithKeyword = (kwRaw: string) => {
   //     const kw = kwRaw.trim();
   //     if (!kw) return;

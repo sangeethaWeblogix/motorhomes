@@ -262,7 +262,7 @@ export default function ExculisiveContent({
     }
   };
 
-  const handleProductClick = async (id) => {
+  const handleProductClick = async (id: any) => {
     await postTrackEvent(
       "https://admin.caravansforsale.com.au/wp-json/cfs/v1/update-clicks",
       id,

@@ -23,6 +23,14 @@ import LatestList from './usedCaravanList'
 import { fetchLatestUsedCaravans } from "@/api/usedCaravanList/api";
 import { fetchCaravanList } from "@/api/caravanlist/api";
 
+
+type StateMeta = {
+  [key: string]: {
+    code: string;
+    image: string;
+  };
+};
+
 type BlogItem = {
   id: number;
   title: string;
@@ -162,7 +170,8 @@ const formatBlogDate = (dateString: string) => {
     year: "numeric",
   });
 };
-  const stateMeta = {
+
+const stateMeta: StateMeta = {
     "victoria": { code: "VIC", image: "/images/vic_map.svg" },
     "new-south-wales": { code: "NSW", image: "/images/nsw_map.svg" },
     "queensland": { code: "QLD", image: "/images/qld_map.svg" },

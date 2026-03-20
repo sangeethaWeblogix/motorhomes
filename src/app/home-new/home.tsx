@@ -158,8 +158,7 @@ import { fetchStateBasedCaravans } from "@/api/homeApi/state/api";
   "western-australia": { code: "WA", image: "/images/wa_map.svg" },
   "south-australia": { code: "SA", image: "/images/sa_map.svg" },
   "tasmania": { code: "TAS", image: "/images/tas_map.svg" }
-};
-
+} as const;
 
    return (
      <div>
@@ -233,9 +232,9 @@ import { fetchStateBasedCaravans } from "@/api/homeApi/state/api";
       {stateBands.map((item, index) => {
 const key = item.state.toLowerCase().replace(/\s+/g, "-"); 
 
-        const meta = stateMeta[key] || {};
-        const stateCode = meta.code || "";
-        const mapImage = meta.image || "";
+const meta = stateMeta[key as keyof typeof stateMeta];   
+    const stateCode = meta?.code || "";
+const mapImage = meta?.image || "";
 
         return (
           <div className="col-lg-4" key={index}>

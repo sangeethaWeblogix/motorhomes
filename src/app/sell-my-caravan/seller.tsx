@@ -5,7 +5,7 @@ const SellYourCaravan = () => {
 
   const [activeFaq, setActiveFaq] = useState(null);
 
-  const toggleFaq = (id) => {
+  const toggleFaq = (id: any) => {
     setActiveFaq(activeFaq === id ? null : id);
   };
   return (
