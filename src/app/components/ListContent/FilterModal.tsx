@@ -2056,7 +2056,7 @@ const FilterModal: React.FC<CaravanFilterProps> = ({
           {/* Filters */}
           <div className="filter-body">
             <>
-              <div className="filter-item pt-0" ref={categoryRef}>
+              {/* <div className="filter-item pt-0" ref={categoryRef}>
                 <h4>Caravan Type</h4>
                 <ul className="category-list">
                   {categoryCounts.length === 0 ? (
@@ -2104,7 +2104,7 @@ const FilterModal: React.FC<CaravanFilterProps> = ({
                     ))
                   )}
                 </ul>
-              </div>
+              </div> */}
               <div className="filter-item">
                 <h4>Location</h4>
                 <div className="location-list">
@@ -2381,7 +2381,7 @@ const FilterModal: React.FC<CaravanFilterProps> = ({
                   </div>
                 </div>
               </div>
-              <div className="filter-item">
+              {/* <div className="filter-item">
                 <h4>Make & Model</h4>
                 <div className="location-list">
                   <div className="row">
@@ -2431,7 +2431,7 @@ const FilterModal: React.FC<CaravanFilterProps> = ({
                     )}
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className="filter-item">
                 <h4>ATM</h4>
                 <div className="location-list">

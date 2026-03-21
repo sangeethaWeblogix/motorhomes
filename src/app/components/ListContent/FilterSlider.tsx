@@ -706,7 +706,7 @@ const FilterSlider = ({
             navigation
             className="filter-swiper"
           >
-            <SwiperSlide style={{ width: "auto" }}>
+            {/* <SwiperSlide style={{ width: "auto" }}>
               <button
                 className={`tag ${currentFilters.category ? "active" : ""}`}
                 onClick={handleTypeOpen}
@@ -727,7 +727,7 @@ const FilterSlider = ({
                   "Caravan Type"
                 )}
               </button>
-            </SwiperSlide>
+            </SwiperSlide> */}
 
             <SwiperSlide style={{ width: "auto" }}>
               <button
@@ -813,7 +813,8 @@ const FilterSlider = ({
                 )}
               </button>
             </SwiperSlide>
-            <SwiperSlide style={{ width: "auto" }}>
+
+            {/* <SwiperSlide style={{ width: "auto" }}>
               <button
                 className={`tag ${currentFilters.make ? "active" : ""}`}
                 onClick={handleMakeOpen}
@@ -846,7 +847,7 @@ const FilterSlider = ({
                   "Make"
                 )}
               </button>
-            </SwiperSlide>
+            </SwiperSlide> */}
 
             <SwiperSlide style={{ width: "auto" }}>
               <button
