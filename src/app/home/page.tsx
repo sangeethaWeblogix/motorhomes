@@ -3,12 +3,12 @@ import Home from "./home";
 import "../globals.css";
 
  export const metadata: Metadata = {
-   title: "Caravans For Sale – Australia’s Marketplace for New & Used Caravans",
+   title: "Motorhomes For Sale – Australia’s Marketplace for New & Used Caravans",
    description:
      "Browse new & used motorhomes for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
    robots: "index, follow",
    openGraph: {
-     title: "Caravans For Sale – Australia’s Marketplace for New & Used Caravans",
+     title: "Motorhomes For Sale – Australia’s Marketplace for New & Used Caravans",
      description:
        "Browse new & used motorhomes for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
      // url: "https://www.caravansforsale.com.au",
@@ -17,7 +17,7 @@ import "../globals.css";
    },
    twitter: {
      card: "summary_large_image",
-     title: "Caravans For Sale – Australia’s Marketplace for New & Used Caravans",
+     title: "Motorhomes For Sale – Australia’s Marketplace for New & Used Caravans",
      description:
        "Browse new & used motorhomes for sale across Australia.",
    },

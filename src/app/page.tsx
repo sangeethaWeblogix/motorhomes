@@ -4,7 +4,7 @@ import { Metadata } from "next";
  
   export const metadata: Metadata = {
     title: {
-      default: "Caravans For Sale – Australia’s Marketplace for New & Used Caravans",
+      default: "Motorhomes For Sale – Australia’s Marketplace for New & Used Motorhomes",
       template: "%s ",
     },
     description:

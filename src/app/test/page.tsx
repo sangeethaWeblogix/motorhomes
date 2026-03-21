@@ -3,7 +3,7 @@ import React from 'react'
   import Test from './SentryTestButton'
   export const metadata: Metadata = {
     title: {
-      default: "Caravans For Sale – Australia’s Marketplace for New & Used Caravans",
+      default: "Motorhomes For Sale – Australia’s Marketplace for New & Used Motorhomes",
       template: "%s ",
     },
     description:
