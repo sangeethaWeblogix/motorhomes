@@ -287,7 +287,7 @@ const DealerLandingPage = () => {
                   <p>
                     The dealer subscription is $199 per month (including GST). This flat
                     monthly fee allows your dealership to list unlimited caravans on
-                    CaravansForSale.com.au. There are no per-listing charges, and we never
+                    motorhomes.vercel.app. There are no per-listing charges, and we never
                     charge per lead or take success commissions – no matter how many
                     inquiries or sales you get, $199/month covers it all.
                   </p>
@@ -343,7 +343,7 @@ const DealerLandingPage = () => {
               <div className={`collapse ${activeFaq === 3 ? "show" : ""}`}>
                 <div className="card-body">
                   <p>
-                    CaravansForSale.com.au is a caravan-only marketplace with a focused,
+                    motorhomes.vercel.app is a caravan-only marketplace with a focused,
                     nationwide audience of serious buyers.
                   </p>
                 </div>

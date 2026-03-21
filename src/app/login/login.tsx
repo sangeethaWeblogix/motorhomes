@@ -31,7 +31,7 @@ export default function LoginPage() {
               <div className="login-body">
                 <div className="login-title">Private Seller Login</div>
                 <div className="login-sub">
-                  Manage or list your caravan for sale
+                  Manage or list your motorhome for sale
                 </div>
               </div>
             </a> */}

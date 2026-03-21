@@ -120,7 +120,7 @@ export default function BlogPage() {
                 <p>
                   Tom is a passionate caravan enthusiast and content writer at{" "}
                   <Link href="https://www.caravansforsale.com.au/">
-                    CaravansForSale.com.au
+                    motorhomes.vercel.app
                   </Link>{" "}
                   — Australia’s trusted destination for buying, selling, and
                   researching caravans.

@@ -9,18 +9,18 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Caravans for Sale in Australia | New & Used Caravans",
   description:
-    "Browse caravans for sale across Australia. Compare new and used caravans including off road, hybrid, family and pop top caravans from dealers and private sellers.",
+    "Browse motorhomes for sale across Australia. Compare new and used caravans including off road, hybrid, family and pop top caravans from dealers and private sellers.",
   robots: "index, follow",
   openGraph: {
     title: "Caravans for Sale in Australia | New & Used Caravans",
     description:
-      "Browse caravans for sale across Australia. Compare new and used caravans including off road, hybrid, family and pop top caravans from dealers and private sellers.",
+      "Browse motorhomes for sale across Australia. Compare new and used caravans including off road, hybrid, family and pop top caravans from dealers and private sellers.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Caravans for Sale in Australia | New & Used Caravans",
     description:
-      "Browse caravans for sale across Australia. Compare new and used caravans including off road, hybrid, family and pop top caravans from dealers and private sellers.",
+      "Browse motorhomes for sale across Australia. Compare new and used caravans including off road, hybrid, family and pop top caravans from dealers and private sellers.",
   },
   alternates: {
     canonical: "https://www.caravansforsale.com.au/listings",

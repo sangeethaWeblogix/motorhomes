@@ -175,7 +175,7 @@ export default function HomePage() {
           <div className="row">
             <div className="col">
               <div className="section-head mb-4">
-                <h2>Explore all things caravans</h2>
+                <h2>Explore all things motorhomes</h2>
               </div>
             </div>
           </div>
@@ -321,9 +321,9 @@ export default function HomePage() {
                   <div className="explore-boxes">
                     {/* Box 1 */}
                     <div className="explore-box active">
-                      <h3>See New Caravan Listings</h3>
+                      <h3>See New Motorhome Listings</h3>
                       <p>
-                        Browse the latest new caravans from top dealerships in Australia.
+                        Browse the latest new Motorhomes from top dealerships in Australia.
                       </p>
                       <a href="/listings/new-condition/" className="btn btn-primary">
                         Browse New Listings
@@ -333,9 +333,9 @@ export default function HomePage() {
 
                     {/* Box 2 */}
                     <div className="explore-box">
-                      <h3>Used Caravans For Sale</h3>
+                      <h3>Used Motorhomes For Sale</h3>
                       <p>
-                        Find great deals on quality used caravans for sale by dealers and
+                        Find great deals on quality used motorhomes for sale by dealers and
                         private sellers.
                       </p>
                       <a href="/listings/used-condition/" className="btn btn-primary">
@@ -346,9 +346,9 @@ export default function HomePage() {
 
                     {/* Box 3 */}
                     <div className="explore-box">
-                      <h3>See All Caravans</h3>
+                      <h3>See All Motorhomes</h3>
                       <p>
-                        Explore the full range of new and used caravans across Australia.
+                        Explore the full range of new and used motorhomes across Australia.
                       </p>
                       <a href="/listings/" className="btn btn-primary">
                         Start Searching
@@ -376,7 +376,7 @@ export default function HomePage() {
                           <p className="desc">
                             Reach thousands of potential buyers in minutes.
                             <br />
-                            List your caravan for sale on CaravansForSale.com.au,
+                            List your motorhome for sale on motorhomes.vercel.app,
                             <br />
                             the trusted marketplace for Aussie caravan owners.
                           </p>

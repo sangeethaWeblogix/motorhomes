@@ -482,7 +482,7 @@ const stateMeta: StateMeta = {
           <div className="col-lg-12">
             <div className="section-head text-center">
               <h1 className="divide-orange">
-                Browse New &amp; Used Caravans For Sale
+                Browse New &amp; Used Motorhomes For Sale
               </h1>
               <p>
                 Find your ideal caravan from thousands of new and used listings
@@ -769,7 +769,7 @@ const stateMeta: StateMeta = {
           <div className="row">
             <div className="col">
               <div className="section-head mb-2 py-2">
-                <h2>Browse Caravans for sale in Australia by State</h2>
+                <h2>Browse Motorhomes for sale in Australia by State</h2>
               </div>
             </div>
           </div>
@@ -824,7 +824,7 @@ const stateMeta: StateMeta = {
                                   className="view_all"
                                   href={`/listings${item.permalink}`}
                                 >
-                                  View All Caravans for Sale in {stateCode}{" "}
+                                  View All Motorhomes for Sale in {stateCode}{" "}
                                   <i className="bi bi-chevron-right"></i>
                                 </a>
                               </div>
@@ -847,7 +847,7 @@ const stateMeta: StateMeta = {
       <div className="quick_links_tabs">
         <div className="container">
           <div className="section-head mb-2 py-2">
-            <h2>Popular Caravan Searches Across Australia</h2>
+            <h2>Popular Motorhome Searches Across Australia</h2>
           </div>
           <div className="custom-tabs-wrap">
             {/* Tabs */}

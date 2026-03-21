@@ -100,7 +100,7 @@ useEffect(() => {
                 </h3>
                 <p>
                   Tell us what you&apos;re looking for and we&apos;ll match you
-                  with the right caravan for sale, from trusted dealers at a
+                  with the right motorhome for sale, from trusted dealers at a
                   fair price. Make sure your budget and expectations are
                   realistic to help us deliver the best possible outcome. See
                   some examples of what other caravan buyers are looking for.
