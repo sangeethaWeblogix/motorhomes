@@ -5,7 +5,7 @@ const DealerLandingPage = () => {
 
   const [activeFaq, setActiveFaq] = useState(null);
 
-  const toggleFaq = (id: any) => {
+  const toggleFaq = (id) => {
     setActiveFaq(activeFaq === id ? null : id);
   };
 
@@ -252,7 +252,7 @@ const DealerLandingPage = () => {
                   </ul>
 
                   <a
-                    href="https://dealersignup.caravansforsale.com.au/subscription.php"
+                    href="https://seller.caravansforsale.com.au/dealer-subscription/"
                     className="btn white_btn"
                   >
                     Start Dealer Signup
@@ -287,7 +287,7 @@ const DealerLandingPage = () => {
                   <p>
                     The dealer subscription is $199 per month (including GST). This flat
                     monthly fee allows your dealership to list unlimited caravans on
-                    motorhomes.vercel.app. There are no per-listing charges, and we never
+                    CaravansForSale.com.au. There are no per-listing charges, and we never
                     charge per lead or take success commissions – no matter how many
                     inquiries or sales you get, $199/month covers it all.
                   </p>
@@ -343,7 +343,7 @@ const DealerLandingPage = () => {
               <div className={`collapse ${activeFaq === 3 ? "show" : ""}`}>
                 <div className="card-body">
                   <p>
-                    motorhomes.vercel.app is a caravan-only marketplace with a focused,
+                    CaravansForSale.com.au is a caravan-only marketplace with a focused,
                     nationwide audience of serious buyers.
                   </p>
                 </div>

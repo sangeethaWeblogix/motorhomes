@@ -19,11 +19,11 @@ import { BannerProvider } from "@/components/BannerHandler";
   
   export const metadata: Metadata = {
     title: {
-      default: "Motorhomes For Sale – Australia’s Marketplace for New & Used Motorhomes",
+      default: "Caravans For Sale – Australia’s Marketplace for New & Used Caravans",
       template: "%s ",
     },
     description:
-      "Browse new & used motorhomes for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity",
+      "Browse new & used motorhomes for saleacross Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity",
     icons: { icon: "/favicon.ico" },
     // robots: "index, follow",
     verification: {

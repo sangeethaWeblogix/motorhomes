@@ -9,7 +9,7 @@ import { ReactNode } from "react";
      template: "%s ",
    },
    description:
-     "Browse thousands of used motorhomes for sale across Australia. Search by price, weight, length, type, brand or location from dealers and private sellers.",
+     "Browse thousands of used motorhomes for saleacross Australia. Search by price, weight, length, type, brand or location from dealers and private sellers.",
    icons: { icon: "/favicon.ico" },
    robots: "noindex, nofollow",
    verification: {

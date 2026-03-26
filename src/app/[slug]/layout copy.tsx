@@ -115,7 +115,7 @@ export default async function Layout({
       name: "Caravans for Sale",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.caravansforsale.com.au/images/mfs-logo-black.svg",
+        url: "https://www.caravansforsale.com.au/images/cfs-logo-black.svg",
         width: 300,
         height: 60,
       },

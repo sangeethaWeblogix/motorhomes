@@ -5,7 +5,7 @@ const SellYourCaravan = () => {
 
   const [activeFaq, setActiveFaq] = useState(null);
 
-  const toggleFaq = (id: any) => {
+  const toggleFaq = (id) => {
     setActiveFaq(activeFaq === id ? null : id);
   };
   return (
@@ -163,7 +163,7 @@ const SellYourCaravan = () => {
                     className="btn btn-link btn-block text-left py-2"
                     onClick={() => toggleFaq(1)}
                   >
-                    How do I list my motorhome for sale on CaravansForSale?
+                    How do I list my motorhome for saleon CaravansForSale?
                     <span className="accordion-icon">
                       <i className={`fa-solid fa-angle-down ${activeFaq === 1 ? "d-none" : ""}`}></i>
                       <i className={`fa-solid fa-angle-up ${activeFaq === 1 ? "" : "d-none"}`}></i>

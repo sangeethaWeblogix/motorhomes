@@ -461,45 +461,22 @@ export default function ClientLogger({
   //     img.src = url;
   //   });
   // }
+ 
 
-  const getIP = async () => {
-    try {
-      const res = await fetch("https://api.ipify.org?format=json");
-      const data = await res.json();
-      return data.ip || "";
-    } catch {
-      return "";
-    }
-  };
+  const postTrackEvent = async (product_id: number) => {
+  await fetch("/api/track-product", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ product_id }),
+  });
+};
+ useEffect(() => {
+  if (!productDetails?.id) return;
 
-  const postTrackEvent = async (url: string, product_id: number) => {
-    const ip = await getIP();
-    const user_agent = navigator.userAgent;
-
-    await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        product_id,
-        ip,
-        user_agent,
-      }),
-    });
-  };
-
-  useEffect(() => {
-    if (!productDetails?.id) return;
-
-    postTrackEvent(
-      "https://admin.caravansforsale.com.au/wp-json/cfs/v1/update-clicks",
-      Number(productDetails.id),
-    );
-    postTrackEvent(
-      "https://admin.caravansforsale.com.au/wp-json/cfs/v1/update-impressions",
-      Number(productDetails.id),
-    );
-  }, [productDetails?.id]);
-
+  postTrackEvent(Number(productDetails.id));
+}, [productDetails?.id]);
   // ✅ Add these states after allSubs state
 
   // ✅ Update the useEffect where you load gallery
@@ -583,10 +560,10 @@ export default function ClientLogger({
 
   // ✅ Set active image when productSubImage loads
   useEffect(() => {
-    if (productSubImage.length > 0) {
-      setActiveImage(productSubImage[0]);
+    if (apiImages.length > 0) {
+      setActiveImage(apiImages[0]);
     }
-  }, [productSubImage]);
+  }, [apiImages]);
 
   return (
     <>
@@ -672,7 +649,7 @@ export default function ClientLogger({
                   {/* Thumbnails */}
                   <div className="slider_thumb_vertical image_container">
                     <div className="image_mop">
-                      {productSubImage.slice(0, 4).map((image, i) => (
+                      {apiImages.slice(0, 4).map((image, i) => (
                         <div className="image_item" key={`${image}-${i}`}>
                           <div className="background_thumb">
                             <Image
@@ -701,7 +678,7 @@ export default function ClientLogger({
                       ))}
                       <div>
                         <span className="caravan__image_count">
-                          {productSubImage.length}
+                          {apiImages.length}
                         </span>
                       </div>
                     </div>
@@ -1002,7 +979,7 @@ export default function ClientLogger({
                 <CaravanDetailModal
                   isOpen={showModal}
                   onClose={() => setShowModal(false)}
-                  images={productSubImage}
+                  images={apiImages}
                   product={{
                     id: productId,
                     slug: productSlug,

@@ -29,7 +29,6 @@ import CaravansByStateSkeleton from "./components/Caravansbystateskeleton";
 import SearchSuggestionSkeleton from "./components/Searchsuggestionskeleton ";
 import { useBanners } from "@/components/BannerHandler";
 import { useBannerTracking } from "@/hooks/useBannerTracking";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 interface TabsItem {
   label: string;
@@ -65,13 +64,30 @@ type Item = {
 } & Record<string, unknown>;
 
 
-type StateMeta = {
-  [key: string]: {
-    code: string;
-    image: string;
+interface SearchSectionProps {
+  sleepBands: TabsItem[];
+  regionBands: TabsItem[];
+  manufactureBands: TabsItem[];
+  atmBands: TabsItem[];
+  lengthBands: TabsItem[];
+  priceBands: TabsItem[];
+  usedData: {
+    by_category: TabsItem[];
+    by_state: TabsItem[];
+    by_region: TabsItem[];
   };
-};
-export default function SearchSection() {
+  stateBands: TabsItem[];
+}
+export default function SearchSection({
+  sleepBands = [],
+  regionBands = [],
+  manufactureBands = [],
+  atmBands = [],
+  lengthBands = [],
+  priceBands = [],
+  usedData = { by_category: [], by_state: [], by_region: [] },
+  stateBands = [],
+}: SearchSectionProps) {
   const router = useRouter();
   const searchInputRef = useRef<HTMLInputElement | null>(null);
   const [navigating, setNavigating] = useState(false);
@@ -85,12 +101,12 @@ export default function SearchSection() {
   const [category, setCategory] = useState("");
   const [location, setLocation] = useState("");
   const [conditionValue, setConditionValue] = useState("");
-  const [stateBandsLoading, setStateBandsLoading] = useState(true); // ← ADD THIS
-
+ const stateBandsLoading = stateBands.length === 0;
+console.log("homestate", stateBands)
   const isSearchEnabled = category || location || conditionValue;
   const [activeIndex, setActiveIndex] = useState(0);
 
-const stateMeta: StateMeta = {
+  const stateMeta = {
     victoria: { code: "VIC", image: "/images/vic_map.svg?=1" },
     "new-south-wales": { code: "NSW", image: "/images/nsw_map.svg?=1" },
     queensland: { code: "QLD", image: "/images/qld_map.svg?=1" },
@@ -99,56 +115,11 @@ const stateMeta: StateMeta = {
     tasmania: { code: "TAS", image: "/images/tas_map.svg?=1" },
   };
 
-  const [sleepBands, setSleepBands] = useState<TabsItem[]>([]);
-  const [regionBands, setRegionBands] = useState<TabsItem[]>([]);
-  const [manufactureBands, setManufactureBands] = useState<TabsItem[]>([]);
-  const [lengthBands, setLengthBands] = useState<TabsItem[]>([]);
-  const [atmBands, setAtmBands] = useState<TabsItem[]>([]);
-  const [usedCategoryList, setUsedCategoryList] = useState<TabsItem[]>([]);
-  const [priceBands, setPriceBands] = useState<TabsItem[]>([]);
-  const [usedState, setUsedState] = useState<TabsItem[]>([]);
+   const [usedCategoryList, setUsedCategoryList] = useState<TabsItem[]>([]);
+   const [usedState, setUsedState] = useState<TabsItem[]>([]);
   const [usedRegion, setUsedRegion] = useState<TabsItem[]>([]);
-  const [stateBands, setStateBands] = useState<TabsItem[]>([]);
-
-  useEffect(() => {
-    async function loadAll() {
-      // const [sleep, region, weight, length] = await Promise.all([
-      const [
-        sleep,
-        region,
-        manufactures,
-        weight,
-        length,
-        price,
-        usedData,
-        state,
-      ] = await Promise.all([
-        fetchSleepBands(),
-        fetchRegion(),
-        fetchManufactures(),
-        fetchAtmBasedCaravans(),
-        fetchLengthBasedCaravans(),
-        fetchPriceBasedCaravans(),
-        fetchUsedCaravansList(),
-        fetchStateBasedCaravans(),
-        ,
-      ]);
-
-      setSleepBands(sleep);
-      setRegionBands(region);
-      setManufactureBands(manufactures);
-      setAtmBands(weight);
-      setLengthBands(length);
-      setPriceBands(price);
-      setUsedCategoryList(usedData.by_category);
-      setUsedState(usedData.by_state);
-      setUsedRegion(usedData.by_region);
-      setStateBands(state);
-      setStateBandsLoading(false); // ← ADD THIS
-    }
-
-    loadAll();
-  }, []);
+ 
+  
 
   const tabsData: {
     key: string;
@@ -392,13 +363,13 @@ const stateMeta: StateMeta = {
     if (!isSuggestionBoxOpen) setIsSuggestionBoxOpen(true);
   };
 
-  // useEffect(() => {
-  //   // dynamically import bootstrap JS only in the browser
-  //   if (typeof window === "undefined") return;
-  //   import("bootstrap/dist/js/bootstrap.bundle.min.js").catch((err) =>
-  //     console.error("Failed to load bootstrap JS", err),
-  //   );
-  // }, []);
+  useEffect(() => {
+    // dynamically import bootstrap JS only in the browser
+    if (typeof window === "undefined") return;
+    import("bootstrap/dist/js/bootstrap.bundle.min.js").catch((err) =>
+      console.error("Failed to load bootstrap JS", err),
+    );
+  }, []);
   //   const navigateWithKeyword = (kwRaw: string) => {
   //     const kw = kwRaw.trim();
   //     if (!kw) return;
@@ -482,7 +453,7 @@ const stateMeta: StateMeta = {
           <div className="col-lg-12">
             <div className="section-head text-center">
               <h1 className="divide-orange">
-                Browse New &amp; Used Motorhomes For Sale
+                Browse New &amp; Used Caravans For Sale
               </h1>
               <p>
                 Find your ideal caravan from thousands of new and used listings
@@ -495,10 +466,11 @@ const stateMeta: StateMeta = {
       </div>
       <div className="search_requirement_area">
         <div className="container">
-          {/* <div className="row align-items-center justify-content-start">
+          <div className="row align-items-center justify-content-start">
             <div className="col-lg-12">
               <div className="section-head search_home text-center">
-                 <ul className="nav nav-pills" id="pills-tab" role="tablist">
+                {/* Bootstrap Pills Navigation */}
+                <ul className="nav nav-pills" id="pills-tab" role="tablist">
                   <li className="nav-item" role="presentation">
                     <button
                       className="nav-link active"
@@ -529,8 +501,10 @@ const stateMeta: StateMeta = {
                   </li>
                 </ul>
 
-                 <div className="tab-content" id="pills-tabContent">
-                   <div
+                {/* Bootstrap Tab Content */}
+                <div className="tab-content" id="pills-tabContent">
+                  {/* --- Tab 1 --- */}
+                  <div
                     className="tab-pane fade show active"
                     id="pills-find"
                     role="tabpanel"
@@ -631,14 +605,16 @@ const stateMeta: StateMeta = {
                     </div>
                   </div>
 
-                   <div
+                  {/* --- Tab 2 --- */}
+                  <div
                     className="tab-pane fade"
                     id="pills-smart"
                     role="tabpanel"
                     aria-labelledby="pills-smart-tab"
                   >
                     <div className="content-info pb-0">
-                       <div
+                      {/* overlay to close */}
+                      <div
                         className="overlay_search"
                         style={{
                           display: isSuggestionBoxOpen ? "block" : "none",
@@ -646,7 +622,8 @@ const stateMeta: StateMeta = {
                         onClick={closeSuggestions}
                       />
 
-                       <div className="search-container">
+                      {/* search box */}
+                      <div className="search-container">
                         <div className="search-wrapper">
                           <i className="bi bi-search search-icon" />
                           <input
@@ -677,7 +654,8 @@ const stateMeta: StateMeta = {
                           </div>
                         </div>
 
-                         <div
+                        {/* dropdown */}
+                        <div
                           className="suggestions"
                           style={{
                             display: isSuggestionBoxOpen ? "block" : "none",
@@ -733,7 +711,7 @@ const stateMeta: StateMeta = {
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
           <div className="display_ad">
             {false && matchedBanners.map((banner, index) => (
               <a
@@ -769,7 +747,7 @@ const stateMeta: StateMeta = {
           <div className="row">
             <div className="col">
               <div className="section-head mb-2 py-2">
-                <h2>Browse Motorhomes for sale in Australia by State</h2>
+                <h2>Browse Motorhomes for salein Australia by State</h2>
               </div>
             </div>
           </div>
@@ -824,7 +802,7 @@ const stateMeta: StateMeta = {
                                   className="view_all"
                                   href={`/listings${item.permalink}`}
                                 >
-                                  View All Motorhomes for Sale in {stateCode}{" "}
+                                  View All Caravans for Sale in {stateCode}{" "}
                                   <i className="bi bi-chevron-right"></i>
                                 </a>
                               </div>
@@ -847,7 +825,7 @@ const stateMeta: StateMeta = {
       <div className="quick_links_tabs">
         <div className="container">
           <div className="section-head mb-2 py-2">
-            <h2>Popular Motorhome Searches Across Australia</h2>
+            <h2>Popular Caravan Searches Across Australia</h2>
           </div>
           <div className="custom-tabs-wrap">
             {/* Tabs */}

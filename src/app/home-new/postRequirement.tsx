@@ -9,17 +9,22 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { fetchRequirements, Requirement } from "@/api/postRquirements/api";
-   import '../app/home/main.css'
+ 
 
-interface Props {
-  requirements: Requirement[];
-}
+const PostRequirement = () => {
+  const [items, setItems] = useState<Requirement[]>([]);
+  const swiperRef = useRef<SwiperType | null>(null);
 
-const PostRequirement = ({ requirements }: Props) => {
-   const swiperRef = useRef<SwiperType | null>(null);
-
-     const [items] = useState<Requirement[]>(requirements); // ← props-இல் இருந்து
-
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await fetchRequirements();
+        setItems(data);
+      } catch (err) {
+        console.error("Failed to fetch requirements:", err);
+      }
+    })();
+  }, []);
 
   // ✅ safely start autoplay after swiper mounts
  useEffect(() => {
@@ -82,16 +87,16 @@ useEffect(() => {
 // };
   return (
     <div>
-      
+      <div className="container">
         <div className="post_bgs">
           <div className="row align-items-center">
             {/* LEFT SIDE */}
             <div className="col-lg-6">
               <div className="home-post_head">
-                <h3>
+                <h2>
                   <span>Find Your Ideal Caravan</span>
                   <br />– Post Your Requirements
-                </h3>
+                </h2>
                 <p>
                   Tell us what you&apos;re looking for and we&apos;ll match you
                   with the right caravan for sale, from trusted dealers at a
@@ -186,7 +191,7 @@ useEffect(() => {
             </div>
           </div>
         </div>
-      
+      </div>
     </div>
   );
 };

@@ -5,24 +5,25 @@ import type { Metadata } from "next";
 import { ensureValidPage } from "@/utils/seo/validatePage";
 import { notFound } from "next/navigation";
 import ApiErrorFallback from "../components/ApiErrorFallback";
+import { fetchProductList } from "@/api/productList/api";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Caravans for Sale in Australia | New & Used Caravans",
   description:
-    "Browse motorhomes for sale across Australia. Compare new and used caravans including off road, hybrid, family and pop top caravans from dealers and private sellers.",
+    "Browse motorhomes for saleacross Australia. Compare new and used caravans including off road, hybrid, family and pop top caravans from dealers and private sellers.",
   robots: "index, follow",
   openGraph: {
     title: "Caravans for Sale in Australia | New & Used Caravans",
     description:
-      "Browse motorhomes for sale across Australia. Compare new and used caravans including off road, hybrid, family and pop top caravans from dealers and private sellers.",
+      "Browse motorhomes for saleacross Australia. Compare new and used caravans including off road, hybrid, family and pop top caravans from dealers and private sellers.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Caravans for Sale in Australia | New & Used Caravans",
     description:
-      "Browse motorhomes for sale across Australia. Compare new and used caravans including off road, hybrid, family and pop top caravans from dealers and private sellers.",
+      "Browse motorhomes for saleacross Australia. Compare new and used caravans including off road, hybrid, family and pop top caravans from dealers and private sellers.",
   },
   alternates: {
     canonical: "https://www.caravansforsale.com.au/listings",
@@ -103,11 +104,16 @@ export default async function ListingsPage({
       // No products found - this is a 404 case
       notFound();
     }
+const [listingsRes, productListRes] = await Promise.all([
+    fetchListings({ page }),
+    fetchProductList(), // 👈 add this
+  ]);
+      console.log("productListRes", productListRes )
 
     // All checks passed - render the listings
     return (
       <Suspense>
-        <Listing initialData={response} page={page} />
+        <Listing initialData={listingsRes} page={page}    productListData={productListRes} />
       </Suspense>
     );
   } catch (error) {

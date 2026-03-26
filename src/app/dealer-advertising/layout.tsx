@@ -9,7 +9,7 @@ import { ReactNode } from "react";
      template: "%s ",
    },
    description:
-     "Advertise your caravan dealership on motorhomes.vercel.app. Unlimited listings, zero lead fees, and reach high-intent caravan buyers across Australia.",
+     "Advertise your caravan dealership on CaravansForSale.com.au. Unlimited listings, zero lead fees, and reach high-intent caravan buyers across Australia.",
    icons: { icon: "/favicon.ico" },
    robots: "index, follow",
    verification: {

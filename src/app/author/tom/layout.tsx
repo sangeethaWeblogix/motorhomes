@@ -1,8 +1,7 @@
 
- import Autor from './author'
-import { fetchBlogs } from '@/api/blog/api';
-import { Metadata } from 'next';
+  import { Metadata } from 'next';
 import "./author.css";
+import { ReactNode } from 'react';
 
 
  export const metadata: Metadata = {
@@ -26,7 +25,7 @@ title: "Latest News, Reviews & Advice",
   },
    
 };
-export default async function Page() {
-  const data = await fetchBlogs(1); // ✅ Server-side fetch
-  return <Autor  data={data} currentPage={1} />;
-}
+ export default function Layout({ children }: { children: ReactNode }) {
+   return <div>{children}</div>;
+ }
+ 
