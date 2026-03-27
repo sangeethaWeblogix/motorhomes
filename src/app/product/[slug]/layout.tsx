@@ -31,11 +31,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const data = await fetchProductDetail(slug);
-  const ogImage: string = Array.isArray(data?.image_format)
-  ? data.image_format[0] ?? ""
-  : "";
 
-console.log("image", ogImage)
+   const imageUrlRaw = data?.data?.product_details?.image_url;
+  const ogImage: string = Array.isArray(imageUrlRaw)
+    ? imageUrlRaw.filter(Boolean)[0] ?? ""  // ✅ first image in array
+    : typeof imageUrlRaw === "string"
+    ? imageUrlRaw
+    : "";
   if (!data || Object.keys(data).length === 0) {
     return {
       title: "Product Not Found - Caravans for Sale",

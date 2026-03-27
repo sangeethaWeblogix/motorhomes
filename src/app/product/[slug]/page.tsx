@@ -31,9 +31,13 @@ async function fetchProductDetail(slug: string) {
  }): Promise<Metadata> {
    const { slug } = await params;
    const data = await fetchProductDetail(slug);
-     const ogImage: string = Array.isArray(data?.image_format)
-  ? data.image_format[0] ?? ""
-  : "";
+ 
+   const imageUrlRaw = data?.data?.product_details?.image_url;
+  const ogImage: string = Array.isArray(imageUrlRaw)
+    ? imageUrlRaw.filter(Boolean)[0] ?? ""  // ✅ first image in array
+    : typeof imageUrlRaw === "string"
+    ? imageUrlRaw
+    : "";
  
  console.log("image", ogImage)
    if (!data || Object.keys(data).length === 0) {

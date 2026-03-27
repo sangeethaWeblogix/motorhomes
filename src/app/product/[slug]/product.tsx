@@ -1,5 +1,4 @@
-
- "use client";
+"use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -82,7 +81,7 @@ export default function ClientLogger({
   // const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   console.log("datap", data);
   const router = useRouter();
-  
+
   // const [activeImage, setActiveImage] = useState<string>("");
   const pd: ApiData = data?.data ?? {};
   console.log("pd", pd);
@@ -90,13 +89,12 @@ export default function ClientLogger({
   const blogPosts: BlogPost[] = Array.isArray(data?.data?.latest_blog_posts)
     ? data.data.latest_blog_posts!
     : [];
-  const apiImages: string[] = Array.isArray(productDetails.image_format)
-    ? productDetails.image_format.filter(Boolean)
-    : [];
+  
 
   const relatedProducts: ProductData[] = Array.isArray(data?.data?.related)
     ? data.data.related!
     : [];
+const [apiImages, setApiImages] = useState<string[]>([]);
 
   console.log("releated", blogPosts);
   const loadedCount = useRef(0);
@@ -234,9 +232,14 @@ export default function ClientLogger({
     //   value: categoryNames.join(", ") || getAttr("Type"),
     //   url: findAttr("Type")?.url,
     // },
-        { label: "Engine Make", value: getAttr("Engine Make"), url: findAttr("Engine Make")?.url },
+   
 
     { label: "Make", value: getAttr("Make"), url: findAttr("Make")?.url },
+     {
+      label: "Engine Make",
+      value: getAttr("Engine Make"),
+      url: findAttr("Engine Make")?.url,
+    },
     { label: "Model", value: getAttr("Model"), url: findAttr("Model")?.url },
     { label: "Year", value: getAttr("Years"), url: findAttr("Years")?.url },
     {
@@ -245,16 +248,36 @@ export default function ClientLogger({
       url: findAttr("Conditions")?.url,
     },
     {
+      label: "RV Class",
+      value: getAttr("RV Class"),
+      url: findAttr("RV Class")?.url,
+    },
+
+    {
       label: "Length",
       value: getAttr("Length") || getAttr("length"),
       url: findAttr("Length")?.url ?? findAttr("length")?.url, // ✅ API url (e.g. "under-16-length-in-feet")
     },
-    { label: "Sleep", value: getAttr("sleeps"), url: findAttr("sleeps")?.url },
-    { label: "ATM", value: getAttr("ATM"), url: findAttr("ATM")?.url }, // ✅ API url (e.g. "under-2000-kg-atm")
-    { label: "Tare Mass", value: getAttr("Tare Mass") },
-    { label: "Axle Configuration", value: getAttr("Axle Configuration") },
+    { label: "Width", value: getAttr("Width"), url: findAttr("Width")?.url },
+    { label: "Height", value: getAttr("Height"), url: findAttr("Height")?.url },
+    { label: "GVM", value: getAttr("GVM"), url: findAttr("GVM")?.url },
+    { label: "Tare Mass", value: getAttr("Tare Mass"), url: findAttr("Tare Mass")?.url },
+    { label: "Payload Weight", value: getAttr("Payload Weight"), url: findAttr("Payload Weight")?.url },
+    { label: "GCM", value: getAttr("GCM"), url: findAttr("GCM")?.url },
+    { label: "Engine Capacity", value: getAttr("Engine Capacity"), url: findAttr("Engine Capacity")?.url },
+    { label: "Engine Type", value: getAttr("Engine Type"), url: findAttr("Engine Type")?.url },
+    { label: "Engine Power", value: getAttr("Engine Power"), url: findAttr("Engine Power")?.url },
+    { label: "Engine Torque", value: getAttr("Engine Torque"), url: findAttr("Engine Torque")?.url },
+    { label: "Fuel Type", value: getAttr("Fuel Type"), url: findAttr("Fuel Type")?.url },
+    { label: "Transmission", value: getAttr("Transmission"), url: findAttr("Transmission")?.url },
+    { label: "Odometer", value: getAttr("Odometer"), url: findAttr("Odometer")?.url },
 
-    { label: "Ball Weight", value: getAttr("Ball Weight") },
+    // { label: "Sleep", value: getAttr("sleeps"), url: findAttr("sleeps")?.url },
+    // { label: "ATM", value: getAttr("ATM"), url: findAttr("ATM")?.url }, // ✅ API url (e.g. "under-2000-kg-atm")
+    // { label: "Tare Mass", value: getAttr("Tare Mass") },
+    // { label: "Axle Configuration", value: getAttr("Axle Configuration") },
+
+    // { label: "Ball Weight", value: getAttr("Ball Weight") },
     {
       label: "Location",
       value: getAttr("Location"),
@@ -385,7 +408,6 @@ export default function ClientLogger({
     router.push(makeHref);
   };
 
-
   const makeHref =
     makeValue && makeValue.trim()
       ? `/listings/${slugify(makeValue)}/`
@@ -405,10 +427,7 @@ export default function ClientLogger({
   // ---- gallery state ----
 
   // keep activeImage in sync with main image from API
-
-  const base = `https://caravansforsale.imagestack.net/800x600/${sku}/${slug}`;
-
-  const main = `${base}main1.avif`;
+ 
 
   // function buildImageCandidates(sku?: string, slug?: string) {
   //   if (!sku || !slug) return [];
@@ -421,8 +440,14 @@ export default function ClientLogger({
   //   ];
   // }
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
-  const [activeImage, setActiveImage] = useState<string>(main);
-
+ const [activeImage, setActiveImage] = useState<string>(
+  () => {
+    const imgs = Array.isArray(productDetails.image_format)
+      ? productDetails.image_format.filter(Boolean)
+      : [];
+    return imgs[0] || "";
+  }
+);
   // useEffect(() => {
   //   let cancelled = false;
 
@@ -462,22 +487,21 @@ export default function ClientLogger({
   //     img.src = url;
   //   });
   // }
- 
 
   const postTrackEvent = async (product_id: number) => {
-  await fetch("/api/track-product", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ product_id }),
-  });
-};
- useEffect(() => {
-  if (!productDetails?.id) return;
+    await fetch("/api/track-product", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ product_id }),
+    });
+  };
+  useEffect(() => {
+    if (!productDetails?.id) return;
 
-  postTrackEvent(Number(productDetails.id));
-}, [productDetails?.id]);
+    postTrackEvent(Number(productDetails.id));
+  }, [productDetails?.id]);
   // ✅ Add these states after allSubs state
 
   // ✅ Update the useEffect where you load gallery
@@ -543,13 +567,16 @@ export default function ClientLogger({
 
   // ✅ Build image URLs from API image_format array
 
-  
   // ✅ Set active image when productSubImage loads
   useEffect(() => {
-    if (apiImages.length > 0) {
-      setActiveImage(apiImages[0]);
-    }
-  }, [apiImages]);
+  const imgs = Array.isArray(productDetails.image_format)
+    ? productDetails.image_format.filter(Boolean)
+    : [];
+  setApiImages(imgs);
+  if (imgs.length > 0) {
+    setActiveImage(imgs[0]);
+  }
+}, [productDetails.image_format]);
 
   return (
     <>
@@ -700,8 +727,9 @@ export default function ClientLogger({
                   <ul className="nav nav-pills">
                     <li className="nav-item">
                       <button
-                        className={`nav-link ${activeTab === "specifications" ? "active" : ""
-                          }`}
+                        className={`nav-link ${
+                          activeTab === "specifications" ? "active" : ""
+                        }`}
                         onClick={() => setActiveTab("specifications")}
                       >
                         Specifications
@@ -709,8 +737,9 @@ export default function ClientLogger({
                     </li>
                     <li className="nav-item">
                       <button
-                        className={`nav-link ${activeTab === "description" ? "active" : ""
-                          }`}
+                        className={`nav-link ${
+                          activeTab === "description" ? "active" : ""
+                        }`}
                         onClick={() => setActiveTab("description")}
                       >
                         Description
@@ -723,7 +752,7 @@ export default function ClientLogger({
                       <div className="tab-pane fade show active">
                         <div className="content-info text-center pb-0">
                           <div className="additional-info">
-                            <ul>
+<ul suppressHydrationWarning>
                               {specFields
                                 .filter((f) => f.value)
                                 .map((f) => {
@@ -738,18 +767,15 @@ export default function ClientLogger({
                                       <span>
                                         {links
                                           ? links.map((lnk, idx) => (
-                                            <span key={lnk.href}>
-                                              <a
-                                                href={lnk.href}
-
-                                              >
-                                                {lnk.text}
-                                              </a>
-                                              {idx < links.length - 1
-                                                ? ", "
-                                                : ""}
-                                            </span>
-                                          ))
+                                              <span key={lnk.href}>
+                                                <a href={lnk.href}>
+                                                  {lnk.text}
+                                                </a>
+                                                {idx < links.length - 1
+                                                  ? ", "
+                                                  : ""}
+                                              </span>
+                                            ))
                                           : String(f.value)}
                                       </span>
                                     </li>
@@ -769,7 +795,7 @@ export default function ClientLogger({
                   </div>
                 </section>
                 {/* Community Section */}
-                
+
                 {/* Mobile Bottom Bar */}
                 <div className="fixed-bottom-bar d-lg-none">
                   <button
@@ -779,11 +805,12 @@ export default function ClientLogger({
                     Contact Seller
                   </button>
                   <button
-                          className="cravan_buyer"
-                          onClick={() => setShowPopup(true)}
-                        >
-                          Caravan Buyer Safety Checklist <i className="bi bi-info-circle-fill"></i>
-                        </button>
+                    className="cravan_buyer"
+                    onClick={() => setShowPopup(true)}
+                  >
+                    Caravan Buyer Safety Checklist{" "}
+                    <i className="bi bi-info-circle-fill"></i>
+                  </button>
                   <p className="terms_text small">
                     By clicking 'Send Enquiry', you agree to Marketplace Network
                     <a href="/privacy-collection-statement">
@@ -870,7 +897,8 @@ export default function ClientLogger({
                           className="cravan_buyer"
                           onClick={() => setShowPopup(true)}
                         >
-                          Caravan Buyer Safety Checklist <i className="bi bi-info-circle-fill"></i>
+                          Caravan Buyer Safety Checklist{" "}
+                          <i className="bi bi-info-circle-fill"></i>
                         </button>
                       </div>
                     </div>
@@ -882,7 +910,6 @@ export default function ClientLogger({
               {showPopup && (
                 <div className="popup-overlay">
                   <div className="popup-box">
-
                     <button
                       className="popup-close"
                       onClick={() => setShowPopup(false)}
@@ -899,16 +926,15 @@ export default function ClientLogger({
 
                     <h2 className="title">Caravan Buyer Safety Checklist</h2>
                     <p className="subtitle">
-                      Follow these steps to reduce the risk of scams when buying a caravan.
+                      Follow these steps to reduce the risk of scams when buying
+                      a caravan.
                     </p>
 
                     <div className="safety-wrapper">
                       <div className="safety-left">
-
                         <h3>Before you buy</h3>
 
                         <ul className="checklist">
-
                           <li>
                             <span className="num">1</span>
                             <div>
@@ -922,7 +948,9 @@ export default function ClientLogger({
                             <span className="num">2</span>
                             <div>
                               <h4>Verify the seller</h4>
-                              <p>Confirm identity and speak directly with them.</p>
+                              <p>
+                                Confirm identity and speak directly with them.
+                              </p>
                             </div>
                           </li>
 
@@ -950,12 +978,9 @@ export default function ClientLogger({
                             </div>
                             {/* <a href="#" className="btn-light">Report Listing</a> */}
                           </li>
-
                         </ul>
-
                       </div>
                     </div>
-
                   </div>
                 </div>
               )}
@@ -1082,7 +1107,6 @@ export default function ClientLogger({
         <div className="container">
           <div className="news-title">
             <div className="tpof_tab">
-              
               <h3>Latest News, Reviews & Advice</h3>
             </div>
           </div>
@@ -1102,36 +1126,36 @@ export default function ClientLogger({
             >
               {blogPosts.length === 0
                 ? Array.from({ length: 4 }).map((_, idx) => (
-                  <SwiperSlide key={`blog-skeleton-${idx}`}>
-                    <ProductSkelton />
-                  </SwiperSlide>
-                ))
+                    <SwiperSlide key={`blog-skeleton-${idx}`}>
+                      <ProductSkelton />
+                    </SwiperSlide>
+                  ))
                 : blogPosts.map((post) => {
-                  const href = getHref(post);
-                  return (
-                    <SwiperSlide key={post.id}>
-                      <a href={href}>
-                        <div className="product-card">
-                          <div className="img">
-                            <Image
-                              src={post.image}
-                              alt={post.title}
-                              width={400}
-                              height={250}
-                              unoptimized
-                            />
-                          </div>
-                          <div className="product_de">
-                            <div className="info">
-                              <h5 className="title">{post.title}</h5>
-                              <p>{post.excerpt}</p>
+                    const href = getHref(post);
+                    return (
+                      <SwiperSlide key={post.id}>
+                        <a href={href}>
+                          <div className="product-card">
+                            <div className="img">
+                              <Image
+                                src={post.image}
+                                alt={post.title}
+                                width={400}
+                                height={250}
+                                unoptimized
+                              />
+                            </div>
+                            <div className="product_de">
+                              <div className="info">
+                                <h5 className="title">{post.title}</h5>
+                                <p>{post.excerpt}</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </a>
-                    </SwiperSlide>
-                  );
-                })}
+                        </a>
+                      </SwiperSlide>
+                    );
+                  })}
               {!blogPosts.length && (
                 <div className="col-12 py-3 text-muted">No posts found.</div>
               )}
