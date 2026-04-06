@@ -164,7 +164,7 @@
   font-weight: bold;
 }
 .single-product-slider .swiper-pagination-bullet-active {
-  background: #f58333;
+  background: #0099da;
 }
 .sidebar-enquiry {
   position: relative;
@@ -255,13 +255,13 @@
   letter-spacing: -0.2px;
 }
 .terms_text a {
-  color: #f58333;
+  color: #0099da;
 }
 .submit-btn button {
   display: inline-block;
   margin-top: 0;
-  background: #f58333;
-  border: 1px solid #f58333;
+  background: #0099da;
+  border: 1px solid #0099da;
   color: #fff;
   padding: 10px 20px;
   text-transform: uppercase;

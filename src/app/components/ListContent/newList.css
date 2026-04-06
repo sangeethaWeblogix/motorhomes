@@ -213,8 +213,8 @@ h1.page-title {
 }
 
 .product-page .other_items .product-card .btn.btn-primary {
-  background-color: #ec7200;
-  border-color: #ec7200;
+  background-color: #0099da;
+  border-color: #0099da;
   color: #ffffff;
 }
 
@@ -423,7 +423,7 @@ h1.page-title {
 }
 
 .close-popup:hover {
-  color: #f58333;
+  color: #0099da;
 }
 
 .popup-content {
@@ -537,13 +537,13 @@ h1.page-title {
   letter-spacing: -0.2px;
 }
 .terms_text a {
-  color: #f58333;
+  color: #0099da;
 }
 .submit-btn button {
   display: inline-block;
   margin-top: 0;
-  background: #f58333;
-  border: 1px solid #f58333;
+  background: #0099da;
+  border: 1px solid #0099da;
   color: #fff;
   padding: 15px 20px;
   text-transform: uppercase;
@@ -680,7 +680,7 @@ h1.page-title {
 }
 
 .filter_sticky .clear_btn {
-  color: #ec7200;
+  color: #0099da;
   cursor: pointer;
   font-size: 13px;
   font-weight: 500;

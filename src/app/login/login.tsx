@@ -19,7 +19,7 @@ export default function LoginPage() {
             aria-label="Login options"
           >
             {/* Private Seller */}
-            {/* <a
+            <a
               className="login-card private"
               href="/login"
               aria-label="Private Seller Login"
@@ -34,7 +34,7 @@ export default function LoginPage() {
                   Manage or list your caravan for sale
                 </div>
               </div>
-            </a> */}
+            </a>
 
             {/* Dealer */}
             <a

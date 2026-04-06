@@ -37,13 +37,13 @@
   display: inline-flex;
   position: relative;
   overflow: hidden;
-  background: #000;
+  background: #038ec7;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .all-news.blog-listing .btn:hover {
-  background: #ec7200;
+  background: #000000;
 }
 .card {
   margin-bottom: 30px;

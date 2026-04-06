@@ -1,5 +1,5 @@
 :root {
-  --primary-color: #ec7200;
+  --primary-color: #0099da;
   --secondary-color: #000000;
   --success-color: #22c55e;
   --error-color: #ef4444;
@@ -518,10 +518,10 @@
 
 /* two distinct colors */
 .private .login-icon {
-  background: #f58333;
+  background: #0099da;
 }
 .dealer .login-icon {
-  background: #f58333;
+  background: #0099da;
 }
 
 /* small arrow on the right */
