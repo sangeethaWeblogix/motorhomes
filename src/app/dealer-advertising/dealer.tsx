@@ -77,17 +77,17 @@ const DealerLandingPage = () => {
                         <div className="row">
                           {[
                             {
-                              img: "/images/seo_keyword.svg",
+                              img: "/images/seo_keyword.svg?=1",
                               title: "Ranking for 300+ High-Intent Keywords",
                               desc: "Get discovered by buyers actively searching for caravans.",
                             },
                             {
-                              img: "/images/visiter.svg",
+                              img: "/images/visiter.svg?=1",
                               title: "1000's of Daily Visitors & Growing",
                               desc: "Reach a highly engaged, caravan-buyer-specific audience every day",
                             },
                             {
-                              img: "/images/inbox.svg",
+                              img: "/images/inbox.svg?=1",
                               title: "Daily Leads Delivered to Your Inbox",
                               desc: "Fresh, high-quality leads sent directly to you.",
                             },

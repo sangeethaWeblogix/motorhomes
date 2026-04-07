@@ -21,7 +21,7 @@ const SellYourCaravan = () => {
                   Sell Your Caravan
                   <article>
                     <span> $35 </span>
-                    <span style={{ color: "#f58333", fontSize: "20px" }}>
+                    <span style={{ color: "#0099da", fontSize: "20px" }}>
                       (inc. GST)
                     </span>
                     <span style={{ fontSize: "33px", color: "black" }}>
@@ -51,22 +51,22 @@ const SellYourCaravan = () => {
 
               {[
                 {
-                  img: "/images/chat2.png",
+                  img: "/images/chat2.png?=2",
                   title: "Direct Buyer Contact",
                   desc: "Connect directly with interested buyers."
                 },
                 {
-                  img: "/images/calendar.png",
+                  img: "/images/calendar.png?=1",
                   title: "Live Until Sold",
                   desc: "Your listing stays online until your caravan is sold."
                 },
                 {
-                  img: "/images/caravan.png",
+                  img: "/images/caravan.png?=1",
                   title: "Caravan-Only Marketplace",
                   desc: "Reach a targeted audience of caravan buyers."
                 },
                 {
-                  img: "/images/dollar.png",
+                  img: "/images/dollar.png?=1",
                   title: "Keep 100% of Your Sale",
                   desc: "Pay only $35 Inc GST per listing. No commissions or hidden costs."
                 }

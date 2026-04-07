@@ -2871,7 +2871,7 @@ fetch(`/api/params-count?${catParams.toString()}`, { signal })
               style={{
                 opacity: hasAnyTempFilter ? 1 : 0.4,
                 cursor: hasAnyTempFilter ? "pointer" : "not-allowed",
-                color: hasAnyTempFilter ? "#ff6b00" : "#555", // ✅ orange
+                color: hasAnyTempFilter ? "#038ec7" : "#555", // ✅ orange
               }}
               onClick={() => {
                 // ✅ Local temp states reset

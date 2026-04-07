@@ -71,8 +71,8 @@ img {
 }
 
 .home_top .btn:hover {
-  background: #ec7200;
-  border-color: #ec7200 !important;
+  background: #038ec7;
+  border-color: #038ec7 !important;
 }
 
 .navbar.style-4.header-white .sidenav {
@@ -96,7 +96,7 @@ img {
 
 .btn:hover,
 .btn:focus {
-  background: #ec7200;
+  background: #038ec7;
   border-color: transparent !important;
 }
 
@@ -425,7 +425,7 @@ small {
   margin-top: 0px;
   font-size: 20px;
   font-weight: bold;
-  color: #ec7200;
+  color: #038ec7;
 }
 
 .product-page .product-card .price ins {

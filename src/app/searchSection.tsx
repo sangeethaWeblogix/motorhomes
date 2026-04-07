@@ -118,12 +118,12 @@ console.log("homestate", stateBands)
   const [activeIndex, setActiveIndex] = useState(0);
 
 const stateMeta: StateMeta = {
-    victoria: { code: "VIC", image: "/images/vic_map.svg?=1" },
-    "new-south-wales": { code: "NSW", image: "/images/nsw_map.svg?=1" },
-    queensland: { code: "QLD", image: "/images/qld_map.svg?=1" },
-    "south-australia": { code: "SA", image: "/images/sa_map.svg?=1" },
-    "western-australia": { code: "WA", image: "/images/wa_map.svg?=1" },
-    tasmania: { code: "TAS", image: "/images/tas_map.svg?=1" },
+    victoria: { code: "VIC", image: "/images/vic_map.svg?=2" },
+    "new-south-wales": { code: "NSW", image: "/images/nsw_map.svg?=2" },
+    queensland: { code: "QLD", image: "/images/qld_map.svg?=2" },
+    "south-australia": { code: "SA", image: "/images/sa_map.svg?=2" },
+    "western-australia": { code: "WA", image: "/images/wa_map.svg?=2" },
+    tasmania: { code: "TAS", image: "/images/tas_map.svg?=3" },
   };
 
    const [usedCategoryList, setUsedCategoryList] = useState<TabsItem[]>([]);
@@ -446,7 +446,7 @@ const stateMeta: StateMeta = {
         <a href="https://www.caravansforsale.com.au/listings/">
           <div className="item-image">
             <Image
-              src="/images/banner_top_dk.jpg?=1"
+              src="/images/banner_top_dk.jpg?=4"
               className="hidden-xs"
               alt="off-road"
               width={2000}
@@ -455,7 +455,7 @@ const stateMeta: StateMeta = {
               unoptimized
             />
             <Image
-              src="/images/banner_top_mb.jpg?=1"
+              src="/images/banner_top_mb.jpg?=2"
               className="hidden-lg hidden-md hidden-sm"
               alt="off-road"
               width={2000}
