@@ -14,8 +14,8 @@
   import FilterModal from "./FilterModal";
   import { flushSync } from "react-dom";
   import { v4 as uuidv4 } from "uuid";
-  import "./newList.css?=279";
-  import "./top-filters.css?=491";
+  import "./newList.css";
+  import "./top-filters.css";
   import dynamic from "next/dynamic";
   import Image from "next/image";
   import { filterOptions } from "./filterOptions"; // உங்க path adjust பண்ணு
