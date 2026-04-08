@@ -11,7 +11,7 @@ type FormState = {
   "your-phone": string;
   "you-postcode": string; // keep as-is since your CF7 works with this key
   "your-message": string;
-  "caravan-type": "";
+  // "caravan-type": "";
   condition: "";
   budget: "";
 };
@@ -25,7 +25,7 @@ export default function ContactSection() {
     "your-phone": "",
     "you-postcode": "",
     "your-message": "",
-    "caravan-type": "",
+    // "caravan-type": "",
     condition: "",
     budget: "",
   });
@@ -78,9 +78,9 @@ export default function ContactSection() {
     }
 
     // Caravan type
-    if (!formData["caravan-type"].trim()) {
-      next["caravan-type"] = "Type is required.";
-    }
+    // if (!formData["caravan-type"].trim()) {
+    //   next["caravan-type"] = "Type is required.";
+    // }
 
     // Condition
     if (!formData["condition"].trim()) {
@@ -108,6 +108,8 @@ export default function ContactSection() {
       return;
     }
 
+      console.log("Form Data:", formData);
+
     try {
       setLoading(true);
 
@@ -121,7 +123,7 @@ export default function ContactSection() {
       form.append("your-email", formData["your-email"]);
       form.append("your-phone", formData["your-phone"]);
       form.append("you-postcode", formData["you-postcode"]);
-      form.append("caravan-type", formData["caravan-type"]);
+      // form.append("caravan-type", formData["caravan-type"]);
       form.append("condition", formData.condition);
       form.append("budget", formData.budget);
       form.append("your-message", formData["your-message"]);
@@ -130,7 +132,7 @@ export default function ContactSection() {
       );
 
       const res = await fetch(
-        "https://admin.caravansforsale.com.au/wp-json/contact-form-7/v1/contact-forms/155838/feedback",
+        "https://admin.motorhomesforsale.com.au/wp-json/contact-form-7/v1/contact-forms/981/feedback",
         { method: "POST", body: form }
       );
 
@@ -145,7 +147,7 @@ export default function ContactSection() {
           "your-phone": "",
           "you-postcode": "",
           "your-message": "",
-          "caravan-type": "",
+          // "caravan-type": "",
           condition: "",
           budget: "",
         });
@@ -274,7 +276,7 @@ export default function ContactSection() {
 
                       {/* Caravan Type */}
                       <div className="col-lg-6">
-                        <div className="form-group mb-20">
+                        {/* <div className="form-group mb-20">
                           <select
                             name="caravan-type"
                             className="form-control"
@@ -295,6 +297,22 @@ export default function ContactSection() {
                           {errors["caravan-type"] && (
                             <small className="text-danger">
                               {errors["caravan-type"]}
+                            </small>
+                          )}
+                        </div> */}
+                         <div className="form-group mb-20">
+                          <input
+                            type="text"
+                            name="budget"
+                            className="form-control"
+                            placeholder="What is your budget?*"
+                            value={formData.budget}
+                            onChange={handleChange}
+                            required
+                          />
+                          {errors.budget && (
+                            <small className="text-danger">
+                              {errors.budget}
                             </small>
                           )}
                         </div>
@@ -324,7 +342,7 @@ export default function ContactSection() {
                       </div>
 
                       {/* Budget */}
-                      <div className="col-lg-12">
+                      {/* <div className="col-lg-12">
                         <div className="form-group mb-20">
                           <input
                             type="text"
@@ -341,7 +359,7 @@ export default function ContactSection() {
                             </small>
                           )}
                         </div>
-                      </div>
+                      </div> */}
 
                       {/* Requirements */}
                       <div className="col-lg-12">

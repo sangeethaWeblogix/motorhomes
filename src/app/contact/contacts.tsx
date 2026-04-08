@@ -80,7 +80,7 @@ export default function ContactSection() {
       );
 
       const res = await fetch(
-        "https://admin.caravansforsale.com.au/wp-json/contact-form-7/v1/contact-forms/3290/feedback",
+        "https://admin.motorhomesforsale.com.au/wp-json/contact-form-7/v1/contact-forms/982/feedback",
         { method: "POST", body: form }
       );
 
