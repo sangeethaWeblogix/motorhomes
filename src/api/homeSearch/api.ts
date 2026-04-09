@@ -1,5 +1,5 @@
 // src/api/homeSearch/api.ts
-const API_BASE = process.env.NEXT_PUBLIC_CFS_API_BASE;
+const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE;
 
 export interface KeywordSuggestion {
   keyword: string;

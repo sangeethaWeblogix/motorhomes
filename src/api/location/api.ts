@@ -1,4 +1,4 @@
- const API_LOCATION = process.env.NEXT_PUBLIC_CFS_API_BASE;
+ const API_LOCATION = process.env.NEXT_PUBLIC_MFS_API_BASE;
 
 export const fetchLocations = async (keyword: string) => {
   if (!keyword || keyword.trim().length < 2) return [];
