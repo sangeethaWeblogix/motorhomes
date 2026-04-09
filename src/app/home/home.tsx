@@ -28,6 +28,7 @@
     short_label: string;
     short_count: string;
     region: string;
+    make: string;
   }
  
   interface Props {
