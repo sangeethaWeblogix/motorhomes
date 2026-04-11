@@ -9,7 +9,7 @@ export async function POST(req: Request) {
 
     // 🔥 Call WordPress API from server (hidden)
     await fetch(
-      "https://admin.caravansforsale.com.au/wp-json/cfs/v1/update-clicks",
+      "https://admin.motorhomesforsale.com.au/wp-json/cfs/v1/update-clicks",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
