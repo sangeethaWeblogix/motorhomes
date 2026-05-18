@@ -99,13 +99,14 @@ useEffect(() => {
                   realistic to help us deliver the best possible outcome. See
                   some examples of what other caravan buyers are looking for.
                 </p>
-              </div>
-
-              <div className="final_post_btn">
+                <div className="final_post_btn">
                 <Link href="/caravan-enquiry-form/" className="btn">
                   Post Your Requirements
                 </Link>
               </div>
+              </div>
+
+              
             </div>
 
             {/* RIGHT SIDE - SWIPER */}

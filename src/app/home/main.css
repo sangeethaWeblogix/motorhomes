@@ -10,26 +10,29 @@
 
 .home_top .ad_banner a {
   display: block;
+  margin-bottom: -100px;
 }
 
 .home_top .section-head {
   padding-top: 30px;
 }
 
+
+
 .search_home {
   background: #fff;
   border-radius: 12px;
   margin-top: 0;
-  padding: 20px;
+  padding: 30px;
   position: relative;
   box-shadow: 0 0 13px #6262621a;
 }
 
 .home_top h1 {
-  font-weight: 500;
-  color: #009ada;
-  font-size: 36px;
-  margin-bottom: 10px;
+    color: #009ada;
+    margin-bottom: 10px;
+    font-size: 25px;
+    font-weight: 500;
 }
 
 .home_top p {
@@ -39,18 +42,64 @@
   font-size: 17px;
 }
 
-.home_top .btn {
-  text-transform: uppercase;
-  background: none;
-  border: 2px solid #333;
-  font-size: 18px;
-  display: block;
-  color: #000000 !important;
+.sell-banner {
+    min-height: inherit;
+    background: url(/images/selling_banner.jpg?=2) 50%/cover;
+    border-radius: 12px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    display: flex;
+    overflow: hidden;
 }
 
-.home_top .btn:hover {
-  background: #009ada;
-  border-color: #009ada !important;
+.sell-content {
+    color: #fff;
+    width: 50%;
+    padding: 30px 50px;
+}
+.sell-content h3 {
+    color: #fff;
+    letter-spacing: 0;
+    margin-bottom: 15px;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.home_top p.subtitle {
+    color: #fff;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.home_top p.desc {
+    color: #fff;
+    margin-bottom: 30px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.btns_two {
+    flex-wrap: wrap;
+    gap: 15px;
+    display: flex;
+}
+
+.btns_two .btn {
+    padding: 10px 23px;
+}
+
+.primary-btn {
+    color: #fff;
+    background: #0099da;
+    border: 2px solid #0099da;
+    border-radius: 6px;
+}
+
+.secondary-btn {
+    color: #fff;
+    background: 0 0;
+    border: 2px solid #fff;
 }
 
 .navbar.style-4.header-white .sidenav {
@@ -328,11 +377,13 @@
 }
 
 .home-post_head {
-  text-align: left;
-  color: #333;
-  margin-bottom: 20px;
-  padding-bottom: 0;
-  position: relative;
+    text-align: left;
+    color: #333;
+    border-right: 1px solid #ddd;
+    height: 100%;
+    margin-bottom: 20px;
+    padding: 35px;
+    position: relative;
 }
 
 .caravans_by_state .home-post_head h3 {
@@ -349,8 +400,9 @@
 }
 
 .home-post_head p {
-  font-size: 17px;
-  color: #e9e9e9;
+    color: #000;
+    font-size: 17px;
+    margin-bottom: 15px;
 }
 
 .top_cta.bg-white
@@ -423,11 +475,13 @@
 }
 
 .post_bgs {
-  z-index: 1;
-  background: #fff;
-  border-radius: 30px;
-  padding: 0;
-  position: relative;
+    z-index: 1;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 0;
+    position: relative;
+    box-shadow: 5px 5px 3px #6262621a;
 }
 
 .type {
@@ -1630,10 +1684,12 @@ a.ignoretext {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
+  margin-top: 30px;
 }
 
 .explore-box {
   background: linear-gradient(#f9f8f8, #f3efec);
+  border: 1px solid #d2d2d2;
   border-radius: 18px;
   padding: 24px;
   position: relative;
@@ -1647,10 +1703,11 @@ a.ignoretext {
 }
 
 .explore-box p {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 18px;
-  max-width: 85%;
+    color: #555;
+    max-width: 100%;
+    height: 70px;
+    margin-bottom: 12px;
+    font-size: 15px;
 }
 
 .explore-box .btn {
