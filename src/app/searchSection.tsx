@@ -44,7 +44,7 @@ interface TabsItem {
   short_label: string;
   short_count: string;
   region: string;
-  make: string;
+  make?: string;
 }
 
 type TabCard = {
