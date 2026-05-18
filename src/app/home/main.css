@@ -408,7 +408,7 @@
 .top_cta.bg-white
   .swiper-pagination-clickable
   .swiper-pagination-bullet.swiper-pagination-bullet-active {
-  background-color: #f2bd8c;
+  background-color: #8fc3d8;
 }
 
 .top_cta.bg-white .swiper-pagination-clickable .swiper-pagination-bullet {
@@ -417,9 +417,25 @@
 }
 
 .top_cta_container {
-  position: relative;
-  border-radius: 20px;
-  border: 1px solid #ddd;
+    border: none;
+    border-radius: 20px;
+    position: relative;
+}
+
+.home-post__items {
+    padding: 35px 35px 35px 15px;
+}
+
+.home-post__items h3 {
+    letter-spacing: 0;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.home_top .home-post__items p {
+    color: #000;
+    font-size: 17px;
+    margin-bottom: 15px;
 }
 
 .top_cta_container::before {
@@ -435,15 +451,15 @@
 }
 
 .top_cta {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-clip: padding-box;
-  border: none;
-  border-radius: 20px;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding: 0;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-clip: padding-box;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
 }
 
 .search_requirement_area {
@@ -535,7 +551,7 @@
   border-radius: 0;
   align-items: center;
   margin-bottom: 10px;
-  padding: 35px 45px;
+  padding: 15px;
   font-size: 15px;
   font-weight: 400;
   position: relative;
@@ -609,8 +625,8 @@
 
 .final_post_btn .btn:hover {
   color: #ffffff;
-  background-color: #df6c00;
-  border-color: #df6c00 !important;
+  background-color: #038ec7;
+  border-color: #038ec7 !important;
 }
 
 .caravans_by_state h2,
