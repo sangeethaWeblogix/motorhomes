@@ -147,7 +147,7 @@ console.log("homestate", stateBands)
       <div>
         {/* Hero Section */}
         <section className="home_top style-1">
-          <SearchSection 
+          <SearchSection
           sleepBands={sleepBands}
     regionBands={regionBands}
     manufactureBands={manufactureBands}
@@ -155,7 +155,8 @@ console.log("homestate", stateBands)
     lengthBands={lengthBands}
     priceBands={priceBands}
     usedData={usedData}
-    stateBands={stateBands}/>
+    stateBands={stateBands}
+    requirements={requirements}/>
         </section>
 
         {/* Deal of the Month Section */}
@@ -404,10 +405,10 @@ console.log("homestate", stateBands)
                   role="tabpanel"
                   aria-labelledby="pills-research-tab"
                 >
-                  <div className="content-info pb-0">
+                  {/* <div className="content-info pb-0">
                     <PostRequirement requirements={requirements}   />
 
-                  </div>
+                  </div> */}
                 </div>
 
               </div>
