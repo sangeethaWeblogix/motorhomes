@@ -146,7 +146,7 @@ console.log("homestate", stateBands)
       <div>
         {/* Hero Section */}
         <section className="home_top style-1">
-          <SearchSection 
+          <SearchSection
           sleepBands={sleepBands}
     regionBands={regionBands}
     manufactureBands={manufactureBands}
@@ -154,7 +154,8 @@ console.log("homestate", stateBands)
     lengthBands={lengthBands}
     priceBands={priceBands}
     usedData={usedData}
-    stateBands={stateBands}/>
+    stateBands={stateBands}
+    requirements={requirements}/>
         </section>
 
         {/* Deal of the Month Section */}
