@@ -799,7 +799,7 @@ const [states, setStates] = useState<StateOption[]>(
                 {currentFilters.condition ? (
                   <>
                     <small className="selected_label">Condition: </small>
-                    {currentFilters.condition === "new" ? "New" : "Used"}
+{currentFilters.condition?.toLowerCase() === "new" ? "New" : "Used"}
                     <span className="active_filter">
                       <i className="bi bi-circle-fill"></i>
                     </span>
@@ -1618,7 +1618,7 @@ const [states, setStates] = useState<StateOption[]>(
                           checked={tempCondition?.toLowerCase() === "new"}
                           onChange={() =>
                             setTempCondition(
-                              tempCondition === "new" ? null : "new",
+    tempCondition?.toLowerCase() === "new" ? null : "new",
                             )
                           }
                         />
