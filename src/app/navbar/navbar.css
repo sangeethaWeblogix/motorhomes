@@ -98,7 +98,7 @@
 }
 
 .sidenav a:hover {
-  color: #f58333;
+  color: #038ec7;
 }
 
 .menuIconToggle {
@@ -338,7 +338,7 @@ input[type="checkbox"]:checked ~ .menuIconToggle > .dia.p-2 {
     margin-top: 4px;
 }
 .navbar.style-4.header-white .navbar-nav .nav-item.login .nav-link:hover {
-  background: #f58333;
+  background: #038ec7;
   color: #000000;
 }
 .overlay {
@@ -379,12 +379,12 @@ input[type="checkbox"]:checked ~ .menuIconToggle > .dia.p-2 {
 }
 
 .dropdown-menu .dropdown-item:hover {
-  color: #f58333;
+  color: #038ec7;
 }
 
 .navbar.style-4 .navbar-nav .nav-item:hover .nav-link,
 .navbar.style-4 .navbar-nav .nav-item .nav-link.active {
-  color: #f58333;
+  color: #038ec7;
 }
 
 /* Additional styles for the sidebar dropdowns */

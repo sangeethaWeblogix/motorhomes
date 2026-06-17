@@ -84,7 +84,7 @@ useEffect(() => {
     <div>
       
         <div className="post_bgs">
-          <div className="row align-items-center">
+          <div className="row">
             {/* LEFT SIDE */}
             <div className="col-lg-6">
               <div className="home-post_head">
@@ -99,13 +99,14 @@ useEffect(() => {
                   realistic to help us deliver the best possible outcome. See
                   some examples of what other caravan buyers are looking for.
                 </p>
-              </div>
-
-              <div className="final_post_btn">
+                <div className="final_post_btn">
                 <Link href="/caravan-enquiry-form/" className="btn">
                   Post Your Requirements
                 </Link>
               </div>
+              </div>
+
+              
             </div>
 
             {/* RIGHT SIDE - SWIPER */}
@@ -115,6 +116,10 @@ useEffect(() => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
+                <h3>Recent Caravan Requests</h3>
+              <p className="sub-text">
+                See examples of what other caravan buyers are looking for.
+              </p>
                 <div className="top_cta bg-white">
                   <Swiper
                     modules={[Autoplay, Pagination]}
