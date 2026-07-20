@@ -1,4 +1,6 @@
- import DeatilsPage from "./details";
+import DeatilsPage from "./details";
+
+export const dynamic = "force-dynamic";
 
 import "./details.css";
 import { Card, CardContent, Typography, Button } from "@mui/material";
@@ -8,29 +10,10 @@ import Image from "next/image";
 import { redirect } from "next/navigation"; // ✅ Import notFound
 import Thankyou from './ThankYouClient '
 import { Metadata } from "next";
+import { fetchBlogDetail } from "./fetchBlogDetail";
 
  type RouteParams = { slug: string };
 type PageProps = { params: Promise<RouteParams> };
-
-async function fetchBlogDetail(slug: string) {
-  try {
-    const res = await fetch(
-      `https://admin.caravansforsale.com.au/wp-json/cfs/v1/blog-detail-new/?slug=${encodeURIComponent(
-        slug
-      )}`,
-      { cache: "no-store", headers: { Accept: "application/json" } }
-    );
-
-    if (!res.ok) {
-      return null; // ❌ Don't throw error, return null
-    }
-
-    return res.json();
-  } catch (error) {
-    console.error("Blog fetch error:", error);
-    return null; // ❌ Return null on fetch failure
-  }
-}
 
 // ✅ SEO from product.seo (NO images)
 export async function generateMetadata({
@@ -45,7 +28,7 @@ export async function generateMetadata({
       description: "Your enquiry was submitted successfully.",
       robots: "noindex, nofollow",
       verification: {
-          // google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ Google site verification
+        google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ Google site verification
       },
       alternates: {
         canonical: `https://www.caravansforsale.com.au/${slug}/`,
@@ -69,7 +52,7 @@ export async function generateMetadata({
     "View caravan details.";
   const robots = "index, follow";
   const canonicalUrl = `https://www.caravansforsale.com.au/${slug}/`;
-
+  console.log("generateMetadata", { title, description, robots, canonicalUrl });
   return {
     title,
     description,
@@ -78,7 +61,7 @@ export async function generateMetadata({
       canonical: canonicalUrl, // ✅ canonical link
     },
     verification: {
-        // google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ this auto generates <meta name="google-site-verification" />
+      google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ this auto generates <meta name="google-site-verification" />
     },
     openGraph: {
       title,
@@ -167,13 +150,14 @@ export default async function ProductDetailPage({ params }: PageProps) {
       </div>
     );
   }
-  const data = await fetchBlogDetail(slug);
+  const seed = Math.ceil(Math.random() * 10);
+  const data = await fetchBlogDetail(slug, seed);
 
-    if (slug.startsWith("thank-you-")) {
-    return <Thankyou /> ;
+  if (slug.startsWith("thank-you-")) {
+    return <Thankyou />;
   }
-  if (!data) {
-    redirect("/404"); // ✅ Show Next.js 404 page
+  if (!data || !data?.data?.blog_detail) {
+    redirect("/404");
   }
 
   return (

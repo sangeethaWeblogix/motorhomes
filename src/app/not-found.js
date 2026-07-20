@@ -1,10 +1,12 @@
-"use client";
-
-// export const dynamic = "force-dynamic"
-;
 import Link from "next/link";
 import "./not-found.css";
 import Notfound from "./searchError";
+
+export const metadata = {
+  title: "404 - Page Not Found | Caravans For Sale",
+  description: "The page you're looking for doesn't exist or has been moved. Browse our range of caravans for sale across Australia.",
+  robots: "noindex, nofollow",
+};
 
 export default function NotFoundPage() {
   const categories = [
@@ -50,9 +52,9 @@ export default function NotFoundPage() {
           <Link className="btn btn-primary" href="/">
             Go to Homepage
           </Link>
-          <Link className="btn btn-outline" href="/listings/">
+          <a className="btn btn-outline" href="/listings/">
             Browse Caravans
-          </Link>
+          </a>
         </div>
 
         {/* ✅ Browse by Type & State Side by Side */}
@@ -63,7 +65,7 @@ export default function NotFoundPage() {
             <ul>
               {categories.map((cat) => (
                 <li key={cat.slug}>
-                  <Link href={`/listings/${cat.slug}/`}>{cat.name}</Link>
+                  <a href={`/listings/${cat.slug}/`}>{cat.name}</a>
                 </li>
               ))}
             </ul>
@@ -75,9 +77,9 @@ export default function NotFoundPage() {
             <ul>
               {states.map((state) => (
                 <li key={state.slug}>
-                  <Link href={`/listings/${state.slug}/`}>
+                  <a href={`/listings/${state.slug}/`}>
                     {state.name}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>

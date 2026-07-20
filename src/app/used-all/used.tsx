@@ -1,8 +1,7 @@
-// app/page.tsx
+﻿// app/page.tsx
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -42,14 +41,6 @@ interface Item {
   display_text: string;
   state: string;
 }
-
-
-type StateMeta = {
-  [key: string]: {
-    code: string;
-    image: string;
-  };
-};
 
 type CategorySection = {
   title: string;
@@ -170,7 +161,7 @@ const formatBlogDate = (dateString: string) => {
     year: "numeric",
   });
 };
-const stateMeta: StateMeta = {
+  const stateMeta = {
     "victoria": { code: "VIC", image: "/images/vic_map.svg" },
     "new-south-wales": { code: "NSW", image: "/images/nsw_map.svg" },
     "queensland": { code: "QLD", image: "/images/qld_map.svg" },
@@ -298,9 +289,9 @@ const stateMeta: StateMeta = {
       <div className="search_requirement_area py-12 bg-white">
         <div className="container mx-auto px-4">
           <div className="section-head search_home">
-            <h3>Used motorhomes for salein Australia</h3>
+            <h3>Used caravans for sale in Australia</h3>
             <p className="mb-2 mt-3 fw-semibold">
-              Find your perfect used motorhome for salein Australia from thousands of listings across the country, listed by dealers and private sellers.
+              Find your perfect used caravan for sale in Australia from thousands of listings across the country, listed by dealers and private sellers.
             </p>
             <p>
               Whether you’re searching by price, weight, length, caravan type, sleeping capacity, manufacturer, or location, CaravansForSale.com.au makes it easy to compare options and find the right caravan for your lifestyle. Browse Australia-wide used caravan listings, explore popular categories, and access expert buying guides to help you make a confident decision.
@@ -405,11 +396,11 @@ const stateMeta: StateMeta = {
           </div>
           <div className="content listing_region">
             <ul>
-              {usedRegion.map((r, i) => (
-                <li key={i} style={{paddingRight:"10px"}} >
+              {regionBands.map((r, i) => (
+                <li key={i} >
                   <a                               
                     href={`https://www.caravansforsale.com.au/listings/${r.permalink}/`}
- className="font-medium text-blue-600 pl-10">
+ className="font-medium text-blue-600">
                    {r.label}
                   </a>
                   <span className="block mt-1 text-sm text-gray-600">
@@ -432,7 +423,7 @@ const stateMeta: StateMeta = {
               <div key={i} className="shop-card">
                 <h3>{cat.title}</h3>
                 <ul>
-                  {cat.items.map((item, j) => (
+                  {(cat.items || []).map((item, j) => (
                     <li key={j}>
                       <a href={item.url}>
                         {item.label} <span>({item.count})</span>
@@ -495,7 +486,7 @@ const stateMeta: StateMeta = {
               <h2 className="title">Sell Your Caravan Today!</h2>
               <p className="desc">
                 Reach thousands of potential buyers in minutes.<br />
-                List your motorhome for saleon CaravansForSale.com.au,<br />
+                List your caravan for sale on CaravansForSale.com.au,<br />
                 the trusted marketplace for Aussie caravan owners.
               </p>
               {/* <a href="#" className="btn">

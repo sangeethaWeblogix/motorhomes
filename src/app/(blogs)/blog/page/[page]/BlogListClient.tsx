@@ -2,11 +2,11 @@
 "use client";
 // export const dynamic = "force-dynamic"
 ;
-import React, { useEffect, useMemo, useState } from "react";
+import React, {  useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
-import { fetchBlogs, type BlogPost, type BlogPageResult } from "@/api/blog/api";
+import { useParams } from "next/navigation";
+import {  type BlogPost, type BlogPageResult } from "@/api/blog/api";
 import { formatPostDate } from "@/utils/date";
 import { toSlug } from "@/utils/seo/slug";
 import BlogCardSkelton from "../../../../components/blogCardSkeleton";
@@ -36,11 +36,8 @@ interface Props {
   currentPage: number;
 }
 export default function BlogListClient({ data, currentPage }: Props) {
-  const router = useRouter();
-  const params = useParams<{ page?: string }>();
-  const initialPage = Math.max(1, Number(params?.page || 1));
-  const [navigating, setNavigating] = useState(false);
- 
+   const params = useParams<{ page?: string }>();
+  // const initialPage = Math.max(1, Number(params?.page || 1));
   const totalPages = data.total_pages;
   const blogPosts = data.items;
 // ✅ இதை போடுங்க — data வந்துச்சான்னு check பண்ணு
@@ -89,7 +86,7 @@ const loading = !data || !blogPosts || blogPosts.length === 0 && data.totalPages
                     bannerRefs.current[index] = el;
                   }}
                   data-banner-id={banner.id}
-                  href={banner.target_href_url}
+                  href={banner.target_url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="banner_ad_now"
@@ -115,7 +112,7 @@ const loading = !data || !blogPosts || blogPosts.length === 0 && data.totalPages
           >
             <div className="section-head mb-60 style-5">
               <h2>
-                Valuable News, Reviews &amp; Advice From Caravan Marketplace
+                Valuable News, Reviews &amp; Advice From Marketplace Network 
               </h2>
             </div>
 
@@ -131,8 +128,11 @@ const loading = !data || !blogPosts || blogPosts.length === 0 && data.totalPages
                   ))}
                 </>
               )}
-              {!loading && blogPosts.length === 0 && (
+              {!loading && blogPosts.length === 0 && !data.error && (
                 <div className="text-center py-5">No posts found.</div>
+              )}
+              {!loading && blogPosts.length === 0 && data.error && (
+                <div style={{ minHeight: 320, background: "#f8f9fa", borderRadius: 8 }} />
               )}
               {!loading &&
                 blogPosts.map((post, index) => {
@@ -176,7 +176,6 @@ const loading = !data || !blogPosts || blogPosts.length === 0 && data.totalPages
                             <p>{decodeHTML(post.excerpt)}</p>{" "}
                             <a
                               href={href}
-                              onClick={() => setNavigating(true)}
                               className="btn rounded-pill bg-blue4 fw-bold text-white mt-10"
                             >
                               <small> Read More </small>
@@ -190,54 +189,43 @@ const loading = !data || !blogPosts || blogPosts.length === 0 && data.totalPages
 
               {/* Pagination */}
               {!loading && totalPages > 1 && (
-                <nav
-                  className="pagination style-5 color-4 justify-content-center mt-20 d-flex align-items-center gap-2 flex-wrap"
-                  aria-label="Blog pagination"
-                >
-                  {/* Prev */}
+                <nav className="blg-pagination" aria-label="Blog pagination">
                   {currentPage > 1 ? (
-                    <Link
-                      href={prevUrl}
-                      className="prev page-numbers px-3 py-1 border rounded"
-                    >
-                      « prev
+                    <Link href={prevUrl} className="blg-pagination__arrow" aria-label="Previous page">
+                      <i className="bi bi-chevron-left" />
                     </Link>
                   ) : (
-                    <span className="prev page-numbers px-3 py-1 border rounded disabled opacity-50">
-                      « prev
+                    <span className="blg-pagination__arrow blg-pagination__arrow--disabled" aria-label="Previous page">
+                      <i className="bi bi-chevron-left" />
                     </span>
                   )}
 
-                  {/* Numbered */}
-                  {pages.map((p, i) =>
-                    p === "…" ? (
-                      <span key={`ellipsis-${i}`} className="px-2">
-                        …
-                      </span>
-                    ) : (
-                      <Link
-                        key={`page-${p}`}
-                        href={p === 1 ? "/blog/" : `/blog/page/${p}/`}
-                        aria-current={p === currentPage ? "page" : undefined}
-                        className={`page-numbers px-3 py-1 border rounded ${p === currentPage ? "current fw-bold" : ""
-                          }`}
-                      >
-                        {p}
-                      </Link>
-                    )
-                  )}
+                  <div className="blg-pagination__pages">
+                    {pages.map((p, i) =>
+                      p === "…" ? (
+                        <span key={`ellipsis-${i}`} className="blg-pagination__ellipsis">
+                          …
+                        </span>
+                      ) : (
+                        <Link
+                          key={`page-${p}`}
+                          href={p === 1 ? "/blog/" : `/blog/page/${p}/`}
+                          aria-current={p === currentPage ? "page" : undefined}
+                          className={`blg-pagination__num${p === currentPage ? " blg-pagination__num--active" : ""}`}
+                        >
+                          {p}
+                        </Link>
+                      )
+                    )}
+                  </div>
 
-                  {/* Next */}
                   {currentPage < totalPages ? (
-                    <Link
-                      href={nextUrl}
-                      className="next page-numbers px-3 py-1 border rounded"
-                    >
-                      next »
+                    <Link href={nextUrl} className="blg-pagination__arrow" aria-label="Next page">
+                      <i className="bi bi-chevron-right" />
                     </Link>
                   ) : (
-                    <span className="next page-numbers px-3 py-1 border rounded disabled opacity-50">
-                      next »
+                    <span className="blg-pagination__arrow blg-pagination__arrow--disabled" aria-label="Next page">
+                      <i className="bi bi-chevron-right" />
                     </span>
                   )}
                 </nav>
@@ -253,7 +241,7 @@ const loading = !data || !blogPosts || blogPosts.length === 0 && data.totalPages
                         bannerRefs.current[index] = el;
                       }}
                       data-banner-id={banner.id}
-                      href={banner.target_href_url}
+                      href={banner.target_url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="banner_ad_now mb-0"
@@ -279,22 +267,6 @@ const loading = !data || !blogPosts || blogPosts.length === 0 && data.totalPages
           </div>
         </div>
       </section>
-      {navigating && (
-        <div
-          className="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
-          style={{
-            background: "rgba(255,255,255,0.6)",
-            backdropFilter: "blur(2px)",
-            zIndex: 9999,
-          }}
-          aria-live="polite"
-        >
-          <div className="text-center">
-            <div className="spinner-border" role="status" />
-            <div className="mt-2 fw-semibold">Loading…</div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

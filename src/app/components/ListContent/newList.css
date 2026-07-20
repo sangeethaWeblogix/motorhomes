@@ -60,7 +60,7 @@ h1.page-title {
 
 .new_listing .background_thumb {
   position: absolute;
-  transform: scale(1.5);
+  transform: scale(3);
   background: #464545;
 }
 .new_listing .background_thumb img {
@@ -74,10 +74,17 @@ h1.page-title {
 .main_thumb {
   position: relative;
   align-items: center;
+  height: 350px;
   min-height: 350px;
   max-height: 350px;
   display: flex;
   overflow: hidden;
+}
+.main_thumb .main_thumb_swiper,
+.main_thumb .main_thumb_swiper .swiper-wrapper,
+.main_thumb .main_thumb_swiper .swiper-slide {
+  height: 100%;
+  width: 100%;
 }
 .product-page .other_items .product-card .price .metc2 {
   justify-content: start;
@@ -95,12 +102,30 @@ h1.page-title {
   .main_thumb
   .thumb_img {
   align-items: center;
+  height: 350px;
   min-height: 350px;
   max-height: 350px;
   display: flex;
   position: relative;
   overflow: hidden;
   justify-content: center;
+}
+
+.listing_location {
+    color: #555;
+    margin: 5px 0 5px;
+    font-size: 13px;
+}
+
+.listing_location i {
+    color: #737373;
+}
+
+.bottom_mid span.poster_tag {
+    background-color: #f1f1f1;
+    border: 1px solid #e1e1e1;
+    padding: 2px 7px;
+    border-radius: 4px;
 }
 
 .view-more-btn-wrapper {
@@ -213,9 +238,10 @@ h1.page-title {
 }
 
 .product-page .other_items .product-card .btn.btn-primary {
-  background-color: #0099da;
-  border-color: #0099da;
+  background-color: #ec7200;
+  border-color: #ec7200;
   color: #ffffff;
+      border-radius: 6px;
 }
 
 .product-page .other_items .product-card .btn:hover,
@@ -238,14 +264,13 @@ h1.page-title {
 }
 
 .new_listing .vehicleDetailsWithIcons.simple {
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  margin: 10px 0;
-  margin-bottom: 5px;
-  padding: 5px 0;
-  height: 90px;
-  width: 100% !important;
-  display: inline-block !important;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    height: 70px;
+    margin: 10px 0 5px;
+    padding: 5px 0;
+    width: 100% !important;
+    display: inline-block !important;
 }
 
 .new_listing .vehicleDetailsWithIcons.simple li {
@@ -254,8 +279,8 @@ h1.page-title {
   vertical-align: top;
   float: left;
   align-items: center;
-  width: 42%;
-  margin-right: 25px;
+  width: 44%;
+  margin-right: 0;
   padding: 3px;
   font-size: 14px;
   line-height: 19px;
@@ -308,9 +333,10 @@ h1.page-title {
 }
 
 .bottom_mid {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 13px;
+    gap: 10px;
+    margin-bottom: 13px;
+    display: flex;
+    align-items: center;
 }
 .bottom_mid span i {
   margin-right: 2px;
@@ -337,7 +363,12 @@ h1.page-title {
 }
 
 .new_listing .sticky_spot .vehicleDetailsWithIcons.simple li {
-  width: 40%;
+  width: 100%;
+  float: none;
+}
+
+.new_listing .sticky_spot .vehicleDetailsWithIcons.simple {
+height: auto;
 }
 
 .sticky_spot .other_items {
@@ -423,7 +454,7 @@ h1.page-title {
 }
 
 .close-popup:hover {
-  color: #0099da;
+  color: #f58333;
 }
 
 .popup-content {
@@ -439,11 +470,9 @@ h1.page-title {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale(0.95);
   }
   to {
     opacity: 1;
-    transform: scale(1);
   }
 }
 
@@ -537,13 +566,13 @@ h1.page-title {
   letter-spacing: -0.2px;
 }
 .terms_text a {
-  color: #0099da;
+  color: #f58333;
 }
 .submit-btn button {
   display: inline-block;
   margin-top: 0;
-  background: #0099da;
-  border: 1px solid #0099da;
+  background: #f58333;
+  border: 1px solid #f58333;
   color: #fff;
   padding: 15px 20px;
   text-transform: uppercase;
@@ -680,7 +709,7 @@ h1.page-title {
 }
 
 .filter_sticky .clear_btn {
-  color: #0099da;
+  color: #ec7200;
   cursor: pointer;
   font-size: 13px;
   font-weight: 500;
@@ -729,11 +758,13 @@ h1.page-title {
 }
 
 .more_info span.premium_van {
-  background-color: #e5e4e4;
-  padding: 4px 10px;
-  border-radius: 4px;
-  color: #000;
-  font-size: 15px;
+    color: #000;
+    background-color: #e5e4e4;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 2px 10px;
+    font-size: 14px;
+    margin-top: 6px;
 }
 
 .category-checkbox-row {
@@ -922,6 +953,7 @@ h1.page-title {
     .main_thumb
     .thumb_img,
   .product-page .new_listing .related-products .product-card .img {
+    height: 280px;
     min-height: 280px;
     max-height: 280px;
   }
@@ -936,9 +968,19 @@ h1.page-title {
     .main_thumb
     .thumb_img,
   .product-page .new_listing .related-products .product-card .img {
+    height: 280px;
     min-height: 280px;
     max-height: 280px;
   }
+  .new_listing .vehicleDetailsWithIcons.simple {
+        height: 110px;
+  }
+  .main_thumb {
+        height: 280px;
+    min-height: 280px;
+    max-height: 280px;
+  }
+
 }
 
 @media (max-width: 767px) {
@@ -953,9 +995,21 @@ h1.page-title {
     .main_thumb
     .thumb_img,
   .product-page .new_listing .related-products .product-card .img {
+    height: 250px;
     min-height: 250px;
     max-height: 250px;
   }
+  .main_thumb {
+        height: 250px;
+    min-height: 250px;
+    max-height: 250px;
+  }
+
+  .new_listing .vehicleDetailsWithIcons.simple {
+        height: auto;
+  }
+
+
   .product-page .product-card .info {
     margin-top: 0;
     min-height: 75px;
@@ -964,7 +1018,7 @@ h1.page-title {
     font-size: 18px;
   }
   .product-page .product-card .info .title {
-    height: 75px;
+    height: auto;
   }
   .featured_head {
     font-size: 20px;
@@ -1018,3 +1072,18 @@ h1.page-title {
   font-weight: 700;
   font-size: 24px;
 }
+
+.seller_type_text {
+  font-weight: 400;      /* normal text */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #555;           /* optional */
+}
+
+.seller_type_text i {
+  font-weight: 400;      /* ensure icon not bold */
+  font-size: 14px;       /* adjust if needed */
+}
+
+

@@ -1,4 +1,6 @@
 "use client";
+import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
+import "@fortawesome/fontawesome-free/css/solid.min.css";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,7 +10,8 @@ import "swiper/css/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import CaravanDetailModal from "./CaravanDetailModal";
-import "./product.css";
+import "./product.css?=226";
+ 
 import DOMPurify from "dompurify";
 import { type HomeBlogPost } from "@/api/home/api";
 import { toSlug } from "@/utils/seo/slug";
@@ -50,6 +53,8 @@ type ProductData = {
   images?: string[];
   main_image?: string;
   location?: string;
+  region?: { label?: string; value?: string; slug?: string };
+  suburb?: { label?: string; value?: string; slug?: string };
   regular_price?: string | number;
   sale_price?: string | number;
   price_difference?: string | number;
@@ -59,8 +64,9 @@ type ProductData = {
   image?: string[];
   title?: string;
   location_shortcode?: string;
+  seller_type?: string;
   sku?: string;
-  image_format?: string[];
+  image_url?: string[];
 };
 
 interface BlogPost extends HomeBlogPost {
@@ -73,30 +79,35 @@ interface BlogPost extends HomeBlogPost {
   excerpt?: string;
   link?: string;
 }
+function ftToMeters(value: string): string | null {
+  const num = parseFloat(value);
+  if (isNaN(num)) return null;
+  return `(${(num * 0.3048).toFixed(1)}m)`;
+}
+
 export default function ClientLogger({
   data,
 }: {
   data: ProductDetailResponse;
 }) {
   // const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
-  console.log("datap", data);
   const router = useRouter();
+ 
 
   // const [activeImage, setActiveImage] = useState<string>("");
   const pd: ApiData = data?.data ?? {};
-  console.log("pd", pd);
   const productDetails: ProductData = pd.product_details ?? {};
   const blogPosts: BlogPost[] = Array.isArray(data?.data?.latest_blog_posts)
     ? data.data.latest_blog_posts!
     : [];
-  
+  const apiImages: string[] = Array.isArray(productDetails.image_url)
+    ? productDetails.image_url.filter(Boolean)
+    : [];
 
   const relatedProducts: ProductData[] = Array.isArray(data?.data?.related)
     ? data.data.related!
     : [];
-const [apiImages, setApiImages] = useState<string[]>([]);
 
-  console.log("releated", blogPosts);
   const loadedCount = useRef(0);
 
   // const handleImageLoad = () => {
@@ -106,8 +117,6 @@ const [apiImages, setApiImages] = useState<string[]>([]);
   // };
 
   const [showPopup, setShowPopup] = useState(false);
-
-  console.log("datapb", relatedProducts);
 
   const product: ProductData = productDetails;
   const isBrowser = typeof window !== "undefined";
@@ -223,23 +232,16 @@ const [apiImages, setApiImages] = useState<string[]>([]);
     return slug ? `/product/${slug}/` : "";
   };
   type LinkOut = { href: string; text: string };
-  type SpecItem = { label: string; value: string; url?: string };
+  type SpecItem = { label: string; value: string; url?: string; links?: LinkOut[] };
 
   // ---------- spec fields with API urls ----------
   const specFields: SpecItem[] = [
-    // {
-    //   label: "Type",
-    //   value: categoryNames.join(", ") || getAttr("Type"),
-    //   url: findAttr("Type")?.url,
-    // },
-   
-
-    { label: "Make", value: getAttr("Make"), url: findAttr("Make")?.url },
-     {
-      label: "Engine Make",
-      value: getAttr("Engine Make"),
-      url: findAttr("Engine Make")?.url,
+    {
+      label: "Type",
+      value: categoryNames.join(", ") || getAttr("Type"),
+      url: findAttr("Type")?.url,
     },
+    { label: "Make", value: getAttr("Make"), url: findAttr("Make")?.url },
     { label: "Model", value: getAttr("Model"), url: findAttr("Model")?.url },
     { label: "Year", value: getAttr("Years"), url: findAttr("Years")?.url },
     {
@@ -248,40 +250,44 @@ const [apiImages, setApiImages] = useState<string[]>([]);
       url: findAttr("Conditions")?.url,
     },
     {
-      label: "RV Class",
-      value: getAttr("RV Class"),
-      url: findAttr("RV Class")?.url,
-    },
-
-    {
       label: "Length",
       value: getAttr("Length") || getAttr("length"),
       url: findAttr("Length")?.url ?? findAttr("length")?.url, // ✅ API url (e.g. "under-16-length-in-feet")
     },
-    { label: "Width", value: getAttr("Width"), url: findAttr("Width")?.url },
-    { label: "Height", value: getAttr("Height"), url: findAttr("Height")?.url },
-    { label: "GVM", value: getAttr("GVM"), url: findAttr("GVM")?.url },
-    { label: "Tare Mass", value: getAttr("Tare Mass"), url: findAttr("Tare Mass")?.url },
-    { label: "Payload Weight", value: getAttr("Payload Weight"), url: findAttr("Payload Weight")?.url },
-    { label: "GCM", value: getAttr("GCM"), url: findAttr("GCM")?.url },
-    { label: "Engine Capacity", value: getAttr("Engine Capacity"), url: findAttr("Engine Capacity")?.url },
-    { label: "Engine Type", value: getAttr("Engine Type"), url: findAttr("Engine Type")?.url },
-    { label: "Engine Power", value: getAttr("Engine Power"), url: findAttr("Engine Power")?.url },
-    { label: "Engine Torque", value: getAttr("Engine Torque"), url: findAttr("Engine Torque")?.url },
-    { label: "Fuel Type", value: getAttr("Fuel Type"), url: findAttr("Fuel Type")?.url },
-    { label: "Transmission", value: getAttr("Transmission"), url: findAttr("Transmission")?.url },
-    { label: "Odometer", value: getAttr("Odometer"), url: findAttr("Odometer")?.url },
+    { label: "Sleep", value: getAttr("sleeps"), url: findAttr("sleeps")?.url },
+    { label: "ATM", value: getAttr("ATM"), url: findAttr("ATM")?.url }, // ✅ API url (e.g. "under-2000-kg-atm")
+    { label: "Tare Mass", value: getAttr("Tare Mass") },
+    { label: "Axle Configuration", value: getAttr("Axle Configuration") },
 
-    // { label: "Sleep", value: getAttr("sleeps"), url: findAttr("sleeps")?.url },
-    // { label: "ATM", value: getAttr("ATM"), url: findAttr("ATM")?.url }, // ✅ API url (e.g. "under-2000-kg-atm")
-    // { label: "Tare Mass", value: getAttr("Tare Mass") },
-    // { label: "Axle Configuration", value: getAttr("Axle Configuration") },
-
-    // { label: "Ball Weight", value: getAttr("Ball Weight") },
+    { label: "Ball Weight", value: getAttr("Ball Weight") },
     {
       label: "Location",
-      value: getAttr("Location"),
-      url: findAttr("Location")?.url, // e.g. "queensland-state"
+      value: [
+        productDetails.region?.value?.replace(/-/g, " "),
+        getAttr("Location"),
+      ].filter(Boolean).join(", "),
+      links: (() => {
+        const result: LinkOut[] = [];
+        const regionVal = productDetails.region?.value;
+        const regionSlug = productDetails.region?.slug;
+        const state = getAttr("Location");
+        const stateAttr = findAttr("Location");
+        const stateSlug = stateAttr?.url?.trim() || `${slugify(state)}-state`;
+        if (regionVal && regionSlug) {
+          result.push({
+            href: `/listings/${stateSlug}/${regionSlug}/`,
+            text: regionVal.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+          });
+        }
+        if (state) {
+          result.push(
+            stateAttr?.url
+              ? linkFromApiUrl(stateAttr.url, state)
+              : { href: `/listings/${stateSlug}/`, text: state },
+          );
+        }
+        return result.length > 0 ? result : undefined;
+      })(),
     },
   ];
 
@@ -310,15 +316,17 @@ const [apiImages, setApiImages] = useState<string[]>([]);
     // ---- fallback logic ----
     if (L === "category" || L === "type") {
       return v.split(",").map((c) => ({
-        href: `/listings/${slugify(c)}-category/`,
+        href: `/listings/${slugify(c.replace(/\s*caravan\s*/gi, " ").trim())}-category/`,
         text: c.trim(),
       }));
     }
 
     if (L === "make") return [{ href: `/listings/${slugify(v)}/`, text: v }];
 
-    if (L === "model")
-      return [{ href: `/listings/${makeValue}/${slugify(v)}/`, text: v }];
+    if (L === "model") {
+      const makeSlug = findAttr("Make")?.url?.trim().replace(/^\/+|\/+$/g, "") || slugify(makeValue);
+      return [{ href: `/listings/${makeSlug}/${slugify(v)}/`, text: v }];
+    }
 
     if (L === "location" || L === "state")
       return [{ href: `/listings/${slugify(v)}-state/`, text: v }];
@@ -408,8 +416,11 @@ const [apiImages, setApiImages] = useState<string[]>([]);
     router.push(makeHref);
   };
 
-  const makeHref =
-    makeValue && makeValue.trim()
+
+  const makeAttrUrl = findAttr("Make")?.url?.trim().replace(/^\/+|\/+$/g, "");
+  const makeHref = makeAttrUrl
+    ? `/listings/${makeAttrUrl}/`
+    : makeValue?.trim()
       ? `/listings/${slugify(makeValue)}/`
       : "/listings/";
 
@@ -417,16 +428,14 @@ const [apiImages, setApiImages] = useState<string[]>([]);
     product.id ?? pd.id ?? product.name;
 
   const productSlug: string | undefined = product.slug ?? pd.slug;
-  console.log("product", data);
 
   const slug = productSlug || "";
   const sku = productDetails.sku;
-  console.log("slug1", productDetails);
-  console.log("rele", relatedProducts);
 
   // ---- gallery state ----
 
   // keep activeImage in sync with main image from API
+
  
 
   // function buildImageCandidates(sku?: string, slug?: string) {
@@ -439,11 +448,10 @@ const [apiImages, setApiImages] = useState<string[]>([]);
   //     ...Array.from({ length: 4 }, (_, i) => `${base}sub${i + 2}.avif`),
   //   ];
   // }
-  const [galleryImages, setGalleryImages] = useState<string[]>([]);
  const [activeImage, setActiveImage] = useState<string>(
   () => {
-    const imgs = Array.isArray(productDetails.image_format)
-      ? productDetails.image_format.filter(Boolean)
+    const imgs = Array.isArray(productDetails.image_url)
+      ? productDetails.image_url.filter(Boolean)
       : [];
     return imgs[0] || "";
   }
@@ -487,21 +495,22 @@ const [apiImages, setApiImages] = useState<string[]>([]);
   //     img.src = url;
   //   });
   // }
+ 
 
   const postTrackEvent = async (product_id: number) => {
-    await fetch("/api/track-product", {
+  try {
+    await fetch("/api/track-product/", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ product_id }),
     });
-  };
-  useEffect(() => {
-    if (!productDetails?.id) return;
+  } catch {}
+};
+ useEffect(() => {
+  if (!productDetails?.id) return;
 
-    postTrackEvent(Number(productDetails.id));
-  }, [productDetails?.id]);
+  postTrackEvent(Number(productDetails.id));
+}, [productDetails?.id]);
   // ✅ Add these states after allSubs state
 
   // ✅ Update the useEffect where you load gallery
@@ -565,18 +574,14 @@ const [apiImages, setApiImages] = useState<string[]>([]);
 
   // const [activeImage, setActiveImage] = useState(main);
 
-  // ✅ Build image URLs from API image_format array
+ 
 
   // ✅ Set active image when productSubImage loads
   useEffect(() => {
-  const imgs = Array.isArray(productDetails.image_format)
-    ? productDetails.image_format.filter(Boolean)
-    : [];
-  setApiImages(imgs);
-  if (imgs.length > 0) {
-    setActiveImage(imgs[0]);
-  }
-}, [productDetails.image_format]);
+    if (apiImages.length > 0) {
+      setActiveImage(apiImages[0]);
+    }
+  }, [apiImages]);
 
   return (
     <>
@@ -643,14 +648,24 @@ const [apiImages, setApiImages] = useState<string[]>([]);
                     </div>
                   </div>
 
-                  {product.location_shortcode &&
-                    product.location_shortcode.trim() !== "" && (
-                      <div className="attributes">
-                        <h6 className="category">
-                          Location- {product.location_shortcode}
-                        </h6>
-                      </div>
-                    )}
+                <div className="attributes d-flex align-items-center gap-2 flex-wrap">
+  
+  {product.location_shortcode && (
+    <span className="location_text">
+      Location - {product.location_shortcode}
+    </span>
+  )}
+
+  {product.seller_type && (
+    <span className="seller_badge">
+      
+          {product.seller_type?.replace(/^\w/, c => c.toUpperCase())}           
+
+     </span>
+  )}
+
+</div>
+
                 </div>
 
                 <div className="caravan_slider_visible">
@@ -700,6 +715,7 @@ const [apiImages, setApiImages] = useState<string[]>([]);
                   {/* Large Image */}
                   <div className="lager_img_view image_container">
                     <div className="background_thumb">
+                       {activeImage && (
                       <Image
                         src={activeImage}
                         width={800}
@@ -708,8 +724,10 @@ const [apiImages, setApiImages] = useState<string[]>([]);
                         className="img-fluid"
                         unoptimized
                       />
+                       )}
                     </div>
                     <Link href="#">
+                      {activeImage && (
                       <Image
                         src={activeImage}
                         width={800}
@@ -718,6 +736,7 @@ const [apiImages, setApiImages] = useState<string[]>([]);
                         className="img-fluid"
                         unoptimized
                       />
+                      )}
                     </Link>
                   </div>
                 </div>
@@ -727,9 +746,8 @@ const [apiImages, setApiImages] = useState<string[]>([]);
                   <ul className="nav nav-pills">
                     <li className="nav-item">
                       <button
-                        className={`nav-link ${
-                          activeTab === "specifications" ? "active" : ""
-                        }`}
+                        className={`nav-link ${activeTab === "specifications" ? "active" : ""
+                          }`}
                         onClick={() => setActiveTab("specifications")}
                       >
                         Specifications
@@ -737,9 +755,8 @@ const [apiImages, setApiImages] = useState<string[]>([]);
                     </li>
                     <li className="nav-item">
                       <button
-                        className={`nav-link ${
-                          activeTab === "description" ? "active" : ""
-                        }`}
+                        className={`nav-link ${activeTab === "description" ? "active" : ""
+                          }`}
                         onClick={() => setActiveTab("description")}
                       >
                         Description
@@ -752,31 +769,39 @@ const [apiImages, setApiImages] = useState<string[]>([]);
                       <div className="tab-pane fade show active">
                         <div className="content-info text-center pb-0">
                           <div className="additional-info">
-<ul suppressHydrationWarning>
+                            <ul>
                               {specFields
                                 .filter((f) => f.value)
                                 .map((f) => {
-                                  const links = linksForSpec(
-                                    f.label,
-                                    String(f.value),
-                                    f.url, // ✅ prefer API-provided url
-                                  );
+                                  const links =
+                                    f.links ??
+                                    linksForSpec(
+                                      f.label,
+                                      String(f.value),
+                                      f.url,
+                                    );
+                                  const isLength = f.label.toLowerCase() === "length";
+                                  const metersLabel = isLength ? ftToMeters(String(f.value)) : null;
                                   return (
                                     <li key={f.label}>
                                       <strong>{f.label}:</strong>{" "}
                                       <span>
                                         {links
                                           ? links.map((lnk, idx) => (
-                                              <span key={lnk.href}>
-                                                <a href={lnk.href}>
-                                                  {lnk.text}
-                                                </a>
-                                                {idx < links.length - 1
-                                                  ? ", "
-                                                  : ""}
-                                              </span>
-                                            ))
+                                            <span key={lnk.href}>
+                                              <a
+                                                href={lnk.href}
+
+                                              >
+                                                {lnk.text}
+                                              </a>
+                                              {idx < links.length - 1
+                                                ? ", "
+                                                : ""}
+                                            </span>
+                                          ))
                                           : String(f.value)}
+                                        {metersLabel && <> {metersLabel}</>}
                                       </span>
                                     </li>
                                   );
@@ -795,7 +820,7 @@ const [apiImages, setApiImages] = useState<string[]>([]);
                   </div>
                 </section>
                 {/* Community Section */}
-
+                
                 {/* Mobile Bottom Bar */}
                 <div className="fixed-bottom-bar d-lg-none">
                   <button
@@ -805,12 +830,11 @@ const [apiImages, setApiImages] = useState<string[]>([]);
                     Contact Seller
                   </button>
                   <button
-                    className="cravan_buyer"
-                    onClick={() => setShowPopup(true)}
-                  >
-                    Caravan Buyer Safety Checklist{" "}
-                    <i className="bi bi-info-circle-fill"></i>
-                  </button>
+                          className="cravan_buyer"
+                          onClick={() => setShowPopup(true)}
+                        >
+                          Caravan Buyer Safety Checklist <i className="bi bi-info-circle-fill"></i>
+                        </button>
                   <p className="terms_text small">
                     By clicking 'Send Enquiry', you agree to Marketplace Network
                     <a href="/privacy-collection-statement">
@@ -897,8 +921,7 @@ const [apiImages, setApiImages] = useState<string[]>([]);
                           className="cravan_buyer"
                           onClick={() => setShowPopup(true)}
                         >
-                          Caravan Buyer Safety Checklist{" "}
-                          <i className="bi bi-info-circle-fill"></i>
+                          Caravan Buyer Safety Checklist <i className="bi bi-info-circle-fill"></i>
                         </button>
                       </div>
                     </div>
@@ -910,6 +933,7 @@ const [apiImages, setApiImages] = useState<string[]>([]);
               {showPopup && (
                 <div className="popup-overlay">
                   <div className="popup-box">
+
                     <button
                       className="popup-close"
                       onClick={() => setShowPopup(false)}
@@ -926,15 +950,16 @@ const [apiImages, setApiImages] = useState<string[]>([]);
 
                     <h2 className="title">Caravan Buyer Safety Checklist</h2>
                     <p className="subtitle">
-                      Follow these steps to reduce the risk of scams when buying
-                      a caravan.
+                      Follow these steps to reduce the risk of scams when buying a caravan.
                     </p>
 
                     <div className="safety-wrapper">
                       <div className="safety-left">
+
                         <h3>Before you buy</h3>
 
                         <ul className="checklist">
+
                           <li>
                             <span className="num">1</span>
                             <div>
@@ -948,9 +973,7 @@ const [apiImages, setApiImages] = useState<string[]>([]);
                             <span className="num">2</span>
                             <div>
                               <h4>Verify the seller</h4>
-                              <p>
-                                Confirm identity and speak directly with them.
-                              </p>
+                              <p>Confirm identity and speak directly with them.</p>
                             </div>
                           </li>
 
@@ -978,9 +1001,12 @@ const [apiImages, setApiImages] = useState<string[]>([]);
                             </div>
                             {/* <a href="#" className="btn-light">Report Listing</a> */}
                           </li>
+
                         </ul>
+
                       </div>
                     </div>
+
                   </div>
                 </div>
               )}
@@ -1062,7 +1088,7 @@ const [apiImages, setApiImages] = useState<string[]>([]);
                               <div className="product_de">
                                 <div className="info">
                                   <h6 className="category">
-                                    <i className="fa fa-map-marker-alt"></i>{" "}
+                                    <i className="fa-solid fa-location-dot"></i>{" "}
                                     <span>{post.location}</span>
                                   </h6>
                                   <h3 className="title">{post.title}</h3>
@@ -1107,6 +1133,7 @@ const [apiImages, setApiImages] = useState<string[]>([]);
         <div className="container">
           <div className="news-title">
             <div className="tpof_tab">
+              
               <h3>Latest News, Reviews & Advice</h3>
             </div>
           </div>
@@ -1126,36 +1153,36 @@ const [apiImages, setApiImages] = useState<string[]>([]);
             >
               {blogPosts.length === 0
                 ? Array.from({ length: 4 }).map((_, idx) => (
-                    <SwiperSlide key={`blog-skeleton-${idx}`}>
-                      <ProductSkelton />
-                    </SwiperSlide>
-                  ))
+                  <SwiperSlide key={`blog-skeleton-${idx}`}>
+                    <ProductSkelton />
+                  </SwiperSlide>
+                ))
                 : blogPosts.map((post) => {
-                    const href = getHref(post);
-                    return (
-                      <SwiperSlide key={post.id}>
-                        <a href={href}>
-                          <div className="product-card">
-                            <div className="img">
-                              <Image
-                                src={post.image}
-                                alt={post.title}
-                                width={400}
-                                height={250}
-                                unoptimized
-                              />
-                            </div>
-                            <div className="product_de">
-                              <div className="info">
-                                <h5 className="title">{post.title}</h5>
-                                <p>{post.excerpt}</p>
-                              </div>
+                  const href = getHref(post);
+                  return (
+                    <SwiperSlide key={post.id}>
+                      <a href={href}>
+                        <div className="product-card">
+                          <div className="img">
+                            <Image
+                              src={post.image}
+                              alt={post.title}
+                              width={400}
+                              height={250}
+                              unoptimized
+                            />
+                          </div>
+                          <div className="product_de">
+                            <div className="info">
+                              <h5 className="title">{post.title}</h5>
+                              <p>{post.excerpt}</p>
                             </div>
                           </div>
-                        </a>
-                      </SwiperSlide>
-                    );
-                  })}
+                        </div>
+                      </a>
+                    </SwiperSlide>
+                  );
+                })}
               {!blogPosts.length && (
                 <div className="col-12 py-3 text-muted">No posts found.</div>
               )}

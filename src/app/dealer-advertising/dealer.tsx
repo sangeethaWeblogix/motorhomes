@@ -1,11 +1,13 @@
 "use client";
+import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
+import "@fortawesome/fontawesome-free/css/solid.min.css";
 import { useState } from "react";
 
 const DealerLandingPage = () => {
 
   const [activeFaq, setActiveFaq] = useState(null);
 
-  const toggleFaq = (id: any) => {
+  const toggleFaq = (id) => {
     setActiveFaq(activeFaq === id ? null : id);
   };
 
@@ -24,7 +26,7 @@ const DealerLandingPage = () => {
                 <h1>
                   Unlimited Listings. Zero Lead Fees. <br />
                   <span className="color-text">
-                    $199 per month{" "}
+                    $299 per month{" "}
                     <span style={{ fontSize: "20px" }}>(inc. GST)</span>
                   </span>{" "}
                   <span className="no-color-text">- Cancel anytime</span>
@@ -77,17 +79,17 @@ const DealerLandingPage = () => {
                         <div className="row">
                           {[
                             {
-                              img: "/images/seo_keyword.svg?=1",
+                              img: "/images/seo_keyword.svg",
                               title: "Ranking for 300+ High-Intent Keywords",
                               desc: "Get discovered by buyers actively searching for caravans.",
                             },
                             {
-                              img: "/images/visiter.svg?=1",
+                              img: "/images/visiter.svg",
                               title: "1000's of Daily Visitors & Growing",
                               desc: "Reach a highly engaged, caravan-buyer-specific audience every day",
                             },
                             {
-                              img: "/images/inbox.svg?=1",
+                              img: "/images/inbox.svg",
                               title: "Daily Leads Delivered to Your Inbox",
                               desc: "Fresh, high-quality leads sent directly to you.",
                             },
@@ -240,7 +242,7 @@ const DealerLandingPage = () => {
                   <h2>Simple Pricing. No Surprises.</h2>
 
                   <div className="price">
-                    $199 Per Month{" "}
+                    $299 Per Month{" "}
                     <span style={{ fontSize: "20px" }}>(inc. GST)</span>
                   </div>
 
@@ -285,11 +287,11 @@ const DealerLandingPage = () => {
               <div className={`collapse ${activeFaq === 1 ? "show" : ""}`}>
                 <div className="card-body">
                   <p>
-                    The dealer subscription is $199 per month (including GST). This flat
+                    The dealer subscription is $299 per month (including GST). This flat
                     monthly fee allows your dealership to list unlimited caravans on
                     CaravansForSale.com.au. There are no per-listing charges, and we never
                     charge per lead or take success commissions – no matter how many
-                    inquiries or sales you get, $199/month covers it all.
+                    inquiries or sales you get, $299/month covers it all.
                   </p>
                 </div>
               </div>

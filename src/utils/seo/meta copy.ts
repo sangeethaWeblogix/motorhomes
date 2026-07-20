@@ -147,7 +147,7 @@ if (parsed.suburb) {
     description,
     robots,
     verification: {
-        // google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo",
+      google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo",
     },
     alternates: {
       canonical,

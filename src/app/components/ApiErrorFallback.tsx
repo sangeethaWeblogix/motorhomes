@@ -1,6 +1,7 @@
- "use client";
+"use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface ApiErrorFallbackProps {
   title?: string;
@@ -8,6 +9,7 @@ interface ApiErrorFallbackProps {
   showRetry?: boolean;
   errorType?: "network" | "api" | "empty" | "unknown";
   onClearFilters?: () => void;
+  errorSource?: "FRONTEND" | "BACKEND";
 }
 
 export default function ApiErrorFallback({
@@ -16,7 +18,38 @@ export default function ApiErrorFallback({
   showRetry = true,
   errorType = "unknown",
   onClearFilters,
+  errorSource,
 }: ApiErrorFallbackProps) {
+  const [countdown, setCountdown] = useState(10);
+  const [autoRetryEnabled, setAutoRetryEnabled] = useState(false);
+
+  const RETRY_KEY = "api_error_retry_count";
+  const MAX_RETRIES = 3;
+
+  useEffect(() => {
+    if (errorSource !== "BACKEND") return;
+    const retries = parseInt(sessionStorage.getItem(RETRY_KEY) || "0", 10);
+    if (retries >= MAX_RETRIES) return; // stop after 3 attempts
+    setAutoRetryEnabled(true);
+  }, [errorSource]);
+
+  useEffect(() => {
+    if (!autoRetryEnabled) return;
+    const interval = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          const retries = parseInt(sessionStorage.getItem(RETRY_KEY) || "0", 10);
+          sessionStorage.setItem(RETRY_KEY, String(retries + 1));
+          window.location.reload();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [autoRetryEnabled]);
+
   const handleRetry = () => {
     window.location.reload();
   };
@@ -38,6 +71,9 @@ export default function ApiErrorFallback({
 
   // ✅ Dynamic message based on error type
   const getMessage = () => {
+    if (errorSource === "BACKEND") {
+      return "Our servers are temporarily busy. We'll reload the page automatically.";
+    }
     if (message) return message;
     switch (errorType) {
       case "network":
@@ -53,6 +89,13 @@ export default function ApiErrorFallback({
 
   // ✅ Dynamic suggestions based on error type
   const getSuggestions = () => {
+    if (errorSource === "BACKEND") {
+      return [
+        "We're automatically retrying for you",
+        "Or click Try Again to reload now",
+        "Contact support if the issue keeps happening",
+      ];
+    }
     switch (errorType) {
       case "network":
         return [
@@ -74,9 +117,9 @@ export default function ApiErrorFallback({
         ];
       default:
         return [
-          "Checking your internet connection",
-          "Refreshing the page",
-          "Coming back in a few minutes",
+          "Refresh the page",
+          "Come back in a few minutes",
+          "Contact support if the issue persists",
         ];
     }
   };
@@ -204,20 +247,48 @@ export default function ApiErrorFallback({
           width: "100%",
         }}
       >
-        {/* Icon with background circle */}
-        <div
-          style={{
-            width: "100px",
-            height: "100px",
-            borderRadius: "50%",
-            background: getIconBgColor(),
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            margin: "0 auto 24px auto",
-          }}
-        >
-          {getIcon()}
+        {/* Error illustration */}
+        <div style={{ margin: "0 auto 24px auto", width: "220px" }}>
+          <svg
+            viewBox="0 0 220 140"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{ width: "100%", height: "auto" }}
+          >
+            {/* Road */}
+            <rect x="0" y="118" width="220" height="22" rx="4" fill="#e9ecef" />
+            <rect x="85" y="125" width="20" height="5" rx="2" fill="#ced4da" />
+            <rect x="115" y="125" width="20" height="5" rx="2" fill="#ced4da" />
+
+            {/* Caravan body */}
+            <rect x="40" y="78" width="120" height="42" rx="6" fill="#ffffff" stroke="#dee2e6" strokeWidth="2" />
+            {/* Caravan roof curve */}
+            <path d="M46 78 Q100 60 154 78" fill="#f1f3f5" stroke="#dee2e6" strokeWidth="1.5" />
+            {/* Caravan window */}
+            <rect x="58" y="88" width="24" height="18" rx="3" fill="#cfe2ff" stroke="#93c5fd" strokeWidth="1.5" />
+            <rect x="92" y="88" width="24" height="18" rx="3" fill="#cfe2ff" stroke="#93c5fd" strokeWidth="1.5" />
+            {/* Caravan door */}
+            <rect x="128" y="90" width="18" height="30" rx="3" fill="#f8f9fa" stroke="#dee2e6" strokeWidth="1.5" />
+            <circle cx="143" cy="106" r="2" fill="#adb5bd" />
+            {/* Hitch */}
+            <rect x="28" y="105" width="14" height="5" rx="2" fill="#adb5bd" />
+            <rect x="22" y="100" width="8" height="14" rx="2" fill="#adb5bd" />
+            {/* Wheels */}
+            <circle cx="72" cy="120" r="9" fill="#495057" />
+            <circle cx="72" cy="120" r="4" fill="#adb5bd" />
+            <circle cx="142" cy="120" r="9" fill="#495057" />
+            <circle cx="142" cy="120" r="4" fill="#adb5bd" />
+
+            {/* Error badge */}
+            <circle cx="168" cy="42" r="22" fill="#fff5f5" stroke="#fca5a5" strokeWidth="2" />
+            <circle cx="168" cy="42" r="17" fill="#fee2e2" />
+            <text x="168" y="48" textAnchor="middle" fontSize="20" fontWeight="bold" fill="#dc3545">!</text>
+
+            {/* Broken signal lines */}
+            <line x1="100" y1="18" x2="100" y2="30" stroke="#dc3545" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 3" />
+            <line x1="100" y1="34" x2="100" y2="50" stroke="#dee2e6" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 3" />
+            <line x1="90" y1="56" x2="100" y2="65" stroke="#dee2e6" strokeWidth="1.5" strokeDasharray="3 3" />
+            <line x1="110" y1="56" x2="100" y2="65" stroke="#dee2e6" strokeWidth="1.5" strokeDasharray="3 3" />
+          </svg>
         </div>
 
         {/* Title */}
@@ -226,11 +297,37 @@ export default function ApiErrorFallback({
             fontSize: "24px",
             fontWeight: 700,
             color: "#212529",
-            margin: "0 0 12px 0",
+            margin: "0 0 10px 0",
           }}
         >
           {getTitle()}
         </h2>
+
+        {/* Auto-retry countdown for backend errors */}
+        {errorSource === "BACKEND" && autoRetryEnabled && countdown > 0 && (
+          <div style={{ marginBottom: "14px" }}>
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                padding: "5px 14px",
+                borderRadius: "20px",
+                fontSize: "13px",
+                fontWeight: 500,
+                background: "#eff6ff",
+                color: "#1d4ed8",
+                border: "1px solid #bfdbfe",
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="23 4 23 10 17 10" />
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+              </svg>
+              Retrying in {countdown}s…
+            </span>
+          </div>
+        )}
 
         {/* Message */}
         <p

@@ -1,6 +1,8 @@
 "use client";
+import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
+import "@fortawesome/fontawesome-free/css/solid.min.css";
 
-import { useState } from "react"; // ✅ missing import
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -159,7 +161,7 @@ export default function EverestCaravans() {
                     <div className="product_de">
                       <div className="info">
                         <h6 className="category">
-                          <i className="fa fa-map-marker-alt"></i>
+                          <i className="fa-solid fa-location-dot"></i>
                           <span>Western Australia</span>
                         </h6>
                         <h3 className="title">
@@ -198,7 +200,7 @@ export default function EverestCaravans() {
                     <div className="product_de">
                       <div className="info">
                         <h6 className="category">
-                          <i className="fa fa-map-marker-alt"></i>
+                          <i className="fa-solid fa-location-dot"></i>
                           <span>Tasmania</span>
                         </h6>
                         <h3 className="title">

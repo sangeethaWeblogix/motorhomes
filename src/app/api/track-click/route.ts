@@ -1,3 +1,4 @@
+const API_KEY = process.env.CFS_API_KEY; // ✅ Added
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -13,11 +14,12 @@ export async function POST(req: Request) {
   console.log("IPUA:", user_agent);
     // 🔥 Your existing API call (move here)
     await fetch(
-      "https://admin.motorhomesforsale.com.au/wp-json/cfs/v1/update-clicks",
+      "https://admin.caravansforsale.com.au/wp-json/cfs/v1/update-clicks",
       {
         method: "POST",
-        headers: {
+       headers: {
           "Content-Type": "application/json",
+          ...(API_KEY && { "X-API-Key": API_KEY }), // ✅ Added
         },
         body: JSON.stringify({
           product_id: body.product_id,
@@ -28,7 +30,7 @@ export async function POST(req: Request) {
     );
 
     return Response.json({ success: true });
-  } catch (e) {
+  } catch (_e) {
     return Response.json({ success: false });
   }
 }

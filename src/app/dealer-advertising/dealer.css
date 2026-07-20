@@ -18,7 +18,7 @@
   line-height: 60px;
 }
 .banner_section .banner_text h1 .color-text {
-  color: #0099da;
+  color: #f27218;
   font-size: 37px;
   font-weight: 700;
 }
@@ -33,10 +33,10 @@
 }
 .white_btn {
   padding: 15px 65px;
-  border: 1px solid #0099da;
+  border: 1px solid #f58333;
   color: #ffffff;
   border-radius: 6px;
-  background-color: #0099da;
+  background-color: #f58333;
   font-weight: 700;
   position: relative;
   z-index: 1;
@@ -58,7 +58,7 @@
 }
 .white_btn:hover {
     color: #ffffff;
-    background-color: #038ec7;
+    background-color: #ee6200;
 }
 .row_am {
   padding: 50px 0;
@@ -90,7 +90,7 @@
   width: 100%;
   height: 100%;
   background: transparent
-    linear-gradient(98deg, #038ec7 0, #ffd119 53%, #0dcea6 100%) 0 0 no-repeat
+    linear-gradient(98deg, #f27218 0, #ffd119 53%, #0dcea6 100%) 0 0 no-repeat
     padding-box;
   position: absolute;
   left: 0;
@@ -189,7 +189,7 @@
   position: relative;
 }
 .comparison {
-  background: #0099da;
+  background: #f58333;
   padding-top: 0;
   border-radius: 20px;
   border: 1px solid #e9e9e9;
@@ -231,11 +231,11 @@
   text-align: center;
 }
 .comparison th {
-    color: #000;
-    text-align: center;
-    background: #eef2f4;
-    border: 1px solid #d9dfe2;
-    font-weight: 600;
+  background: rgb(245 131 51 / 9%);
+  font-weight: 600;
+  border: 1px solid #efe1d7;
+  color: #000000;
+  text-align: center;
 }
 .comparison td:first-child {
   text-align: left;
@@ -437,7 +437,7 @@
 }
 .price {
     font-size: 32px;
-    color: #0099da;
+    color: #f58333;
     margin-bottom: 20px;
     font-weight: bold;
 }
@@ -458,7 +458,7 @@
     width: 15px;
     height: 15px;
     position: absolute;
-    background: url("/images/check-orange.svg?=1");
+    background: url("/images/check-orange.svg");
     background-size: cover;
     left: 0;
     top: 5px;

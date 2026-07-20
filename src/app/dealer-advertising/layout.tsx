@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 
  export const metadata: Metadata = {
    title: {
-     default: "Caravan Dealer Advertising | Unlimited Listings $199/Month | CaravansForSale",
+     default: "Caravan Dealer Advertising | Unlimited Listings $299/Month | CaravansForSale",
      template: "%s ",
    },
    description:
@@ -13,7 +13,7 @@ import { ReactNode } from "react";
    icons: { icon: "/favicon.ico" },
    robots: "index, follow",
    verification: {
-       // google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ this auto generates <meta name="google-site-verification" />
+     google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ this auto generates <meta name="google-site-verification" />
    },
    alternates: {
     canonical: "https://www.caravansforsale.com.au/dealer-advertising/",

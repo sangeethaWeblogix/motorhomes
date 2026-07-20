@@ -11,17 +11,16 @@ import { fetchUsedCaravansList } from "@/api/homeApi/usedCaravanList/api";
 import { fetchStateBasedCaravans } from "@/api/homeApi/state/api";
 import { fetchRequirements } from "@/api/postRquirements/api";
 
-import { fetchHomePage, type HomeBlogPost } from "@/api/home/api";
 
  export const metadata: Metadata = {
    title: "Caravans For Sale – Australia’s Marketplace for New & Used Caravans",
    description:
-     "Browse new & used motorhomes for saleacross Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
+         "Browse caravans for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
    robots: "index, follow",
    openGraph: {
      title: "Caravans For Sale – Australia’s Marketplace for New & Used Caravans",
      description:
-       "Browse new & used motorhomes for saleacross Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
+       "Browse new & used caravans for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
      // url: "https://www.caravansforsale.com.au",
      // siteName: "https://www.caravansforsale.com.au",
      // type: "product",
@@ -30,13 +29,13 @@ import { fetchHomePage, type HomeBlogPost } from "@/api/home/api";
      card: "summary_large_image",
      title: "Caravans For Sale – Australia’s Marketplace for New & Used Caravans",
      description:
-       "Browse new & used motorhomes for saleacross Australia.",
+       "Browse new & used caravans for sale across Australia.",
    },
    alternates: {
      canonical: "https://www.caravansforsale.com.au",
    },
    verification: {
-       // google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo",
+     google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo",
    },
  };
 
@@ -50,8 +49,7 @@ import { fetchHomePage, type HomeBlogPost } from "@/api/home/api";
     priceBands,
     usedData,
     stateBands,
-     requirements,  
-     homeblog,
+     requirements,
   ] = await Promise.all([
     fetchSleepBands(),
     fetchRegion(),
@@ -61,9 +59,7 @@ import { fetchHomePage, type HomeBlogPost } from "@/api/home/api";
     fetchPriceBasedCaravans(),
     fetchUsedCaravansList(),
     fetchStateBasedCaravans(),
-        fetchRequirements(), // ← add
-        fetchHomePage(),
-
+    fetchRequirements(),
   ]);
 console.log("homestate", stateBands)
 
@@ -78,7 +74,6 @@ console.log("homestate", stateBands)
       usedData={usedData}
       stateBands={stateBands}
       requirements={requirements}
-      homeblog={homeblog?.latest_posts ?? []}
     />
   );
 }

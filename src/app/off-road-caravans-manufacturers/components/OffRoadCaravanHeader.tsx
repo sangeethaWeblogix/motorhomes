@@ -13,7 +13,7 @@ const OffRoadCaravanHeader = () => {
             </h1>
             <p>
               Comprehensive information that helps our users research in the
-              ever growing off road motorhomesale marketplace in Australia.
+              ever growing off road caravan marketplace in Australia.
             </p>
             <div>
               <Link

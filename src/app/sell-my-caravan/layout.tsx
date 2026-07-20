@@ -1,27 +1,16 @@
- import { Metadata } from "next";
+import { Metadata } from "next";
 import { ReactNode } from "react";
 
+export const metadata: Metadata = {
+  title: "Sell My Caravan Online Australia | List Until Sold for $49",
+  description:
+    "Sell your caravan online across Australia for just $49. List until sold, edit anytime, pay no commission and connect directly with genuine caravan buyers.",
+  robots: "index, follow",
+  alternates: {
+    canonical: "https://www.caravansforsale.com.au/sell-my-caravan/",
+  },
+};
 
-
- export const metadata: Metadata = {
-   title: {
-     default: "Sell Your Caravan for $35 Until Sold | CaravansForSale.com.au",
-     template: "%s ",
-   },
-   description:
-     "Sell your caravan on CaravansForSale.com.au for just $35 until sold. No subscriptions, no commissions, and connect directly with caravan buyers across Australia.",
-   icons: { icon: "/favicon.ico" },
-   robots: "index, follow",
-   verification: {
-       // google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ this auto generates <meta name="google-site-verification" />
-   },
-   alternates: {
-    canonical: "https://www.caravansforsale.com.au/dealer-advertising/",
-   },
-   
- 
- };
- 
-   export default function Layout({ children }: { children: ReactNode }) {
-    return <div>{children}</div>;
-  }
+export default function Layout({ children }: { children: ReactNode }) {
+  return <div>{children}</div>;
+}

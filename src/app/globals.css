@@ -1,3 +1,5 @@
+
+
 /* ✅ ALL @import MUST come first */
 /* @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"); */
 
@@ -18,6 +20,13 @@ body {
   background: #ffffff;
   color: #000000;
   font-family: "Montserrat", Arial, Helvetica, sans-serif !important;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body > main {
+  flex: 1 1 0%;
 }
 
 a,
@@ -56,24 +65,17 @@ img {
   background-color: #333333;
 }
 .navbar.style-4.header-white .navbar-nav .nav-item .nav-link {
-  color: #333;
+  color: #000000;
   text-transform: capitalize;
   letter-spacing: 0.3px;
 }
 
-.home_top .btn {
-  display: block;
-  background: transparent;
-  border: 2px solid #333333;
-  text-transform: uppercase;
-  font-size: 18px;
-  color: #333 !important;
+.navbar.style-4.header-white .navbar-nav .nav-item .nav-link:hover {
+  color: #000000;
 }
 
-.home_top .btn:hover {
-  background: #038ec7;
-  border-color: #038ec7 !important;
-}
+
+
 
 .navbar.style-4.header-white .sidenav {
   background-color: #fcfcfc;
@@ -96,8 +98,9 @@ img {
 
 .btn:hover,
 .btn:focus {
-  background: #038ec7;
+  background: #ec7200;
   border-color: transparent !important;
+  color: #fff;
 }
 
 .banner_ad_now {
@@ -414,18 +417,24 @@ small {
   font-size: 17px;
   text-transform: capitalize;
   font-weight: 600;
-  margin-bottom: 0;
+  margin-bottom: 10px;
   text-decoration: inherit;
-  height: 70px;
   color: #000;
   margin-top: 0;
+  text-align: left;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  
 }
 
 .product-page .product-card .price {
   margin-top: 0px;
   font-size: 20px;
   font-weight: bold;
-  color: #038ec7;
+  color: #ec7200;
 }
 
 .product-page .product-card .price ins {

@@ -9,7 +9,7 @@
 }
 .product-page .product-info .title {
   text-transform: capitalize;
-  margin-bottom: 0;
+  margin-bottom: 5px;
   font-size: 25px;
   font-weight: 700;
   margin-top: 0;
@@ -92,20 +92,23 @@
   filter: blur(5px);
 }
 .slider_thumb_vertical .img {
-  min-height: 90px;
-  max-height: 90px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+    max-height: 100px;
+    max-width: 100px;
+    margin-bottom: 10px;
+    display: flex;
+    position: relative;
+    overflow: hidden;
 }
 .slider_thumb_vertical img {
-  max-height: 90px;
-  min-height: 90px;
-  width: auto;
+    width: auto;
+    min-height: 100px;
+    max-height: 100px;
+    max-width: 100px;
+    object-fit: cover;
 }
 .lager_img_view .background_thumb {
   position: absolute;
@@ -117,18 +120,18 @@
   opacity: 0.5;
 }
 .caravan_slider_visible div a img {
-  width: auto;
+  width: 100%;
   max-width: 100%;
   max-height: 390px;
   min-height: 390px;
-  object-fit: contain;
+  object-fit: cover;
   position: relative;
   z-index: 1;
 }
 .caravan__image_count {
   position: absolute;
   bottom: 20px;
-  left: 42%;
+  left: 37%;
   color: #fff;
   font-size: 30px;
   font-weight: 600;
@@ -177,7 +180,7 @@
   border: 0;
 }
 .contactSeller__container .price_section .price-shape span {
-  color: #0099da !important;
+  color: #ec7200 !important;
   font-size: 30px;
   font-weight: 700;
 }
@@ -192,8 +195,8 @@
 .contact_dealer button {
   border-radius: 30px;
   display: inline-block;
-  background-color: #0099da;
-  border: 1px solid #0099da;
+  background-color: #ec7200;
+  border: 1px solid #ec7200;
   color: #fff;
   text-align: center;
   padding: 15px 50px;
@@ -268,8 +271,8 @@
 }
 
 .product-page .product-details .nav-pills .nav-link.active {
-  color: #0099da;
-  border-color: #0099da;
+  color: #ec7200;
+  border-color: #ec7200;
 }
 .product-page .product-details .additional-info ul {
   border: 1px solid #0002;
@@ -416,7 +419,7 @@
 .price-card__sale {
   font-size: 28px;
   font-weight: 800;
-  color: #038ec7; /* orange like screenshot */
+  color: #f28c1a; /* orange like screenshot */
   line-height: 1.1;
 }
 
@@ -458,7 +461,7 @@
   padding: 14px 18px;
   border: none;
   border-radius: 9999px;
-  background: #038ec7;
+  background: #f28c1a;
   color: #fff;
   font-weight: 700;
   cursor: pointer;
@@ -507,8 +510,8 @@
     color: #fff;
     text-transform: capitalize;
     letter-spacing: 0;
-    background: #0099da;
-    border: 1px solid #0099da;
+    background: #ec7200;
+    border: 1px solid #ec7200;
     border-radius: 20px;
     width: 100%;
     margin-top: 0;
@@ -524,7 +527,7 @@
 }
 
 .terms_text a {
-  color: #0099da;
+  color: #ec7200;
 }
 
 .related-products h3 {
@@ -608,8 +611,8 @@
 }
 
 .checklist li .btn-secondary {
-    color: #038ec7;
-    background: #f5f8f9;
+    color: #f47b00;
+    background: #fff3e8;
     border-radius: 20px;
     padding: 5px 15px;
     font-weight: 500;
@@ -637,8 +640,8 @@
 }
 
 .num{
-  background:#f5f8f9;
-  color:#038ec7;
+  background:#ffe7d0;
+  color:#f47b00;
   width:34px;
   height:34px;
   border-radius:50%;
@@ -696,7 +699,7 @@
 
 .btn-secondary{
   background:#fff3e8;
-  color:#038ec7;
+  color:#f47b00;
   padding:8px 14px;
   border-radius:20px;
   text-decoration:none;
@@ -717,8 +720,8 @@
 }
 
 .btn-primary{
-  background:#0099da;
-  border-color: #0099da;
+  background:#ec7200;
+  border-color: #ec7200;
   color:#fff;
   padding:14px 65px;
   border-radius:30px;
@@ -817,7 +820,18 @@
 }
 
 @media (min-width: 768px) and (max-width: 997px) {
-  /*  */
+  .caravan_slider_visible div a img {
+    max-height: 280px;
+    min-height: 280px;
+  }
+  .community.style-5 .content .commun-card {
+    width: 50%;
+    margin-bottom: 16px;
+  }
+  .community.style-5 .content .commun-card:last-child {
+    width: 100%;
+    border-right: none;
+  }
   .price-container {
     display: flex;
     justify-content: space-between;
@@ -1034,7 +1048,7 @@
   }
 
   .current-price {
-    color: #0099da;
+    color: #ec7200;
     font-size: 25px;
     font-weight: bold;
   }
@@ -1054,6 +1068,10 @@
 
   .save-label {
     color: #0070f3;
+}
+
+.popup-box .title, .subtitle {
+text-align: left;
 }
 
   .save-value {
@@ -1084,4 +1102,66 @@
   background: #e3e3e3;
   border-radius: 4px;
   min-height: 96px;
+}
+
+  .attributes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap; /* mobile la break aganum */
+}
+
+.location_text {
+  font-size: 14px;
+  color: #333;
+}
+
+.seller_badge {
+    color: #555;
+    background: #f1f1f1;
+    border-radius: 4px;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    font-size: 13px;
+    font-weight: 400;
+    display: inline-flex;
+}
+
+.seller_badge i {
+  font-size: 12px;
+  color: #666;
+}
+@media (min-width: 1920px) {
+  .popup-box {
+    width: 1100px;
+  }
+  .caravan_slider_visible div a img {
+    max-height: 520px;
+    min-height: 520px;
+  }
+}
+
+/* ── Sell CTA section (reused from home page) ── */
+.hbg-sell-section { padding: 60px 0 0px; background: #fff; }
+.hbg-sell-card { background: #f8f9fa; border: 1px solid #e8e8e8; border-radius: 16px; padding: 25px 60px; text-align: center; }
+.hbg-sell-icon-row { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 20px; }
+.hbg-sell-line { display: block; width: 70px; height: 1px; background: #d0d0d0; }
+.hbg-sell-icon-wrap { width: 52px; height: 52px; border-radius: 50%; background: #fff; border: 1.5px solid #d0d0d0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.hbg-sell-icon-wrap img { width: 40px; height: 40px; }
+.hbg-sell-title { color: #000; margin: 0 0 14px; font-size: 1.45rem; font-weight: 600; line-height: 1.25; }
+.hbg-sell-body {
+    color: #000;
+    margin: 0 auto;
+    font-size: 1rem;
+    line-height: 1.75;
+    max-width: 1024px;
+}
+.hbg-sell-link { color: #1153a6; font-weight: 500; text-decoration: none; }
+.hbg-sell-link:hover { text-decoration: underline; }
+@media (max-width: 767px) {
+  .hbg-sell-section { padding: 0 0 32px; }
+  .hbg-sell-card { padding: 36px 20px; border-radius: 12px; }
+  .hbg-sell-title { font-size: 1.35rem; }
+  .hbg-sell-body { font-size: 0.95rem; }
 }

@@ -1,13 +1,14 @@
 "use client";
-import Link from "next/link";
+import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
+import "@fortawesome/fontawesome-free/css/solid.min.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import Skelton from "../skelton";
-import Head from "next/head";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { haversineKm } from "@/utils/distanceCalc";
 import { toSlug } from "@/utils/seo/slug";
 import ImageWithSkeleton from "../ImageWithSkeleton";
 import { useEnquiryForm } from "./enquiryform";
@@ -28,6 +29,9 @@ interface Product {
   link: string;
   condition: string;
   location?: string;
+  region?: string;
+  suburb?: string;
+  pincode?: string;
   categories?: string[];
   people?: string;
   make?: string;
@@ -47,7 +51,7 @@ interface Product {
   is_exclusive?: boolean;
   is_premium?: boolean;
   image_url?: string[];
-  engine_make?: string;
+  seller_type?: string;
 }
 
 interface Pagination {
@@ -76,6 +80,7 @@ export interface Filters {
   region?: string;
   suburb?: string;
   pincode?: string;
+  radius_kms?: string | number;
   orderby?: string;
   slug?: string | undefined;
 }
@@ -85,8 +90,6 @@ interface Props {
   pagination: Pagination;
   onNext: () => void;
   onPrev: () => void;
-  metaTitle: string; // Add metaTitle prop
-  metaDescription: string; // Add metaDescription prop
   onFilterChange: (filters: Filters) => void;
   currentFilters: Filters;
   preminumProducts: Product[];
@@ -97,6 +100,66 @@ interface Props {
   isPremiumLoading: boolean;
   // isNextLoading: boolean;
   pageTitle: string;
+  initialDistances?: Record<string, number>;
+}
+
+function useProductDistances(
+  searchPincode: string | undefined,
+  products: Product[],
+  initialDistances?: Record<string, number>
+): Map<string, number | null> {
+  const [coordsCache, setCoordsCache] = useState<Record<string, [number, number] | null>>({});
+  const [fetchedDistances, setFetchedDistances] = useState<Record<string, number> | null>(null);
+
+  const pincodeKey = useMemo(
+    () =>
+      [...new Set(products.map((p) => p.pincode).filter(Boolean))].sort().join(","),
+    [products]
+  );
+
+  useEffect(() => {
+    if (!searchPincode) return;
+    const productPincodes = products.map((p) => p.pincode).filter((p): p is string => !!p && /^\d{4}$/.test(p));
+    const uniquePincodes = [...new Set([searchPincode, ...productPincodes])];
+    if (uniquePincodes.length === 0) return;
+
+    fetch(`/api/coords/?p=${uniquePincodes.join(",")}`)
+      .then((r) => r.json())
+      .then((data: Record<string, [number, number] | null>) => {
+        setCoordsCache(data);
+        const fromCoords = data[searchPincode];
+        if (!fromCoords) return;
+        const computed: Record<string, number> = {};
+        for (const pincode of productPincodes) {
+          const toCoords = data[pincode];
+          if (toCoords) computed[pincode] = haversineKm(fromCoords[0], fromCoords[1], toCoords[0], toCoords[1]);
+        }
+        setFetchedDistances(computed);
+      })
+      .catch(() => {});
+  }, [searchPincode, pincodeKey]);
+
+  return useMemo(() => {
+    const map = new Map<string, number | null>();
+    if (!searchPincode) return map;
+    const source = fetchedDistances ?? initialDistances;
+    if (!source) return map;
+    for (const product of products) {
+      if (!product.pincode) continue;
+      const dist = source[product.pincode];
+      map.set(product.pincode, dist != null ? dist : null);
+    }
+    return map;
+  }, [searchPincode, fetchedDistances, initialDistances, pincodeKey]);
+}
+
+function formatLengthWithMeters(length: string): string {
+  if (!length) return length;
+  const num = parseFloat(length);
+  if (isNaN(num)) return length;
+  const meters = (num * 0.3048).toFixed(1);
+  const ftLabel = /ft/i.test(length) ? length.trim() : `${num}ft`;
+  return `${ftLabel} (${meters}m)`;
 }
 
 export default function ListingContent({
@@ -104,8 +167,6 @@ export default function ListingContent({
   pagination,
   onNext,
   onPrev,
-  metaTitle,
-  metaDescription,
   onFilterChange,
   currentFilters,
   preminumProducts,
@@ -116,6 +177,7 @@ export default function ListingContent({
   isMainLoading,
   // isNextLoading,
   pageTitle,
+  initialDistances,
 }: Props) {
   const [swiperActivated, setSwiperActivated] = useState<
     Record<number, boolean>
@@ -133,23 +195,31 @@ export default function ListingContent({
   const [swiperKey, setSwiperKey] = useState(0);
 
   const pathname = usePathname();
+
+  const allProducts = useMemo(
+    () => [...products, ...preminumProducts, ...fetauredProducts, ...exculisiveProducts],
+    [products, preminumProducts, fetauredProducts, exculisiveProducts]
+  );
+  const distanceMap = useProductDistances(
+    currentFilters.suburb ? (currentFilters.pincode as string | undefined) : undefined,
+    allProducts,
+    initialDistances
+  );
+
+
   useEffect(() => {
     try {
       sessionStorage.setItem(
         "listingsReturnUrl",
         window.location.pathname + window.location.search,
       );
-    } catch {}
+    } catch { }
   }, []);
 
   useEffect(() => {
     // 🔥 Route finished changing → stop loader
     setNavigating(false);
   }, [pathname]);
-
-  const IMAGE_BASE_URL = "https://caravansforsale.imagestack.net/";
-
-  const IMAGE_EXT = ".avif";
 
   const goToProduct = (href: string) => {
     try {
@@ -158,9 +228,9 @@ export default function ListingContent({
         "listingsReturnUrl",
         window.location.pathname + window.location.search,
       );
-    } catch {}
+    } catch { }
 
-    router.push(href);
+    window.location.href = href;
   };
 
   useEffect(() => {
@@ -179,6 +249,14 @@ export default function ListingContent({
     }
   }, []);
 
+  // Reset swiper state when products change (filter apply) — prevents stale images
+  useEffect(() => {
+    setSwiperKey((k) => k + 1);
+    setSwiperActivated({});
+    setLazyImages({});
+    setLoadedAll({});
+  }, [products]);
+
   const handleViewDetails = (
     e: React.MouseEvent,
     productId: number,
@@ -187,9 +265,6 @@ export default function ListingContent({
     e.preventDefault(); // stop <Link> default
     e.stopPropagation(); // stop bubbling to parent
 
-    // 🔁 show loader
-    setNavigating(true);
-
     // 🔁 tracking + session flag
     handleProductClick(productId);
 
@@ -197,14 +272,6 @@ export default function ListingContent({
     goToProduct(href);
   };
 
-  console.log(
-    "data-main",
-     fetauredProducts,
-    isPremiumLoading,
-    isFeaturedLoading,
-    isMainLoading,
-    onFilterChange,
-  );
   // console.log("data-prod", products);
 
   // console.log("data-product", exculisiveProducts);
@@ -218,15 +285,15 @@ export default function ListingContent({
 
   const enquiryProduct = selectedProduct
     ? {
-        id: selectedProduct.id,
-        slug: selectedProduct.slug,
-        name: selectedProduct.name,
-      }
+      id: selectedProduct.id,
+      slug: selectedProduct.slug,
+      name: selectedProduct.name,
+    }
     : {
-        id: 0,
-        slug: "",
-        name: "",
-      };
+      id: 0,
+      slug: "",
+      name: "",
+    };
 
   const { form, errors, touched, submitting, setField, onBlur, onSubmit } =
     useEnquiryForm(enquiryProduct);
@@ -234,14 +301,25 @@ export default function ListingContent({
   const MAX_SWIPER_IMAGES = 5;
 
   const getFirstImage = (item: Product): string | undefined => {
-    const img = item.image_format?.[0];
-    return img ? `${img}` : undefined;
+    return item.image_format?.[0] || item.image_url?.[0] || item.image || undefined;
+  };
+
+  const getInitialSlides = (item: Product): string[] => {
+    if (Array.isArray(item.image_format) && item.image_format.length > 0)
+      return item.image_format.slice(0, 2).filter(Boolean).map((img) => `${img}`);
+    if (Array.isArray(item.image_url) && item.image_url.length > 0)
+      return item.image_url.slice(0, 2).filter(Boolean).map((img) => `${img}`);
+    if (item.image) return [item.image];
+    return [];
   };
 
   const getRemainingImages = (item: Product): string[] => {
-    if (!Array.isArray(item.image_format)) return [];
-
-    return item.image_format.slice(0, MAX_SWIPER_IMAGES).map((img) => `${img}`);
+    if (Array.isArray(item.image_format) && item.image_format.length > 0)
+      return item.image_format.slice(0, MAX_SWIPER_IMAGES).map((img) => `${img}`);
+    if (Array.isArray(item.image_url) && item.image_url.length > 0)
+      return item.image_url.slice(0, MAX_SWIPER_IMAGES).map((img) => `${img}`);
+    if (item.image) return [item.image];
+    return [];
   };
 
   const loadRemaining = (item: Product) => {
@@ -260,7 +338,6 @@ export default function ListingContent({
     }));
   };
 
-  console.log("lazy", lazyImages);
   // Remove all the lazy loading state and just load all images immediately
   // const getIP = async () => {
   //   try {
@@ -271,19 +348,17 @@ export default function ListingContent({
   //     return "";
   //   }
   // };
-const postTrackClick = async (product_id: number) => {
-  await fetch("/api/track-click", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      product_id,
-    }),
-  });
-};
-  const handleProductClick = (id: any) => {
-      postTrackClick(id); 
+  // const postTrackClick = async (product_id: number) => {
+  //   try {
+  //     await fetch("/api/track-click", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ product_id }),
+  //     });
+  //   } catch {}
+  // };
+  const handleProductClick = (id: number) => {
+    // postTrackClick(id);
     // Allow product page to show "Back to Search"
     sessionStorage.setItem("cameFromListings", "true");
   };
@@ -300,16 +375,15 @@ const postTrackClick = async (product_id: number) => {
     }
   }, []);
 
-   const postTrackEvent = async (product_id: number) => {
-  await fetch("/api/track", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          product_id,
-          
-        }),
-      });
-    };
+  // const postTrackEvent = async (product_id: number) => {
+  //   try {
+  //     await fetch("/api/track", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ product_id }),
+  //     });
+  //   } catch {}
+  // };
 
   const shuffleArray = <T,>(arr: T[]): T[] => {
     const copy = [...arr];
@@ -320,6 +394,8 @@ const postTrackClick = async (product_id: number) => {
     return copy;
   };
 
+
+  
   // const hasShuffledRef = useRef(false);
 
   const buildMergedProducts = (normal: Product[]) => {
@@ -362,9 +438,6 @@ const postTrackClick = async (product_id: number) => {
   useEffect(() => {
     if (!products || products.length === 0) return;
 
-    // 🔒 Already shuffled → DO NOTHING
-    if (didShuffleRef.current) return;
-
     const premiumIds = new Set(
       (preminumProducts || []).map((p) => String(p.id)),
     );
@@ -374,47 +447,35 @@ const postTrackClick = async (product_id: number) => {
     const orderbyFromUrl = currentFilters.orderby;
 
     const shouldShuffle =
-      allowShuffleRef.current && // ✅ new tab only
+      allowShuffleRef.current &&
+      !didShuffleRef.current && // only shuffle once per session
       normal.length >= 23 &&
       !orderbyFromUrl;
 
     if (shouldShuffle) {
-      normal = shuffleArray([...normal]); // ✅ CLONE + SHUFFLE
+      normal = shuffleArray([...normal]);
       didShuffleRef.current = true;
     }
 
-    // 🔥 IMPORTANT: mergedProducts set ONLY ONCE
     setMergedProducts(buildMergedProducts(normal));
   }, [products, preminumProducts, exculisiveProducts, currentFilters.orderby]);
 
-  useEffect(() => {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const id = Number(
-            entry.target.getAttribute("data-product-id")
-          );
-
-          if (id) {
-            postTrackEvent(id); // ✅ only id
-          }
-
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.3 }
-  );
-
-  document
-    .querySelectorAll(".product-card[data-product-id]")
-    .forEach((el) => {
-      observer.observe(el);
-    });
-
-  return () => observer.disconnect();
-}, [mergedProducts]);
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       entries.forEach((entry) => {
+  //         if (entry.isIntersecting) {
+  //           const id = Number(entry.target.getAttribute("data-product-id"));
+  //           if (id) postTrackEvent(id);
+  //           observer.unobserve(entry.target);
+  //         }
+  //       });
+  //     },
+  //     { threshold: 0.3 },
+  //   );
+  //   document.querySelectorAll(".product-card[data-product-id]").forEach((el) => observer.observe(el));
+  //   return () => observer.disconnect();
+  // }, [mergedProducts]);
 
   // ✅ Disable background scroll when popup is open
   useEffect(() => {
@@ -430,13 +491,12 @@ const postTrackClick = async (product_id: number) => {
   }, [showInfo, showContact]);
 
   // Example placeholder function for product links
+
   // const imageUrl = "public/favicon.ico";
   const getHref = (p: Product) => {
-    console.log("slug", p.slug)
     const slug = p.slug?.trim() || toSlug(p.name);
     return slug ? `/product/${slug}/` : ""; // trailing slash optional
   };
-
 
   const orderby = currentFilters.orderby ?? "featured";
   useEffect(() => {
@@ -454,11 +514,31 @@ const postTrackClick = async (product_id: number) => {
 
     return {
       count: match[1], // "3279"
-      text: match[2], // "Off Road Motorhomes for salein Australia"
+      text: match[2], // "Off Road Caravans for sale in Australia"
     };
   }
 
   const { count, text } = splitCountAndTitle(pageTitle);
+
+  const AUS_ABBR: Record<string, string> = {
+    VICTORIA: "VIC",
+    "NEW SOUTH WALES": "NSW",
+    QUEENSLAND: "QLD",
+    "SOUTH AUSTRALIA": "SA",
+    "WESTERN AUSTRALIA": "WA",
+    TASMANIA: "TAS",
+    "NORTHERN TERRITORY": "NT",
+    "AUSTRALIAN CAPITAL TERRITORY": "ACT",
+  };
+
+  const getLocationLabel = (item: Product): string | undefined => {
+    const stateAbbr = AUS_ABBR[(currentFilters.state ?? "").toUpperCase()] ?? (currentFilters.state ?? "").toUpperCase();
+    if (currentFilters.region) {
+      const regionName = (currentFilters.region as string).replace(/\b\w/g, (c) => c.toUpperCase());
+      return `${regionName} Region, ${stateAbbr}`;
+    }
+    return item.location;
+  };
 
   const activateSwiper = (item: Product) => {
     if (swiperActivated[item.id]) return;
@@ -473,46 +553,28 @@ const postTrackClick = async (product_id: number) => {
 
   const { matchedBanners, isMobile } = useBanners();
   const { bannerRefs, trackClick } = useBannerTracking(matchedBanners);
-  const rightBanners = matchedBanners.filter((b) => b.position === "right");
-  console.log("mergedProducts", mergedProducts);
-
+   const rightBanners = matchedBanners.filter(
+  (b) => b.position === "right" && b.placement === "listings"
+);
+const [currentBanner, setCurrentBanner] = useState<typeof rightBanners[0] | null>(null);
+ useEffect(() => {
+  const shuffled = shuffleArray(rightBanners);
+  setCurrentBanner(shuffled[0] ?? null);
+}, [rightBanners]);
   return (
     <>
-      <Head>
-        <title>{metaTitle}</title> {/* Dynamically set title */}
-        <meta name="description" content={metaDescription} />
-        <meta property="og:type" content="website" />
-        <meta property="robot" content="index, follow" />
-        <meta property="og:title" content={metaTitle} />
-        <meta property="og:description" content={metaDescription} />
-        <meta name="twitter:title" content={metaTitle} />
-        <meta name="twitter:description" content={metaDescription} />
-      </Head>
 
       <div className="col-lg-9">
         <div className="top-filter mb-10">
           <div className="row align-items-center">
-            <div className="col-lg-8 col-md-8 col-sm-8 col-12 show_count_wrapper ">
-              {count && (
-                <span className="show_count mb-2 d-inline">
-                  <strong>{count} </strong>
-                </span>
-              )}
-              <h1 className="show_count d-inline fw-bolder">{text}</h1>
+            <div className="col-lg-8 col-md-8 col-12 show_count_wrapper mb-2 mb-md-0">
+              <h1 className="show_count d-inline fw-bolder">
+                {count && <>{count} </>}
+                {text}
+              </h1>
             </div>
 
-            {/* <div className="col-4 d-lg-none d-md-none">
-                <button
-                  type="button"
-                  className="mobile_fltn navbar-toggler mytogglebutton"
-                  data-bs-toggle="offcanvas"
-                  data-bs-target="#mobileFilters"
-                  aria-controls="mobileFilters"
-                >
-                  <i className="bi bi-search" /> &nbsp;Filter
-                </button>
-              </div> */}
-            <div className="col-lg-4 col-md-4 col-sm-4 col-12">
+            <div className="col-lg-4 col-md-4 col-12">
               <div className="r-side">
                 <form className="woocommerce-ordering" method="get">
                   <div className="form-group shot-buy">
@@ -548,24 +610,22 @@ const postTrackClick = async (product_id: number) => {
         <div className="dealers-section product-type">
           <div className="other_items">
             <div className="related-products">
-              {mergedProducts.length === 0 || isOrderbyLoading ? (
-                <Skelton count={6} />
+              {isMainLoading || mergedProducts.length === 0 || isOrderbyLoading ? (
+                <div className="skeleton-appear"><Skelton count={6} /></div>
               ) : (
-                <div className="row g-3">
+                <div className="row g-3 cards-loaded">
                   {mergedProducts.map((item, index) => {
                     const href = getHref(item);
-                    const isPriority = index < 5;
+                    const isPriority = index === 0;
                     // const resizedBase = getResizedBase(item);
                     // const imgs = lazyImages[item.id] ?? [];
                     const firstImage = getFirstImage(item);
                     const isActive = swiperActivated[item.id];
+                    const initialSlides = getInitialSlides(item);
                     const slides = isActive
                       ? (lazyImages[item.id] ?? [])
-                      : firstImage
-                        ? [firstImage, firstImage]
-                        : [];
+                      : initialSlides;
 
-                    console.log("imgs", firstImage);
                     return (
                       <div
                         className="col-lg-6 col-sm-6 col-md-6 mb-0"
@@ -619,6 +679,11 @@ const postTrackClick = async (product_id: number) => {
                                       activateSwiper(item);
                                     }
                                   }}
+                                  onSlideChange={() => {
+                                    if (!swiperActivated[item.id]) {
+                                      activateSwiper(item);
+                                    }
+                                  }}
                                   onNavigationNext={() => {
                                     if (!swiperActivated[item.id]) {
                                       activateSwiper(item);
@@ -639,6 +704,10 @@ const postTrackClick = async (product_id: number) => {
                                           alt={`Caravan ${i + 1}`}
                                           width={800}
                                           height={600}
+                                          eager
+                                          objectFit="contain"
+                                          priority={i === 0 && isPriority}
+                                          sizes="(max-width: 576px) 100vw, (max-width: 992px) 50vw, 400px"
                                         />
                                       </div>
                                     </SwiperSlide>
@@ -662,53 +731,52 @@ const postTrackClick = async (product_id: number) => {
                                     {item.name}
                                   </h3>
                                 )}
+                                {getLocationLabel(item) && (
+                                  <p className="listing_location">
+                                    <i className="fa-solid fa-location-dot"></i>{" "}
+                                    {getLocationLabel(item)}
+                                  </p>
+                                )}
+                                <div style={{ display: "none" }} data-suburb={item.suburb}>
+                                  suburb: {item.suburb}
+                                </div>
                               </div>
 
                               {/* --- PRICE SECTION --- */}
-                              {(item.regular_price ||
-                                item.sale_price ||
-                                item.price_difference) && (
-                                <div className="price">
-                                  <div className="metc2">
-                                    {(item.regular_price ||
-                                      item.sale_price) && (
-                                      <h5 className="slog">
-                                        {/* ✅ Stable price rendering: precompute safely */}
-                                        {(() => {
-                                          const rawRegular =
-                                            item.regular_price || "";
-                                          const rawSale = item.sale_price || "";
-                                          const cleanRegular =
-                                            rawRegular.replace(/[^0-9.]/g, "");
-                                          const regNum =
-                                            Number(cleanRegular) || 0;
-                                          const cleanSale = rawSale.replace(
-                                            /[^0-9.]/g,
-                                            "",
-                                          );
-                                          const saleNum =
-                                            Number(cleanSale) || 0;
+                              <div className="price">
+                                <div className="metc2">
+                                  <h5 className="slog">
+                                    {(() => {
+                                      const rawRegular =
+                                        item.regular_price || "";
+                                      const rawSale = item.sale_price || "";
+                                      const cleanRegular =
+                                        rawRegular.replace(/[^0-9.]/g, "");
+                                      const regNum =
+                                        Number(cleanRegular) || 0;
+                                      const cleanSale = rawSale.replace(
+                                        /[^0-9.]/g,
+                                        "",
+                                      );
+                                      const saleNum =
+                                        Number(cleanSale) || 0;
 
-                                          // If regular price is 0 → show POA
-                                          if (regNum === 0) {
-                                            return <>POA</>;
-                                          }
+                                      if (regNum === 0) {
+                                        return <>POA</>;
+                                      }
 
-                                          // If sale price exists → show sale and strike-through
-                                          if (saleNum > 0) {
-                                            return (
-                                              <>
-                                                <del>{rawRegular}</del>{" "}
-                                                {rawSale}
-                                              </>
-                                            );
-                                          }
+                                      if (saleNum > 0) {
+                                        return (
+                                          <>
+                                            <del>{rawRegular}</del>{" "}
+                                            {rawSale}
+                                          </>
+                                        );
+                                      }
 
-                                          // Otherwise → show regular price
-                                          return <>{rawRegular}</>;
-                                        })()}
-                                      </h5>
-                                    )}
+                                      return <>{rawRegular}</>;
+                                    })()}
+                                  </h5>
 
                                     {/* ✅ Show SAVE only if > $0 */}
                                     {(() => {
@@ -727,15 +795,14 @@ const postTrackClick = async (product_id: number) => {
                                       <div className="more_info">
                                         <div className="informat">
                                           <span className="premium_van">
-                                            <i className="fa fa-star"></i>{" "}
+                                            <i className="fa-solid fa-star"></i>{" "}
                                             Premium
                                           </span>
                                         </div>
                                       </div>
                                     )}
-                                  </div>
                                 </div>
-                              )}
+                              </div>
 
                               {/* --- DETAILS LIST --- */}
                               <ul className="vehicleDetailsWithIcons simple">
@@ -747,27 +814,19 @@ const postTrackClick = async (product_id: number) => {
                                     </li>
                                   )} */}
 
-                                {/* {item.categories &&
+                                {item.categories &&
                                   item.categories.length > 0 && (
                                     <li className="attribute3_list">
                                       <span className="attribute3">
-                                        {item.categories.slice(0, 2).join(", ")}
+                                        {item.categories[0]}
                                       </span>
                                     </li>
-                                  )} */}
-
-  {item.engine_make &&  item.engine_make.length > 0 && (
-                                  <li>
-                                    <span className="attribute3">
-                                      {item.engine_make}
-                                    </span>
-                                  </li>
-                                )}
+                                  )}
 
                                 {item.length && (
                                   <li>
                                     <span className="attribute3">
-                                      {item.length}
+                                      {formatLengthWithMeters(item.length)}
                                     </span>
                                   </li>
                                 )}
@@ -789,8 +848,8 @@ const postTrackClick = async (product_id: number) => {
                                 )}
                               </ul>
 
-                              {/* --- CONDITION + LOCATION --- */}
-                              {(item.condition || item.location) && (
+                              {/* --- CONDITION + SELLER --- */}
+                              {(item.condition || item.seller_type) && (
                                 <div className="bottom_mid">
                                   {item.condition && (
                                     <span>
@@ -798,10 +857,12 @@ const postTrackClick = async (product_id: number) => {
                                       Condition {item.condition}
                                     </span>
                                   )}
-                                  {item.location && (
+                                  {item.seller_type && (
                                     <span>
-                                      <i className="fa fa-map-marker-alt"></i>{" "}
-                                      {item.location}
+                                      <i className="fa-solid fa-circle-info"></i>{" "}
+                                      {item.seller_type?.replace(/^\w/, (c) =>
+                                        c.toUpperCase(),
+                                      )}
                                     </span>
                                   )}
                                 </div>
@@ -838,7 +899,10 @@ const postTrackClick = async (product_id: number) => {
                   })}
                 </div>
               )}
+
+              
             </div>
+            
           </div>
         </div>
         <div className="pagination-wrapper mt-4">
@@ -881,7 +945,7 @@ const postTrackClick = async (product_id: number) => {
             <div className="other_items">
               {exculisiveProducts.map((item, index) => {
                 const href = getHref(item);
-                const isPriority = index < 5;
+                const isPriority = index === 0;
                 // const resizedBase = getResizedBase(item);
                 // const imgs = lazyImages[item.id] ?? [];
                 const firstImage = getFirstImage(item);
@@ -892,7 +956,6 @@ const postTrackClick = async (product_id: number) => {
                     ? [firstImage, firstImage]
                     : [];
 
-                console.log("imgs", firstImage);
                 return (
                   <a
                     key={index}
@@ -932,49 +995,49 @@ const postTrackClick = async (product_id: number) => {
                               {item.name}
                             </h3>
                           )}
+                          {getLocationLabel(item) && (
+                            <p className="listing_location">
+                              <i className="fa-solid fa-location-dot"></i>{" "}
+                              {getLocationLabel(item)}
+                            </p>
+                          )}
+                          <div style={{ display: "none" }} data-suburb={item.suburb}>
+                            suburb: {item.suburb}
+                          </div>
                         </div>
 
-                        {(item.regular_price ||
-                          item.sale_price ||
-                          item.price_difference) && (
-                          <div className="price">
-                            <div className="metc2">
-                              {(item.regular_price || item.sale_price) && (
-                                <h5 className="slog">
-                                  {/* ✅ Stable price rendering: precompute safely */}
-                                  {(() => {
-                                    const rawRegular = item.regular_price || "";
-                                    const rawSale = item.sale_price || "";
-                                    const cleanRegular = rawRegular.replace(
-                                      /[^0-9.]/g,
-                                      "",
-                                    );
-                                    const regNum = Number(cleanRegular) || 0;
-                                    const cleanSale = rawSale.replace(
-                                      /[^0-9.]/g,
-                                      "",
-                                    );
-                                    const saleNum = Number(cleanSale) || 0;
+                        <div className="price">
+                          <div className="metc2">
+                            <h5 className="slog">
+                              {(() => {
+                                const rawRegular = item.regular_price || "";
+                                const rawSale = item.sale_price || "";
+                                const cleanRegular = rawRegular.replace(
+                                  /[^0-9.]/g,
+                                  "",
+                                );
+                                const regNum = Number(cleanRegular) || 0;
+                                const cleanSale = rawSale.replace(
+                                  /[^0-9.]/g,
+                                  "",
+                                );
+                                const saleNum = Number(cleanSale) || 0;
 
-                                    // If regular price is 0 → show POA
-                                    if (regNum === 0) {
-                                      return <>POA</>;
-                                    }
+                                if (regNum === 0) {
+                                  return <>POA</>;
+                                }
 
-                                    // If sale price exists → show sale and strike-through
-                                    if (saleNum > 0) {
-                                      return (
-                                        <>
-                                          <del>{rawRegular}</del> {rawSale}
-                                        </>
-                                      );
-                                    }
+                                if (saleNum > 0) {
+                                  return (
+                                    <>
+                                      <del>{rawRegular}</del> {rawSale}
+                                    </>
+                                  );
+                                }
 
-                                    // Otherwise → show regular price
-                                    return <>{rawRegular}</>;
-                                  })()}
-                                </h5>
-                              )}
+                                return <>{rawRegular}</>;
+                              })()}
+                            </h5>
 
                               {/* ✅ Show SAVE only if > $0 */}
                               {(() => {
@@ -988,30 +1051,29 @@ const postTrackClick = async (product_id: number) => {
                                   </p>
                                 ) : null;
                               })()}
+
                               {item.is_premium && (
                                 <div className="more_info">
                                   <div className="informat">
                                     <span className="premium_van">
-                                      <i className="fa fa-star"></i> Premium
+                                      <i className="fa-solid fa-star"></i> Premium
                                     </span>
                                   </div>
                                 </div>
                               )}
-                            </div>
                           </div>
-                        )}
-
+                        </div>
                         <ul className="vehicleDetailsWithIcons simple">
                           {item.categories && item.categories.length > 0 && (
                             <li className="attribute3_list">
                               <span className="attribute3">
-                                {item.categories.slice(0, 2).join(", ")}
+                                {item.categories[0]}
                               </span>
                             </li>
                           )}
                           {item.length && (
                             <li>
-                              <span className="attribute3">{item.length}</span>
+                              <span className="attribute3">{formatLengthWithMeters(item.length)}</span>
                             </li>
                           )}
 
@@ -1028,7 +1090,7 @@ const postTrackClick = async (product_id: number) => {
                           )}
                         </ul>
 
-                        {(item.condition || item.location) && (
+                        {(item.condition || item.seller_type) && (
                           <div className="bottom_mid">
                             {item.condition && (
                               <span>
@@ -1036,10 +1098,12 @@ const postTrackClick = async (product_id: number) => {
                                 Condition {item.condition}
                               </span>
                             )}
-                            {item.location && (
+                            {item.seller_type && (
                               <span>
-                                <i className="fa fa-map-marker-alt"></i>{" "}
-                                {item.location}
+                                <i className="fa-solid fa-circle-info"></i>{" "}
+                                {item.seller_type?.replace(/^\w/, (c) =>
+                                  c.toUpperCase(),
+                                )}
                               </span>
                             )}
                           </div>
@@ -1059,34 +1123,34 @@ const postTrackClick = async (product_id: number) => {
                 );
               })}
             </div>
+
           </div>
         </div>
         <div className="display_ad listing_sticky">
           {false &&
-            rightBanners.map((banner, index) => (
+  currentBanner != null && (
               <a
-                key={banner.id}
-                ref={(el) => {
-                  bannerRefs.current[index] = el;
-                }}
-                data-banner-id={banner.id}
-                href={banner.target_href_url}
+                key={currentBanner!.id}
+                      ref={(el) => { bannerRefs.current[0] = el; }}
+
+                data-banner-id={currentBanner!.id}
+                href={currentBanner!.target_url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="banner_ad_now mb-0"
-                onClick={() => trackClick(banner.id)}
+                onClick={() => trackClick(currentBanner!.id)}
               >
                 <div className={isMobile ? "banner-mobile" : "banner-desktop"}>
                   <Image
-                    src={banner.image_url}
-                    alt={banner.name}
+                    src={currentBanner!.image_url}
+                    alt={currentBanner!.name}
                     width={isMobile ? 600 : 1200}
                     height={isMobile ? 300 : 200}
                     priority
                   />
                 </div>
               </a>
-            ))}
+            )}
         </div>
       </div>
       {/* )} */}
@@ -1261,29 +1325,6 @@ const postTrackClick = async (product_id: number) => {
                 </div>
               </form>
             </div>
-          </div>
-        </div>
-      )}
-      {navigating && (
-        <div
-          className="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
-          style={{
-            background: "rgba(255,255,255,0.6)",
-            backdropFilter: "blur(2px)",
-            zIndex: 9999,
-          }}
-          aria-live="polite"
-        >
-          <div className="text-center">
-            <Image
-              className="loader_image"
-              src="/images/loader.gif"
-              alt="Loading..."
-              width={80}
-              height={80}
-              unoptimized
-            />
-            <div className="mt-2 fw-semibold">Loading…</div>
           </div>
         </div>
       )}

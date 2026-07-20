@@ -33,7 +33,7 @@ export default function FAQSection() {
                         data-bs-target="#collapse1"
                         aria-controls="collapse1"
                       >
-                        Semi Off Road & Full Off Road motorhomes
+                        Semi Off Road & Full Off Road Caravans
                       </button>
                     </h3>
                     <div
@@ -47,7 +47,7 @@ export default function FAQSection() {
                       <div className="accordion-body">
                         <h4>
                           What off-road features are highlighted in the
-                          Discovery X and Space V models by Orbit motorhomes?
+                          Discovery X and Space V models by Orbit Caravans?
                         </h4>
                         <p>
                           The{" "}
@@ -66,7 +66,7 @@ export default function FAQSection() {
                           >
                             Space V
                           </Link>{" "}
-                          models from Orbit motorhomes feature extremely tough
+                          models from Orbit Caravans feature extremely tough
                           off-road chassis and suspension systems, ensuring
                           durability and performance in harsh conditions.
                         </p>
@@ -89,11 +89,11 @@ export default function FAQSection() {
                           off-road conditions.
                         </p>
                         <h4>
-                          What makes Orbit motorhomes’ off-road chassis and
+                          What makes Orbit Caravans’ off-road chassis and
                           suspension system stand out?
                         </h4>
                         <p>
-                          Orbit motorhomes’ off-road models are known for their
+                          Orbit Caravans’ off-road models are known for their
                           exceptionally tough off-road chassis and suspension
                           systems, designed to withstand harsh terrains.
                         </p>
@@ -110,7 +110,7 @@ export default function FAQSection() {
                           >
                             Tracker
                           </Link>{" "}
-                          15’6″ from Grand City motorhomes features a 6-inch
+                          15’6″ from Grand City Caravans features a 6-inch
                           chassis and Cruisemaster XT Freestyle Coil Suspension,
                           providing excellent off-road capabilities for rugged
                           terrains.
@@ -153,7 +153,7 @@ export default function FAQSection() {
                         </p>
                         <p>
                           <b>
-                            What makes Titanium motorhomes a market leader in
+                            What makes Titanium Caravans a market leader in
                             off-road caravans?
                           </b>
                         </p>
@@ -163,7 +163,7 @@ export default function FAQSection() {
                             target="_blank"
                             rel="noopener"
                           >
-                            Titanium motorhomes
+                            Titanium Caravans
                           </Link>{" "}
                           combine heavy-duty hot-dipped galvanised chassis,
                           advanced airbag suspension systems, and smart off-grid
@@ -172,7 +172,7 @@ export default function FAQSection() {
                         </p>
                         <p>
                           <b>
-                            Are Titanium motorhomes suitable for off-grid living?
+                            Are Titanium Caravans suitable for off-grid living?
                           </b>
                         </p>
                         <p>
@@ -190,7 +190,7 @@ export default function FAQSection() {
                         </p>
                         <p>
                           <b>
-                            How does the Ti22 S1 by Titanium motorhomes deliver
+                            How does the Ti22 S1 by Titanium Caravans deliver
                             comfort during off-grid adventures?
                           </b>
                         </p>
@@ -203,7 +203,7 @@ export default function FAQSection() {
                           >
                             Ti22 S1
                           </Link>
-                          , from Titanium motorhomes, features 400W solar, lithium
+                          , from Titanium Caravans, features 400W solar, lithium
                           batteries, a full kitchen, soft-close cabinetry, and
                           even a washing machine—making it a reliable and
                           comfortable off-grid home on wheels.
@@ -224,7 +224,7 @@ export default function FAQSection() {
                         data-bs-target="#collapse2"
                         aria-controls="collapse2"
                       >
-                        Hybrid Off Road motorhomes
+                        Hybrid Off Road Caravans
                       </button>
                     </h3>
                     <div
@@ -341,7 +341,7 @@ export default function FAQSection() {
                         data-bs-target="#collapse3"
                         aria-controls="collapse3"
                       >
-                        Extreme Off Road motorhomes
+                        Extreme Off Road Caravans
                       </button>
                     </h3>
                     <div
@@ -355,7 +355,7 @@ export default function FAQSection() {
                       <div className="accordion-body">
                         <h4>
                           What key features contribute to the extreme off-road
-                          capability of the Nitro Extreme from Everest motorhomes?
+                          capability of the Nitro Extreme from Everest Caravans?
                         </h4>
                         <p>
                           The{" "}
@@ -366,7 +366,7 @@ export default function FAQSection() {
                           >
                             Nitro Extreme
                           </Link>{" "}
-                          from Everest motorhomes is built with a robust 9”
+                          from Everest Caravans is built with a robust 9”
                           chassis, a 6′ deck with a 3” riser, and a 6” extended
                           A-frame. These features, along with the Supergal
                           Australian RHS Steel Chassis and 3.5 T Oz Trekker
@@ -374,7 +374,7 @@ export default function FAQSection() {
                           and durability.
                         </p>
                         <h4>
-                          How does the Summitt model from Everest motorhomes
+                          How does the Summitt model from Everest Caravans
                           ensure reliability on challenging terrains?
                         </h4>
                         <p>
@@ -386,7 +386,7 @@ export default function FAQSection() {
                           >
                             Summitt
                           </Link>{" "}
-                          model from Everest motorhomes features a 9” chassis
+                          model from Everest Caravans features a 9” chassis
                           constructed from RHS Australian Steel, a 6” extended
                           A-frame, and Supergal Australian RHS Steel Chassis. It
                           is equipped with 3.5 T Oz Trekker Suspension for full
@@ -396,10 +396,10 @@ export default function FAQSection() {
                         </p>
                         <h4>
                           What off-road features are standard across Everest
-                          motorhomes’ extreme off-road models?
+                          Caravans’ extreme off-road models?
                         </h4>
                         <p>
-                          Everest motorhomes’ extreme off-road models, including
+                          Everest Caravans’ extreme off-road models, including
                           the{" "}
                           <Link
                             href="https://www.everestcaravans.com.au/range/ice-glider/"
@@ -435,7 +435,7 @@ export default function FAQSection() {
                           >
                             Kimberley Plus
                           </Link>{" "}
-                          from Red Centre motorhomes features a robust 4-inch main
+                          from Red Centre Caravans features a robust 4-inch main
                           chassis, a 6-inch drawbar with extension, a 4-inch
                           riser, and fully independent 3.7T dual shock
                           suspension with 12” brakes, providing unmatched
@@ -470,11 +470,11 @@ export default function FAQSection() {
                           enhancements.
                         </p>
                         <h4>
-                          What makes Red Centre motorhomes’ off-road suspension
+                          What makes Red Centre Caravans’ off-road suspension
                           systems suitable for tough Australian conditions?
                         </h4>
                         <p>
-                          Red Centre motorhomes’ off-road suspension systems, such
+                          Red Centre Caravans’ off-road suspension systems, such
                           as the 3.7T dual shock suspension in the Kimberley
                           Plus and the 4T dual shock suspension in the Tanami
                           and Tanami Plus models, are designed for extreme
