@@ -13,14 +13,14 @@ import { fetchRequirements } from "@/api/postRquirements/api";
 import { fetchHomePage } from "@/api/home/api";
 
 export const dynamic = "force-dynamic";
-
+ 
 export const metadata: Metadata = {
   title: {
-    default: "Caravans For Sale – New & Used Caravan Marketplace in Australia",
+    default: "Motorhomes For Sale – Australia’s Marketplace for New & Used Motorhomesa",
     template: "%s ",
   },
   description:
-    "Browse caravans for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
+    "Browse motorhomes for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
   icons: { icon: "/favicon.ico" },
   robots: "index, follow",
   verification: {
