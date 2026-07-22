@@ -16,7 +16,7 @@ export const dynamic = "force-dynamic";
  
 export const metadata: Metadata = {
   title: {
-    default: "Motorhomes For Sale – Australia’s Marketplace for New & Used Motorhomesa",
+    default: "Motorhomes For Sale – New & Used Caravan Marketplace in Australia",
     template: "%s ",
   },
   description:
@@ -30,8 +30,9 @@ export const metadata: Metadata = {
     canonical: "https://www.caravansforsale.com.au",
   },
   openGraph: {
-    title: "Caravans For Sale – New & Used Caravan Marketplace in Australia",
-    description: "Browse caravans for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
+    title: "Motorhomes For Sale – New & Used Caravan Marketplace in Australia",
+ description:
+    "Browse motorhomes for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
     url: "https://www.caravansforsale.com.au",
     siteName: "Motorhomes for Sale",
     images: [
@@ -46,8 +47,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Caravans For Sale – New & Used Caravan Marketplace in Australia",
-    description: "Browse caravans for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
+    title: "Motorhomes For Sale – New & Used Caravan Marketplace in Australia",
+    description: "Browse motorhomes for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
   },
 };
 
