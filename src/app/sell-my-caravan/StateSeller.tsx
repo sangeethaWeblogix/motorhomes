@@ -43,7 +43,7 @@ export default function StateSeller({ state }: StateSellerProps) {
   const CITY_LINKS = getRegionsByState(state.slug);
 
   const HOW_TO_STEPS = [
-    { num: 1, iconSet: "fa-regular", icon: "fa-file-lines", title: "Create Your Listing", desc: "Add your caravan details, description, price and location in minutes." },
+    { num: 1, iconSet: "fa-regular", icon: "fa-file-lines", title: "Create Your Listing", desc: "Add your  motorhomedetails, description, price and location in minutes." },
     { num: 2, iconSet: "fa-regular", icon: "fa-image", title: "Upload Photos", desc: "Add clear photos of the inside, outside and features of your caravan." },
     { num: 3, iconSet: "fa-regular", icon: "fa-comment-dots", title: "Reach Buyers", desc: `Your listing is live across ${stateLabel}. Buyers contact you directly.` },
     { num: 4, iconSet: "fa-regular", icon: "fa-handshake", title: "Negotiate Directly", desc: "Arrange inspections and negotiate price with buyers." },
@@ -52,44 +52,44 @@ export default function StateSeller({ state }: StateSellerProps) {
 
   const MAIN_FAQS = [
     {
-      q: `How do I sell my caravan in ${stateLabel}?`,
-      a: <p>You can sell your caravan online by creating a private seller listing on CaravansForSale.com.au. Simply add your caravan details, upload clear photos, set your asking price, and publish your ad so active buyers across {stateLabel} and all of Australia can contact you directly.</p>,
+      q: `How do I sell my  motorhomein ${stateLabel}?`,
+      a: <p>You can sell your  motorhomeonline by creating a private seller listing on CaravansForSale.com.au. Simply add your  motorhomedetails, upload clear photos, set your asking price, and publish your ad so active buyers across {stateLabel} and all of Australia can contact you directly.</p>,
     },
     {
-      q: `How much does it cost to sell my caravan in ${stateLabel}?`,
+      q: `How much does it cost to sell my  motorhomein ${stateLabel}?`,
       a: <p>We charge a simple, flat one-time fee of just $49 (inc. GST). There are absolutely no commissions, no hidden upfront fees, and no recurring monthly subscriptions. You keep 100% of your sale price.</p>,
     },
     {
-      q: "How long does my caravan listing stay live?",
-      a: <p>Your caravan listing stays live until sold. You do not need to keep paying monthly fees to keep your ad active. Once your caravan is sold, you can remove the listing from the website.</p>,
+      q: "How long does my  motorhomelisting stay live?",
+      a: <p>Your  motorhomelisting stays live until sold. You do not need to keep paying monthly fees to keep your ad active. Once your  motorhomeis sold, you can remove the listing from the website.</p>,
     },
     {
-      q: "Can I edit my caravan listing after publishing?",
-      a: <p>Yes. After your listing is published, you can update your caravan details, change the asking price, add or replace photos and improve your description if needed.</p>,
+      q: "Can I edit my  motorhomelisting after publishing?",
+      a: <p>Yes. After your listing is published, you can update your  motorhomedetails, change the asking price, add or replace photos and improve your description if needed.</p>,
     },
     {
       q: "How do buyers contact me?",
-      a: <p>Interested buyers can contact you directly through your caravan listing. This allows you to answer questions, arrange inspections, negotiate the price and manage the sale privately.</p>,
+      a: <p>Interested buyers can contact you directly through your  motorhomelisting. This allows you to answer questions, arrange inspections, negotiate the price and manage the sale privately.</p>,
     },
     {
       q: "What photos should I upload when selling my caravan?",
-      a: <p>Upload clear photos of the outside, inside, kitchen, beds, seating area, bathroom, tyres, drawbar and any included accessories. Good photos help buyers understand the condition of your caravan and can increase enquiries.</p>,
+      a: <p>Upload clear photos of the outside, inside, kitchen, beds, seating area, bathroom, tyres, drawbar and any included accessories. Good photos help buyers understand the condition of your  motorhomeand can increase enquiries.</p>,
     },
     {
       q: "How should I price my caravan?",
       a: <p>Check similar caravans for sale in {stateLabel} before setting your price. Compare by make, model, year, condition, length, ATM, tare weight, sleeping capacity, features and location. A realistic asking price can help attract more genuine buyers.</p>,
     },
     {
-      q: "Is it safe to sell my caravan privately online?",
+      q: "Is it safe to sell my  motorhomeprivately online?",
       a: <p>Yes, but you should take normal precautions. Speak with buyers directly, meet in a safe location, confirm payment has cleared before handover and complete any required transfer paperwork for {stateLabel}.</p>,
     },
     {
-      q: "Do I pay commission when my caravan sells?",
-      a: <p>No. CaravansForSale.com.au does not charge commission when your caravan sells. You pay the one-time listing fee and keep 100% of the agreed sale price.</p>,
+      q: "Do I pay commission when my  motorhomesells?",
+      a: <p>No. CaravansForSale.com.au does not charge commission when your  motorhomesells. You pay the one-time listing fee and keep 100% of the agreed sale price.</p>,
     },
     {
-      q: "Can I remove my listing after my caravan is sold?",
-      a: <p>Yes. Once your caravan has sold, you can remove your listing so buyers know it is no longer available.</p>,
+      q: "Can I remove my listing after my  motorhomeis sold?",
+      a: <p>Yes. Once your  motorhomehas sold, you can remove your listing so buyers know it is no longer available.</p>,
     },
   ];
 
@@ -103,7 +103,7 @@ export default function StateSeller({ state }: StateSellerProps) {
             Sell My Caravan in {stateLabel}
           </h1>
           <p className="demo-hero__subtitle">
-            The fastest, safest way to reach active caravan buyers across {capital} and regional {stateLabel}.
+            The fastest, safest way to reach active  motorhomebuyers across {capital} and regional {stateLabel}.
           </p>
 
           {/* Pricing card + CTA wrapper */}
@@ -119,7 +119,7 @@ export default function StateSeller({ state }: StateSellerProps) {
                   <h3>Looking to sell your caravan?</h3>
                 </div>
                 <p className="demo-price-card__desc">
-                  List your caravan on Australia's #1 caravan marketplace and connect with thousands of buyers across {capital} and regional {stateLabel}.
+                   List your Motorhome on Australia's #1  motorhomemarketplace and connect with thousands of buyers across {capital} and regional {stateLabel}.
                 </p>
               </div>
 
@@ -167,8 +167,8 @@ export default function StateSeller({ state }: StateSellerProps) {
           <div className="demo-features-grid">
             {[
               { img: "/images/chat2.png", title: "Direct Buyer Contact", desc: "Communicate directly with buyers, no middleman." },
-              { img: "/images/calendar.png", title: "Live Until Sold", desc: "Your listing stays live until your caravan is sold." },
-              { img: "/images/caravan.png", title: "Caravan-Only Marketplace", desc: "Reach engaged caravan buyers actively looking to buy caravans." },
+              { img: "/images/calendar.png", title: "Live Until Sold", desc: "Your listing stays live until your  motorhomeis sold." },
+              { img: "/images/caravan.png", title: "Caravan-Only Marketplace", desc: "Reach engaged  motorhomebuyers actively looking to buy caravans." },
               { img: "/images/dollar.png", title: "Keep 100% of Your Sale", desc: "Pay only a one-time fee for maximum value. No hidden costs." },
             ].map((item, i) => (
               <div className="demo-feature-card" key={i}>
@@ -203,7 +203,7 @@ export default function StateSeller({ state }: StateSellerProps) {
                     <h3 className="demo-city-label">
                       <a
                         href={`/sell-my-caravan/${state.slug}/${c.pageSlug}/`}
-                        title={`Sell my caravan in ${c.label.trim()}`}
+                        title={`Sell my  motorhomein ${c.label.trim()}`}
                         className="demo-city-label"
                       >
                         {c.label}
@@ -293,7 +293,7 @@ export default function StateSeller({ state }: StateSellerProps) {
               </div>
               <ul className="demo-guide-card__list">
                 <li>Australia's #1 marketplace for buying and selling caravans.</li>
-                <li>Targeted caravan buyers across {capital} and regional {stateLabel}.</li>
+                <li>Targeted  motorhomebuyers across {capital} and regional {stateLabel}.</li>
                 <li>Your listing stays live until sold with no hidden fees.</li>
                 <li>Fast, simple and secure way to sell your caravan.</li>
               </ul>
@@ -345,7 +345,7 @@ export default function StateSeller({ state }: StateSellerProps) {
           <div className="demo-faq-head">
             <span className="demo-faq-head__tag">FAQ</span>
             <h2>Frequently Asked Questions</h2>
-            <p>Everything you need to know about selling your caravan in {stateLabel} on CaravansForSale.com.au</p>
+            <p>Everything you need to know about selling your  motorhomein {stateLabel} on CaravansForSale.com.au</p>
           </div>
           <div className="demo-faq-list">
             {MAIN_FAQS.map((faq, i) => (
@@ -393,12 +393,12 @@ export default function StateSeller({ state }: StateSellerProps) {
         <div className="container">
           <div className="row align-items-center g-4">
             <div className="col-md-6">
-              <img src="/images/your-caravan-desktop-seller-2.jpg" className="img-fluid demo-why-img" alt={`${demonym} caravan buyers`} />
+              <img src="/images/your-caravan-desktop-seller-2.jpg" className="img-fluid demo-why-img" alt={`${demonym}  motorhomebuyers`} />
             </div>
             <div className="col-md-6">
               <h2>Why {demonym} Caravan Buyers Visit CaravansForSale Every Month</h2>
               <p>
-                CaravansForSale.com.au helps {demonym} caravan sellers reach buyers searching for
+                CaravansForSale.com.au helps {demonym}  motorhomesellers reach buyers searching for
                 used caravans, off road caravans, family caravans, pop tops, hybrids and touring
                 caravans across {capital} and regional {stateLabel}.
               </p>
@@ -423,7 +423,7 @@ export default function StateSeller({ state }: StateSellerProps) {
       <section className="demo-steps-section">
         <div className="container">
           <h2 className="demo-steps-title">How To Sell Your Caravan Online</h2>
-          <p className="demo-steps-subtitle">List in minutes and reach thousands of active caravan buyers in {stateLabel}.</p>
+          <p className="demo-steps-subtitle">List in minutes and reach thousands of active  motorhomebuyers in {stateLabel}.</p>
 
           <div className="demo-steps-wrapper">
             {HOW_TO_STEPS.map((s, i) => (
@@ -450,14 +450,14 @@ export default function StateSeller({ state }: StateSellerProps) {
       <section className="demo-cta-strip">
         <div className="container text-center">
           <p>
-            Start selling your caravan in {stateLabel} today for just{" "}
+            Start selling your  motorhomein {stateLabel} today for just{" "}
             <strong>$49 (Inc. GST)</strong> — live until sold.
           </p>
           <a href="https://seller.caravansforsale.com.au/seller-signup/" className="btn white_btn">
             List Your Caravan Now
           </a>
           <p className="demo-cta-strip__alt-link">
-            Not in {abbr}? Sell your caravan across Australia <a href="/sell-my-caravan/">here</a>.
+            Not in {abbr}? Sell your  motorhomeacross Australia <a href="/sell-my-caravan/">here</a>.
           </p>
         </div>
       </section>

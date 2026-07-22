@@ -12,7 +12,7 @@ const sellPageJsonLd = {
       "url": `${BASE_URL}/sell-my-caravan/`,
       "name": "Sell My Caravan Online Australia | List Until Sold for $49",
       "description":
-        "Sell your caravan online across Australia for just $49. List until sold, edit anytime, pay no commission and connect directly with genuine caravan buyers.",
+        "Sell your  motorhomeonline across Australia for just $49. List until sold, edit anytime, pay no commission and connect directly with genuine  motorhomebuyers.",
       "inLanguage": "en-AU",
       "isPartOf": { "@id": `${BASE_URL}/#website` },
     },
@@ -22,7 +22,7 @@ const sellPageJsonLd = {
       "name": "Private Caravan Listing Service",
       "url": `${BASE_URL}/sell-my-caravan/`,
       "description":
-        "List your caravan for sale on CaravansForSale.com.au for a one-time $49 fee. No commissions, no subscriptions, live until sold.",
+        " List your Motorhome for sale on CaravansForSale.com.au for a one-time $49 fee. No commissions, no subscriptions, live until sold.",
       "provider": {
         "@type": "Organization",
         "name": "Caravans For Sale",
@@ -45,10 +45,10 @@ const sellPageJsonLd = {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "How do I sell my caravan online in Australia?",
+          "name": "How do I sell my  motorhomeonline in Australia?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "You can sell your caravan online by creating a private seller listing on CaravansForSale.com.au. Add your caravan details, upload clear photos, set your asking price and publish your ad so buyers across Australia can contact you directly.",
+            "text": "You can sell your  motorhomeonline by creating a private seller listing on CaravansForSale.com.au. Add your  motorhomedetails, upload clear photos, set your asking price and publish your ad so buyers across Australia can contact you directly.",
           },
         },
         {
@@ -56,23 +56,23 @@ const sellPageJsonLd = {
           "name": "How much does it cost to list my caravan?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "It costs $49 inc. GST to list your caravan on CaravansForSale.com.au. This is a one-time listing fee with no monthly subscription, no hidden charges and no commission when your caravan sells.",
+            "text": "It costs $49 inc. GST to list your  motorhomeon CaravansForSale.com.au. This is a one-time listing fee with no monthly subscription, no hidden charges and no commission when your  motorhomesells.",
           },
         },
         {
           "@type": "Question",
-          "name": "How long does my caravan listing stay live?",
+          "name": "How long does my  motorhomelisting stay live?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Your caravan listing stays live until sold. You do not need to keep paying monthly fees to keep your ad active. Once your caravan is sold, you can remove the listing from the website.",
+            "text": "Your  motorhomelisting stays live until sold. You do not need to keep paying monthly fees to keep your ad active. Once your  motorhomeis sold, you can remove the listing from the website.",
           },
         },
         {
           "@type": "Question",
-          "name": "Can I edit my caravan listing after publishing?",
+          "name": "Can I edit my  motorhomelisting after publishing?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. After your listing is published, you can update your caravan details, change the asking price, add or replace photos and improve your description if needed.",
+            "text": "Yes. After your listing is published, you can update your  motorhomedetails, change the asking price, add or replace photos and improve your description if needed.",
           },
         },
         {
@@ -80,15 +80,15 @@ const sellPageJsonLd = {
           "name": "How do buyers contact me?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Interested buyers can contact you directly through your caravan listing. This allows you to answer questions, arrange inspections, negotiate the price and manage the sale privately.",
+            "text": "Interested buyers can contact you directly through your  motorhomelisting. This allows you to answer questions, arrange inspections, negotiate the price and manage the sale privately.",
           },
         },
         {
           "@type": "Question",
-          "name": "Do I pay commission when my caravan sells?",
+          "name": "Do I pay commission when my  motorhomesells?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. CaravansForSale.com.au does not charge commission when your caravan sells. You pay the one-time listing fee and keep 100% of the agreed sale price.",
+            "text": "No. CaravansForSale.com.au does not charge commission when your  motorhomesells. You pay the one-time listing fee and keep 100% of the agreed sale price.",
           },
         },
         {
@@ -101,7 +101,7 @@ const sellPageJsonLd = {
         },
         {
           "@type": "Question",
-          "name": "Is it safe to sell my caravan privately online?",
+          "name": "Is it safe to sell my  motorhomeprivately online?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes, but you should take normal precautions. Speak with buyers directly, meet in a safe location, confirm payment has cleared before handover and complete any required transfer paperwork for your state or territory.",

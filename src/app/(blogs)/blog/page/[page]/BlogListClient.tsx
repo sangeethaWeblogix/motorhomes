@@ -234,14 +234,14 @@ const loading = !data || !blogPosts || blogPosts.length === 0 && data.totalPages
             <div className="col-lg-3">
               <div className="display_ad listing_sticky">
                 <div className="blog-sidebar-cta">
-                  <h3 className="blog-sidebar-cta__heading">Ready to Find Your Next Caravan?</h3>
-                  <p className="blog-sidebar-cta__desc">Browse thousands of new and used caravans from trusted dealers and private sellers across Australia.</p>
+                  <h3 className="blog-sidebar-cta__heading">Ready to Find Your Next Motorhome?</h3>
+                  <p className="blog-sidebar-cta__desc">Browse thousands of new and used  from trusted dealers and private sellers across Australia.</p>
                   <a href="/listings/" className="blog-sidebar-cta__btn">
-                    Search Caravans Now <i className="bi bi-arrow-right" />
+                    Search Motorhomes Now <i className="bi bi-arrow-right" />
                   </a>
                 </div>
                 <div className="blog-sidebar-cta blog-sidebar-cta--sell">
-                  <h3 className="blog-sidebar-cta__heading">Sell Your Caravan Faster with Australia&apos;s Growing Caravan Marketplace</h3>
+                  <h3 className="blog-sidebar-cta__heading">Sell Your Motorhome Faster with Australia&apos;s Growing Caravan Marketplace</h3>
                   <a href="/sell-my-caravan/" className="blog-sidebar-cta__btn">
                     List Your Caravan Now <i className="bi bi-arrow-right" />
                   </a>

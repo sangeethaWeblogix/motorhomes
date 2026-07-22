@@ -37,7 +37,7 @@ export default function CaravanManufacturers() {
               </h2>
 
               <p>
-                Most top caravan manufacturers lead the way by focusing on being
+                Most top  motorhomemanufacturers lead the way by focusing on being
                 the first to introduce innovative design using the latest
                 technology and building caravans with the best materials and
                 workmanship. They back up their reputation with great after
@@ -80,7 +80,7 @@ export default function CaravanManufacturers() {
                   <li>
                     Manufacturing Costs: Operates from a little factory in
                     Campbellfield, Melbourne but builds better quality vans than
-                    other caravan manufacturers.
+                    other  motorhomemanufacturers.
                   </li>
                   <li>
                     Advertising: Avoids costly celebrity endorsements, TV ads,
@@ -94,15 +94,15 @@ export default function CaravanManufacturers() {
                   <li>Australian Owned & Operated: Proudly Australian.</li>
                   <li>
                     Expert Staff: All workers with extensive experience from the
-                    caravan industry.
+                     motorhomeindustry.
                   </li>
                   <li>
                     Owner: Built this business from scratch and has over 15
-                    years of experience as a caravan manufacturer.
+                    years of experience as a  motorhomemanufacturer.
                   </li>
                   <li>
                     Strengths : Unmatched superior quality and one of the few
-                    caravan manufacturers that offers a 10 year structural
+                     motorhomemanufacturers that offers a 10 year structural
                     warranty.
                   </li>
                   <li>
@@ -124,7 +124,7 @@ export default function CaravanManufacturers() {
               </div>
 
               <p>
-                Everest Caravans is one of the only caravan manufacturers in
+                Everest Caravans is one of the only  motorhomemanufacturers in
                 Australia that offers custom built caravans with extreme
                 off-road features and a 10 year structural warranty.
               </p>
@@ -151,14 +151,14 @@ export default function CaravanManufacturers() {
                 <Image
                   className="hidden-xs"
                   src="/images/Everest-best-caravan-manufacturer-in-any-off-road-category.jpg"
-                  alt="Everest Caravans - best caravan manufacturer in any off road category"
+                  alt="Everest Caravans - best  motorhomemanufacturer in any off road category"
                   width={900}
                   height={450}
                 />
                 <Image
                   className="hidden-lg hidden-md hidden-sm br-m-8"
                   src="/images/best-caravan-manufacturer-in-any-off-road-category-Everest.jpg"
-                  alt="Everest Caravans - best caravan manufacturer in any off road category"
+                  alt="Everest Caravans - best  motorhomemanufacturer in any off road category"
                   width={900}
                   height={450}
                 />
@@ -172,14 +172,14 @@ export default function CaravanManufacturers() {
               >
                 <Image
                   src="/images/index_link_dk.jpg"
-                  alt="Caravans for Sale - Banner"
+                  alt="Motorhomes for Sale - Banner"
                   width={800}
                   height={200}
                   className="hidden-xs"
                 />
                 <Image
                   src="/images/index_link_m.jpg"
-                  alt="Caravans for Sale - Banner Mobile"
+                  alt="Motorhomes for Sale - Banner Mobile"
                   width={400}
                   height={150}
                   className="hidden-lg hidden-md hidden-sm"
@@ -213,7 +213,7 @@ export default function CaravanManufacturers() {
                   <li>
                     Advertising: No expensive celebrity endorsements, TV
                     commercials, or heavy online spending. Limited presence at
-                    caravan shows and limited dealers.
+                     motorhomeshows and limited dealers.
                   </li>
                   <li>
                     Build Focus: Resources are efficiently managed and dedicated
@@ -225,10 +225,10 @@ export default function CaravanManufacturers() {
                   </li>
                   <li>
                     Expert Staff: All workers with extensive experience from the
-                    caravan industry.
+                     motorhomeindustry.
                   </li>
                   <li>
-                    Owner: Run by a gun caravan manufacturer who is very
+                    Owner: Run by a gun  motorhomemanufacturer who is very
                     customer centric.
                   </li>
                   <li>
@@ -237,7 +237,7 @@ export default function CaravanManufacturers() {
                   </li>
                   <li>
                     What to Expect: Best value for money, best performance and
-                    quality in the TIG welded aluminium frame caravan range in
+                    quality in the TIG welded aluminium frame  motorhomerange in
                     Australia.
                   </li>
                 </ul>
@@ -261,14 +261,14 @@ export default function CaravanManufacturers() {
               <div className="advertisement">
                 <Image
                   src="/images/Orbit-leading-caravan-manufacturer-with-TIG-welded-aluminum-frames.jpg"
-                  alt="Orbit Caravans - leading caravan manufacturer with TIG-welded aluminum frames"
+                  alt="Orbit Caravans - leading  motorhomemanufacturer with TIG-welded aluminum frames"
                   width={800}
                   height={400}
                   className="hidden-xs"
                 />
                 <Image
                   src="/images/leading-caravan-manufacturer-with-TIG-welded-aluminum-frames-Orbit.jpg"
-                  alt="Orbit Caravans - leading caravan manufacturer with TIG-welded aluminum frames"
+                  alt="Orbit Caravans - leading  motorhomemanufacturer with TIG-welded aluminum frames"
                   width={400}
                   height={250}
                   className="hidden-lg hidden-md hidden-sm"
@@ -301,7 +301,7 @@ export default function CaravanManufacturers() {
                   <li>
                     Advertising: No expensive celebrity endorsements, TV
                     commercials, or heavy online spending. Limited presence at
-                    caravan shows.
+                     motorhomeshows.
                   </li>
                   <li>
                     Build Focus: All resources are well managed and dedicated to
@@ -310,7 +310,7 @@ export default function CaravanManufacturers() {
                   <li>Australian Owned &amp; Operated: Proudly Australian.</li>
                   <li>
                     Expert Staff: All workers with extensive experience from the
-                    caravan industry.
+                     motorhomeindustry.
                   </li>
                   <li>
                     Owner: Run by two brothers, with the entire family bringing
@@ -335,7 +335,7 @@ export default function CaravanManufacturers() {
               </div>
 
               <p className="mb-2">
-                Grand City Caravans is one of the top caravan manufacturers that
+                Grand City Caravans is one of the top  motorhomemanufacturers that
                 uses 3D technology to design and build luxury caravans.
               </p>
               <p className="mb-4">
@@ -349,14 +349,14 @@ export default function CaravanManufacturers() {
               <div className="advertisement">
                 <Image
                   src="/images/Grand-City-luxury-caravan-manufacturer.jpg"
-                  alt="Grand City Caravans - luxury caravan manufacturer"
+                  alt="Grand City Caravans - luxury  motorhomemanufacturer"
                   width={800}
                   height={400}
                   className="hidden-xs"
                 />
                 <Image
                   src="/images/luxury-caravan-manufacturer-Grand-City.jpg"
-                  alt="Grand City Caravans - luxury caravan manufacturer"
+                  alt="Grand City Caravans - luxury  motorhomemanufacturer"
                   width={400}
                   height={250}
                   className="hidden-lg hidden-md hidden-sm"
@@ -389,7 +389,7 @@ export default function CaravanManufacturers() {
                   <li>
                     Advertising: Relies on word-of-mouth rather than big
                     celebrities, TV ads, or extensive online campaigns. Limited
-                    presence at caravan shows.
+                    presence at  motorhomeshows.
                   </li>
                   <li>
                     Dealership: Operates through a single main dealership
@@ -401,7 +401,7 @@ export default function CaravanManufacturers() {
                   </li>
                   <li>
                     Owner: Operated by a seasoned expert with extensive
-                    experience as a caravan manufacturer since 1959.
+                    experience as a  motorhomemanufacturer since 1959.
                   </li>
                   <li>
                     Australian Owned & Operated: Australian Caravan
@@ -434,7 +434,7 @@ export default function CaravanManufacturers() {
               </p>
               <p>
                 The ULTIMATE range offers a 19 ft 6 customizable couples
-                caravan, and the Enduro 17′ is a premier off-road caravan with
+                caravan, and the Enduro 17′ is a premier off-road  motorhomewith
                 an ensuite. The Coronet PTR and FTR semi-offroad series feature
                 a strong Meranti frame, Alucom finish, advanced electronics, and
                 amenities for bush camping.
@@ -444,14 +444,14 @@ export default function CaravanManufacturers() {
                 <Image
                   className="hidden-xs"
                   src="/images/Coronet-RV-best-family-caravan-manufacturer-with-several-layouts.jpg"
-                  alt="Coronet RV - best family caravan manufacturer with several layouts"
+                  alt="Coronet RV - best family  motorhomemanufacturer with several layouts"
                   width={800}
                   height={450}
                 />
                 <Image
                   className="hidden-lg hidden-md hidden-sm br-m-8"
                   src="/images/best-family-caravan-manufacturer-with-several-layouts-Coronet-RV.jpg"
-                  alt="Coronet RV - best family caravan manufacturer with several layouts"
+                  alt="Coronet RV - best family  motorhomemanufacturer with several layouts"
                   width={500}
                   height={300}
                 />
@@ -496,7 +496,7 @@ export default function CaravanManufacturers() {
                   </li>
                   <li>
                     Owner: Overseen by professionals devoted to being a leading
-                    caravan manufacturer of upscale touring caravans.
+                     motorhomemanufacturer of upscale touring caravans.
                   </li>
                   <li>
                     Production Philosophy: Dedicated to providing a wide array
@@ -504,7 +504,7 @@ export default function CaravanManufacturers() {
                   </li>
                   <li>
                     Technology: Employs cutting-edge materials and innovative
-                    design practices to boost caravan longevity and performance.
+                    design practices to boost  motorhomelongevity and performance.
                   </li>
                 </ul>
 
@@ -517,7 +517,7 @@ export default function CaravanManufacturers() {
               </div>
 
               <p>
-                Silver Valley Caravans, a luxury touring caravan manufacturer,
+                Silver Valley Caravans, a luxury touring  motorhomemanufacturer,
                 offers a large range of caravans in multiple layouts for any
                 family to travel on the road in style.
               </p>
@@ -533,14 +533,14 @@ export default function CaravanManufacturers() {
                 <Image
                   className="hidden-xs"
                   src="/images/Silver-Valley-luxury-touring-caravan-manufacturer.jpg"
-                  alt="Silver Valley Caravans - luxury touring caravan manufacturer"
+                  alt="Silver Valley Caravans - luxury touring  motorhomemanufacturer"
                   width={800}
                   height={450}
                 />
                 <Image
                   className="hidden-lg hidden-md hidden-sm br-m-8"
                   src="/images/luxury-touring-caravan-manufacturer-Silver-Valley.jpg"
-                  alt="Silver Valley Caravans - luxury touring caravan manufacturer"
+                  alt="Silver Valley Caravans - luxury touring  motorhomemanufacturer"
                   width={500}
                   height={300}
                 />
@@ -571,11 +571,11 @@ export default function CaravanManufacturers() {
                   </li>
                   <li>
                     Advertising: No celebrity endorsements, TV commercials, or
-                    heavy online spending; minimal presence at caravan shows.
+                    heavy online spending; minimal presence at  motorhomeshows.
                   </li>
                   <li>
                     Build Focus: Resources are efficiently managed and dedicated
-                    to top-quality caravan construction.
+                    to top-quality  motorhomeconstruction.
                   </li>
                   <li>
                     Australian Owned &amp; Operated: Australian Caravan
@@ -583,16 +583,16 @@ export default function CaravanManufacturers() {
                   </li>
                   <li>
                     Expert Staff: All team members have extensive experience in
-                    the caravan industry.
+                    the  motorhomeindustry.
                   </li>
                   <li>
                     Owner: With 20 years of experience in building caravans, has
-                    significantly grown as a leading caravan manufacturer over
+                    significantly grown as a leading  motorhomemanufacturer over
                     the years.
                   </li>
                   <li>
                     What to Expect: Exceptional build quality and performance in
-                    the extreme off-road caravan range.
+                    the extreme off-road  motorhomerange.
                   </li>
                 </ul>
 
@@ -611,7 +611,7 @@ export default function CaravanManufacturers() {
                 aluminium frame.
               </p>
               <p>
-                Red Centre Caravans is a top caravan manufacturer known for
+                Red Centre Caravans is a top  motorhomemanufacturer known for
                 their aluminium frame caravans. The Newell and Kimberley are
                 light and strong for on road and off road travel. The Tanami
                 Extreme and Gibb Off Road Plus are for extreme off-road travel
@@ -622,14 +622,14 @@ export default function CaravanManufacturers() {
                 <Image
                   className="hidden-xs"
                   src="/images/Red-Centre-leading-caravan-manafacturer-for-extreme-off-road-conditions.jpg"
-                  alt="Red Centre Caravans - leading caravan manufacturer for extreme off road conditions"
+                  alt="Red Centre Caravans - leading  motorhomemanufacturer for extreme off road conditions"
                   width={800}
                   height={450}
                 />
                 <Image
                   className="hidden-lg hidden-md hidden-sm br-m-8"
                   src="/images/leading-caravan-manafacturer-for-extreme-off-road-conditions-Red-Centre.jpg"
-                  alt="Red Centre Caravans - leading caravan manufacturer for extreme off road conditions"
+                  alt="Red Centre Caravans - leading  motorhomemanufacturer for extreme off road conditions"
                   width={500}
                   height={300}
                 />
@@ -674,7 +674,7 @@ export default function CaravanManufacturers() {
                   </li>
                   <li>
                     Technology: Incorporates the latest advancements in
-                    technology and design to optimize caravan performance.
+                    technology and design to optimize  motorhomeperformance.
                   </li>
                   <li>
                     What to Expect: Experience the highest quality caravans
@@ -691,7 +691,7 @@ export default function CaravanManufacturers() {
               </div>
 
               <p>
-                Masterpiece Caravans, a top caravan manufacturer, uses a
+                Masterpiece Caravans, a top  motorhomemanufacturer, uses a
                 revolutionary R-Tech construction process to build high-quality
                 caravans for off-road travel. Their framing materials are 30%
                 lighter, non conductive and rot free.
@@ -708,14 +708,14 @@ export default function CaravanManufacturers() {
                 <Image
                   className="hidden-xs"
                   src="/images/Masterpiece-leading-caravan-manufacturer-in-the-market.jpg"
-                  alt="Masterpiece Caravans - leading caravan manufacturer in the market"
+                  alt="Masterpiece Caravans - leading  motorhomemanufacturer in the market"
                   width={800}
                   height={450}
                 />
                 <Image
                   className="hidden-lg hidden-md hidden-sm br-m-8"
                   src="/images/leading-caravan-manufacturer-in-the-market-Masterpiece.jpg"
-                  alt="Masterpiece Caravans - leading caravan manufacturer in the market"
+                  alt="Masterpiece Caravans - leading  motorhomemanufacturer in the market"
                   width={500}
                   height={300}
                 />
@@ -733,26 +733,26 @@ export default function CaravanManufacturers() {
                 <ul>
                   <li>
                     Manufacturing Costs: Significantly lower than those of major
-                    caravan manufacturers that build caravans with semi off-road
+                     motorhomemanufacturers that build caravans with semi off-road
                     capabilities.
                   </li>
                   <li>
                     Advertising: No celebrity endorsements, TV commercials, or
-                    heavy online spending. Limited presence at caravan shows and
+                    heavy online spending. Limited presence at  motorhomeshows and
                     only 2 dealers.
                   </li>
                   <li>
                     Build Focus: Resources are effectively managed and dedicated
-                    to high-quality caravan construction.
+                    to high-quality  motorhomeconstruction.
                   </li>
                   <li>Australian Owned &amp; Operated: Proudly Australian.</li>
                   <li>
                     Expert Staff: All team members have extensive experience in
-                    the caravan industry.
+                    the  motorhomeindustry.
                   </li>
                   <li>
-                    Owner: Third generation caravan manufacturer with the entire
-                    family in the caravan manufacturing industry.
+                    Owner: Third generation  motorhomemanufacturer with the entire
+                    family in the  motorhomemanufacturing industry.
                   </li>
                   <li>
                     What to Expect: Superior build and quality in the semi off
@@ -769,7 +769,7 @@ export default function CaravanManufacturers() {
               </div>
 
               <p>
-                Villa Caravans stands out as a premier caravan manufacturer,
+                Villa Caravans stands out as a premier  motorhomemanufacturer,
                 offering unique caravans with semi off-road features and
                 top-of-the-range materials inside and out.
               </p>
@@ -784,14 +784,14 @@ export default function CaravanManufacturers() {
                 <Image
                   className="hidden-xs"
                   src="/images/Villa-best-caravan-manufacturer-in-semi-off-road-range.jpg"
-                  alt="Villa Caravans - best caravan manufacturer in semi off road range"
+                  alt="Villa Caravans - best  motorhomemanufacturer in semi off road range"
                   width={800}
                   height={450}
                 />
                 <Image
                   className="hidden-lg hidden-md hidden-sm br-m-8"
                   src="/images/best-caravan-manufacturer-in-semi-off-road-range-Villa.jpg"
-                  alt="Villa Caravans - best caravan manufacturer in semi off road range"
+                  alt="Villa Caravans - best  motorhomemanufacturer in semi off road range"
                   width={500}
                   height={300}
                 />
@@ -817,8 +817,8 @@ export default function CaravanManufacturers() {
                 </h4>
                 <ul>
                   <li>
-                    <strong>100% Australian Made:</strong> Every caravan and
-                    motorhome is built locally to handle tough Aussie
+                    <strong>100% Australian Made:</strong> Every  motorhomeand
+                     motorhome  is built locally to handle tough Aussie
                     conditions.
                   </li>
                   <li>
@@ -908,7 +908,7 @@ export default function CaravanManufacturers() {
                   </li>
                   <li>
                     <strong>Manufacturing Costs:</strong> Streamlined production
-                    with overseas manufacturing helps keep caravan prices
+                    with overseas manufacturing helps keep  motorhomeprices
                     affordable.
                   </li>
                   <li>
@@ -960,14 +960,14 @@ export default function CaravanManufacturers() {
                   height={450}
                   className="hidden-xs"
                   src="/images/Apache-Caravans-Hybrid-Caravan-Manufacturer.jpg"
-                  alt="Apache caravans - hybrid caravan manufacturer"
+                  alt="Apache caravans - hybrid  motorhomemanufacturer"
                 />
                 <Image
                   width={900}
                   height={450}
                   className="hidden-lg hidden-md hidden-sm br-m-8"
                   src="/images/Apache-Caravans-Hybrid-Caravan-Manufacturer-Mobile.jpg"
-                  alt="Apache caravans - hybrid caravan manufacturer"
+                  alt="Apache caravans - hybrid  motorhomemanufacturer"
                 />
               </div>
 

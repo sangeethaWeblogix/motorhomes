@@ -9,7 +9,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Full List of Top Quality Caravan Manufacturers in Australia",
   description:
-    "Discover a diverse range of top-tier caravan manufacturers specializing in off-road, compact poptops, touring models, luxury editions & innovative hybrids.",
+    "Discover a diverse range of top-tier  motorhomemanufacturers specializing in off-road, compact poptops, touring models, luxury editions & innovative hybrids.",
   robots: "index, follow",
   alternates: {
     canonical: "https://www.caravansforsale.com.au/caravan-manufacturers/all/",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Full List of Top Quality Caravan Manufacturers in Australia",
     description:
-      "Discover a diverse range of top-tier caravan manufacturers specializing in off-road, compact poptops, touring models, luxury editions & innovative hybrids.",
+      "Discover a diverse range of top-tier  motorhomemanufacturers specializing in off-road, compact poptops, touring models, luxury editions & innovative hybrids.",
     url: "https://www.caravansforsale.com.au/caravan-manufacturers/all/",
     images: [
       {
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Full List of Top Quality Caravan Manufacturers in Australia",
     description:
-      "Discover a diverse range of top-tier caravan manufacturers specializing in off-road, compact poptops, touring models, luxury editions & innovative hybrids.",
+      "Discover a diverse range of top-tier  motorhomemanufacturers specializing in off-road, compact poptops, touring models, luxury editions & innovative hybrids.",
   },
 };
 

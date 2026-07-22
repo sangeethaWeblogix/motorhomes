@@ -33,13 +33,13 @@ export const revalidate = 86400;
       title: "Caravans For Sale – Australia's Marketplace for New & Used Caravans",
       description: "Browse caravans for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
       url: "https://www.caravansforsale.com.au",
-      siteName: "Caravans for Sale",
+      siteName: "Motorhomes for Sale",
       images: [
         {
           url: "https://www.caravansforsale.com.au/images/cfs-logo.png",
           width: 800,
           height: 600,
-          alt: "Caravans for Sale Australia",
+          alt: "Motorhomes for Sale Australia",
         },
       ],
       type: "website",

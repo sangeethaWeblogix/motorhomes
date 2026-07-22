@@ -5,11 +5,11 @@ import { ReactNode } from "react";
 
  export const metadata: Metadata = {
    title: {
-     default: "Used Caravans for Sale Australia | Dealers & Private Seller",
+     default: "Used Motorhomes for Sale Australia | Dealers & Private Seller",
      template: "%s ",
    },
    description:
-     "Browse thousands of used caravans for sale across Australia. Search by price, weight, length, type, brand or location from dealers and private sellers.",
+     "Browse thousands of used motorhomes for sale across Australia. Search by price, weight, length, type, brand or location from dealers and private sellers.",
    icons: { icon: "/favicon.ico" },
    robots: "noindex, nofollow",
    verification: {

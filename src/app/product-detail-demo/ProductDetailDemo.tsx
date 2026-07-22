@@ -129,11 +129,11 @@ const getPriceRangeLinks = (price: number): { label: string; href: string }[] =>
   const links: { label: string; href: string }[] = [];
   const hi1 = PRICE_STEPS[upperIdx];
   const lo1 = PRICE_STEPS[upperIdx - 1];
-  links.push({ label: `Caravans for Sale near $${lo1.toLocaleString()} to $${hi1.toLocaleString()}`, href: `/listings/?from_price=${lo1}&to_price=${hi1}` });
+  links.push({ label: `Motorhomes for Sale near $${lo1.toLocaleString()} to $${hi1.toLocaleString()}`, href: `/listings/?from_price=${lo1}&to_price=${hi1}` });
   if (upperIdx >= 2) {
     const hi2 = PRICE_STEPS[upperIdx - 1];
     const lo2 = PRICE_STEPS[upperIdx - 2];
-    links.push({ label: `Caravans for Sale near $${lo2.toLocaleString()} to $${hi2.toLocaleString()}`, href: `/listings/?from_price=${lo2}&to_price=${hi2}` });
+    links.push({ label: `Motorhomes for Sale near $${lo2.toLocaleString()} to $${hi2.toLocaleString()}`, href: `/listings/?from_price=${lo2}&to_price=${hi2}` });
   }
   return links;
 };
@@ -313,7 +313,7 @@ export default function ProductDetailDemo({ data, similarData }: Props) {
     return { value: "", url: "" };
   };
 
-  /* caravan details — with link logic matching live layout */
+  /*  motorhomedetails — with link logic matching live layout */
   type DetailLink = { href: string; text: string };
   type DetailRow = { label: string; value: string; url: string; links?: DetailLink[] };
 
@@ -396,12 +396,12 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
 
   const relatedSearches: { label: string; href: string }[] = [
     make ? { label: make, href: `/listings/${slugify(makeLabel)}/` } : null,
-    state ? { label: `Caravans for Sale in ${state}`, href: `/listings/${slugify(state)}-state/` } : null,
-    locationCity ? { label: `Caravans for Sale in ${locationCity}`, href: `/listings/${slugify(state)}-state/${slugify(locationCity)}-region/` } : null,
-    shortCategory ? { label: `${shortCategory} Caravans for Sale`, href: `/listings/${slugify(shortCategory)}-category/` } : null,
+    state ? { label: `Motorhomes for Sale in ${state}`, href: `/listings/${slugify(state)}-state/` } : null,
+    locationCity ? { label: `Motorhomes for Sale in ${locationCity}`, href: `/listings/${slugify(state)}-state/${slugify(locationCity)}-region/` } : null,
+    shortCategory ? { label: `${shortCategory} Motorhomes for Sale`, href: `/listings/${slugify(shortCategory)}-category/` } : null,
     priceHi ? { label: `Caravans Under $${priceHi.toLocaleString()}`, href: `/listings/under-${priceHi}/` } : null,
     (priceHi && priceLo) ? { label: `Caravans Between $${priceLo.toLocaleString()} to $${priceHi.toLocaleString()}`, href: `/listings/between-${priceLo}-${priceHi}/` } : null,
-    { label: `All Caravans for Sale`, href: `/listings/` },
+    { label: `All Motorhomes for Sale`, href: `/listings/` },
   ].filter(Boolean) as { label: string; href: string }[];
 
   const [safeHtml, setSafeHtml] = useState("");
@@ -438,7 +438,7 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
 
   const breadcrumb = [
     { label: "Home",            href: "/" },
-    { label: "Caravans for Sale", href: "/listings/" },
+    { label: "Motorhomes for Sale", href: "/listings/" },
     ...(state ? [{ label: state, href: `/listings/${slugify(state)}-state/` }] : []),
     ...(product.region?.value ? [{ label: product.region.value.replace(/-/g, " "), href: `/listings/${slugify(state)}-state/${product.region.slug ?? slugify(product.region.value)}/` }] : []),
     ...(categoryNames[0] ? [{ label: categoryNames[0], href: `/listings/${slugify(categoryNames[0].replace(/\s*caravan\s*/gi, " ").trim())}-category/` }] : []),
@@ -454,7 +454,7 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
 
         {/* Subtitle */}
         <div className="pdd-subtitle">
-          <span>Have a similar caravan to sell?</span>
+          <span>Have a similar  motorhometo sell?</span>
           <a href="/sell-my-caravan/" className="pdd-subtitle__link">List Your Caravan</a>
           <span className="pdd-subtitle__badge">$49 Until Sold</span>
         </div>
@@ -639,7 +639,7 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
 
             <div className="pdd-sidebar__sell">
               <strong>Thinking of selling?</strong>
-              <p>Get more eyes on your caravan today.</p>
+              <p>Get more eyes on your  motorhometoday.</p>
               <a href="/sell-my-caravan/" className="pdd-btn-sell">Sell My Caravan</a>
             </div>
           </aside>
@@ -658,7 +658,7 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
               </div>
               <h2 className="hbg-sell-title">Looking for More Caravans?</h2>
               <p className="hbg-sell-body">
-                This caravan is just one of thousands of listings available on Australia&apos;s caravan marketplace. Browse our complete range of{" "}
+                This  motorhomeis just one of thousands of listings available on Australia&apos;s  motorhomemarketplace. Browse our complete range of{" "}
                 <a href="/" className="hbg-sell-link">caravans for sale</a>{" "}
                 across Australia, including new caravans, used caravans, off-road caravans, hybrid caravans and family caravans from trusted dealers and private sellers.
               </p>
@@ -891,7 +891,7 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
             {[
               { n: 1, title: "Check for finance owing",    desc: "Run a PPSR search before paying." },
               { n: 2, title: "Verify the seller",          desc: "Confirm identity and speak directly with them." },
-              { n: 3, title: "Inspect the caravan first",  desc: "Inspect in person or arrange an inspection." },
+              { n: 3, title: "Inspect the  motorhomefirst",  desc: "Inspect in person or arrange an inspection." },
               { n: 4, title: "Use safe payment methods",   desc: "Avoid cryptocurrency or overseas transfers." },
               { n: 5, title: "Report suspicious listings", desc: "Report listings that appear suspicious." },
             ].map(item => (

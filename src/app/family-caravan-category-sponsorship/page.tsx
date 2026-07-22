@@ -7,7 +7,7 @@ import './category-take-over.css'
 export const metadata: Metadata = {
   title: 'Family Caravan Category Sponsorship | Australia-Wide Exposure',
   description:
-    "Exclusive Off Road Caravan Listing Page Sponsorship for family caravan advertisers. Limited to just 1 advertiser per month — maximum exposure, retargeting included, and 100% share of voice in the family caravan category.",
+    "Exclusive Off Road Caravan Listing Page Sponsorship for family  motorhomeadvertisers. Limited to just 1 advertiser per month — maximum exposure, retargeting included, and 100% share of voice in the family  motorhomecategory.",
 }
 
 export default function OffRoadCategoryTakeOver() {
@@ -56,7 +56,7 @@ export default function OffRoadCategoryTakeOver() {
                   <Image src="/images/hometk_visible.png" alt="Maximum Exposure" width={72} height={72} />
                 </div>
                 <h3 className="fw-bold text-uppercase mb-3">MAXIMUM EXPOSURE</h3>
-                <p>Be one of only two brands shown to highly interested family caravan buyers.</p>
+                <p>Be one of only two brands shown to highly interested family  motorhomebuyers.</p>
               </div>
 
               <div className="col-md-3 p-4 text-center border-end border-light feature-card" data-purpose="feature-card">
@@ -72,7 +72,7 @@ export default function OffRoadCategoryTakeOver() {
                   <Image src="/images/hometk_target.png" alt="High Buyer Intent" width={72} height={72} />
                 </div>
                 <h3 className="fw-bold text-uppercase mb-3">HIGH BUYER INTENT</h3>
-                <p>Reach thousands of serious family caravan enthusiasts searching for their next model.</p>
+                <p>Reach thousands of serious family  motorhomeenthusiasts searching for their next model.</p>
               </div>
 
               <div className="col-md-3 p-4 text-center feature-card" data-purpose="feature-card">
@@ -152,7 +152,7 @@ export default function OffRoadCategoryTakeOver() {
               THE ULTIMATE FAMILY CARAVAN MARKETING PACKAGE
             </h2>
             <p className="h5 text-dark fw-medium">
-              A complete lead generation solution for your caravan brand
+              A complete lead generation solution for your  motorhomebrand
             </p>
           </div>
           <div className="row g-4 justify-content-center">

@@ -178,7 +178,7 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
       <section className="hd-banner">
         <div className="container">
           <h1 className="hd-banner__title">
-            Caravans for Sale <span className="hd-banner__title--orange">Across Australia</span>
+            Motorhomes for Sale <span className="hd-banner__title--orange">Across Australia</span>
           </h1>
           <div className="hd-banner__divider">
             <span className="hd-banner__divider-line" />
@@ -186,7 +186,7 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
             <span className="hd-banner__divider-line" />
           </div>
           <p className="hd-banner__subtitle">
-            Browse thousands of new and used caravans for sale across Australia from trusted dealers and private sellers. Compare off-road, family, touring, luxury and pop-top caravans to find the right van for your next adventure.
+            Browse thousands of new and used motorhomes for sale across Australia from trusted dealers and private sellers. Compare off-road, family, touring, luxury and pop-top caravans to find the right van for your next adventure.
           </p>
           <div className="hd-banner__trust">
             <div className="hd-banner__trust-item">
@@ -221,7 +221,7 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
             </svg>
-            Browse Caravans for Sale
+            Browse Motorhomes for Sale
           </a>
           <div className="hd-banner__bottom">
             <div className="hd-banner__bottom-item">
@@ -286,9 +286,9 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
         </div>
       </div>
 
-      {/* ── New Caravans for Sale ── */}
+      {/* ── New Motorhomes for Sale ── */}
       <HomeListingSlider
-        title="New Caravans for Sale"
+        title="New Motorhomes for Sale"
         viewAllHref="/listings/new-condition/"
         apiUrl="/api/home-featured/?type=new"
         badgeVariant="new"
@@ -300,9 +300,9 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
         <div className="container">
           <div className="sell-banner">
             <div className="sell-content">
-              <h3>List Your Caravan For Sale Today</h3>
-              <p className="subtitle">Reach thousands of caravan buyers daily.</p>
-              <p className="desc">List your caravan on CaravansForSale.com.au — Australia&apos;s trusted marketplace to buy and sell caravans.</p>
+              <h3>List Your Motorhome For Sale Today</h3>
+              <p className="subtitle">Reach thousands of  motorhome  buyers daily.</p>
+              <p className="desc"> List your  motorhome  on CaravansForSale.com.au — Australia&apos;s trusted marketplace to buy and sell motorhomes.</p>
               <div className="btns_two">
                 <a href="/dealer-advertising/" className="btn primary-btn">Dealer Sign Up</a>
                 <a href="/sell-my-caravan/" className="btn secondary-btn">Private Seller - Click Here</a>
@@ -312,9 +312,9 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
         </div>
       </section>
 
-      {/* ── Used Caravans for Sale ── */}
+      {/* ── Used Motorhomes for Sale ── */}
       <HomeListingSlider
-        title="Used Caravans for Sale"
+        title="Used Motorhomes for Sale"
         viewAllHref="/listings/used-condition/"
         apiUrl="/api/home-featured/?type=used"
         badgeVariant="used"

@@ -291,10 +291,10 @@ const formatBlogDate = (dateString: string) => {
           <div className="section-head search_home">
             <h3>Used caravans for sale in Australia</h3>
             <p className="mb-2 mt-3 fw-semibold">
-              Find your perfect used caravan for sale in Australia from thousands of listings across the country, listed by dealers and private sellers.
+              Find your perfect used  motorhomefor sale in Australia from thousands of listings across the country, listed by dealers and private sellers.
             </p>
             <p>
-              Whether you’re searching by price, weight, length, caravan type, sleeping capacity, manufacturer, or location, CaravansForSale.com.au makes it easy to compare options and find the right caravan for your lifestyle. Browse Australia-wide used caravan listings, explore popular categories, and access expert buying guides to help you make a confident decision.
+              Whether you’re searching by price, weight, length,  motorhometype, sleeping capacity, manufacturer, or location, CaravansForSale.com.au makes it easy to compare options and find the right  motorhomefor your lifestyle. Browse Australia-wide used  motorhomelistings, explore popular categories, and access expert buying guides to help you make a confident decision.
             </p>
             <a href="/listings/used-condition/" className="btn">
               Browse Used Caravans
@@ -486,8 +486,8 @@ const formatBlogDate = (dateString: string) => {
               <h2 className="title">Sell Your Caravan Today!</h2>
               <p className="desc">
                 Reach thousands of potential buyers in minutes.<br />
-                List your caravan for sale on CaravansForSale.com.au,<br />
-                the trusted marketplace for Aussie caravan owners.
+                 List your Motorhome for sale on CaravansForSale.com.au,<br />
+                the trusted marketplace for Aussie  motorhomeowners.
               </p>
               {/* <a href="#" className="btn">
                 SELL YOUR CARAVAN

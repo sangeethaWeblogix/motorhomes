@@ -4,7 +4,7 @@ import "../globals.css";
 import { fetchSleepBands } from "@/api/homeApi/sleep/api";
 
 export const metadata: Metadata = {
-  title: "Off Road Caravans Australia | New & Used Off Road Caravans for Sale",
+  title: "Off Road Caravans Australia | New & Used Off Road Motorhomes for Sale",
   description:
     "Discover Australia's largest collection of off road caravans. Compare full off road, semi off road and hybrid caravans, browse live listings, reviews and expert buying guides.",
 };

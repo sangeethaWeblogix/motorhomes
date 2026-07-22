@@ -34,7 +34,7 @@ const DealerLandingPage = () => {
 
                 <p>
                   A dealer-first marketplace built to generate consistent
-                  enquiries from high-intent caravan buyers.
+                  enquiries from high-intent  motorhomebuyers.
                 </p>
 
                 <a
@@ -173,8 +173,8 @@ const DealerLandingPage = () => {
                         "We list your entire stock automatically",
                         "Listings are updated automatically based on your website stock data",
                         "Caravan buyer/seller-only audience",
-                        "Built for caravan dealers—not classified clutter",
-                        "Unlimited caravan listings",
+                        "Built for  motorhomedealers—not classified clutter",
+                        "Unlimited  motorhomelistings",
                         "No per-lead fees",
                         "Best-value monthly subscription fees by a country mile",
                       ].map((text, i) => (
@@ -218,7 +218,7 @@ const DealerLandingPage = () => {
           {/* Reach Caravan Buyers Section */}
           <div className="col-lg-12">
             <div className="heading-box">
-              <h2>Reach caravan buyers across Australia</h2>
+              <h2>Reach  motorhomebuyers across Australia</h2>
             </div>
           </div>
 
@@ -305,7 +305,7 @@ const DealerLandingPage = () => {
                     className="btn btn-link btn-block text-left py-2"
                     onClick={() => toggleFaq(2)}
                   >
-                    How are my caravan listings added and kept up-to-date automatically?
+                    How are my  motorhomelistings added and kept up-to-date automatically?
                     <span className="accordion-icon">
                       <i className={`fa-solid fa-angle-down ${activeFaq === 2 ? "d-none" : ""}`}></i>
                       <i className={`fa-solid fa-angle-up ${activeFaq === 2 ? "" : "d-none"}`}></i>

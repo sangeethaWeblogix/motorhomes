@@ -56,14 +56,14 @@ const BROWSE_TABS: BrowseTab[] = [
     viewAll: { text: "View all locations", href: "/listings/" },
     links: [],
     states: [
-      { text: "Caravans for Sale in Victoria",          href: "/listings/victoria-state/" },
-      { text: "Caravans for Sale in New South Wales",   href: "/listings/new-south-wales-state/" },
-      { text: "Caravans for Sale in Queensland",        href: "/listings/queensland-state/" },
-      { text: "Caravans for Sale in South Australia",   href: "/listings/south-australia-state/" },
-      { text: "Caravans for Sale in Western Australia", href: "/listings/western-australia-state/" },
-      { text: "Caravans for Sale in Tasmania",          href: "/listings/tasmania-state/" },
-      { text: "Caravans for Sale in ACT",               href: "/listings/australian-capital-territory-state/" },
-      { text: "Caravans for Sale in Northern Territory",href: "/listings/northern-territory-state/" },
+      { text: "Motorhomes for Sale in Victoria",          href: "/listings/victoria-state/" },
+      { text: "Motorhomes for Sale in New South Wales",   href: "/listings/new-south-wales-state/" },
+      { text: "Motorhomes for Sale in Queensland",        href: "/listings/queensland-state/" },
+      { text: "Motorhomes for Sale in South Australia",   href: "/listings/south-australia-state/" },
+      { text: "Motorhomes for Sale in Western Australia", href: "/listings/western-australia-state/" },
+      { text: "Motorhomes for Sale in Tasmania",          href: "/listings/tasmania-state/" },
+      { text: "Motorhomes for Sale in ACT",               href: "/listings/australian-capital-territory-state/" },
+      { text: "Motorhomes for Sale in Northern Territory",href: "/listings/northern-territory-state/" },
     ],
     regions: [
       { text: "Melbourne",     href: "/listings/victoria-state/melbourne-region/" },
@@ -89,25 +89,25 @@ const BROWSE_TABS: BrowseTab[] = [
     icon: "bi-buildings",
     viewAll: { text: "View all manufacturers", href: "/caravan-manufacturers/" },
     links: [
-      { text: "Jayco Caravans for Sale",       href: "/listings/jayco/" },
-      { text: "Snowy River Caravans for Sale", href: "/listings/snowy-river/" },
-      { text: "Evernew Caravans for Sale",     href: "/listings/evernew/" },
-      { text: "Crusader Caravans for Sale",    href: "/listings/crusader/" },
-      { text: "New Age Caravans for Sale",     href: "/listings/new-age/" },
-      { text: "MDC Caravans for Sale",         href: "/listings/mdc/" },
-      { text: "Essential Caravans for Sale",   href: "/listings/essential/" },
-      { text: "Design RV Caravans for Sale",   href: "/listings/design-rv/" },
-      { text: "JB Caravans for Sale",          href: "/listings/jb/" },
-      { text: "Supreme Caravans for Sale",     href: "/listings/supreme/" },
-      { text: "Avan Caravans for Sale",        href: "/listings/avan/" },
-      { text: "Lotus Caravans for Sale",       href: "/listings/lotus/" },
-      { text: "Royal Flair Caravans for Sale", href: "/listings/royal-flair/" },
-      { text: "Windsor Caravans for Sale",     href: "/listings/windsor/" },
-      { text: "Golf Caravans for Sale",        href: "/listings/golf/" },
-      { text: "Nova Caravans for Sale",        href: "/listings/nova/" },
-      { text: "Retreat Caravans for Sale",     href: "/listings/retreat/" },
-      { text: "Adria Caravans for Sale",       href: "/listings/adria/" },
-      { text: "Coromal Caravans for Sale",     href: "/listings/coromal/" },
+      { text: "Jayco Motorhomes for Sale",       href: "/listings/jayco/" },
+      { text: "Snowy River Motorhomes for Sale", href: "/listings/snowy-river/" },
+      { text: "Evernew Motorhomes for Sale",     href: "/listings/evernew/" },
+      { text: "Crusader Motorhomes for Sale",    href: "/listings/crusader/" },
+      { text: "New Age Motorhomes for Sale",     href: "/listings/new-age/" },
+      { text: "MDC Motorhomes for Sale",         href: "/listings/mdc/" },
+      { text: "Essential Motorhomes for Sale",   href: "/listings/essential/" },
+      { text: "Design RV Motorhomes for Sale",   href: "/listings/design-rv/" },
+      { text: "JB Motorhomes for Sale",          href: "/listings/jb/" },
+      { text: "Supreme Motorhomes for Sale",     href: "/listings/supreme/" },
+      { text: "Avan Motorhomes for Sale",        href: "/listings/avan/" },
+      { text: "Lotus Motorhomes for Sale",       href: "/listings/lotus/" },
+      { text: "Royal Flair Motorhomes for Sale", href: "/listings/royal-flair/" },
+      { text: "Windsor Motorhomes for Sale",     href: "/listings/windsor/" },
+      { text: "Golf Motorhomes for Sale",        href: "/listings/golf/" },
+      { text: "Nova Motorhomes for Sale",        href: "/listings/nova/" },
+      { text: "Retreat Motorhomes for Sale",     href: "/listings/retreat/" },
+      { text: "Adria Motorhomes for Sale",       href: "/listings/adria/" },
+      { text: "Coromal Motorhomes for Sale",     href: "/listings/coromal/" },
     ],
   },
   {
@@ -115,8 +115,8 @@ const BROWSE_TABS: BrowseTab[] = [
     icon: "bi-patch-check",
     viewAll: { text: "Browse all caravans", href: "/listings/" },
     links: [
-      { text: "New Caravans for Sale", href: "/listings/new-condition/" },
-      { text: "Used Caravans for Sale", href: "/listings/used-condition/" },
+      { text: "New Motorhomes for Sale", href: "/listings/new-condition/" },
+      { text: "Used Motorhomes for Sale", href: "/listings/used-condition/" },
     ],
   },
   {
@@ -584,7 +584,7 @@ export default function BlogDetailsPage({
               <div className="blog-sidebar-sticky">
                 <div className="blog-sidebar-cta">
                   <h3 className="blog-sidebar-cta__heading">Ready to Find Your Next Caravan?</h3>
-                  <p className="blog-sidebar-cta__desc">Browse thousands of new and used caravans from trusted dealers and private sellers across Australia.</p>
+                  <p className="blog-sidebar-cta__desc">Browse thousands of new and used motorhomes from trusted dealers and private sellers across Australia.</p>
                   <a href="/listings/" className="blog-sidebar-cta__btn">
                     Search Caravans Now <i className="bi bi-arrow-right" />
                   </a>
@@ -656,10 +656,10 @@ export default function BlogDetailsPage({
           <p className="bds-cta-body">
             <strong>Looking to buy?</strong> Browse{" "}
             <a href="/" className="bds-cta-link">caravans for sale</a>{" "}
-            from dealers and private sellers across Australia, with listings available by make, model, price, location and caravan type.
+            from dealers and private sellers across Australia, with listings available by make, model, price, location and  motorhometype.
           </p>
           <p className="bds-cta-body">
-            <strong>Looking to sell?</strong> If you&apos;re upgrading to a newer caravan or no longer need your current one,{" "}
+            <strong>Looking to sell?</strong> If you&apos;re upgrading to a newer  motorhomeor no longer need your current one,{" "}
             <a href="/sell-my-caravan/" className="bds-cta-link">sell your caravan</a>{" "}
             by creating a listing on CaravansForSale.com.au. Your advertisement stays online until it&apos;s sold for a one-time fee of $49.
           </p>

@@ -54,10 +54,10 @@ const faqData: FaqItem[] = [
           </Link>
           .
         </p>
-        <h4>Can I customize my caravan with Everest Caravans?</h4>
+        <h4>Can I customize my  motorhomewith Everest Caravans?</h4>
         <p>
           Yes, Everest Caravans offers custom-built options to tailor the
-          caravan to your specific needs.
+           motorhometo your specific needs.
         </p>
         <h4>Are their caravans family-friendly?</h4>
         <p>

@@ -88,7 +88,7 @@ export default function HomeFeatured({ seed }: Props) {
     <section className="hf-section">
       <div className="container">
         <div className="hf-header">
-          <h2 className="hf-title">Featured Caravans for Sale</h2>
+          <h2 className="hf-title">Featured Motorhomes for Sale</h2>
           {/* <Link href="/listings/" className="hf-view-all">
             View all caravans <span aria-hidden>→</span>
           </Link> */}

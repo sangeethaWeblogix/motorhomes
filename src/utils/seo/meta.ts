@@ -406,7 +406,7 @@ export async function metaFromSlug(
           url: "https://www.caravansforsale.com.au/images/cfs-logo.png",
           width: 800,
           height: 600,
-          alt: "Caravans for Sale Australia",
+          alt: "Motorhomes for Sale Australia",
         },
       ],
     },

@@ -14,7 +14,7 @@ export default function CaravanBuyingSafetyGuide() {
               </h1>
 
               <p>
-                Buying a caravan is an exciting investment, whether you’re planning weekend trips or long-term travel.
+                Buying a  motorhomeis an exciting investment, whether you’re planning weekend trips or long-term travel.
                 While most sellers are genuine, it is important to take precautions to ensure your purchase is safe and legitimate.
               </p>
 
@@ -45,7 +45,7 @@ export default function CaravanBuyingSafetyGuide() {
               <h3>2. Inspect the Caravan Before Payment</h3>
 
               <p>
-                Whenever possible, inspect the caravan in person before making any payment.
+                Whenever possible, inspect the  motorhomein person before making any payment.
               </p>
 
               <p>During an inspection, check:</p>
@@ -60,25 +60,25 @@ export default function CaravanBuyingSafetyGuide() {
               </ul>
 
               <p>
-                If you are unable to inspect the caravan yourself, consider hiring an independent caravan inspector.
+                If you are unable to inspect the  motorhomeyourself, consider hiring an independent  motorhomeinspector.
               </p>
 
               <p>
-                Never send payment for a caravan that you have not verified.
+                Never send payment for a  motorhomethat you have not verified.
               </p>
 
               <h3>3. Check the VIN or Chassis Number</h3>
 
               <p>
-                Every caravan should have a Vehicle Identification Number (VIN) or chassis number.
+                Every  motorhomeshould have a Vehicle Identification Number (VIN) or chassis number.
               </p>
 
               <p>Before buying:</p>
 
               <ul>
-                <li>confirm the VIN on the caravan matches the documentation</li>
+                <li>confirm the VIN on the  motorhomematches the documentation</li>
                 <li>ensure the VIN has not been altered or tampered with</li>
-                <li>verify the caravan registration details where applicable</li>
+                <li>verify the  motorhomeregistration details where applicable</li>
               </ul>
 
               <p>
@@ -100,11 +100,11 @@ export default function CaravanBuyingSafetyGuide() {
               <ul>
                 <li>finance is still owing on the caravan</li>
                 <li>another party has a financial interest in the caravan</li>
-                <li>the caravan has been reported stolen</li>
+                <li>the  motorhomehas been reported stolen</li>
               </ul>
 
               <p>
-                Purchasing a caravan with outstanding finance could affect your ownership rights.
+                Purchasing a  motorhomewith outstanding finance could affect your ownership rights.
               </p>
 
               <p>
@@ -122,7 +122,7 @@ export default function CaravanBuyingSafetyGuide() {
               <ul>
                 <li>the price seems unusually low</li>
                 <li>the seller claims urgent circumstances for selling</li>
-                <li>the seller says the caravan is located overseas</li>
+                <li>the seller says the  motorhomeis located overseas</li>
                 <li>the seller asks for immediate payment</li>
               </ul>
 

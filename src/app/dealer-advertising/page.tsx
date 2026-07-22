@@ -8,7 +8,7 @@ const schemaGraph = [
     "@id": "https://www.caravansforsale.com.au/dealer-advertising/#webpage",
     "url": "https://www.caravansforsale.com.au/dealer-advertising/",
     "name": "Caravan Dealer Advertising | Unlimited Listings $299/Month | CaravansForSale",
-    "description": "Advertise your caravan dealership on CaravansForSale.com.au. Unlimited listings, zero lead fees, $299/month (inc. GST). Cancel anytime.",
+    "description": "Advertise your  motorhomedealership on CaravansForSale.com.au. Unlimited listings, zero lead fees, $299/month (inc. GST). Cancel anytime.",
     "isPartOf": { "@id": "https://www.caravansforsale.com.au/#website" },
     "breadcrumb": { "@id": "https://www.caravansforsale.com.au/dealer-advertising/#breadcrumb" },
   },
@@ -30,7 +30,7 @@ const schemaGraph = [
       "name": "Caravans For Sale",
       "url": "https://www.caravansforsale.com.au/",
     },
-    "description": "Unlimited caravan listings on CaravansForSale.com.au for $299/month (inc. GST). Zero lead fees, no lock-in contracts, automatic inventory sync.",
+    "description": "Unlimited  motorhomelistings on CaravansForSale.com.au for $299/month (inc. GST). Zero lead fees, no lock-in contracts, automatic inventory sync.",
     "url": "https://www.caravansforsale.com.au/dealer-advertising/",
     "areaServed": { "@type": "Country", "name": "Australia" },
     "offers": {
@@ -59,7 +59,7 @@ const schemaGraph = [
       },
       {
         "@type": "Question",
-        "name": "How are my caravan listings added and kept up-to-date automatically?",
+        "name": "How are my  motorhomelistings added and kept up-to-date automatically?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "We sync directly with your dealership's website. Your listings are pulled automatically and refreshed weekly to match your current inventory.",

@@ -59,7 +59,7 @@
  
  function formatCategoryName(name: string): string {
    if (name.toLowerCase().includes("caravan")) return name;
-   return `${name} Caravans for Sale`;
+   return `${name} Motorhomes for Sale`;
  }
  function formatSearchName(search: string): string {
   // "off-road-caravans-with-bunks" → "Off Road Caravans With Bunks for Sale in Australia"
@@ -446,10 +446,10 @@ function getNearestSleepLink(filters: Filters): { name: string; slug: string } |
        ? activeFilters + 1
        : activeFilters;
  
-   links.home = [{ name: "Caravans for Sale", slug: "/" }];
+   links.home = [{ name: "Motorhomes for Sale", slug: "/" }];
  
    if (effectiveCount === 0) {
-     links.home = [{ name: "Caravans for Sale", slug: "/" }];
+     links.home = [{ name: "Motorhomes for Sale", slug: "/" }];
      return links;
    }
  
@@ -459,13 +459,13 @@ function getNearestSleepLink(filters: Filters): { name: string; slug: string } |
      if (hasMake && hasModel) {
     links.makes = [
       {
-      name: `${filters.make!} Caravans for Sale in Australia`,
+      name: `${filters.make!} Motorhomes for Sale in Australia`,
       slug: `/listings/${filters.make!.toLowerCase()}/`,
     },
     ];
     links.models = [
        {
-      name: `${filters.make!} ${filters.model!} Caravans for Sale in Australia`,
+      name: `${filters.make!} ${filters.model!} Motorhomes for Sale in Australia`,
       slug: `/listings/${filters.make!.toLowerCase()}/${filters.model!.toLowerCase()}/`,
     },
     ];
@@ -493,7 +493,7 @@ function getNearestSleepLink(filters: Filters): { name: string; slug: string } |
      );
      if (stateEntryS) {
        links.states = [{
-         name: `Caravans for Sale in ${stateEntryS.name}`,
+         name: `Motorhomes for Sale in ${stateEntryS.name}`,
          slug: `/listings${stateEntryS.slug}`,
        }];
      }
@@ -504,12 +504,12 @@ function getNearestSleepLink(filters: Filters): { name: string; slug: string } |
        const statePart = filters.state!.toLowerCase().replace(/ /g, "-");
        const regionPart = filters.region!.toLowerCase().replace(/ /g, "-");
        links.regions = [{
-         name: `Caravans for Sale in ${regionEntryS.name} Region`,
+         name: `Motorhomes for Sale in ${regionEntryS.name} Region`,
          slug: `/listings/${statePart}-state/${regionPart}-region/`,
        }];
      }
      links.suburbs = [{
-       name: `Caravans for Sale in ${filters.suburb!}`,
+       name: `Motorhomes for Sale in ${filters.suburb!}`,
        slug: `/listings/${filters.state!.toLowerCase().replace(/ /g, "-")}-state/${filters.region!.toLowerCase().replace(/ /g, "-")}-region/${filters.suburb!.toLowerCase().replace(/ /g, "-")}-${filters.pincode}-suburb/`,
      }];
    } else if (hasRegion && hasState) {
@@ -518,7 +518,7 @@ function getNearestSleepLink(filters: Filters): { name: string; slug: string } |
      );
      if (stateEntry) {
        links.states = [{
-         name: `Caravans for Sale in ${stateEntry.name}`,
+         name: `Motorhomes for Sale in ${stateEntry.name}`,
          slug: `/listings${stateEntry.slug}`,
        }];
      }
@@ -529,7 +529,7 @@ function getNearestSleepLink(filters: Filters): { name: string; slug: string } |
        const statePart = filters.state!.toLowerCase().replace(/ /g, "-");
        const regionPart = filters.region!.toLowerCase().replace(/ /g, "-");
        links.regions = [{
-         name: `Caravans for Sale in ${regionEntry.name} Region`,
+         name: `Motorhomes for Sale in ${regionEntry.name} Region`,
          slug: `/listings/${statePart}-state/${regionPart}-region/`,
        }];
      }
@@ -539,7 +539,7 @@ function getNearestSleepLink(filters: Filters): { name: string; slug: string } |
      );
      if (stateEntry) {
        links.states = [{
-         name: `Caravans for Sale in ${stateEntry.name}`,
+         name: `Motorhomes for Sale in ${stateEntry.name}`,
          slug: `/listings${stateEntry.slug}`,
        }];
      }
@@ -547,14 +547,14 @@ function getNearestSleepLink(filters: Filters): { name: string; slug: string } |
   // ── Make / Model ─────────────────────────────────────────
    if (hasMake) {
      links.makes = [
-       { name: `${filters.make!} Caravans for Sale in Australia`,
+       { name: `${filters.make!} Motorhomes for Sale in Australia`,
         slug: `/listings/${filters.make!.toLowerCase()}/` },
      ];
    }
    if (hasMake && hasModel) {
      links.models = [
        {
-         name: `${filters.make!} ${filters.model!} Caravans for Sale in Australia`,
+         name: `${filters.make!} ${filters.model!} Motorhomes for Sale in Australia`,
          slug: `/listings/${filters.make!.toLowerCase()}/${filters.model!.toLowerCase()}/`,
        },
      ];

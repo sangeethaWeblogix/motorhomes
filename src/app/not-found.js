@@ -39,7 +39,7 @@ export default function NotFoundPage() {
           404
         </h1>
         <p className="err-sub">
-          Oops! The caravan or page you’re looking for isn’t available.
+          Oops! The  motorhomeor page you’re looking for isn’t available.
         </p>
 
         <div className="search-wrap">

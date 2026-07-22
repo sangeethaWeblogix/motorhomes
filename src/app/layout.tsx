@@ -73,12 +73,12 @@ import fetchListingsForHead, { buildListingsJsonLd, buildBreadcrumbs } from "@/u
     const STATIC_META: Record<string, { title: string; description: string; canonical: string }> = {
       "/caravan-manufacturers/": {
         title: "Top 10 Caravan Manufacturers in Australia: Best Brands of 2024",
-        description: "See how top Australian caravan manufacturers excel with the best in innovative designs, quality construction, cost efficiency, and expert craftsmanship.",
+        description: "See how top Australian  motorhomemanufacturers excel with the best in innovative designs, quality construction, cost efficiency, and expert craftsmanship.",
         canonical: "https://www.caravansforsale.com.au/caravan-manufacturers/",
       },
       "/off-road-caravans-manufacturers/": {
         title: "Top Off-Road Caravan Manufacturers in Australia: Best Brands 2024",
-        description: "Discover Australia's leading off-road caravan manufacturers. Compare top brands known for rugged build quality, innovative design, and outback-ready performance.",
+        description: "Discover Australia's leading off-road  motorhomemanufacturers. Compare top brands known for rugged build quality, innovative design, and outback-ready performance.",
         canonical: "https://www.caravansforsale.com.au/off-road-caravans-manufacturers/",
       },
     };
@@ -143,8 +143,8 @@ import fetchListingsForHead, { buildListingsJsonLd, buildBreadcrumbs } from "@/u
         //     )
         //     .filter(Boolean);
         //   slugTitle = parts.length
-        //     ? `${parts.join(" ")} Caravans for Sale in Australia`
-        //     : "Caravans for Sale in Australia";
+        //     ? `${parts.join(" ")} Motorhomes for Sale in Australia`
+        //     : "Motorhomes for Sale in Australia";
         //   slugCanonical = `https://www.caravansforsale.com.au/listings/${slugParts.join("/")}/`;
         //   slugDescription = "Browse caravans for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.";
         //   slugRobots = "index, follow";

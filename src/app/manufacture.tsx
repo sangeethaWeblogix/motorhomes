@@ -42,7 +42,7 @@ const data = [
     img: "/images/Avan.png",
     alt: "Avan Logo",
     title: "Avan Caravans",
-    desc: "Explore our Avan Caravans review with 2025 models, key features and prices to help you choose the right caravan for your travels in Australia.",
+    desc: "Explore our Avan Caravans review with 2025 models, key features and prices to help you choose the right  motorhomefor your travels in Australia.",
     type: "Campers, Pop Tops, Hard Tops",
     brand: "Avan",
     link: "/avan-caravans-review-features-prices/",
@@ -60,7 +60,7 @@ const data = [
     img: "/images/Crusader-Caravans.png",
     alt: "Crusader Caravans Logo",
     title: "Crusader Caravans",
-    desc: "Read our Crusader Caravans review covering key features, model options and pricing to help you choose the perfect caravan for your adventures.",
+    desc: "Read our Crusader Caravans review covering key features, model options and pricing to help you choose the perfect  motorhomefor your adventures.",
     type: "Off-Road, Touring, Family, Luxury",
     brand: "Crusader",
     link: "/crusader-caravans-review-features-compare-prices/",
@@ -69,7 +69,7 @@ const data = [
     img: "/images/JB-caravans.png",
     alt: "JB Caravans Logo",
     title: "JB Caravans",
-    desc: "Explore our JB Caravans review with 2025 models, prices and features. From off-road touring to luxury travel, find the perfect caravan for you.",
+    desc: "Explore our JB Caravans review with 2025 models, prices and features. From off-road touring to luxury travel, find the perfect  motorhomefor you.",
     type: "Off-Road, Hybrid, On-Road",
     brand: "JB",
     link: "/jb-caravans-australia-models-reviews-prices/",
@@ -78,7 +78,7 @@ const data = [
     img: "/images/MDC.png",
     alt: "MDC Caravans Logo",
     title: "MDC Caravans",
-    desc: "Discover our MDC Caravans review, exploring features and comparing off-road models to help you choose the ideal adventure-ready caravan today.",
+    desc: "Discover our MDC Caravans review, exploring features and comparing off-road models to help you choose the ideal adventure-ready  motorhometoday.",
     type: "Off-Road, Hybrid, On-Road",
     brand: "MDC",
     link: "/mdc-caravans-australia-reviews-features/",
@@ -159,7 +159,7 @@ const data = [
     img: "/images/Trakmaster.png",
     alt: "Trakmaster Logo",
     title: "Trakmaster",
-    desc: "Read our Trakmaster Pilbara Extreme review, exploring off-road strength, features and why this caravan is built for serious adventure.",
+    desc: "Read our Trakmaster Pilbara Extreme review, exploring off-road strength, features and why this  motorhomeis built for serious adventure.",
     type: "Off-Road, Camper",
     brand: "Trakmaster",
     link: "/trakmaster-pilbara-extreme-review/",
@@ -189,7 +189,7 @@ const Manufacture = () => {
     <div className="container">
       <div className="section-head mb-40">
         <h2>Top Caravan Brands Reviewed – Real Insights, Real Value</h2>
-        <p>Discover in-depth reviews of Australia’s most trusted caravan manufacturers — with honest insights into build quality, off-road performance, layouts, comfort, and long-term reliability. Explore each brand to see how they truly stack up before you buy.</p>
+        <p>Discover in-depth reviews of Australia’s most trusted  motorhomemanufacturers — with honest insights into build quality, off-road performance, layouts, comfort, and long-term reliability. Explore each brand to see how they truly stack up before you buy.</p>
       </div>
 
       <div className="range-home position-relative">

@@ -7,21 +7,21 @@ const OffRoadCaravanInfoFooter = () => {
       <div className="container">
         <div className="text-left white_section">
           <h4>
-            What makes an off road caravan truly stand out from its competition
+            What makes an off road  motorhometruly stand out from its competition
           </h4>
           <p>
             Off Road Caravans are designed to handle the toughest terrain so you
             can explore Australia &apos;s outback.
           </p>
           <p>
-            When a caravan is built with precision, durability and attention to
+            When a  motorhomeis built with precision, durability and attention to
             detail including heavy duty off road chassis and independent
             suspension you &apos;ll have a stress free and enjoyable trip.
             Browse our brands and find your next adventure caravan.
           </p>
           <h4>We &apos;ve got you covered</h4>
           <p>
-            Buying a caravan is a big investment and we have resources to help
+            Buying a  motorhomeis a big investment and we have resources to help
             make it easier.
           </p>
           <p>

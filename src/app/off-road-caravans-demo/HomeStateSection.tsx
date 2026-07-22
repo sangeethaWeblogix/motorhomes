@@ -27,7 +27,7 @@ const stateMeta: Record<string, { code: string; image: string }> = {
   tasmania:           { code: "TAS", image: "/images/tas_map.svg" },
 };
 
-export default function HomeStateSection({ stateBands, title = "Browse Caravans for Sale in Australia by State" }: Props) {
+export default function HomeStateSection({ stateBands, title = "Browse Motorhomes for Sale in Australia by State" }: Props) {
   const loading = stateBands.length === 0;
 
   return (
@@ -79,7 +79,7 @@ export default function HomeStateSection({ stateBands, title = "Browse Caravans 
                           <h3>{item.state}</h3>
                           <div className="info">
                             <div className="quick_linkss">
-                              <p>{item.display_text.replace("caravan listings", "off road caravan listings")}</p>
+                              <p>{item.display_text.replace(" motorhomelistings", "off road  motorhomelistings")}</p>
                               <a className="view_all" href={`/listings${item.permalink}/`}>
                                 View Off Road Caravans in {meta.code}{" "}
                                 <i className="bi bi-chevron-right" />

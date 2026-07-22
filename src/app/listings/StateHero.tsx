@@ -41,7 +41,7 @@ interface Props {
   description?: string;
   loading?: boolean;
   /** Up to 3 active-filter crumbs, in priority order — rendered after
-   * Home > Caravans for Sale. See buildFilterBreadcrumbs in urlUtils.ts. */
+   * Home > Motorhomes for Sale. See buildFilterBreadcrumbs in urlUtils.ts. */
   breadcrumbs?: FilterBreadcrumb[];
 }
 
@@ -55,7 +55,7 @@ export default function StateHero({ title, description, loading, breadcrumbs }: 
         <nav className="lsd-breadcrumb" aria-label="breadcrumb">
           <a href="/">Home</a>
           <svg width="12" height="20" viewBox="0 0 24 24" fill="none" stroke="#3e3e3e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0,display:"block"}} aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-          <a href="/listings/">Caravans for Sale</a>
+          <a href="/listings/">Motorhomes for Sale</a>
           {breadcrumbs?.map((crumb) => (
             <span key={crumb.href}>
               <svg width="12" height="20" viewBox="0 0 24 24" fill="none" stroke="#3e3e3e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0,display:"block"}} aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
@@ -75,7 +75,7 @@ export default function StateHero({ title, description, loading, breadcrumbs }: 
           ) : (
             <>
               <h1 className="lsd-hero__title">
-                {title || "Caravans for Sale"}
+                {title || "Motorhomes for Sale"}
               </h1>
 
               <div

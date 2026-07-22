@@ -71,7 +71,7 @@ export default function FAQSection() {
                           durability and performance in harsh conditions.
                         </p>
                         <h4>
-                          How does the Eclipse X caravan excel in handling
+                          How does the Eclipse X  motorhomeexcel in handling
                           extreme off-road conditions?
                         </h4>
                         <p>
@@ -83,7 +83,7 @@ export default function FAQSection() {
                           >
                             Eclipse X
                           </Link>{" "}
-                          caravan includes a robust off-road chassis and
+                           motorhomeincludes a robust off-road chassis and
                           suspension system, along with solar power, a lithium
                           battery, and water tanks, making it ideal for extreme
                           off-road conditions.
@@ -116,7 +116,7 @@ export default function FAQSection() {
                           terrains.
                         </p>
                         <h4>
-                          How does the Nomad 17′ caravan perform in off-road
+                          How does the Nomad 17′  motorhomeperform in off-road
                           conditions?
                         </h4>
                         <p>
@@ -128,7 +128,7 @@ export default function FAQSection() {
                           >
                             Nomad
                           </Link>{" "}
-                          17′ caravan is designed with off-road features similar
+                          17′  motorhomeis designed with off-road features similar
                           to the Tracker, including a robust chassis and
                           suspension system to handle diverse terrains
                           effectively.
@@ -271,7 +271,7 @@ export default function FAQSection() {
                           >
                             X Element
                           </Link>{" "}
-                          is a lightweight, compact caravan designed for singles
+                          is a lightweight, compact  motorhomedesigned for singles
                           or couples. It includes a well-equipped kitchen and
                           bathroom, delivering cozy comfort and essential
                           amenities in a travel-friendly size for easy off-road
@@ -307,7 +307,7 @@ export default function FAQSection() {
                           </Link>{" "}
                           is perfect for families, offering 2 or 3 bunks, a
                           private ensuite, a washing machine, and ample storage.
-                          This 22ft hard roof hybrid caravan provides both
+                          This 22ft hard roof hybrid  motorhomeprovides both
                           luxury and durability for comfortable long-distance
                           family travel.
                         </p>

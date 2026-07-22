@@ -160,7 +160,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     if (categoryCounts.length > 0) cachedCategoryCountsRef.current = categoryCounts;
   }, [categoryCounts]);
 
-  // Only show caravan types that actually have matching results under the
+  // Only show  motorhometypes that actually have matching results under the
   // current filters — falls back to the full static list before the first
   // count response arrives (or if the API returned no breakdown at all).
   const visibleCategories = categoryCounts.length > 0

@@ -40,7 +40,7 @@ const CARAVAN_TYPES = [
 ];
 
 const HOW_TO_STEPS = [
-  { num: 1, iconSet: "fa-regular", icon: "fa-file-lines",    title: "Create Your Listing",    desc: "Add your caravan details, specifications, price and contact information." },
+  { num: 1, iconSet: "fa-regular", icon: "fa-file-lines",    title: "Create Your Listing",    desc: "Add your  motorhomedetails, specifications, price and contact information." },
   { num: 2, iconSet: "fa-regular", icon: "fa-image",         title: "Upload Photos",          desc: "Add clear photos of the inside, outside and key features of your caravan." },
   { num: 3, iconSet: "fa-regular", icon: "fa-comment-dots",  title: "Receive Buyer Enquiries", desc: "Interested buyers contact you directly through your listing." },
   { num: 4, iconSet: "fa-regular", icon: "fa-handshake",     title: "Negotiate Directly",     desc: "Arrange inspections, answer questions and negotiate with buyers." },
@@ -50,44 +50,44 @@ const HOW_TO_STEPS = [
 
 const MAIN_FAQS = [
   {
-    q: "How do I sell my caravan online in Australia?",
-    a: <p>You can sell your caravan online by creating a private seller listing on CaravansForSale.com.au. Add your caravan details, upload clear photos, set your asking price and publish your ad so buyers across Australia can contact you directly.</p>,
+    q: "How do I sell my  motorhomeonline in Australia?",
+    a: <p>You can sell your  motorhomeonline by creating a private seller listing on CaravansForSale.com.au. Add your  motorhomedetails, upload clear photos, set your asking price and publish your ad so buyers across Australia can contact you directly.</p>,
   },
   {
     q: "How much does it cost to list my caravan?",
-    a: <p>It costs $49 inc. GST to list your caravan on CaravansForSale.com.au. This is a one-time listing fee with no monthly subscription, no hidden charges and no commission when your caravan sells.</p>,
+    a: <p>It costs $49 inc. GST to list your  motorhomeon CaravansForSale.com.au. This is a one-time listing fee with no monthly subscription, no hidden charges and no commission when your  motorhomesells.</p>,
   },
   {
-    q: "How long does my caravan listing stay live?",
-    a: <p>Your caravan listing stays live until sold. You do not need to keep paying monthly fees to keep your ad active. Once your caravan is sold, you can remove the listing from the website.</p>,
+    q: "How long does my  motorhomelisting stay live?",
+    a: <p>Your  motorhomelisting stays live until sold. You do not need to keep paying monthly fees to keep your ad active. Once your  motorhomeis sold, you can remove the listing from the website.</p>,
   },
   {
-    q: "Can I edit my caravan listing after publishing?",
-    a: <p>Yes. After your listing is published, you can update your caravan details, change the asking price, add or replace photos and improve your description if needed.</p>,
+    q: "Can I edit my  motorhomelisting after publishing?",
+    a: <p>Yes. After your listing is published, you can update your  motorhomedetails, change the asking price, add or replace photos and improve your description if needed.</p>,
   },
   {
     q: "How do buyers contact me?",
-    a: <p>Interested buyers can contact you directly through your caravan listing. This allows you to answer questions, arrange inspections, negotiate the price and manage the sale privately.</p>,
+    a: <p>Interested buyers can contact you directly through your  motorhomelisting. This allows you to answer questions, arrange inspections, negotiate the price and manage the sale privately.</p>,
   },
   {
     q: "What photos should I upload when selling my caravan?",
-    a: <p>Upload clear photos of the outside, inside, kitchen, beds, seating area, bathroom, tyres, drawbar and any included accessories. Good photos help buyers understand the condition of your caravan and can increase enquiries.</p>,
+    a: <p>Upload clear photos of the outside, inside, kitchen, beds, seating area, bathroom, tyres, drawbar and any included accessories. Good photos help buyers understand the condition of your  motorhomeand can increase enquiries.</p>,
   },
   {
     q: "How should I price my caravan?",
     a: <p>Check similar caravans for sale before setting your price. Compare by make, model, year, condition, length, ATM, tare weight, sleeping capacity, features and location. A realistic asking price can help attract more genuine buyers.</p>,
   },
   {
-    q: "Is it safe to sell my caravan privately online?",
+    q: "Is it safe to sell my  motorhomeprivately online?",
     a: <p>Yes, but you should take normal precautions. Speak with buyers directly, meet in a safe location, confirm payment has cleared before handover and complete any required transfer paperwork for your state or territory.</p>,
   },
   {
-    q: "Do I pay commission when my caravan sells?",
-    a: <p>No. CaravansForSale.com.au does not charge commission when your caravan sells. You pay the one-time listing fee and keep 100% of the agreed sale price.</p>,
+    q: "Do I pay commission when my  motorhomesells?",
+    a: <p>No. CaravansForSale.com.au does not charge commission when your  motorhomesells. You pay the one-time listing fee and keep 100% of the agreed sale price.</p>,
   },
   {
-    q: "Can I remove my listing after my caravan is sold?",
-    a: <p>Yes. Once your caravan has sold, you can remove your listing so buyers know it is no longer available.</p>,
+    q: "Can I remove my listing after my  motorhomeis sold?",
+    a: <p>Yes. Once your  motorhomehas sold, you can remove your listing so buyers know it is no longer available.</p>,
   },
 ];
 
@@ -104,7 +104,7 @@ export default function SellerDemo() {
             Sell My Caravan Online in Australia
           </h1>
           <p className="demo-hero__subtitle">
-            List your caravan for $49 until sold — no commissions, no subscriptions and direct buyer contact.
+             List your Motorhome for $49 until sold — no commissions, no subscriptions and direct buyer contact.
           </p>
           
 
@@ -121,7 +121,7 @@ export default function SellerDemo() {
               <h3>Looking to sell your caravan?</h3>
             </div>
               <p className="demo-price-card__desc">
-                CaravansForSale.com.au helps private sellers advertise directly to genuine caravan buyers for a one-time $49 listing fee, with no commissions, no subscriptions and your ad live until sold.
+                CaravansForSale.com.au helps private sellers advertise directly to genuine  motorhomebuyers for a one-time $49 listing fee, with no commissions, no subscriptions and your ad live until sold.
               </p>
               
             </div>
@@ -171,7 +171,7 @@ export default function SellerDemo() {
           <div className="demo-features-grid">
             {[
               { img: "/images/chat2.png", title: "Direct Buyer Contact", desc: "Connect directly with genuine buyers. No middleman." },
-              { img: "/images/calendar.png", title: "Live Until Sold", desc: "Your listing stays online and visible until your caravan is sold." },
+              { img: "/images/calendar.png", title: "Live Until Sold", desc: "Your listing stays online and visible until your  motorhomeis sold." },
               { img: "/images/caravan.png", title: "Caravan-Only Marketplace", desc: "Reach a targeted audience actively looking to buy caravans." },
               { img: "/images/dollar.png", title: "Keep 100% of Your Sale", desc: "Pay only $49 Inc GST per listing. No commissions or hidden costs." },
             ].map((item, i) => (
@@ -280,7 +280,7 @@ export default function SellerDemo() {
               <ul className="demo-guide-card__list">
                 <li>Caravan-only marketplace, not a general classifieds page.</li>
                 <li>Buyers search by type, price, weight, sleeps and location.</li>
-                <li>Your caravan is shown to people already looking to buy.</li>
+                <li>Your  motorhomeis shown to people already looking to buy.</li>
                 <li>Direct enquiries, no commission on the final sale.</li>
               </ul>
             </div>
@@ -331,7 +331,7 @@ export default function SellerDemo() {
           <div className="demo-faq-head">
             <span className="demo-faq-head__tag">FAQ</span>
             <h2>Frequently Asked Questions</h2>
-            <p>Everything you need to know about selling your caravan on CaravansForSale.com.au</p>
+            <p>Everything you need to know about selling your  motorhomeon CaravansForSale.com.au</p>
           </div>
           <div className="demo-faq-list">
             {MAIN_FAQS.map((faq, i) => (
@@ -416,8 +416,8 @@ export default function SellerDemo() {
             <div className="col-md-6">
               <h2>Why Thousands of Caravan Buyers Visit CaravansForSale Every Month</h2>
               <p>
-                CaravansForSale.com.au is Australia's dedicated caravan marketplace, built exclusively
-                for caravan buyers and sellers. We attract thousands of genuine buyers every day who
+                CaravansForSale.com.au is Australia's dedicated  motorhomemarketplace, built exclusively
+                for  motorhomebuyers and sellers. We attract thousands of genuine buyers every day who
                 are actively searching for road caravans, family caravans, pop-top caravans, luxury
                 caravans and more.
               </p>
@@ -443,7 +443,7 @@ export default function SellerDemo() {
         <div className="container">
           
           <h2 className="demo-steps-title">How To Sell Your Caravan Online</h2>
-          <p className="demo-steps-subtitle">List your caravan in minutes and connect with serious buyers Australia-wide.</p>
+          <p className="demo-steps-subtitle"> List your Motorhome in minutes and connect with serious buyers Australia-wide.</p>
 
           {/* Steps: each column has number circle + icon + content; connectors between columns */}
           <div className="demo-steps-wrapper">
@@ -474,7 +474,7 @@ export default function SellerDemo() {
       <section className="demo-cta-strip">
         <div className="container text-center">
           <p>
-            Start selling your caravan today for just{" "}
+            Start selling your  motorhometoday for just{" "}
             <strong>$49 (Inc. GST)</strong> — Live until sold!
           </p>
           <a href="https://seller.caravansforsale.com.au/seller-signup/" className="btn white_btn">

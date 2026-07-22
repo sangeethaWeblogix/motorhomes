@@ -7,7 +7,7 @@ import './home-page-take-over.css'
 export const metadata: Metadata = {
   title: 'Home Page Takeover Advertising | #1 Caravan Brand Exposure Australia-Wide',
   description:
-    "Dominate Australia's leading caravan marketplace with our exclusive Home Page Takeover. Limited to 1 advertiser per month — maximum visibility, retargeting included, and 100% share of voice for your caravan brand.",
+    "Dominate Australia's leading  motorhomemarketplace with our exclusive Home Page Takeover. Limited to 1 advertiser per month — maximum visibility, retargeting included, and 100% share of voice for your  motorhomebrand.",
 }
 
 export default function HomePageTakeOver() {
@@ -70,7 +70,7 @@ export default function HomePageTakeOver() {
                   <Image src="/images/hometk_target.png" alt="High-Intent Audience" width={72} height={72} />
                 </div>
                 <h3 className="fw-bold text-uppercase mb-3">High-Intent Audience</h3>
-                <p>Reach thousands of serious caravan buyers actively searching.</p>
+                <p>Reach thousands of serious  motorhomebuyers actively searching.</p>
               </div>
 
               <div className="col-md-3 p-4 text-center feature-card" data-purpose="feature-card">
@@ -150,7 +150,7 @@ export default function HomePageTakeOver() {
               The Ultimate Caravan Marketing Package
             </h2>
             <p className="h5 text-dark fw-medium">
-              A complete lead generation solution for your caravan brand
+              A complete lead generation solution for your  motorhomebrand
             </p>
           </div>
           <div className="row g-4 justify-content-center">
@@ -213,7 +213,7 @@ export default function HomePageTakeOver() {
                     Australia-Wide Exposure
                   </h4>
                   <p className="small fw-medium m-0 lh-base">
-                    Reach serious caravan buyers from all over Australia.
+                    Reach serious  motorhomebuyers from all over Australia.
                   </p>
                 </div>
               </div>

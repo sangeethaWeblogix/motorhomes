@@ -980,7 +980,7 @@ export default function ClientLogger({
                           <li>
                             <span className="num">3</span>
                             <div>
-                              <h4>Inspect the caravan first</h4>
+                              <h4>Inspect the  motorhomefirst</h4>
                               <p>Inspect in person or arrange an inspection.</p>
                             </div>
                           </li>

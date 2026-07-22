@@ -16,7 +16,7 @@ type Product = {
   sku: string;
 };
 
-export default function ProductCard({ caravan }: { caravan: Product }) {
+export default function ProductCard({   motorhome }: { caravan: Product }) {
   const href = `/product/${caravan.slug}`;
 
   const base = `https://caravansforsale.imagestack.net/400x300/${caravan.sku}/${caravan.slug}`;

@@ -9,7 +9,7 @@ import { ReactNode } from "react";
      template: "%s ",
    },
    description:
-     "Caravan Marketplace is your go-to platform for finding the perfect caravan from the right manufacturer or dealer @ the right price.",
+     "Caravan Marketplace is your go-to platform for finding the perfect  motorhomefrom the right manufacturer or dealer @ the right price.",
    icons: { icon: "/favicon.ico" },
    robots: "index, follow",
    verification: {

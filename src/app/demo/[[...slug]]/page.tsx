@@ -21,7 +21,7 @@ export async function generateMetadata({
   const seo = await fetchDemoSeo(filters);
 
   return {
-    title: seo?.meta_title || "Caravans for Sale in Victoria | CaravansForSale.com.au",
+    title: seo?.meta_title || "Motorhomes for Sale in Victoria | CaravansForSale.com.au",
     description: seo?.meta_description || "Browse new and used caravans for sale in Victoria from dealers and private sellers.",
     robots: { index: false, follow: false },
   };

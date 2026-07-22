@@ -14,9 +14,9 @@ export default function AboutUs() {
 
               <h2 className="wp-block-heading">Welcome to Marketplace Network</h2>
               <p>
-                At Marketplace Network, we’re dedicated to making your caravan research
+                At Marketplace Network, we’re dedicated to making your  motorhomeresearch
                 experience seamless, convenient, and importantly valuable. We have put
-                together a wide range of caravan models from a range of caravan
+                together a wide range of  motorhomemodels from a range of caravan
                 manufacturers.
               </p>
 
@@ -25,7 +25,7 @@ export default function AboutUs() {
                 <strong>Extensive Data :</strong> Explore thousands of new and used
                 caravans available on Marketplace Network. With a diverse range of off
                 road, hybrid, luxury, family &amp; touring caravans to choose from, we
-                are confident that you’ll find the perfect caravan to suit your needs
+                are confident that you’ll find the perfect  motorhometo suit your needs
                 and preferences.
               </p>
 
@@ -33,7 +33,7 @@ export default function AboutUs() {
                 Find Quality Manufacturers Advertising With Us <strong>:</strong>
               </h4>
               <p>
-                We have identified specific caravan manufacturers who build quality
+                We have identified specific  motorhomemanufacturers who build quality
                 caravans in various categories including off road, on road, touring
                 caravans. These manufacturers don’t spend big on advertising and do not
                 participate much on the show. However, the quality of the van is as good
@@ -84,9 +84,9 @@ export default function AboutUs() {
 
               <h4 className="wp-block-heading">Browse Marketplace Network Today</h4>
               <p>
-                Experience the convenience, reliability, and efficiency of Marketplace Network. If you are looking to buy a quality caravan at the right
-                price, we’re your trusted partner in the caravan market. Join us today
-                and embark on your next caravan adventure with confidence!
+                Experience the convenience, reliability, and efficiency of Marketplace Network. If you are looking to buy a quality  motorhomeat the right
+                price, we’re your trusted partner in the  motorhomemarket. Join us today
+                and embark on your next  motorhomeadventure with confidence!
               </p>
             </div>
           </div>

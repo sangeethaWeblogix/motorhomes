@@ -86,11 +86,11 @@ const FaqSection = () => {
                           series.
                         </p>
                         <h4>
-                          Can I customize my caravan with Everest Caravans?
+                          Can I customize my  motorhomewith Everest Caravans?
                         </h4>
                         <p>
                           Yes, Everest Caravans offers custom-built options to
-                          tailor the caravan to your specific needs and
+                          tailor the  motorhometo your specific needs and
                           preferences.
                         </p>
                         <h4>Are their caravans family-friendly?</h4>

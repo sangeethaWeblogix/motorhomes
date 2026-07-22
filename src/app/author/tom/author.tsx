@@ -90,7 +90,7 @@ const loading = !data || !blogPosts || blogPosts.length === 0 && data.totalPages
 
               <div className="author-info">
                 <p>
-                  Tom is a passionate caravan enthusiast and content writer at{" "}
+                  Tom is a passionate  motorhomeenthusiast and content writer at{" "}
                   <Link href="https://www.caravansforsale.com.au/">
                     CaravansForSale.com.au
                   </Link>{" "}
@@ -99,7 +99,7 @@ const loading = !data || !blogPosts || blogPosts.length === 0 && data.totalPages
                 </p>
                 <p>
                   He helps Australians make informed decisions across every
-                  stage of the caravan journey, from choosing the right model to
+                  stage of the  motorhomejourney, from choosing the right model to
                   comparing prices and discovering hidden gems from regional
                   manufacturers.
                 </p>
@@ -111,7 +111,7 @@ const loading = !data || !blogPosts || blogPosts.length === 0 && data.totalPages
                 </p>
                 <p>
                   With a genuine love for the outdoors, Tom’s writing reflects
-                  Australia’s caravan lifestyle — adventure, community, and
+                  Australia’s  motorhomelifestyle — adventure, community, and
                   freedom on the open road.
                 </p>
               </div>

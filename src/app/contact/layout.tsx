@@ -10,7 +10,7 @@ import { ReactNode } from "react";
      template: "%s ",
    },
    description:
-     "Have a question about caravans in Australia? Contact Caravans For Sale for support, inquiries, or help finding your next caravan today.",
+     "Have a question about caravans in Australia? Contact Caravans For Sale for support, inquiries, or help finding your next  motorhometoday.",
    icons: { icon: "/favicon.ico" },
    robots: "index, follow",
    verification: {

@@ -685,7 +685,7 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
               <nav className="lsd-breadcrumb" aria-label="Breadcrumb">
                 <Link href="/">Home</Link>
                 <svg width="12" height="20" viewBox="0 0 24 24" fill="none" stroke="#3e3e3e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0,display:"block"}} aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-                <Link href="/listings/">Caravans for Sale</Link>
+                <Link href="/listings/">Motorhomes for Sale</Link>
                 {buildFilterBreadcrumbs(filters).map((crumb) => (
                   <span key={crumb.href}>
                     <svg width="12" height="20" viewBox="0 0 24 24" fill="none" stroke="#3e3e3e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0,display:"block"}} aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
@@ -730,7 +730,7 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
             </>
           ) : (
             <StateListingGrid
-              title={ip.seo?.h1 || "Caravans for Sale"}
+              title={ip.seo?.h1 || "Motorhomes for Sale"}
               titleAs="h1"
               viewAllHref={buildListingsSlug(filters)}
               items={ip.featured}
@@ -744,10 +744,10 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
           <StateContent footerDescription={ip.seo?.footer_description} faq={ip.seo?.faq} />
           <div className="lsd-sell-cta">
             <div className="lsd-sell-cta__inner">
-              <h2 className="lsd-sell-cta__title">Looking to Sell Your Caravan?</h2>
+              <h2 className="lsd-sell-cta__title">Looking to Sell Your Motorhome?</h2>
               <p className="lsd-sell-cta__body">
-                If you&apos;re upgrading or no longer need your current caravan,{" "}
-                <a href="/sell-my-caravan/" className="lsd-sell-cta__link">sell your caravan</a>{" "}
+                If you&apos;re upgrading or no longer need your current motorhome,{" "}
+                <a href="/sell-my-caravan/" className="lsd-sell-cta__link">sell your motorhome</a>{" "}
                 by creating a listing on CaravansForSale.com.au and connect with active buyers across Australia. Your advertisement stays online until it&apos;s sold for a one-time fee of $49.
               </p>
             </div>
@@ -781,10 +781,10 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
         <StateContent footerDescription={initialSeo.footer_description} faq={initialSeo.faq} />
         <div className="lsd-sell-cta">
           <div className="lsd-sell-cta__inner">
-            <h2 className="lsd-sell-cta__title">Looking to Sell Your Caravan?</h2>
+            <h2 className="lsd-sell-cta__title">Looking to Sell Your Motorhome?</h2>
             <p className="lsd-sell-cta__body">
-              If you&apos;re upgrading or no longer need your current caravan,{" "}
-              <a href="/sell-my-caravan/" className="lsd-sell-cta__link">sell your caravan</a>{" "}
+              If you&apos;re upgrading or no longer need your current motorhome,{" "}
+              <a href="/sell-my-caravan/" className="lsd-sell-cta__link">sell your motorhome</a>{" "}
               by creating a listing on CaravansForSale.com.au and connect with active buyers across Australia. Your advertisement stays online until it&apos;s sold for a one-time fee of $49.
             </p>
           </div>
@@ -814,7 +814,7 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
             <nav className="lsd-breadcrumb" aria-label="Breadcrumb">
               <Link href="/">Home</Link>
               <svg width="12" height="20" viewBox="0 0 24 24" fill="none" stroke="#3e3e3e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0,display:"block"}} aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-              <Link href="/listings/">Caravans for Sale</Link>
+              <Link href="/listings/">Motorhomes for Sale</Link>
               {buildFilterBreadcrumbs(filters).map((crumb) => (
                 <span key={crumb.href}>
                   <svg width="12" height="20" viewBox="0 0 24 24" fill="none" stroke="#3e3e3e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0,display:"block"}} aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
@@ -862,7 +862,7 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
         ) : (
           // Non-indexed pages get one combined grid with no slot_bucket split.
           <StateListingGrid
-            title={seo?.h1 || "Caravans for Sale"}
+            title={seo?.h1 || "Motorhomes for Sale"}
             titleAs="h1"
             viewAllHref={buildListingsSlug(filters)}
             items={pool.featured}
@@ -879,10 +879,10 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
         <StateContent footerDescription={seo?.footer_description} faq={seo?.faq} />
         <div className="lsd-sell-cta">
           <div className="lsd-sell-cta__inner">
-            <h2 className="lsd-sell-cta__title">Looking to Sell Your Caravan?</h2>
+            <h2 className="lsd-sell-cta__title">Looking to Sell Your Motorhome?</h2>
             <p className="lsd-sell-cta__body">
-              If you&apos;re upgrading or no longer need your current caravan,{" "}
-              <a href="/sell-my-caravan/" className="lsd-sell-cta__link">sell your caravan</a>{" "}
+              If you&apos;re upgrading or no longer need your current motorhome,{" "}
+              <a href="/sell-my-caravan/" className="lsd-sell-cta__link">sell your motorhome</a>{" "}
               by creating a listing on CaravansForSale.com.au and connect with active buyers across Australia. Your advertisement stays online until it&apos;s sold for a one-time fee of $49.
             </p>
           </div>
@@ -901,7 +901,7 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
           <nav className="lsd-paged-breadcrumb" aria-label="Breadcrumb">
             <Link href="/">Home</Link>
             <svg width="10" height="16" viewBox="0 0 24 24" fill="none" stroke="#aaa" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-            <Link href="/listings/">Caravans for Sale</Link>
+            <Link href="/listings/">Motorhomes for Sale</Link>
             {buildFilterBreadcrumbs(filters).map((crumb) => (
               <span key={crumb.href}>
                 <svg width="10" height="16" viewBox="0 0 24 24" fill="none" stroke="#aaa" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
@@ -909,7 +909,7 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
               </span>
             ))}
           </nav>
-          <h1 className="lsd-paged-title">{seo?.h1 || "Caravans for Sale"}</h1>
+          <h1 className="lsd-paged-title">{seo?.h1 || "Motorhomes for Sale"}</h1>
         </div>
       </div>
 
@@ -935,10 +935,10 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
       <StateContent footerDescription={seo?.footer_description} faq={seo?.faq} />
       <div className="lsd-sell-cta">
         <div className="lsd-sell-cta__inner">
-          <h2 className="lsd-sell-cta__title">Looking to Sell Your Caravan?</h2>
+          <h2 className="lsd-sell-cta__title">Looking to Sell Your Motorhome?</h2>
           <p className="lsd-sell-cta__body">
-            If you&apos;re upgrading or no longer need your current caravan,{" "}
-            <a href="/sell-my-caravan/" className="lsd-sell-cta__link">sell your caravan</a>{" "}
+            If you&apos;re upgrading or no longer need your current motorhome,{" "}
+            <a href="/sell-my-caravan/" className="lsd-sell-cta__link">sell your motorhome</a>{" "}
             by creating a listing on CaravansForSale.com.au and connect with active buyers across Australia. Your advertisement stays online until it&apos;s sold for a one-time fee of $49.
           </p>
         </div>

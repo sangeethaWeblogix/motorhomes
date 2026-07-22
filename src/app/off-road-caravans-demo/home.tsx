@@ -8,12 +8,12 @@ import HomeLocationSection from "./HomeLocationSection";
 import "./main.css";
 
 const OR_FAQ = [
-  { q: "What is an off road caravan?", a: "An off road caravan is a caravan built to handle rough, unsealed tracks and remote terrain. They typically feature heavy-duty chassis, independent suspension, reinforced bodywork, larger water and battery capacity, and off-road tyres to handle Australia's outback and bush conditions." },
+  { q: "What is an off road caravan?", a: "An off road  motorhomeis a  motorhomebuilt to handle rough, unsealed tracks and remote terrain. They typically feature heavy-duty chassis, independent suspension, reinforced bodywork, larger water and battery capacity, and off-road tyres to handle Australia's outback and bush conditions." },
   { q: "What is the difference between semi off road and full off road caravans?", a: "Semi off road caravans are built for light unsealed roads and easy bush tracks, with upgraded suspension and stronger construction. Full off road caravans are engineered for extreme terrain — think river crossings, rocky tracks and remote touring — with independent suspension, heavy-duty chassis and full off-grid capability." },
   { q: "Can off road caravans go off grid?", a: "Yes. Most off road caravans come with or can be fitted with solar panels, lithium batteries, large fresh water tanks and composting or cassette toilets, allowing extended stays in remote areas without external power or water hookups." },
   { q: "Do I need a special vehicle to tow an off road caravan?", a: "Yes. Off road caravans are heavier and wider than standard caravans. You'll need a high-capacity 4WD with a tow bar rated to the caravan's ATM. Always check the caravan's ATM and the tow vehicle's GVM and tow rating before purchasing." },
   { q: "Are off road caravans suitable for families?", a: "Absolutely. Many off road models come in family-friendly layouts with bunk beds, multiple sleeping berths, full kitchens and ensuites. Brands like Jayco, New Age and Trakmaster offer popular family off road models across a range of budgets." },
-  { q: "What is the average price of an off road caravan in Australia?", a: "Off road caravan prices in Australia typically range from around $40,000 for entry-level semi off road models to over $150,000 for premium full off road expedition caravans. The most popular mid-range models sit between $60,000 and $100,000." },
+  { q: "What is the average price of an off road  motorhomein Australia?", a: "Off road  motorhomeprices in Australia typically range from around $40,000 for entry-level semi off road models to over $150,000 for premium full off road expedition caravans. The most popular mid-range models sit between $60,000 and $100,000." },
 ];
 
 function FaqItem({ q, a }: { q: string; a: string }) {
@@ -166,7 +166,7 @@ export default function OffRoadCaravansPage({ stateBands, offRoadBlogs, offRoadP
             <span className="hd-banner__divider-line" />
           </div>
           <p className="hd-banner__subtitle">
-            Discover Australia’s largest collection of off road caravans. Compare full off road, semi off road and hybrid caravans, browse live listings, read expert reviews and explore detailed buying guides to find the right caravan for your next adventure.
+            Discover Australia’s largest collection of off road caravans. Compare full off road, semi off road and hybrid caravans, browse live listings, read expert reviews and explore detailed buying guides to find the right  motorhomefor your next adventure.
           </p>
           <div className="hd-banner__trust">
             <div className="hd-banner__trust-item">

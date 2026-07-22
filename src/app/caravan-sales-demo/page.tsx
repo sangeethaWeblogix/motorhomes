@@ -4,9 +4,9 @@ import "../globals.css";
 import { fetchSleepBands } from "@/api/homeApi/sleep/api";
 
 export const metadata: Metadata = {
-  title: "Caravan Sales Australia | New & Used Caravans for Sale",
+  title: "Caravan Sales Australia | New & Used Motorhomes for Sale",
   description:
-    "Find the best caravan sales across Australia. Browse thousands of new and used caravans from trusted dealers and private sellers. Compare prices, types, and locations to find your perfect caravan.",
+    "Find the best  motorhomesales across Australia. Browse thousands of new and used motorhomes from trusted dealers and private sellers. Compare prices, types, and locations to find your perfect caravan.",
 };
 import { fetchRegion } from "@/api/homeApi/region/api";
 import { fetchManufactures } from "@/api/homeApi/manufacture/api";

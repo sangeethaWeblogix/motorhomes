@@ -13,7 +13,7 @@ export default function HomeBuyerGuide() {
               <div className="hbg-img-wrap">
                 <Image
                   src="/images/buyers_guid.jpg"
-                  alt="Caravans for Sale Australia"
+                  alt="Motorhomes for Sale Australia"
                   width={600}
                   height={420}
                   className="hbg-img"
@@ -36,10 +36,10 @@ export default function HomeBuyerGuide() {
               </h2>
               
               <p className="hbg-body">
-                CaravansForSale.com.au helps Australian buyers compare a wide range of active caravan sales in one convenient place. Browse affordable used caravan sales, premium new models, and options designed for touring, family holidays, or off-road adventures. Compare important features such as layout, ATM, tare weight, sleeping capacity, length, suspension, condition, service history, and towing requirements to narrow down your choices before contacting a seller or visiting a dealership. Our easy-to-use platform makes researching and comparing caravan sales simple.
+                CaravansForSale.com.au helps Australian buyers compare a wide range of active  motorhomesales in one convenient place. Browse affordable used  motorhomesales, premium new models, and options designed for touring, family holidays, or off-road adventures. Compare important features such as layout, ATM, tare weight, sleeping capacity, length, suspension, condition, service history, and towing requirements to narrow down your choices before contacting a seller or visiting a dealership. Our easy-to-use platform makes researching and comparing  motorhomesales simple.
               </p>
               <p className="hbg-body">
-                Explore popular categories including off-road, hybrid, pop-top, touring, and luxury caravan sales, while also comparing trusted brands and reputable dealers across Australia. Check whether dealers offer warranty support, finance options, trade-ins, after-sales service, and detailed vehicle information before making your decision. Use our buyers guide and convenient search filters to browse caravan sales by state, location, budget, size, weight, and berth, helping you find the right van for your lifestyle and travel plans.
+                Explore popular categories including off-road, hybrid, pop-top, touring, and luxury  motorhomesales, while also comparing trusted brands and reputable dealers across Australia. Check whether dealers offer warranty support, finance options, trade-ins, after-sales service, and detailed vehicle information before making your decision. Use our buyers guide and convenient search filters to browse  motorhomesales by state, location, budget, size, weight, and berth, helping you find the right van for your lifestyle and travel plans.
               </p>
               
             </div>
@@ -52,7 +52,7 @@ export default function HomeBuyerGuide() {
       <section className="hbg-why-section">
         <div className="container">
           <h2 className="hbg-why-title">
-            Why caravansforsale.com.au is your best choice <span className="hbg-why-accent">for caravan sales across Australia</span>
+            Why caravansforsale.com.au is your best choice <span className="hbg-why-accent">for  motorhomesales across Australia</span>
           </h2>
           
 

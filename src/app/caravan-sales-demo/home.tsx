@@ -126,10 +126,10 @@ export default function OffRoadCaravansPage({ stateBands }: Props) {
               <span className="cs-banner__title-dark">Australia</span>
             </h1>
             <p className="cs-banner__desc">
-              Find the best caravan sales across Australia and connect with trusted dealers and private sellers. Browse thousands of new and used listings—including off-road, family, touring, luxury, and pop-top caravans—and easily filter by location, price, size and towing weight to find the perfect van for your next adventure.
+              Find the best  motorhome  sales across Australia and connect with trusted dealers and private sellers. Browse thousands of new and used listings—including off-road, family, touring, luxury, and pop-top caravans—and easily filter by location, price, size and towing weight to find the perfect van for your next adventure.
             </p>
             <div className="cs-banner__btns">
-              <a href="/listings/" className="cs-banner__btn cs-banner__btn--primary">Browse All Caravans for Sale</a>
+              <a href="/listings/" className="cs-banner__btn cs-banner__btn--primary">Browse All Motorhomes for Sale</a>
               <a href="/sell-my-caravan/" className="cs-banner__btn cs-banner__btn--outline">Sell Your Caravan</a>
             </div>
           </div>
@@ -175,7 +175,7 @@ export default function OffRoadCaravansPage({ stateBands }: Props) {
           <div className="sell-banner">
             <div className="sell-content">
               <h3>Caravan Sales Made Hassle-Free & Straightforward</h3>
-              <p className="desc">List your van on Australia’s leading caravan sales marketplace and easily connect with thousands of serious buyers</p>
+              <p className="desc">List your van on Australia’s leading  motorhomesales marketplace and easily connect with thousands of serious buyers</p>
               <div className="btns_two">
                 <a href="/dealer-advertising/" className="btn primary-btn">Dealer Sign Up</a>
                 <a href="/sell-my-caravan/" className="btn secondary-btn">Private Seller - Click Here</a>

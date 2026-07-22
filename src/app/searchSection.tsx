@@ -126,7 +126,7 @@
           key: "Region",
           label: "Location",
           cards: regionBands.map((item) => ({
-            title: "Caravans for Sale in " + item.region,
+            title: "Motorhomes for Sale in " + item.region,
             sub: `${item.caravan_count ?? 0}`,
             url: `/listings/${item.permalink}`,
           })),
@@ -135,7 +135,7 @@
           key: "price",
           label: "Price",
           cards: priceBands.map((item) => ({
-            title: "Caravans for Sale " + item.short_label,
+            title: "Motorhomes for Sale " + item.short_label,
             sub: `${item.caravan_count ?? 0}`,
             url: `/listings/${item.permalink}`,
           })),
@@ -144,7 +144,7 @@
           key: "Weight",
           label: "Weight",
           cards: atmBands.map((item) => ({
-            title: "Caravans for Sale " + item.short_label,
+            title: "Motorhomes for Sale " + item.short_label,
             sub: `${item.caravan_count ?? 0}`,
             url: `/listings/${item.permalink}`,
           })),
@@ -153,7 +153,7 @@
           key: "Sleep",
           label: "Sleep",
           cards: sleepBands.map((item) => ({
-            title: "Caravans for Sale " + item.short_label,
+            title: "Motorhomes for Sale " + item.short_label,
             sub: `${item.caravan_count ?? 0}`,
             url: `/listings/${item.permalink}`,
           })),
@@ -162,7 +162,7 @@
           key: "Length",
           label: "Length",
           cards: lengthBands.map((item) => ({
-            title: "Caravans for Sale " + item.short_label,
+            title: "Motorhomes for Sale " + item.short_label,
             sub: `${item.caravan_count ?? 0}`,
             url: `/listings/${item.permalink}`,
           })),
@@ -180,7 +180,7 @@
           key: "Manufacturer",
           label: "Manufacturer",
           cards: manufactureBands.map((item) => ({
-            title: item.short_label + " Caravans for Sale",
+            title: item.short_label + " Motorhomes for Sale",
             sub: `${item.caravan_count ?? 0}`,
             url: `/listings/${item.permalink}`,
           })),
@@ -533,7 +533,7 @@ const BANNER_ENABLED = false;
                     Browse New &amp; Used Caravans For Sale
                   </h1>
                   <p>
-                    Find your ideal caravan from thousands of new and used listings
+                    Find your ideal  motorhome  from thousands of new and used listings
                     across Australia’s top brands, dealers, and private sellers.
 
                   </p>
@@ -829,11 +829,11 @@ const BANNER_ENABLED = false;
 
                   {/* LEFT CONTENT */}
                   <div className="sell-content">
-                    <h3>List Your Caravan For Sale Today</h3>
+                    <h3>List Your Motorhome For Sale Today</h3>
 
-                    <p className="subtitle">Reach thousands of caravan buyers daily.</p>
+                    <p className="subtitle">Reach thousands of  motorhome  buyers daily.</p>
 
-                    <p className="desc">List your caravan on CaravansForSale.com.au — Australia’s trusted marketplace to buy and sell caravans.</p>
+                    <p className="desc"> List your Mmtorhome on CaravansForSale.com.au — Australia’s trusted marketplace to buy and sell motorhomes.</p>
 
                     <div className="btns_two">
                       <a href="/dealer-advertising/" className="btn primary-btn">
@@ -926,7 +926,7 @@ const BANNER_ENABLED = false;
                                     className="view_all"
                                     href={`/listings${item.permalink}/`}
                                   >
-                                    View All Caravans for Sale in {stateCode}{" "}
+                                    View All Motorhomes for Sale in {stateCode}{" "}
                                     <i className="bi bi-chevron-right"></i>
                                   </a>
                                 </div>

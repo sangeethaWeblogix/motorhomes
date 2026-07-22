@@ -71,7 +71,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const slugTitle = slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 
   const title = seo.metatitle || seo.meta_title || pd.name || data?.name || slugTitle || "Caravan for Sale";
-  const description = seo.metadescription || seo.meta_description || pd.short_description || "View caravan details on Caravans For Sale Australia.";
+  const description = seo.metadescription || seo.meta_description || pd.short_description || "View  motorhomedetails on Caravans For Sale Australia.";
   const canonicalUrl = `https://www.caravansforsale.com.au/product/${slug}/`;
   const rawImages = pd.image_url ?? pd.images ?? [];
   const images: string[] = (Array.isArray(rawImages) ? rawImages : [rawImages]).filter(Boolean);
@@ -86,7 +86,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title,
       description,
       url: canonicalUrl,
-      siteName: "Caravans for Sale",
+      siteName: "Motorhomes for Sale",
       ...(images.length > 0 && { images: [{ url: images[0], alt: title }] }),
       type: "website",
     },

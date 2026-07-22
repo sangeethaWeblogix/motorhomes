@@ -46,9 +46,9 @@ export default function EverestCaravans() {
             <div className="col-lg-12">
               <div className="section-head mb-60">
                 <p>
-                  Can’t find a caravan that fits your family? Everest Caravans
+                  Can’t find a  motorhomethat fits your family? Everest Caravans
                   has the answer. Instead of settling for a standard design,
-                  they build a custom caravan to your specs. Bye bye
+                  they build a custom  motorhometo your specs. Bye bye
                   compromises, hello dream caravan.
                 </p>
                 <p>

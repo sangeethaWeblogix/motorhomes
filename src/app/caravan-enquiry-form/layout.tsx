@@ -9,7 +9,7 @@ import { ReactNode } from "react";
      template: "%s ",
    },
    description:
-     "Fill out our caravan enquiry form to receive exclusive offers from select quality caravan manufacturers. Get the best caravan deals sent directly to you.",
+     "Fill out our  motorhomeenquiry form to receive exclusive offers from select quality  motorhomemanufacturers. Get the best  motorhomedeals sent directly to you.",
    icons: { icon: "/favicon.ico" },
    robots: "index, follow",
    verification: {
