@@ -110,21 +110,7 @@ export async function GET(request: NextRequest) {
       exclusive_products: data?.exclusive_products?.length ?? data?.data?.exclusive_products?.length ?? 0,
     });
 
-    // Body-level failure — either the top-level success flag says so, or
-    // ts_debug itself reports a Typesense-side error (ok:false / error set)
-    // even though the outer success flag came back true. Log the full detail
-    // server-side; the browser gets success:false plus just the error reason
-    // (never the full ts_debug/tier_fill_debug payload).
-    const tsDebugFailed = data?.ts_debug && (data.ts_debug.ok === false || !!data.ts_debug.error);
-    if (data?.success === false || tsDebugFailed) {
-      const errorReason = data?.message || data?.ts_debug?.error || "pool_test request failed";
-      console.error(`[WP API pool_test] failed | message: ${errorReason}`, "ts_debug:", data?.ts_debug);
-      return NextResponse.json({ success: false, error: errorReason });
-    }
-
-    // Success — strip debug-only fields before they reach the browser console.
-    const { ts_debug, tier_fill_debug, ...clean } = data;
-    return NextResponse.json(clean);
+    return NextResponse.json(data);
   } catch (err: any) {
     clearTimeout(timeoutId);
     console.error("[WP API pool_test] Error:", err);

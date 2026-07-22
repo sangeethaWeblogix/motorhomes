@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import Home from "./home";
 import "../globals.css";
 import { fetchSleepBands } from "@/api/homeApi/sleep/api";
+
+export const metadata: Metadata = {
+  title: "Off Road Caravans Australia | New & Used Off Road Caravans for Sale",
+  description:
+    "Discover Australia's largest collection of off road caravans. Compare full off road, semi off road and hybrid caravans, browse live listings, reviews and expert buying guides.",
+};
 import { fetchRegion } from "@/api/homeApi/region/api";
 import { fetchManufactures } from "@/api/homeApi/manufacture/api";
 import { fetchPriceBasedCaravans } from "@/api/homeApi/price/api";
@@ -40,6 +47,62 @@ async function fetchOffRoadCount(): Promise<number> {
   }
 }
 
+async function fetchOffRoadBlogs(): Promise<any[]> {
+  try {
+    const res = await fetch(
+      `${API_BASE}/blog?product_category=off-road&per_page=20&page=1`,
+      { headers: wpHeaders(), next: { revalidate: 3600 } }
+    );
+    if (!res.ok) return [];
+    const raw = await res.text();
+    const jsonStart = raw.indexOf("{");
+    const json = JSON.parse(jsonStart <= 0 ? raw : raw.substring(jsonStart));
+    return json?.data?.latest_blog_posts?.items ?? json?.data?.posts ?? json?.posts ?? [];
+  } catch { return []; }
+}
+
+async function fetchOffRoadPopularBlogs(seed: number): Promise<any[]> {
+  try {
+    const res = await fetch(
+      `${API_BASE}/blog-shuffle?popular=off-road&seed=${seed}`,
+      { headers: wpHeaders(), next: { revalidate: 3600 } }
+    );
+    if (!res.ok) return [];
+    const raw = await res.text();
+    const jsonStart = raw.indexOf("{");
+    const json = JSON.parse(jsonStart <= 0 ? raw : raw.substring(jsonStart));
+    return json?.data ?? json?.posts ?? json?.items ?? [];
+  } catch { return []; }
+}
+
+async function fetchOffRoadBrandBlogs(seed: number): Promise<any[]> {
+  try {
+    const res = await fetch(
+      `${API_BASE}/blog-shuffle?make=off-road&seed=${seed}`,
+      { headers: wpHeaders(), next: { revalidate: 3600 } }
+    );
+    if (!res.ok) return [];
+    const raw = await res.text();
+    const jsonStart = raw.indexOf("{");
+    const json = JSON.parse(jsonStart <= 0 ? raw : raw.substring(jsonStart));
+    return json?.data ?? json?.posts ?? json?.items ?? [];
+  } catch { return []; }
+}
+
+async function fetchOffRoadModelBlogs(seed: number): Promise<any[]> {
+  try {
+    const res = await fetch(
+      `${API_BASE}/blog-shuffle?model=off-road&seed=${seed}`,
+      { headers: wpHeaders(), next: { revalidate: 3600 } }
+    );
+    if (!res.ok) return [];
+    const raw = await res.text();
+    const jsonStart = raw.indexOf("{");
+    const json = JSON.parse(jsonStart <= 0 ? raw : raw.substring(jsonStart));
+    return json?.data ?? json?.posts ?? json?.items ?? [];
+  } catch { return []; }
+}
+
 async function fetchOffRoadPrice(orderby: "price_asc" | "price_desc", condition?: string): Promise<number> {
   try {
     const params = new URLSearchParams({
@@ -68,6 +131,8 @@ async function fetchOffRoadPrice(orderby: "price_asc" | "price_desc", condition?
 export const revalidate = 86400;
 
 export default async function OffRoadCaravansDemoPage() {
+  const seed = Math.floor(Math.random() * 7) + 1;
+
   const [
     sleepBands,
     regionBands,
@@ -84,6 +149,10 @@ export default async function OffRoadCaravansDemoPage() {
     offRoadPriceMax,
     offRoadUsedPriceMin,
     offRoadUsedPriceMax,
+    offRoadBlogs,
+    offRoadPopularBlogs,
+    offRoadBrandBlogs,
+    offRoadModelBlogs,
   ] = await Promise.all([
     fetchSleepBands(),
     fetchRegion(),
@@ -100,6 +169,10 @@ export default async function OffRoadCaravansDemoPage() {
     fetchOffRoadPrice("price_desc"),
     fetchOffRoadPrice("price_asc", "used"),
     fetchOffRoadPrice("price_desc", "used"),
+    fetchOffRoadBlogs(),
+    fetchOffRoadPopularBlogs(seed),
+    fetchOffRoadBrandBlogs(seed),
+    fetchOffRoadModelBlogs(seed),
   ]);
 
   return (
@@ -119,6 +192,10 @@ export default async function OffRoadCaravansDemoPage() {
       offRoadPriceMax={offRoadPriceMax}
       offRoadUsedPriceMin={offRoadUsedPriceMin}
       offRoadUsedPriceMax={offRoadUsedPriceMax}
+      offRoadBlogs={offRoadBlogs}
+      offRoadPopularBlogs={offRoadPopularBlogs}
+      offRoadBrandBlogs={offRoadBrandBlogs}
+      offRoadModelBlogs={offRoadModelBlogs}
     />
   );
 }

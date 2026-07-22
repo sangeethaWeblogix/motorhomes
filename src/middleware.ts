@@ -5,6 +5,7 @@ import { isAllowedSingleBand } from "@/utils/seo/band-utils";
 import regionPathsData from "../cfs-paths/regions.json";
 import makesData from "../cfs-paths/makes.json";
 const API_KEY = process.env.CFS_API_KEY;
+const SERVER_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36';
 
 /* Valid region slugs built from cfs-paths/regions.json (sitemap source of truth) */
 const VALID_REGION_SLUGS = new Set<string>(
@@ -50,7 +51,7 @@ async function isValidSuburb(suburb: string, pincode: string | undefined, apiKey
     const controller = new AbortController();
     const tid = setTimeout(() => controller.abort(), 5000);
     const res = await fetch(`${API_WP}/location-search?keyword=${encodeURIComponent(suburb)}`, {
-      headers: { 'User-Agent': 'next-middleware', ...(apiKey && { 'X-API-Key': apiKey }) },
+      headers: { 'User-Agent': SERVER_UA, ...(apiKey && { 'X-API-Key': apiKey }) },
       signal: controller.signal,
     });
     clearTimeout(tid);
@@ -144,11 +145,11 @@ async function refreshSeoCache(cacheKey: string, url: URL, request: NextRequest)
     const slugParts = url.pathname.replace("/listings", "").split("/").filter(Boolean);
     const filters = parseSlugToFilters(slugParts, Object.fromEntries(url.searchParams));
     const apiParams = buildApiParams(filters);
-    const apiUrl = "https://admin.caravansforsale.com.au/wp-json/cfs/v1/new_optimize_code?" + apiParams.toString();
+    const apiUrl = `${API_WP}/pool_test?${apiParams.toString()}&engine=typesense`;
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
     const apiRes = await fetch(apiUrl, {
-      headers: { "User-Agent": "next-middleware", ...(API_KEY && { "X-API-Key": API_KEY }) },
+      headers: { "User-Agent": SERVER_UA, ...(API_KEY && { "X-API-Key": API_KEY }) },
       signal: controller.signal,
       // @ts-ignore
       next: { revalidate: 3600 },
@@ -156,7 +157,8 @@ async function refreshSeoCache(cacheKey: string, url: URL, request: NextRequest)
     clearTimeout(timeoutId);
     if (apiRes.ok) {
       const data = await apiRes.json();
-      const products = data?.data?.products ?? [];
+      // pool_test returns products at top level; support old new_optimize_code shape too
+      const products = data?.products ?? data?.data?.products ?? [];
       const empExclusive = data?.emp_exclusive_products ?? [];
       const isEmpty = products.length === 0 && empExclusive.length === 0;
       const hasExclusiveOnly = products.length === 0 && empExclusive.length > 0;
@@ -343,7 +345,7 @@ export async function middleware(request: NextRequest) {
             `${API_BASE}/product-detail-new/?slug=${encodeURIComponent(slug)}`,
             {
               headers: {
-                'User-Agent': 'next-middleware',
+                'User-Agent': SERVER_UA,
                 ...(API_KEY && { 'X-API-Key': API_KEY }),
               },
               signal: controller.signal,
@@ -433,16 +435,14 @@ export async function middleware(request: NextRequest) {
         // Build API params using the same mapping as fetchListings (api/listings/api.ts).
         // Raw filter keys (minKg, maxKg, sleeps) must be converted to API names (from_atm, to_atm, sleep).
         const apiParams = buildApiParams(filters);
-        const apiUrl =
-          "https://admin.caravansforsale.com.au/wp-json/cfs/v1/new_optimize_code?" +
-          apiParams.toString();
+        const apiUrl = `${API_WP}/pool_test?${apiParams.toString()}&engine=typesense`;
 
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 5000);
 
         const apiRes = await fetch(apiUrl, {
           headers: {
-            "User-Agent": "next-middleware",
+            "User-Agent": SERVER_UA,
             ...(API_KEY && { "X-API-Key": API_KEY }),
           },
           signal: controller.signal,
@@ -465,7 +465,8 @@ export async function middleware(request: NextRequest) {
           // 0 regular products:
           //   - empExclusive also empty → 410 (Vercel shows its own Gone page — no content anyway)
           //   - empExclusive has items  → 200 noindex (Vercel intercepts 410+rewrite, page must show exclusive content)
-          const products = data?.data?.products ?? [];
+          // pool_test returns products at top level; support old new_optimize_code shape too
+          const products = data?.products ?? data?.data?.products ?? [];
           const empExclusive = data?.emp_exclusive_products ?? [];
           if (products.length === 0) {
             if (empExclusive.length === 0) {

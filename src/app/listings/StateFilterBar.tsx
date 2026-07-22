@@ -54,7 +54,7 @@ interface Props {
 const PRICE_OPTIONS  = [10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,125000,150000,175000,200000,225000,250000,275000,300000];
 const ATM_OPTIONS    = [600,800,1000,1250,1500,1750,2000,2250,2500,2750,3000,3500,4000,4500];
 const SLEEP_OPTIONS  = [1,2,3,4,5,6,7];
-const YEAR_OPTIONS   = [2026,2025,2024,2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2006,2005,2004,2000,1975];
+const YEAR_OPTIONS   = [2027,2026,2025,2024,2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2006,2005,2004,2000,1975];
 const LENGTH_OPTIONS = [12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28];
 
 /** Same param shape as FilterSlider's buildMakeCountParams — make/model excluded
@@ -93,8 +93,6 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   const [categoryCounts, setCategoryCounts] = useState<{name: string; slug: string; count: number}[]>([]);
   const [catCountLoading, setCatCountLoading] = useState(false);
   const cachedCategoryCountsRef = useRef<{name: string; slug: string; count: number}[]>([]);
-  const [stateCounts, setStateCounts] = useState<{name: string; slug: string; count: number}[]>([]);
-  const cachedStateCountsRef = useRef<{name: string; slug: string; count: number}[]>([]);
 
   useEffect(() => {
     fetch("/api/product-list/")
@@ -171,55 +169,6 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
       ? categories.filter(c => cachedCategoryCountsRef.current.some(cc => cc.slug === c.slug && cc.count > 0))
       : categories;
 
-  // Live state counts — same /api/params-count/?group_by=state endpoint,
-  // scoped to every OTHER active filter (make, model, category, etc. — but not
-  // state/region/suburb/pincode themselves) so the Location list only shows
-  // states that actually have matching results under the current filters
-  // (e.g. make=aussie-fivestar only has listings in 3 states).
-  useEffect(() => {
-    const controller = new AbortController();
-    const params = new URLSearchParams();
-    if (currentFilters.category)          params.set("category", currentFilters.category);
-    if (currentFilters.make)               params.set("make", currentFilters.make);
-    if (currentFilters.model)              params.set("model", currentFilters.model);
-    if (currentFilters.condition)          params.set("condition", currentFilters.condition);
-    if (currentFilters.from_price)         params.set("from_price", String(currentFilters.from_price));
-    if (currentFilters.to_price)           params.set("to_price", String(currentFilters.to_price));
-    if (currentFilters.minKg)              params.set("from_atm", String(currentFilters.minKg));
-    if (currentFilters.maxKg)              params.set("to_atm", String(currentFilters.maxKg));
-    if (currentFilters.acustom_fromyears)  params.set("acustom_fromyears", String(currentFilters.acustom_fromyears));
-    if (currentFilters.acustom_toyears)    params.set("acustom_toyears", String(currentFilters.acustom_toyears));
-    if (currentFilters.from_length)        params.set("from_length", String(currentFilters.from_length));
-    if (currentFilters.to_length)          params.set("to_length", String(currentFilters.to_length));
-    if (currentFilters.from_sleep)         params.set("from_sleep", String(currentFilters.from_sleep));
-    if (currentFilters.to_sleep)           params.set("to_sleep", String(currentFilters.to_sleep));
-    if (currentFilters.keyword)            params.set("keyword", currentFilters.keyword);
-    params.set("group_by", "state");
-    fetch(`/api/params-count/?${params.toString()}`, { signal: controller.signal })
-      .then(r => r.json())
-      .then(json => { if (!controller.signal.aborted) setStateCounts(json.data || []); })
-      .catch(e => { if (e.name !== "AbortError") console.error(e); });
-    return () => controller.abort();
-  }, [
-    currentFilters.category, currentFilters.make, currentFilters.model, currentFilters.condition,
-    currentFilters.from_price, currentFilters.to_price, currentFilters.minKg, currentFilters.maxKg,
-    currentFilters.acustom_fromyears, currentFilters.acustom_toyears, currentFilters.from_length,
-    currentFilters.to_length, currentFilters.from_sleep, currentFilters.to_sleep, currentFilters.keyword,
-  ]);
-
-  useEffect(() => {
-    if (stateCounts.length > 0) cachedStateCountsRef.current = stateCounts;
-  }, [stateCounts]);
-
-  // Only show states that actually have matching results under the current
-  // filters — falls back to the full static list before the first count
-  // response arrives (or if the API returned no breakdown at all).
-  const visibleStates = stateCounts.length > 0
-    ? states.filter(s => stateCounts.some(sc => sc.slug === s.value && sc.count > 0))
-    : cachedStateCountsRef.current.length > 0
-      ? states.filter(s => cachedStateCountsRef.current.some(sc => sc.slug === s.value && sc.count > 0))
-      : states;
-
   /* ── Suburb search ── */
   const RADIUS_OPTIONS = [25, 50, 100, 250, 500, 1000] as const;
   const [tempSuburbRadius,         setTempSuburbRadius]         = useState<number>(RADIUS_OPTIONS[0]);
@@ -239,6 +188,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   const [makeSubView,   setMakeSubView]   = useState<"makes" | "models">("makes");
   const [makeCounts,       setMakeCounts]       = useState<{name: string; slug: string; count: number}[]>([]);
   const [modelCounts,      setModelCounts]      = useState<{name: string; slug: string; count: number}[]>([]);
+  const [stateCounts,      setStateCounts]      = useState<{slug: string; count: number}[]>([]);
   const [modelCountLoading, setModelCountLoading] = useState(false);
   const [lastModelName,    setLastModelName]    = useState<string | null>(null);
 
@@ -257,6 +207,42 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     currentFilters.category, currentFilters.condition, currentFilters.state, currentFilters.region,
     currentFilters.suburb, currentFilters.pincode, currentFilters.from_price, currentFilters.to_price,
     currentFilters.minKg, currentFilters.maxKg, currentFilters.acustom_fromyears, currentFilters.acustom_toyears,
+    currentFilters.from_length, currentFilters.to_length, currentFilters.from_sleep, currentFilters.to_sleep,
+    currentFilters.keyword,
+  ]);
+
+  // Live state counts — only used when a make filter is active (e.g. /listings/jayco/).
+  // Calls /api/params-count/?make={make}&group_by=state so the state list narrows
+  // to only the states that actually have listings for that make.
+  // Result is pre-warmed in KV by cfs-params-cache-warmer.php section 4.
+  useEffect(() => {
+    if (!currentFilters.make) { setStateCounts([]); return; }
+    const controller = new AbortController();
+    const params = new URLSearchParams();
+    params.set("make", currentFilters.make);
+    if (currentFilters.category)          params.set("category", currentFilters.category);
+    if (currentFilters.condition)         params.set("condition", currentFilters.condition);
+    if (currentFilters.from_price)        params.set("from_price", String(currentFilters.from_price));
+    if (currentFilters.to_price)          params.set("to_price", String(currentFilters.to_price));
+    if (currentFilters.minKg)             params.set("from_atm", String(currentFilters.minKg));
+    if (currentFilters.maxKg)             params.set("to_atm", String(currentFilters.maxKg));
+    if (currentFilters.acustom_fromyears) params.set("acustom_fromyears", String(currentFilters.acustom_fromyears));
+    if (currentFilters.acustom_toyears)   params.set("acustom_toyears", String(currentFilters.acustom_toyears));
+    if (currentFilters.from_length)       params.set("from_length", String(currentFilters.from_length));
+    if (currentFilters.to_length)         params.set("to_length", String(currentFilters.to_length));
+    if (currentFilters.from_sleep)        params.set("from_sleep", String(currentFilters.from_sleep));
+    if (currentFilters.to_sleep)          params.set("to_sleep", String(currentFilters.to_sleep));
+    if (currentFilters.keyword)           params.set("keyword", currentFilters.keyword);
+    params.set("group_by", "state");
+    fetch(`/api/params-count/?${params.toString()}`, { signal: controller.signal })
+      .then(r => r.json())
+      .then(json => { if (!controller.signal.aborted) setStateCounts(json.data || []); })
+      .catch(e => { if (e.name !== "AbortError") console.error(e); });
+    return () => controller.abort();
+  }, [
+    currentFilters.make, currentFilters.category, currentFilters.condition,
+    currentFilters.from_price, currentFilters.to_price, currentFilters.minKg, currentFilters.maxKg,
+    currentFilters.acustom_fromyears, currentFilters.acustom_toyears,
     currentFilters.from_length, currentFilters.to_length, currentFilters.from_sleep, currentFilters.to_sleep,
     currentFilters.keyword,
   ]);
@@ -387,6 +373,13 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   };
 
   const filteredRegions = states.find(s => s.name.toLowerCase() === tempState?.toLowerCase())?.regions ?? [];
+
+  // When a make filter is active, narrow the state list to only states with
+  // count > 0 for that make. Falls back to the full list when no make is set
+  // (global /listings/ page) or before the first API response arrives.
+  const visibleStates = stateCounts.length > 0
+    ? states.filter(s => stateCounts.some(sc => sc.slug === s.value && sc.count > 0))
+    : states;
 
   const makeSource  = makeCounts.length > 0 ? makeCounts : makes.map(m => ({ name: m.name, slug: m.slug, count: 0 }));
   const filteredMakes = makeSearch

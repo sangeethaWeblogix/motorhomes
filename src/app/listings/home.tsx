@@ -31,6 +31,32 @@ const readPage = (id: string): number | null => {
 
 const SEED_MAX = 15;
 
+// ── Seeded shuffle ────────────────────────────────────────────────────────────
+// Mulberry32 PRNG — deterministic, fast, well-distributed.
+// Used to shuffle the pool in the live-fetch path so that even when the
+// pool-listings KV cache serves identical JSON for every seed (the cache key
+// strips `seed`), each refresh still displays a different product order.
+function mulberry32(seed: number) {
+  return () => {
+    seed += 0x6D2B79F5;
+    let t = seed ^ (seed >>> 15);
+    t = Math.imul(t, 1 | seed);
+    t ^= t + Math.imul(t ^ (t >>> 7), 61 | t);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function seededShuffle<T>(arr: T[], seed: number): T[] {
+  if (arr.length <= 1) return arr;
+  const out = [...arr];
+  const rand = mulberry32(seed);
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 /** Full pool data fetched server-side in page.tsx and passed as a prop so the
  *  SSR / KV-cached HTML contains real product listings from the first byte. */
 export type InitialPool = {
@@ -219,9 +245,28 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
     // with setReady means the pool effect fires once with the correct isIndexed
     // value, preventing the secondary pool re-fetch that occurs when the async
     // /api/indexed-url/ check resolves to a different value than the default.
+    //
+    // Resilience: if served from Vercel (BYPASS-NO-CACHE) rather than KV, neither
+    // __SHUFFLE_SEED__ nor __INITIAL_POOL__ are injected. In that case the pool
+    // effect's "skip first run" guard (initialPropConsumed) prevents the random
+    // seed from taking effect, so products appear frozen. Force the guard to true
+    // now so the pool effect always makes a live fetch with the fresh random seed.
     try {
       const win = window as unknown as Record<string, unknown>;
-      const preload = win.__INITIAL_POOL__ as { url?: string; is_indexed?: boolean } | undefined;
+      const hasWorkerSeed = typeof win["__SHUFFLE_SEED__"] === "number";
+      const hasInitialPool = !!(win["__INITIAL_POOL__"] as { url?: string } | undefined)?.url;
+      if (!hasWorkerSeed && !hasInitialPool && initialPool != null) {
+        // SSR bypass path: initialPool was provided by Vercel but no KV preload
+        // exists — skip the "consume initialPool" guard so the live fetch fires.
+        initialPropConsumed.current = true;
+      }
+    } catch {
+      // ignore
+    }
+
+    try {
+      const win = window as unknown as Record<string, unknown>;
+      const preload = win.__INITIAL_POOL__ as { url?: string; is_indexed?: boolean; json?: unknown } | undefined;
       if (preload?.url) {
         // Raise the sentinel SYNCHRONOUSLY whenever __INITIAL_POOL__ exists —
         // regardless of whether is_indexed is present (pool_test doesn't return
@@ -233,6 +278,16 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
         if (typeof preload.is_indexed === "boolean") {
           setIsIndexed(preload.is_indexed);
         }
+        // The cache warmer fetches fresh pool data at warm-time and embeds it as
+        // __INITIAL_POOL__, but the pool effect's URL-match check (which includes
+        // the shuffle seed) never fires for KV-cached pages because the client
+        // always generates a new random seed. As a result, the stale seo_v2 baked
+        // into the SSR HTML (from when the KV cache was generated) was used
+        // permanently — showing an out-of-date listing count on every page load.
+        // seo_v2 (heading, count, description) is seed-agnostic, so update it here
+        // unconditionally from the fresh preload data without needing a URL match.
+        const freshSeo = (preload.json as any)?.data?.seo_v2 ?? (preload.json as any)?.seo_v2;
+        if (freshSeo) setSeo(freshSeo);
       }
     } catch {
       // ignore — isIndexed will be corrected by the async /api/indexed-url/ check
@@ -443,20 +498,33 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
           setPool({ featured: empItems, new: [], used: [] });
         } else if (isIndexed) {
           // Indexed pages split by slot_bucket into Featured/New/Used.
-          // Premium and exclusive vans always come from their own top-level
-          // arrays and only render on the Featured tab (position 3 =
-          // exclusive, 4-5 = premium).
-          const featuredSource = products.filter((p) => p.slot_bucket === "featured");
+          // seededShuffle reorders each bucket using the client's random seed so
+          // different products appear on each refresh even when the pool-listings
+          // KV cache serves the same JSON for every seed value.
+          const featuredSource = seededShuffle(
+            products.filter((p) => p.slot_bucket === "featured"),
+            seed
+          );
           const featuredItems  = buildFeaturedOrder(featuredSource, premiumsRaw, exclusivesRaw);
           const featuredIds    = new Set(featuredItems.map((p) => p.id));
 
-          const newItems  = products.filter((p) => p.slot_bucket === "new"  && !p.is_premium && !p.is_exclusive && !featuredIds.has(p.id));
-          const usedItems = products.filter((p) => p.slot_bucket === "used" && !p.is_premium && !p.is_exclusive && !featuredIds.has(p.id));
+          const newItems  = seededShuffle(
+            products.filter((p) => p.slot_bucket === "new"  && !p.is_premium && !p.is_exclusive && !featuredIds.has(p.id)),
+            seed + 1000
+          );
+          const usedItems = seededShuffle(
+            products.filter((p) => p.slot_bucket === "used" && !p.is_premium && !p.is_exclusive && !featuredIds.has(p.id)),
+            seed + 2000
+          );
 
           setPool({ featured: featuredItems, new: newItems, used: usedItems });
         } else {
           // Non-indexed pages get one combined grid instead of a split.
-          const combined = buildFeaturedOrder(products, premiumsRaw, exclusivesRaw);
+          const combined = buildFeaturedOrder(
+            seededShuffle(products, seed),
+            premiumsRaw,
+            exclusivesRaw
+          );
           setPool({ featured: combined, new: [], used: [] });
         }
 
@@ -482,13 +550,17 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
   //   the correct next page for the new filter context.
   const prefetchedPoolKeyRef = useRef<string>("");
   useEffect(() => {
-    if (!ready || page >= maxPages) return;
+    // Skip pre-warm for non-indexed pages: page=2+ requests are never in KV
+    // (worker keeps `page` in its cache key; warmer only warms page=1), so
+    // every pre-warm call hits WordPress directly. Rapid refreshes on non-indexed
+    // URLs pile up WordPress hits → SiteGround rate-limiting → 502.
+    if (!ready || page >= maxPages || !isIndexed) return;
     const nextPage = page + 1;
     const key = `${poolApiUrl}::page=${nextPage}`;
     if (prefetchedPoolKeyRef.current === key) return;
     prefetchedPoolKeyRef.current = key;
     fetch(`${poolApiUrl}&page=${nextPage}`).catch(() => {});
-  }, [poolApiUrl, page, maxPages, ready]);
+  }, [poolApiUrl, page, maxPages, ready, isIndexed]);
 
   // New/Used grid headings need their own condition-locked seo_v2 (the shared
   // pool call above is unlocked, so its seo_v2 only covers the page overall).

@@ -284,6 +284,14 @@ const ERROR_SIGNATURES = [
   'temporarily unavailable',
   'Application error: a client-side exception has occurred',
   'This page could not be found',
+  // Cloudflare challenge / block pages — these must never be cached in KV.
+  // Occurs when VERCEL_BASE_URL points to www (behind Cloudflare) and the
+  // GitHub Actions runner IP is blocked by the geo-security rule.
+  'Sorry, you have been blocked',
+  'Checking your browser before accessing',
+  'Attention Required! | Cloudflare',
+  'cf-error-details',
+  'cloudflare-static/email-decode.min.js',
 ];
 
 function isErrorPage(html) {
@@ -311,7 +319,8 @@ function injectPerformanceTags(html) {
     .map(u => `<link rel="preload" as="image" href="${u}" fetchpriority="high" />`)
     .join('\n');
 
-  html = html.replace(/<meta\s+name="robots"\s+content="noindex[^"]*"\s*\/?>/gi, '');
+  // Note: do NOT strip noindex meta tags — by this point only indexed pages
+  // reach here (the isIndexed === false early-return above guards against it).
   html = html.replace('</head>', `${imageOptimizations}\n    ${preloadLinks}\n</head>`);
   return html;
 }
@@ -377,6 +386,15 @@ async function generateHtmlVariants(urlPath, slug) {
   const isIndexed = await fetchIsIndexed(urlPath);
   if (isIndexed !== null) {
     console.log(`   [isIndexed] ${urlPath} -> ${isIndexed}`);
+  }
+
+  // Noindex pages (0-result combos, band-only pages, etc.) must never be
+  // stored in the KV HTML cache — they change frequently and serving a
+  // stale cached copy would show wrong listings or a Cloudflare block page.
+  // Fall through to Vercel origin so every request is fresh.
+  if (isIndexed === false) {
+    console.log(`   [SKIP] noindex page — not caching in KV`);
+    return [];
   }
 
   for (let v = 1; v <= HTML_VARIANTS; v++) {
