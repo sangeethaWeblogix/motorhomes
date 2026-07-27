@@ -1,56 +1,61 @@
 import Image from "next/image";
+import { type TypeCounts } from "@/api/homeApi/typeCounts/api";
 
 const TYPES = [
   {
     slug: "off-road-category",
-    label: "Off Road Motorhomes",
+    category: "off-road",
+    label: "Off Road Caravans for Sale",
     image: "/images/off-road.webp",
     desc: "Built tough for Australia's rougher tracks.",
-    count: "1,245",
   },
   {
     slug: "luxury-category",
-    label: "Luxury Motorhomes",
+    category: "luxury",
+    label: "Luxury Caravans for Sale",
     image: "/images/luxury.webp",
     desc: "Premium comfort, high-end interiors and full-size features.",
-    count: "982",
   },
   {
     slug: "hybrid-category",
-    label: "Hybrid Motorhomes",
+    category: "hybrid",
+    label: "Hybrid Caravans for Sale",
     image: "/images/hybrid.webp",
     desc: "The balance of easy towing, compact size and outdoor living.",
-    count: "673",
   },
   {
     slug: "pop-top-category",
-    label: "Pop Top Motorhomes",
+    category: "pop-top",
+    label: "Pop Top Caravans for Sale",
     image: "/images/pop-top.webp",
     desc: "Easy to store, simple to tow and practical for getaways.",
-    count: "1,112",
   },
   {
     slug: "touring-category",
-    label: "Touring Motorhomes",
+    category: "touring",
+    label: "Touring Caravans for Sale",
     image: "/images/touring.webp",
     desc: "Comfortable, reliable and ideal for long-distance trips.",
-    count: "1,984",
   },
   {
     slug: "family-category",
-    label: "Family Motorhomes",
+    category: "family",
+    label: "Family Caravans for Sale",
     image: "/images/family.webp",
     desc: "Spacious layouts designed for the whole family.",
-    count: "856",
   },
-];
+] as const;
 
-export default function HomeTypeSection() {
+interface Props {
+  typeCounts?: TypeCounts;
+}
+
+export default function HomeTypeSection({ typeCounts }: Props) {
   return (
     <section className="htype-section">
       <div className="container">
         <div className="htype-header">
-          <h2 className="htype-title">Browse Motorhomes for Sale by Type</h2>
+          <h2 className="htype-title">Browse Caravans for Sale by Type</h2>
         </div>
 
         <div className="htype-grid">
@@ -70,7 +75,8 @@ export default function HomeTypeSection() {
               </h3>
               <p className="htype-card__desc">{t.desc}</p>
               <span className="htype-card__count">
-                {t.count} listings <i className="bi bi-chevron-right" />
+                {(typeCounts?.[t.category] ?? 0).toLocaleString()} listings{" "}
+                <i className="bi bi-chevron-right" />
               </span>
             </a>
           ))}

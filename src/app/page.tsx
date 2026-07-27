@@ -1,26 +1,22 @@
+
 import Home from "./home-demo/home";
 import "./globals.css?=1";
 import { Metadata } from "next";
-import { fetchSleepBands } from "@/api/homeApi/sleep/api";
-import { fetchRegion } from "@/api/homeApi/region/api";
-import { fetchManufactures } from "@/api/homeApi/manufacture/api";
-import { fetchPriceBasedCaravans } from "@/api/homeApi/price/api";
-import { fetchAtmBasedCaravans } from "@/api/homeApi/weight/api";
-import { fetchLengthBasedCaravans } from "@/api/homeApi/length/api";
-import { fetchUsedCaravansList } from "@/api/homeApi/usedCaravanList/api";
+ 
 import { fetchStateBasedCaravans } from "@/api/homeApi/state/api";
 import { fetchRequirements } from "@/api/postRquirements/api";
 import { fetchHomePage } from "@/api/home/api";
+import { fetchTypeCounts } from "@/api/homeApi/typeCounts/api";
 
 export const dynamic = "force-dynamic";
- 
+
 export const metadata: Metadata = {
   title: {
-    default: "Motorhomes For Sale – New & Used Caravan Marketplace in Australia",
+    default: "Caravans For Sale – New & Used Caravan Marketplace in Australia",
     template: "%s ",
   },
   description:
-    "Browse motorhomes for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
+    "Browse caravans for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
   icons: { icon: "/favicon.ico" },
   robots: "index, follow",
   verification: {
@@ -30,25 +26,24 @@ export const metadata: Metadata = {
     canonical: "https://www.caravansforsale.com.au",
   },
   openGraph: {
-    title: "Motorhomes For Sale – New & Used Caravan Marketplace in Australia",
- description:
-    "Browse motorhomes for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
+    title: "Caravans For Sale – New & Used Caravan Marketplace in Australia",
+    description: "Browse caravans for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
     url: "https://www.caravansforsale.com.au",
-    siteName: "Motorhomes for Sale",
+    siteName: "Caravans for Sale",
     images: [
       {
         url: "https://www.caravansforsale.com.au/images/cfs-logo.png",
         width: 800,
         height: 600,
-        alt: "Motorhomes for Sale Australia",
+        alt: "Caravans for Sale Australia",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Motorhomes For Sale – New & Used Caravan Marketplace in Australia",
-    description: "Browse motorhomes for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
+    title: "Caravans For Sale – New & Used Caravan Marketplace in Australia",
+    description: "Browse caravans for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
   },
 };
 
@@ -94,27 +89,15 @@ const homeJsonLd = {
 
 export default async function Page() {
   const [
-    sleepBands,
-    regionBands,
-    manufactureBands,
-    atmBands,
-    lengthBands,
-    priceBands,
-    usedData,
     stateBands,
     requirements,
     homeblog,
+    typeCounts,
   ] = await Promise.all([
-    fetchSleepBands(),
-    fetchRegion(),
-    fetchManufactures(),
-    fetchAtmBasedCaravans(),
-    fetchLengthBasedCaravans(),
-    fetchPriceBasedCaravans(),
-    fetchUsedCaravansList(),
     fetchStateBasedCaravans(),
     fetchRequirements(),
     fetchHomePage(),
+    fetchTypeCounts(),
   ]);
 
   return (
@@ -124,16 +107,10 @@ export default async function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
       />
       <Home
-        sleepBands={sleepBands}
-        regionBands={regionBands}
-        manufactureBands={manufactureBands}
-        atmBands={atmBands}
-        lengthBands={lengthBands}
-        priceBands={priceBands}
-        usedData={usedData}
         stateBands={stateBands}
         requirements={requirements}
         homeblog={homeblog?.latest_posts ?? []}
+        typeCounts={typeCounts}
       />
     </>
   );

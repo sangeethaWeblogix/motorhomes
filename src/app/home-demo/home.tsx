@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import dynamic from "next/dynamic";
 
 import { type HomeBlogPost } from "@/api/home/api";
+import { type TypeCounts } from "@/api/homeApi/typeCounts/api";
 import HomeFeatured from "./HomeFeatured";
 import HomeStateSection from "./HomeStateSection";
 import HomeTypeSection from "./HomeTypeSection";
@@ -12,7 +13,7 @@ import HomeBuyerGuide from "./HomeBuyerGuide";
 import HomeListingSlider from "./HomeListingSlider";
 import { useBanners } from "@/components/BannerHandler";
 import { useBannerTracking } from "@/hooks/useBannerTracking";
-import "./main.css?=24";
+import "./main.css?=26";
 
 const BlogSection = dynamic(() => import("../blogSection"), { ssr: false });
 const PostRequirement = dynamic(() => import("../postRequirement"), { ssr: false });
@@ -34,33 +35,21 @@ interface Item {
 }
 
 interface Props {
-  sleepBands: Item[];
-  regionBands: Item[];
-  manufactureBands: Item[];
-  atmBands: Item[];
-  lengthBands: Item[];
-  priceBands: Item[];
-  usedData: { by_category: Item[]; by_state: Item[]; by_region: Item[] };
   stateBands: Item[];
   requirements: any;
   homeblog: HomeBlogPost[];
+  typeCounts?: TypeCounts;
 }
 /* --------------------------------- Page ---------------------------------- */
 export default function HomePage({
-  sleepBands,
-  regionBands,
-  manufactureBands,
-  atmBands,
-  lengthBands,
-  priceBands,
-  usedData,
+
   stateBands,
   requirements,
-  homeblog,
-}: Props) {
-  const [usedCategoryList, setUsedCategoryList] = useState<Item[]>([]);
-  const [usedState, setUsedState] = useState<Item[]>([]);
-  const [usedRegion, setUsedRegion] = useState<Item[]>([]);
+    homeblog,
+  typeCounts,
+
+ }: Props) {
+   
   const [adIndex, setAdIndex] = useState<number>(0);
   // Fresh random seed (1-15) every page load/refresh — drives the backend's
   // randomized featured pick so the same visitor sees a different set each visit.
@@ -103,8 +92,7 @@ async function fetchClientIp(): Promise<string> {
     const res = await fetch("https://api.ipify.org?format=json");
     const data = await res.json();
     return data.ip || "";
-  } catch (err) {
-    console.error("[home] fetchClientIp failed:", err);
+  } catch {
     return "";
   }
 }
@@ -178,7 +166,7 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
       <section className="hd-banner">
         <div className="container">
           <h1 className="hd-banner__title">
-            Motorhomes for Sale <span className="hd-banner__title--orange">Across Australia</span>
+            Caravans for Sale <span className="hd-banner__title--orange">Across Australia</span>
           </h1>
           <div className="hd-banner__divider">
             <span className="hd-banner__divider-line" />
@@ -186,7 +174,7 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
             <span className="hd-banner__divider-line" />
           </div>
           <p className="hd-banner__subtitle">
-            Browse thousands of new and used motorhomes for sale across Australia from trusted dealers and private sellers. Compare off-road, family, touring, luxury and pop-top caravans to find the right van for your next adventure.
+            Browse thousands of new and used caravans for sale across Australia from trusted dealers and private sellers. Compare off-road, family, touring, luxury and pop-top caravans to find the right van for your next adventure.
           </p>
           <div className="hd-banner__trust">
             <div className="hd-banner__trust-item">
@@ -221,7 +209,7 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
             </svg>
-            Browse Motorhomes for Sale
+            Browse Caravans for Sale
           </a>
           <div className="hd-banner__bottom">
             <div className="hd-banner__bottom-item">
@@ -286,9 +274,9 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
         </div>
       </div>
 
-      {/* ── New Motorhomes for Sale ── */}
+      {/* ── New Caravans for Sale ── */}
       <HomeListingSlider
-        title="New Motorhomes for Sale"
+        title="New Caravans for Sale"
         viewAllHref="/listings/new-condition/"
         apiUrl="/api/home-featured/?type=new"
         badgeVariant="new"
@@ -300,9 +288,9 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
         <div className="container">
           <div className="sell-banner">
             <div className="sell-content">
-              <h3>List Your Motorhome For Sale Today</h3>
-              <p className="subtitle">Reach thousands of  motorhome  buyers daily.</p>
-              <p className="desc"> List your  motorhome  on CaravansForSale.com.au — Australia&apos;s trusted marketplace to buy and sell motorhomes.</p>
+              <h3>List Your Caravan For Sale Today</h3>
+              <p className="subtitle">Reach thousands of caravan buyers daily.</p>
+              <p className="desc">List your caravan on CaravansForSale.com.au — Australia&apos;s trusted marketplace to buy and sell caravans.</p>
               <div className="btns_two">
                 <a href="/dealer-advertising/" className="btn primary-btn">Dealer Sign Up</a>
                 <a href="/sell-my-caravan/" className="btn secondary-btn">Private Seller - Click Here</a>
@@ -312,9 +300,9 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
         </div>
       </section>
 
-      {/* ── Used Motorhomes for Sale ── */}
+      {/* ── Used Caravans for Sale ── */}
       <HomeListingSlider
-        title="Used Motorhomes for Sale"
+        title="Used Caravans for Sale"
         viewAllHref="/listings/used-condition/"
         apiUrl="/api/home-featured/?type=used"
         badgeVariant="used"
@@ -332,7 +320,7 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
       </div>
 
       {/* ── Browse by Type ── */}
-      <HomeTypeSection />
+      <HomeTypeSection typeCounts={typeCounts} />
 
       {/* ── Find by Location ── */}
       <HomeLocationSection />
