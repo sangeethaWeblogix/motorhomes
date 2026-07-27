@@ -1,4 +1,4 @@
-import { parseSlugToFilters } from "@/app/components/urlBuilder";
+ import { parseSlugToFilters } from "@/app/components/urlBuilder";
 import type { Metadata } from "next";
 import extraIndexedData from "../../../cfs-paths/extra-indexed.json";
 import { INDEXABLE_URLS } from "./indexable-urls";
@@ -406,7 +406,7 @@ export async function metaFromSlug(
           url: "https://www.caravansforsale.com.au/images/cfs-logo.png",
           width: 800,
           height: 600,
-          alt: "Motorhomes for Sale Australia",
+          alt: "Caravans for Sale Australia",
         },
       ],
     },
