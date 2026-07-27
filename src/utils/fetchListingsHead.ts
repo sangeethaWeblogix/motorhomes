@@ -1,10 +1,58 @@
-import { cache } from "react";
-import { type ApiResponse, type Item } from "@/api/listings/api";
+
+
+
+ import { cache } from "react";
 import { parseSlugToFilters } from "@/app/components/urlBuilder";
+
+/** Local shapes for the pool_test response fields this file actually reads —
+ * kept here instead of importing from the (removed) old listings API module. */
+type Item = {
+  name: string;
+  make?: string;
+  model?: string;
+  link: string;
+  length?: string;
+  regular_price?: string;
+  sale_price?: string;
+  image?: string;
+  image_format?: string[];
+  categories?: string[];
+  axle?: string;
+};
+
+type ApiResponse = {
+  success?: boolean;
+  seo_v2?: {
+    h1?: string;
+    meta_title?: string;
+    meta_description?: string;
+    footer_description?: string;
+    faq?: string;
+  };
+  pagination?: {
+    total_products?: number;
+  };
+  data?: {
+    products?: Item[];
+    exclusive_products?: Item[];
+    emp_exclusive_products?: Item[];
+    premium_products?: Item[];
+  };
+  emp_exclusive_products?: Item[];
+};
 
 const BASE_URL = "https://www.caravansforsale.com.au";
 const API_BASE = process.env.NEXT_PUBLIC_CFS_API_BASE;
 const API_KEY = process.env.CFS_API_KEY;
+
+/** Manual TTL cache (mirrors seoCache/productCache in middleware.ts) instead of
+ * Next's `next: { revalidate }` fetch Data Cache — that internal stream-teeing
+ * mechanism races with bots that disconnect mid-render, throwing
+ * "controller[kState].transformAlgorithm is not a function". Plain in-memory
+ * Map, server-side only — doesn't touch response headers, so it has no effect
+ * on Cloudflare's edge cache. */
+const headPoolCache = new Map<string, { data: ApiResponse | null; expires: number }>();
+const HEAD_POOL_CACHE_TTL = 60 * 60 * 1000; // 1 hour
 
 /** Same backend endpoint as /api/pool-listings/ (pool_test, engine=typesense) —
  * used here instead of new_optimize_code because pool_test has proven far more
@@ -43,6 +91,9 @@ async function fetchPoolListingsForHead(
 
   const url = `${API_BASE}/pool_test?${params.toString()}&engine=typesense`;
 
+  const cached = headPoolCache.get(url);
+  if (cached && cached.expires > Date.now()) return cached.data;
+
   let res: Response;
   try {
     res = await fetch(url, {
@@ -50,7 +101,7 @@ async function fetchPoolListingsForHead(
         Accept: "application/json",
         ...(API_KEY && { "X-API-Key": API_KEY }),
       },
-      next: { revalidate: 3600 },
+      cache: "no-store",
     });
   } catch {
     return null;
@@ -68,7 +119,7 @@ async function fetchPoolListingsForHead(
     return null;
   }
 
-  return {
+  const data: ApiResponse = {
     success: json.success,
     seo_v2: json.seo_v2,
     pagination: json.pagination,
@@ -80,6 +131,8 @@ async function fetchPoolListingsForHead(
     },
     emp_exclusive_products: json.emp_exclusive_products ?? [],
   };
+  headPoolCache.set(url, { data, expires: Date.now() + HEAD_POOL_CACHE_TTL });
+  return data;
 }
 
 function parseLengthFt(raw: string): number {
@@ -175,7 +228,7 @@ export function buildListingsJsonLd(
   const pageTitle =
     response?.seo_v2?.h1 ||
     response?.seo_v2?.meta_title ||
-    "Motorhomes for Sale in Australia";
+    "Caravans for Sale in Australia";
   const totalProducts = response?.pagination?.total_products ?? 0;
 
   const allProducts = [
@@ -234,7 +287,7 @@ const weburl = "https://www.caravansforsale.com.au"
   const searchResultsLd = {
     "@context": "https://schema.org/",
     "@type": "SearchResultsPage",
-    audience: { "@type": "Audience", audienceType: " motorhomebuyers" },
+    audience: { "@type": "Audience", audienceType: "caravan buyers" },
     potentialAction: {
       "@type": "SearchAction",
       target: { "@type": "EntryPoint", urlTemplate: weburl },
@@ -251,8 +304,8 @@ const weburl = "https://www.caravansforsale.com.au"
   return { collectionPageLd, searchResultsLd };
 }
 
-// React.cache deduplicates within a single request — the page component calling
-// getCachedListings with the same URL hits Next.js data cache (revalidate: 3600).
+// React.cache deduplicates within a single request; the 1hr cross-request cache
+// is handled by headPoolCache above.
 const fetchListingsForHead = cache(
   async (pathnameKey: string): Promise<ApiResponse | null> => {
     try {
@@ -275,7 +328,7 @@ const fetchListingsForHead = cache(
 export function buildBreadcrumbs(pathname: string): { name: string; url: string }[] {
   const crumbs: { name: string; url: string }[] = [
     { name: "Home", url: `${BASE_URL}/` },
-    { name: "Motorhomes for Sale", url: `${BASE_URL}/listings/` },
+    { name: "Caravans for Sale", url: `${BASE_URL}/listings/` },
   ];
   if (pathname === "/listings/" || pathname === "/listings") return crumbs;
 
