@@ -164,6 +164,11 @@ const nextConfig: NextConfig = {
     ];
   },
   async headers() {
+    if (process.env.NODE_ENV !== "production") {
+      // Skip aggressive immutable caching in local dev so CSS/image edits
+      // show up on refresh instead of being stuck behind a 1-year cache.
+      return [];
+    }
     return [
       // ===========================================
       // HOME PAGE

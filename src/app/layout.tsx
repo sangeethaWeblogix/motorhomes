@@ -320,7 +320,7 @@ import fetchListingsForHead, { buildListingsJsonLd, buildBreadcrumbs } from "@/u
           </Suspense>
           <main className="product-page style-5 flex-1">
             {/* <NextTopLoader
-          color="#ff6600"
+          color="#0099da"
           height={3}
           showSpinner={false}
         /> */}

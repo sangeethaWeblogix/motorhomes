@@ -62,7 +62,7 @@ export default function ThankYouClient() {
                 mt: 3,
                 backgroundColor: "orange",
                 color: "white",
-                "&:hover": { backgroundColor: "#ec7200" },
+                "&:hover": { backgroundColor: "#0099da" },
               }}
             >
               Go Back

@@ -48,7 +48,7 @@
 }
 
 .all-news.blog-listing .btn:hover {
-  background: #ec7200;
+  background: #0099da;
 }
 .card {
   margin-bottom: 30px;
@@ -85,11 +85,11 @@
   transition: all 0.18s ease;
 }
 .blg-pagination__num:hover {
-  color: #e8650a;
-  background: #fff3ec;
+  color: #0088c6;
+  background: #e3f4fb;
 }
 .blg-pagination__num--active {
-  background: #e8650a;
+  background: #0088c6;
   color: #fff;
   font-weight: 700;
   pointer-events: none;
@@ -118,8 +118,8 @@
   transition: all 0.18s ease;
 }
 .blg-pagination__arrow:hover {
-  border-color: #e8650a;
-  color: #e8650a;
+  border-color: #0088c6;
+  color: #0088c6;
 }
 .blg-pagination__arrow--disabled {
   color: #ccc;
@@ -201,7 +201,7 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background: rgba(245, 131, 51, 0.08);
+  background: rgba(26, 168, 222, 0.08);
 }
 .blog-sidebar-cta::after {
   content: '';
@@ -211,7 +211,7 @@
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: rgba(245, 131, 51, 0.05);
+  background: rgba(26, 168, 222, 0.05);
 }
 .blog-sidebar-cta.blog-sidebar-cta--sell .blog-sidebar-cta__heading {
   color: #fff !important;
@@ -248,7 +248,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #f58333;
+  background: #1aa8de;
   color: #fff;
   padding: 10px 20px;
   border-radius: 6px;
@@ -260,6 +260,6 @@
   z-index: 1;
 }
 .blog-sidebar-cta__btn:hover {
-  background: #d96e1f;
+  background: #007cb3;
   color: #fff;
 }
