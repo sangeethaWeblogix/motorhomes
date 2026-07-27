@@ -608,7 +608,7 @@ export default function ClientLogger({
                       className="back_to_search back_to_search_btn"
                     >
                       <i className="bi bi-chevron-left"></i> Back to Similar
-                      Caravans
+                      Motorhomes
                     </a>
                   ))}
 
@@ -833,7 +833,7 @@ export default function ClientLogger({
                           className="cravan_buyer"
                           onClick={() => setShowPopup(true)}
                         >
-                          Caravan Buyer Safety Checklist <i className="bi bi-info-circle-fill"></i>
+                          Motorhome Buyer Safety Checklist <i className="bi bi-info-circle-fill"></i>
                         </button>
                   <p className="terms_text small">
                     By clicking 'Send Enquiry', you agree to Marketplace Network
@@ -921,7 +921,7 @@ export default function ClientLogger({
                           className="cravan_buyer"
                           onClick={() => setShowPopup(true)}
                         >
-                          Caravan Buyer Safety Checklist <i className="bi bi-info-circle-fill"></i>
+                          Motorhome Buyer Safety Checklist <i className="bi bi-info-circle-fill"></i>
                         </button>
                       </div>
                     </div>
@@ -948,9 +948,9 @@ export default function ClientLogger({
                       </svg>
                     </button>
 
-                    <h2 className="title">Caravan Buyer Safety Checklist</h2>
+                    <h2 className="title">Motorhome Buyer Safety Checklist</h2>
                     <p className="subtitle">
-                      Follow these steps to reduce the risk of scams when buying a caravan.
+                      Follow these steps to reduce the risk of scams when buying a motorhome.
                     </p>
 
                     <div className="safety-wrapper">
@@ -980,7 +980,7 @@ export default function ClientLogger({
                           <li>
                             <span className="num">3</span>
                             <div>
-                              <h4>Inspect the  motorhomefirst</h4>
+                              <h4>Inspect the motorhome first</h4>
                               <p>Inspect in person or arrange an inspection.</p>
                             </div>
                           </li>

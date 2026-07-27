@@ -35,7 +35,7 @@ export default function EverestCaravans() {
                         <div className="box_mid">
                           <Image
                             src="https://admin.caravansforsale.com.au/wp-content/uploads/2023/08/1-13.png"
-                            alt="Falcon Caravan"
+                            alt="Falcon Motorhome"
                             width={1000}
                             height={476}
                           />
@@ -80,7 +80,7 @@ export default function EverestCaravans() {
                         <div className="box_mid">
                           <Image
                             src="https://admin.caravansforsale.com.au/wp-content/uploads/2023/08/1-16.png"
-                            alt="Nitro Extreme Caravan"
+                            alt="Nitro Extreme Motorhome"
                             width={1000}
                             height={476}
                           />

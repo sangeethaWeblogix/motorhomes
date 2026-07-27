@@ -61,7 +61,7 @@ export async function generateMetadata({
     seo.metadescription ||
     seo.meta_description ||
     data?.short_description ||
-    "View  motorhomedetails.";
+    "View motorhome details.";
   const robots = "index, follow";
   const canonicalUrl = `https://www.caravansforsale.com.au/${slug}/`;
   console.log("generateMetadata", { title, description, robots, canonicalUrl });
@@ -143,7 +143,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
             </Typography>
 
             <Typography variant="body1" color="text.secondary" gutterBottom>
-              Your  motorhomedealer will contact you as soon as possible.
+              Your motorhome dealer will contact you as soon as possible.
             </Typography>
 
             <Link href="/" style={{ textDecoration: "none" }}>

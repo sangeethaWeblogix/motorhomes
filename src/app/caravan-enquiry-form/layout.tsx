@@ -5,11 +5,11 @@ import { ReactNode } from "react";
 
  export const metadata: Metadata = {
    title: {
-     default: "Caravan Enquiry Form | Exclusive Caravan Deals & Offers",
+     default: "Motorhome Enquiry Form | Exclusive Motorhome Deals & Offers",
      template: "%s ",
    },
    description:
-     "Fill out our  motorhomeenquiry form to receive exclusive offers from select quality  motorhomemanufacturers. Get the best  motorhomedeals sent directly to you.",
+     "Fill out our motorhome enquiry form to receive exclusive offers from select quality motorhome manufacturers. Get the best motorhome deals sent directly to you.",
    icons: { icon: "/favicon.ico" },
    robots: "index, follow",
    verification: {

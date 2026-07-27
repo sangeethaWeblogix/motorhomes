@@ -93,10 +93,10 @@ useEffect(() => {
               </h3>
               <p>
                 Tell us what you&apos;re looking for and we&apos;ll match you
-                with the right  motorhome  for sale, from trusted dealers at a
+                with the right motorhome for sale, from trusted dealers at a
                 fair price. Make sure your budget and expectations are
                 realistic to help us deliver the best possible outcome. See
-                some examples of what other  motorhome  buyers are looking for.
+                some examples of what other motorhome buyers are looking for.
               </p>
               <div className="final_post_btn">
                 <a href="/caravan-enquiry-form/" className="btn">
@@ -115,7 +115,7 @@ useEffect(() => {
             >
               <h3>Recent Motorhome Requests</h3>
               <p className="sub-text">
-                See examples of what other  motorhome  buyers are looking for.
+                See examples of what other motorhome buyers are looking for.
               </p>
               <div className="top_cta bg-white">
                 <Swiper

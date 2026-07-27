@@ -46,10 +46,10 @@ export default function EverestCaravans() {
             <div className="col-lg-12">
               <div className="section-head mb-60">
                 <p>
-                  Can’t find a  motorhomethat fits your family? Everest Caravans
+                  Can’t find a motorhome that fits your family? Everest Caravans
                   has the answer. Instead of settling for a standard design,
-                  they build a custom  motorhometo your specs. Bye bye
-                  compromises, hello dream caravan.
+                  they build a custom motorhome to your specs. Bye bye
+                  compromises, hello dream motorhome.
                 </p>
                 <p>
                   Everest Caravans build{" "}
@@ -58,7 +58,7 @@ export default function EverestCaravans() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    top rated family caravans
+                    top rated family motorhomes
                   </Link>
                   , so every detail is designed for your family’s lifestyle.
                   They work with you to ensure the design, features and
@@ -69,7 +69,7 @@ export default function EverestCaravans() {
                 <p>
                   Every van is hand built with premium materials to withstand
                   the Australian climate. Structural strength and advanced
-                  engineering means these caravans are both durable and
+                  engineering means these motorhomes are both durable and
                   luxurious. With Everest you can travel the country knowing
                   your van will last.
                 </p>

@@ -14,10 +14,10 @@ const faqData: FaqItem[] = [
     heading: "1. Everest Caravans",
     content: (
       <>
-        <h4>What types of caravans does Everest Caravans specialize in?</h4>
+        <h4>What types of motorhomes does Everest Caravans specialize in?</h4>
         <p>
           Everest Caravans specializes in custom-built extreme off-road
-          caravans, including models like{" "}
+          motorhomes, including models like{" "}
           <Link
             href="https://www.everestcaravans.com.au/range/falcon/"
             target="_blank"
@@ -54,12 +54,12 @@ const faqData: FaqItem[] = [
           </Link>
           .
         </p>
-        <h4>Can I customize my  motorhomewith Everest Caravans?</h4>
+        <h4>Can I customize my motorhome with Everest Caravans?</h4>
         <p>
           Yes, Everest Caravans offers custom-built options to tailor the
-           motorhometo your specific needs.
+           motorhome to your specific needs.
         </p>
-        <h4>Are their caravans family-friendly?</h4>
+        <h4>Are their motorhomes family-friendly?</h4>
         <p>
           Yes, the Calibra and Summit models are particularly designed to
           accommodate families.
@@ -71,9 +71,9 @@ const faqData: FaqItem[] = [
     heading: "2. Orbit Caravans",
     content: (
       <>
-        <h4>What range of caravans does Orbit Caravans offer?</h4>
+        <h4>What range of motorhomes does Orbit Caravans offer?</h4>
         <p>
-          Orbit Caravans offers luxury off-road caravans like{" "}
+          Orbit Caravans offers luxury off-road motorhomes like{" "}
           <Link
             href="https://orbitcaravans.com.au/range/discovery-x/"
             target="_blank"
@@ -132,7 +132,7 @@ const faqData: FaqItem[] = [
           </Link>{" "}
           offer options.
         </p>
-        <h4>What types of caravans do they offer?</h4>
+        <h4>What types of motorhomes do they offer?</h4>
         <p>
           Full off-road (Nomad, Explorer), semi off-road{" "}
           <Link
@@ -164,7 +164,7 @@ const faqData: FaqItem[] = [
         </p>
         <h4>What models are available?</h4>
         <p>Alpine, Explore, Extreme, and Summit.</p>
-        <h4>Are their caravans family-friendly?</h4>
+        <h4>Are their motorhomes family-friendly?</h4>
         <p>Yes, with ample space and modern amenities.</p>
       </>
     ),
@@ -173,7 +173,7 @@ const faqData: FaqItem[] = [
     heading: "5. Silver Valley Caravans",
     content: (
       <>
-        <h4>What types of caravans does Silver Valley offer?</h4>
+        <h4>What types of motorhomes does Silver Valley offer?</h4>
         <p>
           Touring models like{" "}
           <Link
@@ -274,7 +274,7 @@ const faqData: FaqItem[] = [
     content: (
       <>
         <h4>What do they specialize in?</h4>
-        <p>Semi off-road caravans like Escape SE and Escape.</p>
+        <p>Semi off-road motorhomes like Escape SE and Escape.</p>
         <h4>Are they suitable for rough terrains?</h4>
         <p>Yes, durable for dirt roads and remote travel.</p>
         <h4>Do they offer family-friendly options?</h4>
@@ -286,7 +286,7 @@ const faqData: FaqItem[] = [
     heading: "9. Willow RV",
     content: (
       <>
-        <h4>What types of caravans do they offer?</h4>
+        <h4>What types of motorhomes do they offer?</h4>
         <p>
           Models include{" "}
           <Link

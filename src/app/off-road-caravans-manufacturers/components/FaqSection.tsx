@@ -33,7 +33,7 @@ export default function FAQSection() {
                         data-bs-target="#collapse1"
                         aria-controls="collapse1"
                       >
-                        Semi Off Road & Full Off Road Caravans
+                        Semi Off Road & Full Off Road Motorhomes
                       </button>
                     </h3>
                     <div
@@ -71,7 +71,7 @@ export default function FAQSection() {
                           durability and performance in harsh conditions.
                         </p>
                         <h4>
-                          How does the Eclipse X  motorhomeexcel in handling
+                          How does the Eclipse X motorhome excel in handling
                           extreme off-road conditions?
                         </h4>
                         <p>
@@ -83,7 +83,7 @@ export default function FAQSection() {
                           >
                             Eclipse X
                           </Link>{" "}
-                           motorhomeincludes a robust off-road chassis and
+                          motorhome includes a robust off-road chassis and
                           suspension system, along with solar power, a lithium
                           battery, and water tanks, making it ideal for extreme
                           off-road conditions.
@@ -116,7 +116,7 @@ export default function FAQSection() {
                           terrains.
                         </p>
                         <h4>
-                          How does the Nomad 17′  motorhomeperform in off-road
+                          How does the Nomad 17′ motorhome perform in off-road
                           conditions?
                         </h4>
                         <p>
@@ -128,14 +128,14 @@ export default function FAQSection() {
                           >
                             Nomad
                           </Link>{" "}
-                          17′  motorhomeis designed with off-road features similar
+                          17′ motorhome is designed with off-road features similar
                           to the Tracker, including a robust chassis and
                           suspension system to handle diverse terrains
                           effectively.
                         </p>
                         <h4>
                           What are the off-road advantages of the Explorer 18’6″
-                          caravan?
+                          motorhome?
                         </h4>
                         <p>
                           The{" "}
@@ -154,7 +154,7 @@ export default function FAQSection() {
                         <p>
                           <b>
                             What makes Titanium Caravans a market leader in
-                            off-road caravans?
+                            off-road motorhomes?
                           </b>
                         </p>
                         <p>
@@ -224,7 +224,7 @@ export default function FAQSection() {
                         data-bs-target="#collapse2"
                         aria-controls="collapse2"
                       >
-                        Hybrid Off Road Caravans
+                        Hybrid Off Road Motorhomes
                       </button>
                     </h3>
                     <div
@@ -238,7 +238,7 @@ export default function FAQSection() {
                       <div className="accordion-body">
                         <p>
                           <b>
-                            What makes X Series RV caravans ideal for off-road
+                            What makes X Series RV motorhomes ideal for off-road
                             adventures?
                           </b>
                         </p>
@@ -250,7 +250,7 @@ export default function FAQSection() {
                           >
                             X Series RV
                           </Link>{" "}
-                          caravans are built tough for Australia’s harshest
+                          motorhomes are built tough for Australia’s harshest
                           terrains, offering rugged construction, high-quality
                           materials, and reliable off-road performance. Their
                           range includes off-road pods, hybrids, and toy haulers
@@ -271,7 +271,7 @@ export default function FAQSection() {
                           >
                             X Element
                           </Link>{" "}
-                          is a lightweight, compact  motorhomedesigned for singles
+                          is a lightweight, compact motorhome designed for singles
                           or couples. It includes a well-equipped kitchen and
                           bathroom, delivering cozy comfort and essential
                           amenities in a travel-friendly size for easy off-road
@@ -284,7 +284,7 @@ export default function FAQSection() {
                           </b>
                         </p>
                         <p>
-                          X Series RV caravans are engineered to deliver premium
+                          X Series RV motorhomes are engineered to deliver premium
                           amenities like ensuites, full kitchens, and smart
                           storage, while maintaining rugged builds capable of
                           handling rough terrains. This ensures home-like
@@ -307,7 +307,7 @@ export default function FAQSection() {
                           </Link>{" "}
                           is perfect for families, offering 2 or 3 bunks, a
                           private ensuite, a washing machine, and ample storage.
-                          This 22ft hard roof hybrid  motorhomeprovides both
+                          This 22ft hard roof hybrid motorhome provides both
                           luxury and durability for comfortable long-distance
                           family travel.
                         </p>
@@ -341,7 +341,7 @@ export default function FAQSection() {
                         data-bs-target="#collapse3"
                         aria-controls="collapse3"
                       >
-                        Extreme Off Road Caravans
+                        Extreme Off Road Motorhomes
                       </button>
                     </h3>
                     <div

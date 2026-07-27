@@ -3,19 +3,19 @@ import "./not-found.css";
 import Notfound from "./searchError";
 
 export const metadata = {
-  title: "404 - Page Not Found | Caravans For Sale",
-  description: "The page you're looking for doesn't exist or has been moved. Browse our range of caravans for sale across Australia.",
+  title: "404 - Page Not Found | Motorhomes For Sale",
+  description: "The page you're looking for doesn't exist or has been moved. Browse our range of motorhomes for sale across Australia.",
   robots: "noindex, nofollow",
 };
 
 export default function NotFoundPage() {
   const categories = [
-    { name: "Off Road Caravans", slug: "off-road-category" },
-    { name: "Hybrid Caravans", slug: "hybrid-category" },
-    { name: "Pop Top Caravans", slug: "pop-top-category" },
-    { name: "Luxury Caravans", slug: "luxury-category" },
-    { name: "Family Caravans", slug: "family-category" },
-    { name: "Touring Caravans", slug: "touring-category" },
+    { name: "Off Road Motorhomes", slug: "off-road-category" },
+    { name: "Hybrid Motorhomes", slug: "hybrid-category" },
+    { name: "Pop Top Motorhomes", slug: "pop-top-category" },
+    { name: "Luxury Motorhomes", slug: "luxury-category" },
+    { name: "Family Motorhomes", slug: "family-category" },
+    { name: "Touring Motorhomes", slug: "touring-category" },
   ];
 
   const states = [
@@ -39,7 +39,7 @@ export default function NotFoundPage() {
           404
         </h1>
         <p className="err-sub">
-          Oops! The  motorhomeor page you’re looking for isn’t available.
+          Oops! The motorhome or page you’re looking for isn’t available.
         </p>
 
         <div className="search-wrap">
@@ -53,7 +53,7 @@ export default function NotFoundPage() {
             Go to Homepage
           </Link>
           <a className="btn btn-outline" href="/listings/">
-            Browse Caravans
+            Browse Motorhomes
           </a>
         </div>
 

@@ -10,16 +10,16 @@ export default function ManufacturerRange() {
               <h1 className="divide-orange pb-20">Manufacturer Range All</h1>
               <p>
                 Our extensive catalog features a diverse range of top-tier
-                verified  motorhomemanufacturers specializing in off-road, compact
+                verified motorhome manufacturers specializing in off-road, compact
                 poptops, versatile touring models or luxury editions, and
-                innovative hybrid caravans. Whether you seek rugged durability
+                innovative hybrid motorhomes. Whether you seek rugged durability
                 for remote journeys or luxurious comfort for leisurely escapes,
-                our curated list ensures there&apos;s a  motorhomeperfectly suited
+                our curated list ensures there&apos;s a motorhome perfectly suited
                 to your needs.
               </p>
               <p>
                 Embark on your journey with confidence, knowing that each
-                manufacturer listed excels in crafting caravans that blend
+                manufacturer listed excels in crafting motorhomes that blend
                 cutting-edge technology with superior craftsmanship. From robust
                 off-road capabilities ideal for exploring uncharted terrains,
                 aerodynamic touring models perfect for long-distance travel,

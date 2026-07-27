@@ -6,11 +6,11 @@ import { ReactNode } from "react";
 
  export const metadata: Metadata = {
    title: {
-     default: "Contact Caravans For Sale | Australia’s Caravan Marketplace",
+     default: "Contact Motorhomes For Sale | Australia’s Motorhome Marketplace",
      template: "%s ",
    },
    description:
-     "Have a question about caravans in Australia? Contact Caravans For Sale for support, inquiries, or help finding your next  motorhometoday.",
+     "Have a question about motorhomes in Australia? Contact Motorhomes For Sale for support, inquiries, or help finding your next motorhome today.",
    icons: { icon: "/favicon.ico" },
    robots: "index, follow",
    verification: {

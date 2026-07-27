@@ -7,16 +7,16 @@ import { StateData } from "../sell-my-caravan-region/states-data";
 import { getRegionsByState } from "../sell-my-caravan-region/regions-data";
 
 const CARAVAN_TYPES = [
-  { label: "Off Road Caravans", img: "/images/off-road.webp", href: "/listings/off-road-category/" },
-  { label: "Family Caravans", img: "/images/family.webp", href: "/listings/family-caravans-category/" },
-  { label: "Pop Top Caravans", img: "/images/pop-top.webp", href: "/listings/pop-top-category/" },
-  { label: "Hybrid Caravans", img: "/images/hybrid.webp", href: "/listings/hybrid-caravans-category/" },
-  { label: "Luxury Caravans", img: "/images/luxury.webp", href: "/listings/luxury-caravans-category/" },
-  { label: "Couples Caravans", img: "/images/touring.webp", href: "/listings/couples-caravans-category/" },
-  { label: "Touring Caravans", img: "/images/touring.webp", href: "/listings/touring-caravans-category/" },
-  { label: "Bunk Caravans", img: "/images/family.webp", href: "/listings/bunk-caravans-category/" },
-  { label: "Small Caravans", img: "/images/pop-top.webp", href: "/listings/small-caravans-category/" },
-  { label: "Used Caravans", img: "/images/off-road.webp", href: "/listings/used-condition/" },
+  { label: "Off Road Motorhomes", img: "/images/off-road.webp", href: "/listings/off-road-category/" },
+  { label: "Family Motorhomes", img: "/images/family.webp", href: "/listings/family-caravans-category/" },
+  { label: "Pop Top Motorhomes", img: "/images/pop-top.webp", href: "/listings/pop-top-category/" },
+  { label: "Hybrid Motorhomes", img: "/images/hybrid.webp", href: "/listings/hybrid-caravans-category/" },
+  { label: "Luxury Motorhomes", img: "/images/luxury.webp", href: "/listings/luxury-caravans-category/" },
+  { label: "Couples Motorhomes", img: "/images/touring.webp", href: "/listings/couples-caravans-category/" },
+  { label: "Touring Motorhomes", img: "/images/touring.webp", href: "/listings/touring-caravans-category/" },
+  { label: "Bunk Motorhomes", img: "/images/family.webp", href: "/listings/bunk-caravans-category/" },
+  { label: "Small Motorhomes", img: "/images/pop-top.webp", href: "/listings/small-caravans-category/" },
+  { label: "Used Motorhomes", img: "/images/off-road.webp", href: "/listings/used-condition/" },
 ];
 
 interface StateSellerProps {
@@ -43,8 +43,8 @@ export default function StateSeller({ state }: StateSellerProps) {
   const CITY_LINKS = getRegionsByState(state.slug);
 
   const HOW_TO_STEPS = [
-    { num: 1, iconSet: "fa-regular", icon: "fa-file-lines", title: "Create Your Listing", desc: "Add your  motorhomedetails, description, price and location in minutes." },
-    { num: 2, iconSet: "fa-regular", icon: "fa-image", title: "Upload Photos", desc: "Add clear photos of the inside, outside and features of your caravan." },
+    { num: 1, iconSet: "fa-regular", icon: "fa-file-lines", title: "Create Your Listing", desc: "Add your motorhome details, description, price and location in minutes." },
+    { num: 2, iconSet: "fa-regular", icon: "fa-image", title: "Upload Photos", desc: "Add clear photos of the inside, outside and features of your motorhome." },
     { num: 3, iconSet: "fa-regular", icon: "fa-comment-dots", title: "Reach Buyers", desc: `Your listing is live across ${stateLabel}. Buyers contact you directly.` },
     { num: 4, iconSet: "fa-regular", icon: "fa-handshake", title: "Negotiate Directly", desc: "Arrange inspections and negotiate price with buyers." },
     { num: 5, iconSet: "fa-regular", icon: "fa-circle-check", title: "Complete The Sale", desc: "Once sold, remove your listing or mark as sold. It's that simple." },
@@ -52,44 +52,44 @@ export default function StateSeller({ state }: StateSellerProps) {
 
   const MAIN_FAQS = [
     {
-      q: `How do I sell my  motorhomein ${stateLabel}?`,
-      a: <p>You can sell your  motorhomeonline by creating a private seller listing on CaravansForSale.com.au. Simply add your  motorhomedetails, upload clear photos, set your asking price, and publish your ad so active buyers across {stateLabel} and all of Australia can contact you directly.</p>,
+      q: `How do I sell my motorhome in ${stateLabel}?`,
+      a: <p>You can sell your motorhome online by creating a private seller listing on MotorhomesForSale.com.au. Simply add your motorhome details, upload clear photos, set your asking price, and publish your ad so active buyers across {stateLabel} and all of Australia can contact you directly.</p>,
     },
     {
-      q: `How much does it cost to sell my  motorhomein ${stateLabel}?`,
+      q: `How much does it cost to sell my motorhome in ${stateLabel}?`,
       a: <p>We charge a simple, flat one-time fee of just $49 (inc. GST). There are absolutely no commissions, no hidden upfront fees, and no recurring monthly subscriptions. You keep 100% of your sale price.</p>,
     },
     {
-      q: "How long does my  motorhomelisting stay live?",
-      a: <p>Your  motorhomelisting stays live until sold. You do not need to keep paying monthly fees to keep your ad active. Once your  motorhomeis sold, you can remove the listing from the website.</p>,
+      q: "How long does my motorhome listing stay live?",
+      a: <p>Your motorhome listing stays live until sold. You do not need to keep paying monthly fees to keep your ad active. Once your motorhome is sold, you can remove the listing from the website.</p>,
     },
     {
-      q: "Can I edit my  motorhomelisting after publishing?",
-      a: <p>Yes. After your listing is published, you can update your  motorhomedetails, change the asking price, add or replace photos and improve your description if needed.</p>,
+      q: "Can I edit my motorhome listing after publishing?",
+      a: <p>Yes. After your listing is published, you can update your motorhome details, change the asking price, add or replace photos and improve your description if needed.</p>,
     },
     {
       q: "How do buyers contact me?",
-      a: <p>Interested buyers can contact you directly through your  motorhomelisting. This allows you to answer questions, arrange inspections, negotiate the price and manage the sale privately.</p>,
+      a: <p>Interested buyers can contact you directly through your motorhome listing. This allows you to answer questions, arrange inspections, negotiate the price and manage the sale privately.</p>,
     },
     {
-      q: "What photos should I upload when selling my caravan?",
-      a: <p>Upload clear photos of the outside, inside, kitchen, beds, seating area, bathroom, tyres, drawbar and any included accessories. Good photos help buyers understand the condition of your  motorhomeand can increase enquiries.</p>,
+      q: "What photos should I upload when selling my motorhome?",
+      a: <p>Upload clear photos of the outside, inside, kitchen, beds, seating area, bathroom, tyres, drawbar and any included accessories. Good photos help buyers understand the condition of your motorhome and can increase enquiries.</p>,
     },
     {
-      q: "How should I price my caravan?",
-      a: <p>Check similar caravans for sale in {stateLabel} before setting your price. Compare by make, model, year, condition, length, ATM, tare weight, sleeping capacity, features and location. A realistic asking price can help attract more genuine buyers.</p>,
+      q: "How should I price my motorhome?",
+      a: <p>Check similar motorhomes for sale in {stateLabel} before setting your price. Compare by make, model, year, condition, length, ATM, tare weight, sleeping capacity, features and location. A realistic asking price can help attract more genuine buyers.</p>,
     },
     {
-      q: "Is it safe to sell my  motorhomeprivately online?",
+      q: "Is it safe to sell my motorhome privately online?",
       a: <p>Yes, but you should take normal precautions. Speak with buyers directly, meet in a safe location, confirm payment has cleared before handover and complete any required transfer paperwork for {stateLabel}.</p>,
     },
     {
-      q: "Do I pay commission when my  motorhomesells?",
-      a: <p>No. CaravansForSale.com.au does not charge commission when your  motorhomesells. You pay the one-time listing fee and keep 100% of the agreed sale price.</p>,
+      q: "Do I pay commission when my motorhome sells?",
+      a: <p>No. MotorhomesForSale.com.au does not charge commission when your motorhome sells. You pay the one-time listing fee and keep 100% of the agreed sale price.</p>,
     },
     {
-      q: "Can I remove my listing after my  motorhomeis sold?",
-      a: <p>Yes. Once your  motorhomehas sold, you can remove your listing so buyers know it is no longer available.</p>,
+      q: "Can I remove my listing after my motorhome is sold?",
+      a: <p>Yes. Once your motorhome has sold, you can remove your listing so buyers know it is no longer available.</p>,
     },
   ];
 
@@ -100,10 +100,10 @@ export default function StateSeller({ state }: StateSellerProps) {
       <section className="demo-hero">
         <div className="container">
           <h1 className="demo-hero__title">
-            Sell My Caravan in {stateLabel}
+            Sell My Motorhome in {stateLabel}
           </h1>
           <p className="demo-hero__subtitle">
-            The fastest, safest way to reach active  motorhomebuyers across {capital} and regional {stateLabel}.
+            The fastest, safest way to reach active motorhome buyers across {capital} and regional {stateLabel}.
           </p>
 
           {/* Pricing card + CTA wrapper */}
@@ -116,10 +116,10 @@ export default function StateSeller({ state }: StateSellerProps) {
                   <img src={state.mapImg} alt={stateLabel} />
                 </div>
                 <div className="demo-price-card__header">
-                  <h3>Looking to sell your caravan?</h3>
+                  <h3>Looking to sell your motorhome?</h3>
                 </div>
                 <p className="demo-price-card__desc">
-                   List your Motorhome on Australia's #1  motorhomemarketplace and connect with thousands of buyers across {capital} and regional {stateLabel}.
+                   List your Motorhome on Australia's #1 motorhome marketplace and connect with thousands of buyers across {capital} and regional {stateLabel}.
                 </p>
               </div>
 
@@ -154,7 +154,7 @@ export default function StateSeller({ state }: StateSellerProps) {
 
             {/* CTA */}
             <a href="https://seller.caravansforsale.com.au/seller-signup/" className="demo-hero__cta">
-              List Your Caravan Now <i className="fa-solid fa-arrow-right" />
+              List Your Motorhome Now <i className="fa-solid fa-arrow-right" />
             </a>
           </div>{/* end demo-price-wrapper */}
 
@@ -167,8 +167,8 @@ export default function StateSeller({ state }: StateSellerProps) {
           <div className="demo-features-grid">
             {[
               { img: "/images/chat2.png", title: "Direct Buyer Contact", desc: "Communicate directly with buyers, no middleman." },
-              { img: "/images/calendar.png", title: "Live Until Sold", desc: "Your listing stays live until your  motorhomeis sold." },
-              { img: "/images/caravan.png", title: "Caravan-Only Marketplace", desc: "Reach engaged  motorhomebuyers actively looking to buy caravans." },
+              { img: "/images/calendar.png", title: "Live Until Sold", desc: "Your listing stays live until your motorhome is sold." },
+              { img: "/images/caravan.png", title: "Motorhome-Only Marketplace", desc: "Reach engaged motorhome buyers actively looking to buy motorhomes." },
               { img: "/images/dollar.png", title: "Keep 100% of Your Sale", desc: "Pay only a one-time fee for maximum value. No hidden costs." },
             ].map((item, i) => (
               <div className="demo-feature-card" key={i}>
@@ -188,7 +188,7 @@ export default function StateSeller({ state }: StateSellerProps) {
         <div className="container">
 
           <div className="demo-reach-heading">
-            <h3>Reach Caravan Buyers Across {stateLabel}, Including: </h3>
+            <h3>Reach Motorhome Buyers Across {stateLabel}, Including: </h3>
           </div>
 
           {/* Region links */}
@@ -203,7 +203,7 @@ export default function StateSeller({ state }: StateSellerProps) {
                     <h3 className="demo-city-label">
                       <a
                         href={`/sell-my-caravan/${state.slug}/${c.pageSlug}/`}
-                        title={`Sell my  motorhomein ${c.label.trim()}`}
+                        title={`Sell my motorhome in ${c.label.trim()}`}
                         className="demo-city-label"
                       >
                         {c.label}
@@ -219,8 +219,8 @@ export default function StateSeller({ state }: StateSellerProps) {
           <div className="demo-reach-row">
             {/* Device image */}
             <div className="demo-reach-device">
-              <img src="/images/your-caravan-desktop-seller-2.jpg" className="img-fluid d-none d-lg-block" alt="Caravan For Sale Desktop" />
-              <img src="/images/your-caravan-mobile-2.jpg" className="img-fluid d-block d-lg-none" alt="Caravan For Sale Mobile" />
+              <img src="/images/your-caravan-desktop-seller-2.jpg" className="img-fluid d-none d-lg-block" alt="Motorhome For Sale Desktop" />
+              <img src="/images/your-caravan-mobile-2.jpg" className="img-fluid d-block d-lg-none" alt="Motorhome For Sale Mobile" />
             </div>
 
             {/* Pricing + FAQ card */}
@@ -235,7 +235,7 @@ export default function StateSeller({ state }: StateSellerProps) {
                 <p className="demo-reach-card__fee-label">One-Time Listing Fee</p>
                 <ul className="demo-reach-card__list">
                   {[
-                    "1 Caravan listed until sold",
+                    "1 Motorhome listed until sold",
                     "Edit your listing anytime",
                     "No expiration or monthly fees",
                   ].map((item) => (
@@ -246,7 +246,7 @@ export default function StateSeller({ state }: StateSellerProps) {
                   ))}
                 </ul>
                 <a href="https://seller.caravansforsale.com.au/seller-signup/" className="demo-reach-card__cta">
-                  List Your Caravan Now <i className="fa-solid fa-arrow-right" />
+                  List Your Motorhome Now <i className="fa-solid fa-arrow-right" />
                 </a>
               </div>
 
@@ -289,13 +289,13 @@ export default function StateSeller({ state }: StateSellerProps) {
             <div className="demo-guide-card">
               <div className="demo-guide-card__header">
                 <span className="demo-guide-card__num">1</span>
-                <h3>Why sell on CaravansForSale.com.au?</h3>
+                <h3>Why sell on MotorhomesForSale.com.au?</h3>
               </div>
               <ul className="demo-guide-card__list">
-                <li>Australia's #1 marketplace for buying and selling caravans.</li>
-                <li>Targeted  motorhomebuyers across {capital} and regional {stateLabel}.</li>
+                <li>Australia's #1 marketplace for buying and selling motorhomes.</li>
+                <li>Targeted motorhome buyers across {capital} and regional {stateLabel}.</li>
                 <li>Your listing stays live until sold with no hidden fees.</li>
-                <li>Fast, simple and secure way to sell your caravan.</li>
+                <li>Fast, simple and secure way to sell your motorhome.</li>
               </ul>
             </div>
 
@@ -314,10 +314,10 @@ export default function StateSeller({ state }: StateSellerProps) {
             <div className="demo-guide-card">
               <div className="demo-guide-card__header">
                 <span className="demo-guide-card__num">3</span>
-                <h3>How to price your caravan</h3>
+                <h3>How to price your motorhome</h3>
               </div>
               <ul className="demo-guide-card__list">
-                <li>Check similar caravans for sale in {stateLabel}.</li>
+                <li>Check similar motorhomes for sale in {stateLabel}.</li>
                 <li>Compare make, model, year, condition and inclusions.</li>
                 <li>List at a realistic price to attract more buyers.</li>
               </ul>
@@ -331,7 +331,7 @@ export default function StateSeller({ state }: StateSellerProps) {
               <ul className="demo-guide-card__list">
                 <li>Private sale: you keep 100% of the sale price.</li>
                 <li>Dealers/consignment: may charge fees or commission.</li>
-                <li>CaravansForSale.com.au: one-time fee, no commission.</li>
+                <li>MotorhomesForSale.com.au: one-time fee, no commission.</li>
               </ul>
             </div>
 
@@ -345,7 +345,7 @@ export default function StateSeller({ state }: StateSellerProps) {
           <div className="demo-faq-head">
             <span className="demo-faq-head__tag">FAQ</span>
             <h2>Frequently Asked Questions</h2>
-            <p>Everything you need to know about selling your  motorhomein {stateLabel} on CaravansForSale.com.au</p>
+            <p>Everything you need to know about selling your motorhome in {stateLabel} on MotorhomesForSale.com.au</p>
           </div>
           <div className="demo-faq-list">
             {MAIN_FAQS.map((faq, i) => (
@@ -374,7 +374,7 @@ export default function StateSeller({ state }: StateSellerProps) {
       {/* ── Caravan types ── */}
       <section className="demo-types-section">
         <div className="container">
-          <h2 className="demo-section-title">Sell Any Type of Caravan</h2>
+          <h2 className="demo-section-title">Sell Any Type of Motorhome</h2>
           <div className="demo-types-grid">
             {CARAVAN_TYPES.map((t) => (
               <div key={t.label} className="demo-type-item">
@@ -393,19 +393,19 @@ export default function StateSeller({ state }: StateSellerProps) {
         <div className="container">
           <div className="row align-items-center g-4">
             <div className="col-md-6">
-              <img src="/images/your-caravan-desktop-seller-2.jpg" className="img-fluid demo-why-img" alt={`${demonym}  motorhomebuyers`} />
+              <img src="/images/your-caravan-desktop-seller-2.jpg" className="img-fluid demo-why-img" alt={`${demonym} motorhome buyers`} />
             </div>
             <div className="col-md-6">
-              <h2>Why {demonym} Caravan Buyers Visit CaravansForSale Every Month</h2>
+              <h2>Why {demonym} Motorhome Buyers Visit MotorhomesForSale Every Month</h2>
               <p>
-                CaravansForSale.com.au helps {demonym}  motorhomesellers reach buyers searching for
-                used caravans, off road caravans, family caravans, pop tops, hybrids and touring
-                caravans across {capital} and regional {stateLabel}.
+                MotorhomesForSale.com.au helps {demonym} motorhome sellers reach buyers searching for
+                used motorhomes, off road motorhomes, family motorhomes, pop tops, hybrids and touring
+                motorhomes across {capital} and regional {stateLabel}.
               </p>
               <div className="demo-check-grid demo-check-grid--2col mt-3">
                 {[
                   "Thousands of active buyers", `Local reach across ${abbr} regions`,
-                  "Caravan-only marketplace", "Simple listing process",
+                  "Motorhome-only marketplace", "Simple listing process",
                   "High quality enquiries", "No commissions",
                   "Live until sold – no extra fees", "Friendly local support team",
                 ].map((t) => (
@@ -422,8 +422,8 @@ export default function StateSeller({ state }: StateSellerProps) {
       {/* ── How to sell ── */}
       <section className="demo-steps-section">
         <div className="container">
-          <h2 className="demo-steps-title">How To Sell Your Caravan Online</h2>
-          <p className="demo-steps-subtitle">List in minutes and reach thousands of active  motorhomebuyers in {stateLabel}.</p>
+          <h2 className="demo-steps-title">How To Sell Your Motorhome Online</h2>
+          <p className="demo-steps-subtitle">List in minutes and reach thousands of active motorhome buyers in {stateLabel}.</p>
 
           <div className="demo-steps-wrapper">
             {HOW_TO_STEPS.map((s, i) => (
@@ -450,14 +450,14 @@ export default function StateSeller({ state }: StateSellerProps) {
       <section className="demo-cta-strip">
         <div className="container text-center">
           <p>
-            Start selling your  motorhomein {stateLabel} today for just{" "}
+            Start selling your motorhome in {stateLabel} today for just{" "}
             <strong>$49 (Inc. GST)</strong> — live until sold.
           </p>
           <a href="https://seller.caravansforsale.com.au/seller-signup/" className="btn white_btn">
-            List Your Caravan Now
+            List Your Motorhome Now
           </a>
           <p className="demo-cta-strip__alt-link">
-            Not in {abbr}? Sell your  motorhomeacross Australia <a href="/sell-my-caravan/">here</a>.
+            Not in {abbr}? Sell your motorhome across Australia <a href="/sell-my-caravan/">here</a>.
           </p>
         </div>
       </section>

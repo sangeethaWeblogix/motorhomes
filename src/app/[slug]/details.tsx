@@ -113,7 +113,7 @@ const BROWSE_TABS: BrowseTab[] = [
   {
     label: "Condition",
     icon: "bi-patch-check",
-    viewAll: { text: "Browse all caravans", href: "/listings/" },
+    viewAll: { text: "Browse all motorhomes", href: "/listings/" },
     links: [
       { text: "New Motorhomes for Sale", href: "/listings/new-condition/" },
       { text: "Used Motorhomes for Sale", href: "/listings/used-condition/" },
@@ -483,15 +483,15 @@ export default function BlogDetailsPage({
                   <img src="/images/category.svg" alt="" width={32} height={32} className="blog-browse-cta__icon-img" />
                   <div>
                     <h3 className="blog-browse-cta__heading">
-                      {catLabel ? `Ready to Browse ${catLabel} Caravans?` : "Ready to Browse Caravans?"}
+                      {catLabel ? `Ready to Browse ${catLabel} Motorhomes?` : "Ready to Browse Motorhomes?"}
                     </h3>
                     <p className="blog-browse-cta__desc">
-                      {catLabel ? `Explore hundreds of ${catLabel.toLowerCase()} caravans for sale across Australia.` : "Explore thousands of caravans for sale across Australia."}
+                      {catLabel ? `Explore hundreds of ${catLabel.toLowerCase()} motorhomes for sale across Australia.` : "Explore thousands of motorhomes for sale across Australia."}
                     </p>
                   </div>
                 </div>
                 <a href={catLink} className="blog-browse-cta__btn">
-                  {catLabel ? `Browse ${catLabel} Caravans` : "Browse Caravans"} <i className="bi bi-arrow-right" />
+                  {catLabel ? `Browse ${catLabel} Motorhomes` : "Browse Motorhomes"} <i className="bi bi-arrow-right" />
                 </a>
               </div>
 
@@ -583,16 +583,16 @@ export default function BlogDetailsPage({
               )}
               <div className="blog-sidebar-sticky">
                 <div className="blog-sidebar-cta">
-                  <h3 className="blog-sidebar-cta__heading">Ready to Find Your Next Caravan?</h3>
+                  <h3 className="blog-sidebar-cta__heading">Ready to Find Your Next Motorhome?</h3>
                   <p className="blog-sidebar-cta__desc">Browse thousands of new and used motorhomes from trusted dealers and private sellers across Australia.</p>
                   <a href="/listings/" className="blog-sidebar-cta__btn">
-                    Search Caravans Now <i className="bi bi-arrow-right" />
+                    Search Motorhomes Now <i className="bi bi-arrow-right" />
                   </a>
                 </div>
                 <div className="blog-sidebar-cta blog-sidebar-cta--sell">
-                  <h3 className="blog-sidebar-cta__heading">Sell Your Caravan Faster with Australia's Growing Caravan Marketplace</h3>
+                  <h3 className="blog-sidebar-cta__heading">Sell Your Motorhome Faster with Australia's Growing Motorhome Marketplace</h3>
                   <a href="/sell-my-caravan/" className="blog-sidebar-cta__btn">
-                    List Your Caravan Now <i className="bi bi-arrow-right" />
+                    List Your Motorhome Now <i className="bi bi-arrow-right" />
                   </a>
                 </div>
               </div>
@@ -607,21 +607,21 @@ export default function BlogDetailsPage({
       {cats.length > 0 && (
         <section className="bds-cat-loc">
           <div className="container">
-            <h2 className="bds-cat-title">Find {catLabel} Caravans by Popular Location</h2>
+            <h2 className="bds-cat-title">Find {catLabel} Motorhomes by Popular Location</h2>
             <div className="bds-cat-loc__major">
               {CAT_MAJOR_CITIES.map((city) => (
                 <a key={city.name} href={`${catLink}${city.state}/${city.region}/`} className="bds-cat-city-card">
                   <div className="bds-cat-city-img-wrap">
                     <img src={city.img} alt={city.name} className="bds-cat-city-img" loading="lazy" />
                   </div>
-                  <span className="bds-cat-city-name">{catLabel} Caravans in {city.name} <i className="bi bi-chevron-right bds-cat-city-arrow" /></span>
+                  <span className="bds-cat-city-name">{catLabel} Motorhomes in {city.name} <i className="bi bi-chevron-right bds-cat-city-arrow" /></span>
                 </a>
               ))}
             </div>
             <div className="bds-cat-loc__minor">
               {CAT_MINOR_CITIES.map((city) => (
                 <a key={city.name} href={`${catLink}${city.state}/${city.region ? city.region + "/" : ""}`} className="bds-cat-minor-pill">
-                  {catLabel} Caravans in {city.name}
+                  {catLabel} Motorhomes in {city.name}
                 </a>
               ))}
             </div>
@@ -633,12 +633,12 @@ export default function BlogDetailsPage({
       {cats.length > 0 && (
         <section className="bds-cat-state">
           <div className="container">
-            <h2 className="bds-cat-title">Find {catLabel} Caravans by State</h2>
+            <h2 className="bds-cat-title">Find {catLabel} Motorhomes by State</h2>
             <div className="bds-cat-state__grid">
               {CAT_STATES.map((s) => (
                 <a key={s.name} href={`${catLink}${s.slug}/`} className="bds-cat-state-card">
                   <img src={s.img} alt={s.name} className="bds-cat-state-img" loading="lazy" />
-                  <span className="bds-cat-state-name">{catLabel} Caravans in {s.name}</span>
+                  <span className="bds-cat-state-name">{catLabel} Motorhomes in {s.name}</span>
                 </a>
               ))}
             </div>
@@ -652,16 +652,16 @@ export default function BlogDetailsPage({
       {/* ── Buy or Sell CTA ── */}
       <section className="bds-cta-section">
         <div className="bds-cta-card">
-          <h2 className="bds-cta-title">Ready to Buy or Sell a Caravan?</h2>
+          <h2 className="bds-cta-title">Ready to Buy or Sell a Motorhome?</h2>
           <p className="bds-cta-body">
             <strong>Looking to buy?</strong> Browse{" "}
-            <a href="/" className="bds-cta-link">caravans for sale</a>{" "}
-            from dealers and private sellers across Australia, with listings available by make, model, price, location and  motorhometype.
+            <a href="/" className="bds-cta-link">motorhomes for sale</a>{" "}
+            from dealers and private sellers across Australia, with listings available by make, model, price, location and motorhome type.
           </p>
           <p className="bds-cta-body">
-            <strong>Looking to sell?</strong> If you&apos;re upgrading to a newer  motorhomeor no longer need your current one,{" "}
-            <a href="/sell-my-caravan/" className="bds-cta-link">sell your caravan</a>{" "}
-            by creating a listing on CaravansForSale.com.au. Your advertisement stays online until it&apos;s sold for a one-time fee of $49.
+            <strong>Looking to sell?</strong> If you&apos;re upgrading to a newer motorhome or no longer need your current one,{" "}
+            <a href="/sell-my-caravan/" className="bds-cta-link">sell your motorhome</a>{" "}
+            by creating a listing on MotorhomesForSale.com.au. Your advertisement stays online until it&apos;s sold for a one-time fee of $49.
           </p>
         </div>
       </section>

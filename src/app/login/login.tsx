@@ -28,7 +28,7 @@ export default function LoginPage() {
               <div className="login-body">
                 <div className="login-title">Private Seller Login</div>
                 <div className="login-sub">
-                  Manage or list your  motorhomefor sale
+                  Manage or list your motorhome for sale
                 </div>
               </div>
             </a>
@@ -46,7 +46,7 @@ export default function LoginPage() {
               <div className="login-body">
                 <div className="login-title">Dealer Login</div>
                 <div className="login-sub">
-                  Access dealer tools and manage  motorhomelistings
+                  Access dealer tools and manage motorhome listings
                 </div>
               </div>
             </a>
@@ -54,8 +54,8 @@ export default function LoginPage() {
 
           {/*<div className="social">
             <span className="text">
-              Grow your  motorhomedealership with unlimited listings and
-              high-intent buyer leads. Reach serious  motorhomeshoppers across
+              Grow your motorhome dealership with unlimited listings and
+              high-intent buyer leads. Reach serious motorhome shoppers across
               Australia with CFS.
             </span>
           </div> */}

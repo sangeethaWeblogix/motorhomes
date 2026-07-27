@@ -109,7 +109,7 @@ export default function CaravanManufacturers() {
               <SwiperSlide>
                 <FeatureCard
                   image="https://admin.caravansforsale.com.au/wp-content/uploads/2023/08/1-13.png"
-                  alt="Falcon Caravan"
+                  alt="Falcon Motorhome"
                   title="Falcon - FULL OFF ROAD"
                   subtitle="FULL OFF ROAD"
                   link="https://www.caravansforsale.com.au/range/falcon-everest-caravans/"
@@ -119,7 +119,7 @@ export default function CaravanManufacturers() {
               <SwiperSlide>
                 <FeatureCard
                   image="https://admin.caravansforsale.com.au/wp-content/uploads/2023/08/1-16.png"
-                  alt="Nitro Extreme Caravan"
+                  alt="Nitro Extreme Motorhome"
                   title="Nitro Extreme - OFF ROAD"
                   subtitle="OFF ROAD"
                   link="https://www.caravansforsale.com.au/range/nitro-extreme-everest-caravans/"
@@ -128,7 +128,7 @@ export default function CaravanManufacturers() {
               <SwiperSlide>
                 <FeatureCard
                   image="https://admin.caravansforsale.com.au/wp-content/uploads/2023/08/1-17.png"
-                  alt="Calibra Caravan"
+                  alt="Calibra Motorhome"
                   title="Calibra - FULL OFF ROAD"
                   subtitle="FULL OFF ROAD"
                   shortinfo="Traveling with three kids and need space for adventure? The 20.6F CALIBRA offers all the quality, style, and features of an Everest, with a full ensuite, spacious living area, and off-road capabilities. It's perfect for family getaways, so pack up and experience it—just be warned, the kids might not want to leave!"

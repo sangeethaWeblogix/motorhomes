@@ -70,8 +70,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const seo = data?.seo ?? data?.product?.seo ?? {};
   const slugTitle = slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 
-  const title = seo.metatitle || seo.meta_title || pd.name || data?.name || slugTitle || "Caravan for Sale";
-  const description = seo.metadescription || seo.meta_description || pd.short_description || "View  motorhomedetails on Caravans For Sale Australia.";
+  const title = seo.metatitle || seo.meta_title || pd.name || data?.name || slugTitle || "Motorhome for Sale";
+  const description = seo.metadescription || seo.meta_description || pd.short_description || "View motorhome details on Motorhomes For Sale Australia.";
   const canonicalUrl = `https://www.caravansforsale.com.au/product/${slug}/`;
   const rawImages = pd.image_url ?? pd.images ?? [];
   const images: string[] = (Array.isArray(rawImages) ? rawImages : [rawImages]).filter(Boolean);
@@ -186,7 +186,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
       ...(priceStr && { price: priceStr }),
       availability: "https://schema.org/InStock",
       url: canonicalUrl,
-      seller: { "@type": "Organization", name: "Caravans For Sale" },
+      seller: { "@type": "Organization", name: "Motorhomes For Sale" },
     },
   };
 

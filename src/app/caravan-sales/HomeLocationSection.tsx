@@ -86,9 +86,9 @@ export default function HomeLocationSection() {
 
         <div className="hloc-header">
           <h2 className="hloc-title">
-            Find Caravan Listings by Popular Location
+            Find Motorhome Listings by Popular Location
           </h2>
-          <p className="hloc-subtitle">Browse caravans near you by major Australian cities.</p>
+          <p className="hloc-subtitle">Browse motorhomes near you by major Australian cities.</p>
           
         </div>
 
@@ -128,7 +128,7 @@ export default function HomeLocationSection() {
         <div className="hloc-filters">
           <div className="hloc-header hloc-filter-row pb-2 mb-2">
   <h2 className="hloc-title">
-           Search Caravan Listings Your Way
+           Search Motorhome Listings Your Way
           </h2>
    
         </div>

@@ -37,12 +37,12 @@ const FaqSection = () => {
                     >
                       <div className="accordion-body">
                         <h4>
-                          What types of caravans does Everest Caravans
+                          What types of motorhomes does Everest Caravans
                           specialize in?
                         </h4>
                         <p>
                           Everest Caravans specializes in custom-built extreme
-                          off-road caravans, including models like{" "}
+                          off-road motorhomes, including models like{" "}
                           <Link
                             href="https://www.everestcaravans.com.au/range/falcon/"
                             target="_blank"
@@ -85,14 +85,14 @@ const FaqSection = () => {
                           series.
                         </p>
                         <h4>
-                          Can I customize my  motorhomewith Everest Caravans?
+                          Can I customize my motorhome with Everest Caravans?
                         </h4>
                         <p>
                           Yes, Everest Caravans offers custom-built options to
-                          tailor the  motorhometo your specific needs and
+                          tailor the motorhome to your specific needs and
                           preferences.
                         </p>
-                        <h4>Are their caravans family-friendly?</h4>
+                        <h4>Are their motorhomes family-friendly?</h4>
                         <p>
                           Yes, the Calibra and Summit models are particularly
                           designed to accommodate families, offering spacious
@@ -123,10 +123,10 @@ const FaqSection = () => {
                     >
                       <div className="accordion-body">
                         <h4>
-                          What range of caravans does Orbit Caravans offer?
+                          What range of motorhomes does Orbit Caravans offer?
                         </h4>
                         <p>
-                          Orbit Caravans offers luxury off-road caravans such as
+                          Orbit Caravans offers luxury off-road motorhomes such as
                           the{" "}
                           <Link
                             href="https://orbitcaravans.com.au/range/discovery-x/"
@@ -215,9 +215,9 @@ const FaqSection = () => {
                           offer customizable options to suit individual
                           preferences and travel needs.
                         </p>
-                        <h4>What types of caravans do they offer?</h4>
+                        <h4>What types of motorhomes do they offer?</h4>
                         <p>
-                          Grand City Caravans offers full off-road caravans like
+                          Grand City Caravans offers full off-road motorhomes like
                           Nomad and Explorer, semi off-road models like{" "}
                           <Link
                             href="https://grandcitycaravans.com.au/range/royale/"
@@ -274,7 +274,7 @@ const FaqSection = () => {
                           Extreme, and Summit, all built for off-road
                           adventures.
                         </p>
-                        <h4>Are their caravans family-friendly?</h4>
+                        <h4>Are their motorhomes family-friendly?</h4>
                         <p>
                           Yes, their models cater to families looking for
                           off-road adventures with ample space and modern
@@ -305,11 +305,11 @@ const FaqSection = () => {
                     >
                       <div className="accordion-body">
                         <h4>
-                          What types of caravans does Silver Valley Caravans
+                          What types of motorhomes does Silver Valley Caravans
                           offer?
                         </h4>
                         <p>
-                          Silver Valley Caravans offers luxury touring caravans
+                          Silver Valley Caravans offers luxury touring motorhomes
                           such as the{" "}
                           <Link
                             href="https://www.silvervalleycaravans.com.au/range/the-family-getaway.html"
@@ -352,13 +352,13 @@ const FaqSection = () => {
                           </Link>
                           .
                         </p>
-                        <h4>Are their caravans customizable?</h4>
+                        <h4>Are their motorhomes customizable?</h4>
                         <p>
                           Yes, their models come with customizable options for
                           both interiors and exteriors to meet individual
                           preferences.
                         </p>
-                        <h4>What makes their caravans luxurious?</h4>
+                        <h4>What makes their motorhomes luxurious?</h4>
                         <p>
                           Silver Valley Caravans incorporate high-quality
                           materials, modern appliances, and smart storage
@@ -396,10 +396,10 @@ const FaqSection = () => {
                           aluminium frame construction, combining lightness with
                           strength for both on-road and off-road adventures.
                         </p>
-                        <h4>What types of caravans do they offer?</h4>
+                        <h4>What types of motorhomes do they offer?</h4>
                         <p>
                           They offer a variety of models including on-road,
-                          off-road, and semi off-road caravans like the{" "}
+                          off-road, and semi off-road motorhomes like the{" "}
                           <Link
                             href="https://redcentrecaravans.com.au/newell/"
                             target="_blank"
@@ -433,7 +433,7 @@ const FaqSection = () => {
                           </Link>
                           .
                         </p>
-                        <h4>Are their caravans energy-efficient?</h4>
+                        <h4>Are their motorhomes energy-efficient?</h4>
                         <p>
                           Yes, many of their models feature advanced
                           energy-efficient designs and systems, such as the
@@ -464,19 +464,19 @@ const FaqSection = () => {
                     >
                       <div className="accordion-body">
                         <h4>
-                          What range of caravans does Masterpiece Caravans
+                          What range of motorhomes does Masterpiece Caravans
                           provide?
                         </h4>
                         <p>
                           Masterpiece Caravans offers the ultimate in off-road
-                          caravans with models like Optimum, Performance and
+                          motorhomes with models like Optimum, Performance and
                           XTM.
                         </p>
                         <h4>
-                          Are their caravans designed for extreme conditions?
+                          Are their motorhomes designed for extreme conditions?
                         </h4>
                         <p>
-                          Yes, their caravans are engineered for excellence in
+                          Yes, their motorhomes are engineered for excellence in
                           the most rugged terrains, providing robust
                           construction and luxurious interiors.
                         </p>
@@ -511,23 +511,23 @@ const FaqSection = () => {
                     >
                       <div className="accordion-body">
                         <h4>
-                          What type of caravans does Villa Caravans specialize
+                          What type of motorhomes does Villa Caravans specialize
                           in?
                         </h4>
                         <p>
-                          Villa Caravans specializes in semi off-road caravans
+                          Villa Caravans specializes in semi off-road motorhomes
                           like the Escape SE and Escape, designed for exploring
                           remote areas with semi off-road capabilities.
                         </p>
                         <h4>Are Villa Caravans suitable for rough terrains?</h4>
                         <p>
-                          Yes, their semi off-road caravans are built to
+                          Yes, their semi off-road motorhomes are built to
                           withstand dirt roads and remote areas while providing
                           comfort and luxury.
                         </p>
                         <h4>Do they offer family-friendly options?</h4>
                         <p>
-                          Yes, their caravans are designed to cater to families,
+                          Yes, their motorhomes are designed to cater to families,
                           offering spacious and feature-rich models.
                         </p>
                       </div>
@@ -556,11 +556,11 @@ const FaqSection = () => {
                       <div className="accordion-body">
                         <p>
                           <strong>
-                            What types of caravans does Willow RV offer?
+                            What types of motorhomes does Willow RV offer?
                           </strong>
                         </p>
                         <p>
-                          Willow RV offers a range of Australian-made caravans
+                          Willow RV offers a range of Australian-made motorhomes
                           including the{" "}
                           <Link
                             href="https://willowrv.com.au/illawarra-series-caravans/"
@@ -598,13 +598,13 @@ const FaqSection = () => {
                         </p>
                         <p>
                           <strong>
-                            Are the interiors of Willow RV caravans comfortable
+                            Are the interiors of Willow RV motorhomes comfortable
                             for long trips?
                           </strong>
                         </p>
                         <p>
                           <span style={{ fontWeight: 400 }}>
-                            Absolutely. Willow RV caravans feature luxury
+                            Absolutely. Willow RV motorhomes feature luxury
                             interiors with open-plan layouts, spacious ensuites,
                             and five-star comfort suitable for both short and
                             extended stays.
@@ -613,11 +613,11 @@ const FaqSection = () => {
                         <p>
                           <strong>
                             What kind of value can I expect from a Willow RV
-                            caravan?
+                            motorhome?
                           </strong>
                           <br />
                           <span style={{ fontWeight: 400 }}>
-                            Willow RV caravans come with premium features
+                            Willow RV motorhomes come with premium features
                             included as standard—delivering exceptional value
                             without hidden costs or extra upgrades.
                           </span>

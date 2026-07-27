@@ -8,7 +8,7 @@ const TRUST_ITEMS = [
         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
       </svg>
     ),
-    label: "2,652 caravans listed in Victoria",
+    label: "2,652 motorhomes listed in Victoria",
   },
   {
     icon: (
@@ -16,7 +16,7 @@ const TRUST_ITEMS = [
         <rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
       </svg>
     ),
-    label: "New & used caravans",
+    label: "New & used motorhomes",
   },
   {
     icon: (
@@ -55,7 +55,7 @@ export default function StateHero({ title, description, loading, breadcrumbs }: 
         <nav className="lsd-breadcrumb" aria-label="breadcrumb">
           <a href="/">Home</a>
           <svg width="12" height="20" viewBox="0 0 24 24" fill="none" stroke="#3e3e3e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0,display:"block"}} aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-          <a href="/listings/">Caravans for Sale</a>
+          <a href="/listings/">Motorhomes for Sale</a>
           {breadcrumbs?.map((crumb) => (
             <span key={crumb.href}>
               <svg width="12" height="20" viewBox="0 0 24 24" fill="none" stroke="#3e3e3e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0,display:"block"}} aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
@@ -75,7 +75,7 @@ export default function StateHero({ title, description, loading, breadcrumbs }: 
           ) : (
             <>
               <h1 className="lsd-hero__title">
-                {title || "Caravans for Sale"}
+                {title || "Motorhomes for Sale"}
               </h1>
 
               <div
@@ -83,9 +83,9 @@ export default function StateHero({ title, description, loading, breadcrumbs }: 
                 dangerouslySetInnerHTML={{
                   __html: description
                     ? sanitizeRichText(description)
-                    : "<p>Browse new and used caravans for sale from dealers and private sellers. " +
-                      "Find off road caravans, family caravans, luxury caravans, pop tops, hybrids and " +
-                      "touring caravans, and filter local inventory by price, condition, layout, berths, and travel dimensions.</p>",
+                    : "<p>Browse new and used motorhomes for sale from dealers and private sellers. " +
+                      "Find off road motorhomes, family motorhomes, luxury motorhomes, pop tops, hybrids and " +
+                      "touring motorhomes, and filter local inventory by price, condition, layout, berths, and travel dimensions.</p>",
                 }}
               />
             </>

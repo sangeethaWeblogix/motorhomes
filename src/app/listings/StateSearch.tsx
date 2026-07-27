@@ -22,12 +22,12 @@ interface Props {
 }
 
 const CARAVAN_TYPES = [
-  { name: "Family Caravan",   slug: "family-category" },
-  { name: "Hybrid Caravan",   slug: "hybrid-category" },
-  { name: "Luxury Caravan",   slug: "luxury-category" },
-  { name: "Off Road Caravan", slug: "off-road-category" },
-  { name: "Pop Top Caravan",  slug: "pop-top-category" },
-  { name: "Touring Caravan",  slug: "touring-category" },
+  { name: "Family Motorhome",   slug: "family-category" },
+  { name: "Hybrid Motorhome",   slug: "hybrid-category" },
+  { name: "Luxury Motorhome",   slug: "luxury-category" },
+  { name: "Off Road Motorhome", slug: "off-road-category" },
+  { name: "Pop Top Motorhome",  slug: "pop-top-category" },
+  { name: "Touring Motorhome",  slug: "touring-category" },
   { name: "Camper Trailer",   slug: "camper-trailer" },
   { name: "Fifth Wheeler",    slug: "fifth-wheeler" },
 ];
@@ -145,7 +145,7 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
   // ── Section components (reusable inside modal) ──
   const TypeSection = (
     <div className="filter-item">
-      <h4 className="filter-section-title">Caravan Type</h4>
+      <h4 className="filter-section-title">Motorhome Type</h4>
       <ul className="loc-state-list">
         {CARAVAN_TYPES.map((cat) => (
           <li key={cat.slug} className="loc-state-item"
@@ -342,7 +342,7 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
               <div className="slider-wrapper">
                 <div className="filter-swiper">
                   <button className={`tag${activeType ? " active" : ""}`} onClick={() => openSection("type")}>
-                    {activeType ? CARAVAN_TYPES.find((t) => t.slug === filters.type)?.name ?? "Caravan Type" : "Caravan Type"}
+                    {activeType ? CARAVAN_TYPES.find((t) => t.slug === filters.type)?.name ?? "Motorhome Type" : "Motorhome Type"}
                     {activeType && <span className="active_filter"><i className="bi bi-circle-fill" /></span>}
                   </button>
                   <button className={`tag${activeRegion ? " active" : ""}`} onClick={() => openSection("region")}>
@@ -466,7 +466,7 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
         </Modal>
       )}
 
-      {openModal === "type"      && <Modal title="Caravan Type" onClear={() => setTempType("All Types")}        onApply={applyType}    clearDisabled={tempType === "All Types"}>{TypeSection}</Modal>}
+      {openModal === "type"      && <Modal title="Motorhome Type" onClear={() => setTempType("All Types")}        onApply={applyType}    clearDisabled={tempType === "All Types"}>{TypeSection}</Modal>}
       {openModal === "condition" && <Modal title="Condition"    onClear={() => setTempCond("All Conditions")}   onApply={applyCond}    clearDisabled={tempCond === "All Conditions"}>{CondSection}</Modal>}
       {openModal === "make"      && <Modal title="Make"         onClear={() => setTempMake("")}                 onApply={applyMake}    clearDisabled={!tempMake}>{MakeSection}</Modal>}
       {openModal === "price"     && <Modal title="Price"        onClear={() => { setTempMinPrice(""); setTempMaxPrice(""); }} onApply={applyPrice} clearDisabled={!tempMinPrice && !tempMaxPrice}>{PriceSection}</Modal>}

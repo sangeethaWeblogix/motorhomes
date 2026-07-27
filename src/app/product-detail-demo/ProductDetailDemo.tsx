@@ -163,7 +163,7 @@ const Gallery = memo(function Gallery({ images, onOpen }: { images: string[]; on
       <div className="pdd-gallery__mosaic">
         <div className="pdd-gallery__mosaic-main" onClick={() => onOpen(0)}>
           {images[0]
-            ? <Image src={images[0]} alt="Caravan" fill style={{ objectFit: "cover" }} unoptimized />
+            ? <Image src={images[0]} alt="Motorhome" fill style={{ objectFit: "cover" }} unoptimized />
             : <div className="pdd-gallery__placeholder" />}
         </div>
         <div className="pdd-gallery__mosaic-grid">
@@ -313,7 +313,7 @@ export default function ProductDetailDemo({ data, similarData }: Props) {
     return { value: "", url: "" };
   };
 
-  /*  motorhomedetails — with link logic matching live layout */
+  /*  motorhome details — with link logic matching live layout */
   type DetailLink = { href: string; text: string };
   type DetailRow = { label: string; value: string; url: string; links?: DetailLink[] };
 
@@ -399,8 +399,8 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
     state ? { label: `Motorhomes for Sale in ${state}`, href: `/listings/${slugify(state)}-state/` } : null,
     locationCity ? { label: `Motorhomes for Sale in ${locationCity}`, href: `/listings/${slugify(state)}-state/${slugify(locationCity)}-region/` } : null,
     shortCategory ? { label: `${shortCategory} Motorhomes for Sale`, href: `/listings/${slugify(shortCategory)}-category/` } : null,
-    priceHi ? { label: `Caravans Under $${priceHi.toLocaleString()}`, href: `/listings/under-${priceHi}/` } : null,
-    (priceHi && priceLo) ? { label: `Caravans Between $${priceLo.toLocaleString()} to $${priceHi.toLocaleString()}`, href: `/listings/between-${priceLo}-${priceHi}/` } : null,
+    priceHi ? { label: `Motorhomes Under $${priceHi.toLocaleString()}`, href: `/listings/under-${priceHi}/` } : null,
+    (priceHi && priceLo) ? { label: `Motorhomes Between $${priceLo.toLocaleString()} to $${priceHi.toLocaleString()}`, href: `/listings/between-${priceLo}-${priceHi}/` } : null,
     { label: `All Motorhomes for Sale`, href: `/listings/` },
   ].filter(Boolean) as { label: string; href: string }[];
 
@@ -454,8 +454,8 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
 
         {/* Subtitle */}
         <div className="pdd-subtitle">
-          <span>Have a similar  motorhometo sell?</span>
-          <a href="/sell-my-caravan/" className="pdd-subtitle__link">List Your Caravan</a>
+          <span>Have a similar motorhome to sell?</span>
+          <a href="/sell-my-caravan/" className="pdd-subtitle__link">List Your Motorhome</a>
           <span className="pdd-subtitle__badge">$49 Until Sold</span>
         </div>
 
@@ -473,7 +473,7 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
                   <img src="/images/category.svg" width="20" height="20" alt="" />
                   <div className="pdd-specs-bar__text">
                     <span className="pdd-specs-bar__val">{shortCategory}</span>
-                    <span className="pdd-specs-bar__lbl">Caravan Type</span>
+                    <span className="pdd-specs-bar__lbl">Motorhome Type</span>
                   </div>
                 </div>
               )}
@@ -538,14 +538,14 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
                 </div>
               )}
               <button className="pdd-mobile-price__checklist" onClick={() => setChecklistOpen(true)}>
-                Caravan Buyer Safety Checklist
+                Motorhome Buyer Safety Checklist
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
               </button>
             </div>
 
             {/* Caravan Details */}
             <section className="pdd-section">
-              <h2 className="pdd-section__title">Caravan Details</h2>
+              <h2 className="pdd-section__title">Motorhome Details</h2>
               <div className="pdd-details-grid">
                 <table className="pdd-details-table">
                   <tbody>
@@ -622,7 +622,7 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
 
               <div className="pdd-sidebar__checklist-row">
                 <button className="pdd-btn-checklist" onClick={() => setChecklistOpen(true)}>
-                  Caravan Buyer Safety Checklist
+                  Motorhome Buyer Safety Checklist
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
                 </button>
               </div>
@@ -639,8 +639,8 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
 
             <div className="pdd-sidebar__sell">
               <strong>Thinking of selling?</strong>
-              <p>Get more eyes on your  motorhometoday.</p>
-              <a href="/sell-my-caravan/" className="pdd-btn-sell">Sell My Caravan</a>
+              <p>Get more eyes on your motorhome today.</p>
+              <a href="/sell-my-caravan/" className="pdd-btn-sell">Sell My Motorhome</a>
             </div>
           </aside>
         </div>
@@ -656,11 +656,11 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
                 </div>
                 <span className="hbg-sell-line" />
               </div>
-              <h2 className="hbg-sell-title">Looking for More Caravans?</h2>
+              <h2 className="hbg-sell-title">Looking for More Motorhomes?</h2>
               <p className="hbg-sell-body">
-                This  motorhomeis just one of thousands of listings available on Australia&apos;s  motorhomemarketplace. Browse our complete range of{" "}
-                <a href="/" className="hbg-sell-link">caravans for sale</a>{" "}
-                across Australia, including new caravans, used caravans, off-road caravans, hybrid caravans and family caravans from trusted dealers and private sellers.
+                This motorhome is just one of thousands of listings available on Australia&apos;s motorhome marketplace. Browse our complete range of{" "}
+                <a href="/" className="hbg-sell-link">motorhomes for sale</a>{" "}
+                across Australia, including new motorhomes, used motorhomes, off-road motorhomes, hybrid motorhomes and family motorhomes from trusted dealers and private sellers.
               </p>
             </div>
           
@@ -669,7 +669,7 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
         {/* ── Similar Caravans ── */}
         {makeSimilar.length > 0 && (
           <section className="pdd-section pdd-similar">
-            <h2 className="pdd-section__title">Similar Caravans in the {makeLabel} Range</h2>
+            <h2 className="pdd-section__title">Similar Motorhomes in the {makeLabel} Range</h2>
             <div className="pdd-similar__grid">
                 {makeSimilar.filter(r => r.slug !== product.slug).slice(0, 5).map((r, i) => {
                   const rName     = r.name ?? "";
@@ -722,7 +722,7 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
         {/* ── Similar Caravans Around the Same Price ── */}
         {priceSimilar.length > 0 && (
           <section className="pdd-section pdd-similar">
-            <h2 className="pdd-section__title">Similar Caravans Around the Same Price</h2>
+            <h2 className="pdd-section__title">Similar Motorhomes Around the Same Price</h2>
             <div className="pdd-similar__grid">
               {priceSimilar.slice(0, 5).map((r, i) => {
                 const rName    = r.name ?? "";
@@ -829,7 +829,7 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
         <div className="pdd-banner">
           <div className="pdd-banner__text">
             <p className="pdd-banner__sub">DEDICATED TO REVOLUTIONISING</p>
-            <p className="pdd-banner__main">YOUR CARAVAN BUYING EXPERIENCE</p>
+            <p className="pdd-banner__main">YOUR MOTORHOME BUYING EXPERIENCE</p>
             <div className="pdd-banner__features">
               <span>
                 <span className="pdd-banner__icon-circle">
@@ -880,8 +880,8 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
           {/* Header */}
           <div className="pdd-checklist-header">
             <div>
-              <h2 className="pdd-checklist-title">Caravan Buyer Safety Checklist</h2>
-              <p className="pdd-checklist-sub">Follow these steps to reduce the risk of scams when buying a caravan.</p>
+              <h2 className="pdd-checklist-title">Motorhome Buyer Safety Checklist</h2>
+              <p className="pdd-checklist-sub">Follow these steps to reduce the risk of scams when buying a motorhome.</p>
             </div>
           </div>
 
@@ -891,7 +891,7 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
             {[
               { n: 1, title: "Check for finance owing",    desc: "Run a PPSR search before paying." },
               { n: 2, title: "Verify the seller",          desc: "Confirm identity and speak directly with them." },
-              { n: 3, title: "Inspect the  motorhomefirst",  desc: "Inspect in person or arrange an inspection." },
+              { n: 3, title: "Inspect the motorhome first",  desc: "Inspect in person or arrange an inspection." },
               { n: 4, title: "Use safe payment methods",   desc: "Avoid cryptocurrency or overseas transfers." },
               { n: 5, title: "Report suspicious listings", desc: "Report listings that appear suspicious." },
             ].map(item => (
