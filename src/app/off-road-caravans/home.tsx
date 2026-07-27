@@ -8,12 +8,12 @@ import HomeLocationSection from "./HomeLocationSection";
 import "./main.css";
 
 const OR_FAQ = [
-  { q: "What is an off road caravan?", a: "An off road  motorhomeis a  motorhomebuilt to handle rough, unsealed tracks and remote terrain. They typically feature heavy-duty chassis, independent suspension, reinforced bodywork, larger water and battery capacity, and off-road tyres to handle Australia's outback and bush conditions." },
+  { q: "What is an off road caravan?", a: "An off road caravan is a caravan built to handle rough, unsealed tracks and remote terrain. They typically feature heavy-duty chassis, independent suspension, reinforced bodywork, larger water and battery capacity, and off-road tyres to handle Australia's outback and bush conditions." },
   { q: "What is the difference between semi off road and full off road caravans?", a: "Semi off road caravans are built for light unsealed roads and easy bush tracks, with upgraded suspension and stronger construction. Full off road caravans are engineered for extreme terrain — think river crossings, rocky tracks and remote touring — with independent suspension, heavy-duty chassis and full off-grid capability." },
   { q: "Can off road caravans go off grid?", a: "Yes. Most off road caravans come with or can be fitted with solar panels, lithium batteries, large fresh water tanks and composting or cassette toilets, allowing extended stays in remote areas without external power or water hookups." },
   { q: "Do I need a special vehicle to tow an off road caravan?", a: "Yes. Off road caravans are heavier and wider than standard caravans. You'll need a high-capacity 4WD with a tow bar rated to the caravan's ATM. Always check the caravan's ATM and the tow vehicle's GVM and tow rating before purchasing." },
   { q: "Are off road caravans suitable for families?", a: "Absolutely. Many off road models come in family-friendly layouts with bunk beds, multiple sleeping berths, full kitchens and ensuites. Brands like Jayco, New Age and Trakmaster offer popular family off road models across a range of budgets." },
-  { q: "What is the average price of an off road  motorhomein Australia?", a: "Off road  motorhomeprices in Australia typically range from around $40,000 for entry-level semi off road models to over $150,000 for premium full off road expedition caravans. The most popular mid-range models sit between $60,000 and $100,000." },
+  { q: "What is the average price of an off road caravan in Australia?", a: "Off road caravan prices in Australia typically range from around $40,000 for entry-level semi off road models to over $150,000 for premium full off road expedition caravans. The most popular mid-range models sit between $60,000 and $100,000." },
 ];
 
 function FaqItem({ q, a }: { q: string; a: string }) {
@@ -31,6 +31,11 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 function stripHtml(html: string): string {
   return html.replace(/<[^>]*>/g, "").replace(/&[a-z]+;/gi, " ").trim();
+}
+
+function fixLink(link?: string): string {
+  if (!link) return "";
+  return link.replace(/^(https?:\/\/)(www\.)+/i, "$1www.");
 }
 
 interface OffRoadBlog {
@@ -58,13 +63,6 @@ interface Item {
 }
 
 interface Props {
-  sleepBands: Item[];
-  regionBands: Item[];
-  manufactureBands: Item[];
-  atmBands: Item[];
-  lengthBands: Item[];
-  priceBands: Item[];
-  usedData: { by_category: Item[]; by_state: Item[]; by_region: Item[] };
   stateBands: Item[];
   requirements: any;
   homeblog: any[];
@@ -166,7 +164,7 @@ export default function OffRoadCaravansPage({ stateBands, offRoadBlogs, offRoadP
             <span className="hd-banner__divider-line" />
           </div>
           <p className="hd-banner__subtitle">
-            Discover Australia’s largest collection of off road caravans. Compare full off road, semi off road and hybrid caravans, browse live listings, read expert reviews and explore detailed buying guides to find the right  motorhomefor your next adventure.
+            Discover Australia’s largest collection of off road caravans. Compare full off road, semi off road and hybrid caravans, browse live listings, read expert reviews and explore detailed buying guides to find the right caravan for your next adventure.
           </p>
           <div className="hd-banner__trust">
             <div className="hd-banner__trust-item">
@@ -280,7 +278,7 @@ export default function OffRoadCaravansPage({ stateBands, offRoadBlogs, offRoadP
             <h2 className="or-section-title">Popular Buying Guides</h2>
             <div className="or-pop-guides__grid">
               {offRoadPopularBlogs.slice(0, 10).map((b) => (
-                <a key={b.id} href={b.link || `/${b.slug}/`} className="or-pop-guides__card">
+                <a key={b.id} href={fixLink(b.link) || `/${b.slug}/`} className="or-pop-guides__card">
                   <div className="or-pop-guides__img-wrap">
                     <img src={b.image || "/images/placeholder.jpg"} alt={b.title} className="or-pop-guides__img" loading="lazy" />
                   </div>
@@ -303,7 +301,7 @@ export default function OffRoadCaravansPage({ stateBands, offRoadBlogs, offRoadP
               <div className="or-reviews-col">
                 <h2 className="or-section-title">Brand Reviews</h2>
                 {offRoadBrandBlogs.slice(0, 4).map((b) => (
-                  <a key={b.id} href={b.link || `/${b.slug}/`} className="or-reviews-item">
+                  <a key={b.id} href={fixLink(b.link) || `/${b.slug}/`} className="or-reviews-item">
                     <img src={b.image || "/images/placeholder.jpg"} alt={b.title} className="or-reviews-thumb" loading="lazy" />
                     <div className="or-reviews-item__body">
                       <span className="or-reviews-item__title">{b.title}</span>
@@ -314,7 +312,7 @@ export default function OffRoadCaravansPage({ stateBands, offRoadBlogs, offRoadP
               <div className="or-reviews-col">
                 <h2 className="or-section-title">Model Reviews</h2>
                 {offRoadModelBlogs.slice(0, 4).map((b) => (
-                  <a key={b.id} href={b.link || `/${b.slug}/`} className="or-reviews-item">
+                  <a key={b.id} href={fixLink(b.link) || `/${b.slug}/`} className="or-reviews-item">
                     <img src={b.image || "/images/placeholder.jpg"} alt={b.title} className="or-reviews-thumb" loading="lazy" />
                     <div className="or-reviews-item__body">
                       <span className="or-reviews-item__title">{b.title}</span>
@@ -336,7 +334,7 @@ export default function OffRoadCaravansPage({ stateBands, offRoadBlogs, offRoadP
               <button className="or-latest-arrow or-latest-arrow--prev" onClick={() => scrollCarousel(-1)} aria-label="Previous"><i className="bi bi-chevron-left" /></button>
               <div className="or-latest-carousel" ref={carouselRef}>
                 {offRoadBlogs.map((b) => (
-                  <a key={b.id} href={b.link || `/${b.slug}/`} className="or-latest-card">
+                  <a key={b.id} href={fixLink(b.link) || `/${b.slug}/`} className="or-latest-card">
                     <div className="or-latest-img-wrap">
                       <img src={b.image || "/images/placeholder.jpg"} alt={b.title} className="or-latest-img" loading="lazy" />
                     </div>
@@ -358,7 +356,7 @@ export default function OffRoadCaravansPage({ stateBands, offRoadBlogs, offRoadP
         <div className="container">
           <div className="or-cta-inner or-cta-inner--sell">
             <div className="or-cta-sell-left">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0099da" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#f47920" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>
               </svg>
               <div>
