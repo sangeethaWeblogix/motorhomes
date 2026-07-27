@@ -9,11 +9,11 @@ import { ReactNode } from "react";
      template: "%s ",
    },
    description:
-     "Caravan Marketplace is your go-to platform for finding the perfect caravan from the right manufacturer or dealer @ the right price.",
+     "Caravan Marketplace is your go-to platform for finding the perfect  motorhomefrom the right manufacturer or dealer @ the right price.",
    icons: { icon: "/favicon.ico" },
    robots: "index, follow",
    verification: {
-       // google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ this auto generates <meta name="google-site-verification" />
+     google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ this auto generates <meta name="google-site-verification" />
    },
    alternates: {
     canonical: "https://www.caravansforsale.com.au/about-us/",

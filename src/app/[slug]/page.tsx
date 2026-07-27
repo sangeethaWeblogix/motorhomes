@@ -1,35 +1,27 @@
- import DeatilsPage from "./details";
+import DeatilsPage from "./details";
+
+export const dynamic = "force-dynamic";
 
 import "./details.css";
 import { Card, CardContent, Typography, Button } from "@mui/material";
 import Link from "next/link";
 import TickIcon from "../../../public/images/tick.jpg";
 import Image from "next/image";
-import { redirect } from "next/navigation"; // ✅ Import notFound
+import { redirect, notFound } from "next/navigation";
 import Thankyou from './ThankYouClient '
 import { Metadata } from "next";
+import { fetchBlogDetail } from "./fetchBlogDetail";
 
- type RouteParams = { slug: string };
+type RouteParams = { slug: string };
 type PageProps = { params: Promise<RouteParams> };
 
-async function fetchBlogDetail(slug: string) {
-  try {
-    const res = await fetch(
-      `https://admin.caravansforsale.com.au/wp-json/cfs/v1/blog-detail-new/?slug=${encodeURIComponent(
-        slug
-      )}`,
-      { cache: "no-store", headers: { Accept: "application/json" } }
-    );
+// Slugs that browsers/crawlers request automatically — never real blog posts.
+// Bail out before touching the API to avoid noisy 404 log spam.
+const NON_BLOG_SLUG_PATTERN = /\.(png|jpg|jpeg|gif|ico|svg|xml|txt|json|webp|bmp|css|js|woff|woff2|ttf|eot)$/i;
+const NON_BLOG_EXACT = new Set(['wp-json', 'wp-admin', 'wp-login', 'wp-login.php', 'favicon.ico', 'robots.txt', 'sitemap.xml']);
 
-    if (!res.ok) {
-      return null; // ❌ Don't throw error, return null
-    }
-
-    return res.json();
-  } catch (error) {
-    console.error("Blog fetch error:", error);
-    return null; // ❌ Return null on fetch failure
-  }
+function isNonBlogSlug(slug: string): boolean {
+  return NON_BLOG_SLUG_PATTERN.test(slug) || NON_BLOG_EXACT.has(slug);
 }
 
 // ✅ SEO from product.seo (NO images)
@@ -39,13 +31,16 @@ export async function generateMetadata({
   params: Promise<RouteParams>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  if (isNonBlogSlug(slug)) {
+    return { robots: "noindex, nofollow" };
+  }
   if (slug.startsWith("thank-you-")) {
     return {
       title: "Thank You",
       description: "Your enquiry was submitted successfully.",
       robots: "noindex, nofollow",
       verification: {
-          // google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ Google site verification
+        google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ Google site verification
       },
       alternates: {
         canonical: `https://www.caravansforsale.com.au/${slug}/`,
@@ -60,16 +55,16 @@ export async function generateMetadata({
     seo.meta_title ||
     data?.title ||
     data?.name ||
-    "Product - Caravans for Sale";
+    "Product - Motorhomes for Sale";
 
   const description =
     seo.metadescription ||
     seo.meta_description ||
     data?.short_description ||
-    "View caravan details.";
+    "View  motorhomedetails.";
   const robots = "index, follow";
   const canonicalUrl = `https://www.caravansforsale.com.au/${slug}/`;
-
+  console.log("generateMetadata", { title, description, robots, canonicalUrl });
   return {
     title,
     description,
@@ -78,7 +73,7 @@ export async function generateMetadata({
       canonical: canonicalUrl, // ✅ canonical link
     },
     verification: {
-        // google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ this auto generates <meta name="google-site-verification" />
+      google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ this auto generates <meta name="google-site-verification" />
     },
     openGraph: {
       title,
@@ -97,6 +92,10 @@ export async function generateMetadata({
 
 export default async function ProductDetailPage({ params }: PageProps) {
   const { slug } = await params;
+
+  if (isNonBlogSlug(slug)) {
+    notFound();
+  }
 
   if (slug.startsWith("thank-you-")) {
     return (
@@ -144,7 +143,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
             </Typography>
 
             <Typography variant="body1" color="text.secondary" gutterBottom>
-              Your caravan dealer will contact you as soon as possible.
+              Your  motorhomedealer will contact you as soon as possible.
             </Typography>
 
             <Link href="/" style={{ textDecoration: "none" }}>
@@ -167,13 +166,14 @@ export default async function ProductDetailPage({ params }: PageProps) {
       </div>
     );
   }
-  const data = await fetchBlogDetail(slug);
+  const seed = Math.ceil(Math.random() * 10);
+  const data = await fetchBlogDetail(slug, seed);
 
-    if (slug.startsWith("thank-you-")) {
-    return <Thankyou /> ;
+  if (slug.startsWith("thank-you-")) {
+    return <Thankyou />;
   }
-  if (!data) {
-    redirect("/404"); // ✅ Show Next.js 404 page
+  if (!data || !data?.data?.blog_detail) {
+    redirect("/404");
   }
 
   return (

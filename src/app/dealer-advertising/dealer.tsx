@@ -1,11 +1,13 @@
 "use client";
+import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
+import "@fortawesome/fontawesome-free/css/solid.min.css";
 import { useState } from "react";
 
 const DealerLandingPage = () => {
 
   const [activeFaq, setActiveFaq] = useState(null);
 
-  const toggleFaq = (id: any) => {
+  const toggleFaq = (id) => {
     setActiveFaq(activeFaq === id ? null : id);
   };
 
@@ -24,7 +26,7 @@ const DealerLandingPage = () => {
                 <h1>
                   Unlimited Listings. Zero Lead Fees. <br />
                   <span className="color-text">
-                    $199 per month{" "}
+                    $299 per month{" "}
                     <span style={{ fontSize: "20px" }}>(inc. GST)</span>
                   </span>{" "}
                   <span className="no-color-text">- Cancel anytime</span>
@@ -32,7 +34,7 @@ const DealerLandingPage = () => {
 
                 <p>
                   A dealer-first marketplace built to generate consistent
-                  enquiries from high-intent caravan buyers.
+                  enquiries from high-intent  motorhomebuyers.
                 </p>
 
                 <a
@@ -171,8 +173,8 @@ const DealerLandingPage = () => {
                         "We list your entire stock automatically",
                         "Listings are updated automatically based on your website stock data",
                         "Caravan buyer/seller-only audience",
-                        "Built for caravan dealers—not classified clutter",
-                        "Unlimited caravan listings",
+                        "Built for  motorhomedealers—not classified clutter",
+                        "Unlimited  motorhomelistings",
                         "No per-lead fees",
                         "Best-value monthly subscription fees by a country mile",
                       ].map((text, i) => (
@@ -216,7 +218,7 @@ const DealerLandingPage = () => {
           {/* Reach Caravan Buyers Section */}
           <div className="col-lg-12">
             <div className="heading-box">
-              <h2>Reach caravan buyers across Australia</h2>
+              <h2>Reach  motorhomebuyers across Australia</h2>
             </div>
           </div>
 
@@ -240,7 +242,7 @@ const DealerLandingPage = () => {
                   <h2>Simple Pricing. No Surprises.</h2>
 
                   <div className="price">
-                    $199 Per Month{" "}
+                    $299 Per Month{" "}
                     <span style={{ fontSize: "20px" }}>(inc. GST)</span>
                   </div>
 
@@ -285,11 +287,11 @@ const DealerLandingPage = () => {
               <div className={`collapse ${activeFaq === 1 ? "show" : ""}`}>
                 <div className="card-body">
                   <p>
-                    The dealer subscription is $199 per month (including GST). This flat
+                    The dealer subscription is $299 per month (including GST). This flat
                     monthly fee allows your dealership to list unlimited caravans on
                     CaravansForSale.com.au. There are no per-listing charges, and we never
                     charge per lead or take success commissions – no matter how many
-                    inquiries or sales you get, $199/month covers it all.
+                    inquiries or sales you get, $299/month covers it all.
                   </p>
                 </div>
               </div>
@@ -303,7 +305,7 @@ const DealerLandingPage = () => {
                     className="btn btn-link btn-block text-left py-2"
                     onClick={() => toggleFaq(2)}
                   >
-                    How are my caravan listings added and kept up-to-date automatically?
+                    How are my  motorhomelistings added and kept up-to-date automatically?
                     <span className="accordion-icon">
                       <i className={`fa-solid fa-angle-down ${activeFaq === 2 ? "d-none" : ""}`}></i>
                       <i className={`fa-solid fa-angle-up ${activeFaq === 2 ? "" : "d-none"}`}></i>

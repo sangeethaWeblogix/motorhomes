@@ -52,7 +52,7 @@ export default function ThankYouClient() {
           </Typography>
 
           <Typography variant="body1" color="text.secondary" gutterBottom>
-            Your caravan dealer will contact you as soon as possible.
+            Your  motorhomedealer will contact you as soon as possible.
           </Typography>
 
           <Link href="/" style={{ textDecoration: "none" }}>

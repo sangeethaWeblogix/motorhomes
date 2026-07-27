@@ -25,10 +25,7 @@ export default function PrivacyPolicy() {
               <p>These websites may include, but are not limited to:</p>
 
               <ul>
-               <a href='https://motorhomes.vercel.app/'>
-
-                <li>motohomesforsale.com.au</li>
-                </a>
+                <li>caravansforsale.com.au</li>
                 
               </ul>
 

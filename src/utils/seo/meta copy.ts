@@ -136,7 +136,7 @@ if (parsed.suburb) {
 
   const rawTitle =
     res?.seo_v2?.meta_title?.trim() ||
-    "Caravans for Sale in Australia - Find Exclusive Deals";
+    "Motorhomes for Sale in Australia - Find Exclusive Deals";
   const title = rawTitle.trim();
   const description =   res?.seo_v2?.meta_description?.trim(); 
 
@@ -147,7 +147,7 @@ if (parsed.suburb) {
     description,
     robots,
     verification: {
-        // google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo",
+      google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo",
     },
     alternates: {
       canonical,

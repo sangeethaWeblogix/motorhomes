@@ -1,25 +1,10 @@
- // export const dynamic = "force-dynamic"
-;
-
+import ThemeRegistry from "../components/ThemeRegistry";
 import { Metadata } from "next";
 import "./details.css";
 import { ReactNode } from "react";
 import Thankyou from './ThankYouClient '
+import { fetchBlogDetail } from "./fetchBlogDetail";
 type RouteParams = { slug: string };
-
-async function fetchBlogDetail(slug: string) {
-  try {
-    const res = await fetch(
-      `https://admin.caravansforsale.com.au/wp-json/cfs/v1/blog-detail-new/?slug=${encodeURIComponent(slug)}`,
-      { cache: "no-store", headers: { Accept: "application/json" } }
-    );
-
-    if (!res.ok) return null;
-    return res.json();
-  } catch {
-    return null;
-  }
-}
 
 export async function generateMetadata({
   params,
@@ -38,11 +23,11 @@ export async function generateMetadata({
   const seo = data?.seo ?? {};
   const post = data?.data?.blog_detail || {};
 
-  const title = seo.metatitle || post.title || "Caravans for Sale Blog";
+  const title = seo.metatitle || post.title || "Motorhomes for Sale Blog";
   const description =
     seo.metadescription ||
     post.short_description ||
-    "Read more on Caravans for Sale.";
+    "Read more on Motorhomes for Sale.";
   const canonical = `https://www.caravansforsale.com.au/${slug}/`;
 
   return {
@@ -68,6 +53,12 @@ function safeJsonLdString(json: object) {
   return JSON.stringify(json, null, 2).replace(/</g, "\\u003c");
 }
 
+function safeIso(dateStr?: string) {
+  if (!dateStr) return new Date().toISOString();
+  const d = new Date(dateStr);
+  return isNaN(d.getTime()) ? new Date().toISOString() : d.toISOString();
+}
+
 
 export default async function Layout({
   children,
@@ -81,9 +72,11 @@ export default async function Layout({
 
   /** 🛑 STOP BLOG FETCH FOR THANK-YOU PAGES **/
   if (slug.startsWith("thank-you-")) {
-    return <div>
-      <Thankyou  />
-    </div>;
+    return (
+      <ThemeRegistry>
+        <Thankyou />
+      </ThemeRegistry>
+    );
   }
 
   /** ✅ SAFE BLOG FETCH FOR NORMAL PAGES **/
@@ -91,54 +84,67 @@ export default async function Layout({
 
   const post = data?.data?.blog_detail ?? {};
   const seo = data?.seo ?? {};
+  const faqs: { heading: string; content: string }[] = data?.data?.blog_detail?.faq ?? [];
 
   const canonical = `https://www.caravansforsale.com.au/${slug}/`;
-  const title = seo.metatitle || post.title || "Caravans for Sale Blog";
+  const title = seo.metatitle || post.title || "Motorhomes for Sale Blog";
   const description =
     seo.metadescription ||
     post.short_description ||
-    "Read more on Caravans for Sale.";
+    "Read more on Motorhomes for Sale.";
 
   const bannerImage =
     post.banner_image ||
     post.image ||
     "https://www.caravansforsale.com.au/load.svg";
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": canonical,
+  const schemas = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      mainEntityOfPage: { "@type": "WebPage", "@id": canonical },
+      headline: title,
+      description: description,
+      image: bannerImage,
+      author: { "@type": "Person", name: "Tom" },
+      publisher: { "@type": "Organization", name: "Motorhomes for Sale" },
+      datePublished: safeIso(post.date),
+      dateModified: safeIso(post.date),
     },
-    headline: title,
-    description: description,
-    image: bannerImage,
-    author: {
-      "@type": "Person",
-      name: "Tom",
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.caravansforsale.com.au/" },
+        { "@type": "ListItem", position: 2, name: "Blog", item: "https://www.caravansforsale.com.au/blog/" },
+        { "@type": "ListItem", position: 3, name: title, item: canonical },
+      ],
     },
-    publisher: {
-      "@type": "Organization",
-      name: "Caravans for Sale",
-    },
-   datePublished: post.date
-      ? new Date(post.date).toISOString()
-      : new Date().toISOString(),
-    dateModified: post.date
-      ? new Date(post.date).toISOString()
-      : new Date().toISOString(),
-  };
+    ...(faqs.length > 0
+      ? [
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.heading,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.content.replace(/<[^>]*>/g, "").trim(),
+              },
+            })),
+          },
+        ]
+      : []),
+  ];
 
   return (
-    <>
-      {/* JSON-LD FOR BLOG ONLY */}
-     <script
+    <ThemeRegistry>
+      <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: safeJsonLdString(jsonLd),
-        }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLdString(schemas) }}
       />
- <div>{children}</div>    </>
+      <div>{children}</div>
+    </ThemeRegistry>
   );
 }

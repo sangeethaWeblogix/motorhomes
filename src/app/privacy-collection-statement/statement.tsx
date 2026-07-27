@@ -32,10 +32,7 @@ export default function PrivacyCollectionStatement() {
               <p>These platforms may include, but are not limited to:</p>
 
               <ul>
-                <a href='https://motorhomes.vercel.app/'>
-
-                <li>motohomesforsale.com.au</li>
-                </a>
+                <li>caravansforsale.com.au</li>
                 
               </ul>
 

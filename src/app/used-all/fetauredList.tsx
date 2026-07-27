@@ -16,7 +16,7 @@ type Product = {
   sku: string;
 };
 
-export default function ProductCard({ caravan }: { caravan: Product }) {
+export default function ProductCard({   caravan }: { caravan: Product }) {
   const href = `/product/${caravan.slug}`;
 
   const base = `https://caravansforsale.imagestack.net/400x300/${caravan.sku}/${caravan.slug}`;
@@ -80,7 +80,7 @@ export default function ProductCard({ caravan }: { caravan: Product }) {
               <i className="bi bi-check-circle-fill"></i> {caravan.condition}
             </span>
             <span>
-              <i className="fa fa-map-marker-alt"></i> {caravan.location}
+              <i className="fa-solid fa-location-dot"></i> {caravan.location}
             </span>
           </div>
 

@@ -2,7 +2,7 @@
 "use client";
 // export const dynamic = "force-dynamic"
 ;
-import React, { useEffect, useMemo, useState } from "react";
+import React, {  useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
@@ -33,9 +33,8 @@ interface Props {
   currentPage: number;
 }
 export default function BlogListClient({ data, currentPage }: Props) {
-  const router = useRouter();
-  const params = useParams<{ page?: string }>();
-  const initialPage = Math.max(1, Number(params?.page || 1));
+   const params = useParams<{ page?: string }>();
+  // const initialPage = Math.max(1, Number(params?.page || 1));
   const [navigating, setNavigating] = useState(false);
     const totalPages = data.total_pages;
   const blogPosts = data.items;
@@ -91,7 +90,7 @@ const loading = !data || !blogPosts || blogPosts.length === 0 && data.totalPages
 
               <div className="author-info">
                 <p>
-                  Tom is a passionate caravan enthusiast and content writer at{" "}
+                  Tom is a passionate  motorhomeenthusiast and content writer at{" "}
                   <Link href="https://www.caravansforsale.com.au/">
                     CaravansForSale.com.au
                   </Link>{" "}
@@ -100,7 +99,7 @@ const loading = !data || !blogPosts || blogPosts.length === 0 && data.totalPages
                 </p>
                 <p>
                   He helps Australians make informed decisions across every
-                  stage of the caravan journey, from choosing the right model to
+                  stage of the  motorhomejourney, from choosing the right model to
                   comparing prices and discovering hidden gems from regional
                   manufacturers.
                 </p>
@@ -112,7 +111,7 @@ const loading = !data || !blogPosts || blogPosts.length === 0 && data.totalPages
                 </p>
                 <p>
                   With a genuine love for the outdoors, Tom’s writing reflects
-                  Australia’s caravan lifestyle — adventure, community, and
+                  Australia’s  motorhomelifestyle — adventure, community, and
                   freedom on the open road.
                 </p>
               </div>

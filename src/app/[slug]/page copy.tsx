@@ -44,7 +44,7 @@ export async function generateMetadata({
       description: "Your enquiry was submitted successfully.",
       robots: "noindex, nofollow",
       verification: {
-          // google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ Google site verification
+        google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ Google site verification
       },
       alternates: {
         canonical: `https://www.caravansforsale.com.au/${slug}/`,
@@ -59,13 +59,13 @@ export async function generateMetadata({
     seo.meta_title ||
     data?.title ||
     data?.name ||
-    "Product - Caravans for Sale";
+    "Product - Motorhomes for Sale";
 
   const description =
     seo.metadescription ||
     seo.meta_description ||
     data?.short_description ||
-    "View caravan details.";
+    "View  motorhomedetails.";
   const robots = "index, follow";
   const canonicalUrl = `https://www.caravansforsale.com.au/${slug}/`;
 
@@ -77,7 +77,7 @@ export async function generateMetadata({
       canonical: canonicalUrl, // ✅ canonical link
     },
     verification: {
-        // google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ this auto generates <meta name="google-site-verification" />
+      google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ this auto generates <meta name="google-site-verification" />
     },
     openGraph: {
       title,
@@ -143,7 +143,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
             </Typography>
 
             <Typography variant="body1" color="text.secondary" gutterBottom>
-              Your caravan dealer will contact you as soon as possible.
+              Your  motorhomedealer will contact you as soon as possible.
             </Typography>
 
             <Link href="/" style={{ textDecoration: "none" }}>
