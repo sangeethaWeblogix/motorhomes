@@ -100,7 +100,7 @@ export default function Navbar() {
                 </li>
                 
                 <li className="nav-item">
-                  <a className="nav-link" href="/sell-my-caravan/">Sell My Caravan</a>
+                  <a className="nav-link" href="/sell-my-caravan/">Sell My Motorhome</a>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="/dealer-advertising/">Dealer Advertising</a>
