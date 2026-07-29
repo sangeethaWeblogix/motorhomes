@@ -42,7 +42,7 @@ type ApiResponse = {
 };
 
 const BASE_URL = "https://www.caravansforsale.com.au";
-const API_BASE = process.env.NEXT_PUBLIC_CFS_API_BASE;
+const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE;
 const API_KEY = process.env.CFS_API_KEY;
 
 /** Manual TTL cache (mirrors seoCache/productCache in middleware.ts) instead of

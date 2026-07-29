@@ -36,9 +36,10 @@ const VALID_AU_STATES = new Set([
   'nsw', 'vic', 'qld', 'sa', 'wa', 'tas', 'nt', 'act',
 ]);
 
-const API_WP = 'https://admin.caravansforsale.com.au/wp-json/cfs/v1';
+const API_WP = 'https:/admin.motorhomesforsale.com.au/wp-json/cfs/v1';
 
-
+ 
+ 
 
 /* Per-suburb validation cache (search API, 1 hr TTL per suburb:pincode key) */
 const suburbValidCache = new Map<string, { valid: boolean; expires: number }>();
