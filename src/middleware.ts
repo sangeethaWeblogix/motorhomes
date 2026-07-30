@@ -337,7 +337,7 @@
        // Raw filter keys (minKg, maxKg, sleeps) must be converted to API names (from_atm, to_atm, sleep).
        const apiParams = buildApiParams(filters);
        const apiUrl =
-         "https://admin.motorhomesforsale.com.au/wp-json/cfs/v1/new_optimize_code?" +
+         "https://admin.motorhomesforsale.com.au/wp-json/cfs/v1//pool_test?" +
          apiParams.toString();
 
        const controller = new AbortController();
