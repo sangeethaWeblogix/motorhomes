@@ -98,21 +98,36 @@ export default function Navbar() {
                 <li className="nav-item">
                   <a className="nav-link" href="/listings/">Buy</a>
                 </li>
-                
+
+                {/* Hidden for now — Sell My Motorhome / Dealer Advertising
                 <li className="nav-item">
-                  <a className="nav-link" href="/sell-my-caravan/">Sell My Motorhome</a>
+                  <a className="nav-link" href="/sell-my-motorhome/">Sell My Motorhome</a>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="/dealer-advertising/">Dealer Advertising</a>
                 </li>
-                
+                */}
+
+                <li className="nav-item">
+                  <a className="nav-link" href="/blog/">Blog</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/about-us/">About</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/contact/">Contact</a>
+                </li>
+
+                {/* Hidden for now — Login
                 <li className="nav-item login">
                   <a className="nav-link" href="/login/">
                     <i className="bi bi-person-fill"></i> Login
                   </a>
                 </li>
+                */}
               </ul>
 
+              {/* Hidden for now — hamburger dropdown (Motorhome Listings duplicates Buy; Blog/About/Contact moved into main nav above)
               <div className="ham-menu-wrapper" ref={hamRef}>
                 <button className="ham-menu-btn" onClick={() => setHamOpen(prev => !prev)} aria-label="Menu">
                   <i className="bi bi-list"></i>
@@ -120,14 +135,13 @@ export default function Navbar() {
                 {hamOpen && (
                   <div className="ham-dropdown">
                     <a href="/listings/" className="ham-item">Motorhome Listings</a>
-                    <a href="/sell-my-caravan/" className="ham-item">Sell My Motorhome</a>
-                    <a href="/dealer-advertising/" className="ham-item">Dealer Advertising</a>
                     <a href="/blog/" className="ham-item">Blog</a>
                     <a href="/about-us/" className="ham-item">About</a>
                     <a href="/contact/" className="ham-item">Contact</a>
                   </div>
                 )}
               </div>
+              */}
             </div>
 
             {/*<div className="navbar-right" ref={dropdownRef}>
@@ -193,8 +207,10 @@ export default function Navbar() {
                 </ul>
               </div>
               <div className="sidenav-cta">
-                <a href="/sell-my-caravan/" className="sidenav-cta-link" onClick={closeNav}>Sell My Motorhome</a>
+                {/* Hidden for now — Sell My Motorhome / Dealer Advertising
+                <a href="/sell-my-motorhome/" className="sidenav-cta-link" onClick={closeNav}>Sell My Motorhome</a>
                 <a href="/dealer-advertising/" className="sidenav-cta-link" onClick={closeNav}>Dealer Advertising</a>
+                */}
                 <a href="/login/" className="sidenav-cta-login" onClick={closeNav}>
                   <i className="bi bi-person-fill"></i> Login
                 </a>

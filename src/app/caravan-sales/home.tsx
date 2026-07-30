@@ -118,7 +118,7 @@ export default function OffRoadCaravansPage({ stateBands }: Props) {
             </p>
             <div className="cs-banner__btns">
               <a href="/listings/" className="cs-banner__btn cs-banner__btn--primary">Browse All Motorhomes for Sale</a>
-              <a href="/sell-my-caravan/" className="cs-banner__btn cs-banner__btn--outline">Sell Your Motorhome</a>
+              <a href="/sell-my-motorhome/" className="cs-banner__btn cs-banner__btn--outline">Sell Your Motorhome</a>
             </div>
           </div>
         </div>
@@ -166,7 +166,7 @@ export default function OffRoadCaravansPage({ stateBands }: Props) {
               <p className="desc">List your van on Australia’s leading motorhome sales marketplace and easily connect with thousands of serious buyers</p>
               <div className="btns_two">
                 <a href="/dealer-advertising/" className="btn primary-btn">Dealer Sign Up</a>
-                <a href="/sell-my-caravan/" className="btn secondary-btn">Private Seller - Click Here</a>
+                <a href="/sell-my-motorhome/" className="btn secondary-btn">Private Seller - Click Here</a>
               </div>
             </div>
           </div>

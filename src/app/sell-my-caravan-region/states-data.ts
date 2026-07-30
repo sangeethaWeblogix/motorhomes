@@ -67,13 +67,13 @@ export function buildStateMetadata(state: StateData): Metadata {
     description: `Sell your motorhome in ${state.label} for just $49. List until sold, pay no commission and connect directly with motorhome buyers across ${state.capital} and regional ${state.label}.`,
     robots: "index, follow",
     alternates: {
-      canonical: `${BASE_URL}/sell-my-caravan/${state.slug}/`,
+      canonical: `${BASE_URL}/sell-my-motorhome/${state.slug}/`,
     },
   };
 }
 
 export function buildStateJsonLd(state: StateData) {
-  const pageUrl = `${BASE_URL}/sell-my-caravan/${state.slug}/`;
+  const pageUrl = `${BASE_URL}/sell-my-motorhome/${state.slug}/`;
 
   return {
     "@context": "https://schema.org",

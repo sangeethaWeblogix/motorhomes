@@ -98,6 +98,7 @@ export default function FooterNav() {
         <li>
           <a href="/listings/">For Sale</a>
         </li>
+        {/* Hidden for now — Sell dropdown
         <li>
           <button
             className="sell-footer-btn"
@@ -122,6 +123,7 @@ export default function FooterNav() {
             </svg>
           </button>
         </li>
+        */}
         <li>
           <a href="/blog/">Blog</a>
         </li>
@@ -151,11 +153,12 @@ export default function FooterNav() {
       </ul>
 
       {/* Panel sits outside the <ul> — opens below the nav row without pushing any links */}
-      {open && (
+      {/* Hidden for now — Sell dropdown panel (trigger button above is also hidden) */}
+      {false && open && (
         <div className="sell-panel" id="sell-links-panel">
           {/* Header */}
           <div className="sell-panel__header">
-            <a href="/sell-my-caravan/" className="sell-panel__main-link">
+            <a href="/sell-my-motorhome/" className="sell-panel__main-link">
               Sell My Motorhome
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -200,7 +203,7 @@ export default function FooterNav() {
             {SELL_DATA.map((s) => (
               <div key={s.stateSlug} className="sell-panel__col">
                 <a
-                  href={`/sell-my-caravan/${s.stateSlug}/`}
+                  href={`/sell-my-motorhome/${s.stateSlug}/`}
                   className="sell-panel__state-title"
                 >
                   Sell My Motorhome in {s.state}
@@ -208,7 +211,7 @@ export default function FooterNav() {
                 <ul className="sell-panel__region-list">
                   {s.regions.map((r) => (
                     <li key={r.pageSlug}>
-                      <a href={`/sell-my-caravan/${s.stateSlug}/${r.pageSlug}/`}>
+                      <a href={`/sell-my-motorhome/${s.stateSlug}/${r.pageSlug}/`}>
                         Sell My Motorhome in {r.label}
                       </a>
                     </li>

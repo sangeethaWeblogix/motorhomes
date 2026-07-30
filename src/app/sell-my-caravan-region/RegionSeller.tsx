@@ -427,7 +427,7 @@ export default function RegionSeller({ region }: RegionSellerProps) {
             List Your Motorhome Now
           </a>
           <p className="demo-cta-strip__alt-link">
-            Not in {regionLabel}? Sell your motorhome across {stateLabel} <a href={`/sell-my-caravan-${stateSlug}/`}>here</a>.
+            Not in {regionLabel}? Sell your motorhome across {stateLabel} <a href={`/sell-my-motorhome/${stateSlug}/`}>here</a>.
           </p>
         </div>
       </section>

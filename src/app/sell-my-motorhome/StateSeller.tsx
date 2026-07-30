@@ -202,7 +202,7 @@ export default function StateSeller({ state }: StateSellerProps) {
                     </span>
                     <h3 className="demo-city-label">
                       <a
-                        href={`/sell-my-caravan/${state.slug}/${c.pageSlug}/`}
+                        href={`/sell-my-motorhome/${state.slug}/${c.pageSlug}/`}
                         title={`Sell my motorhome in ${c.label.trim()}`}
                         className="demo-city-label"
                       >
@@ -457,7 +457,7 @@ export default function StateSeller({ state }: StateSellerProps) {
             List Your Motorhome Now
           </a>
           <p className="demo-cta-strip__alt-link">
-            Not in {abbr}? Sell your motorhome across Australia <a href="/sell-my-caravan/">here</a>.
+            Not in {abbr}? Sell your motorhome across Australia <a href="/sell-my-motorhome/">here</a>.
           </p>
         </div>
       </section>

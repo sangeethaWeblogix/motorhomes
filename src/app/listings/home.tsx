@@ -754,7 +754,7 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
                 <h2 className="lsd-sell-cta__title">Looking to Sell Your Motorhome?</h2>
                 <p className="lsd-sell-cta__body">
                   If you&apos;re upgrading or no longer need your current motorhome,{" "}
-                  <a href="/sell-my-caravan/" className="lsd-sell-cta__link">sell your motorhome</a>{" "}
+                  <a href="/sell-my-motorhome/" className="lsd-sell-cta__link">sell your motorhome</a>{" "}
                   by creating a listing on MotorhomesForSale.com.au and connect with active buyers across Australia. Your advertisement stays online until it&apos;s sold for a one-time fee of $49.
                 </p>
               </div>
@@ -793,7 +793,7 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
               <h2 className="lsd-sell-cta__title">Looking to Sell Your Motorhome?</h2>
               <p className="lsd-sell-cta__body">
                 If you&apos;re upgrading or no longer need your current motorhome,{" "}
-                <a href="/sell-my-caravan/" className="lsd-sell-cta__link">sell your motorhome</a>{" "}
+                <a href="/sell-my-motorhome/" className="lsd-sell-cta__link">sell your motorhome</a>{" "}
                 by creating a listing on MotorhomesForSale.com.au and connect with active buyers across Australia. Your advertisement stays online until it&apos;s sold for a one-time fee of $49.
               </p>
             </div>
@@ -899,7 +899,7 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
               <h2 className="lsd-sell-cta__title">Looking to Sell Your Motorhome?</h2>
               <p className="lsd-sell-cta__body">
                 If you&apos;re upgrading or no longer need your current motorhome,{" "}
-                <a href="/sell-my-caravan/" className="lsd-sell-cta__link">sell your motorhome</a>{" "}
+                <a href="/sell-my-motorhome/" className="lsd-sell-cta__link">sell your motorhome</a>{" "}
                 by creating a listing on MotorhomesForSale.com.au and connect with active buyers across Australia. Your advertisement stays online until it&apos;s sold for a one-time fee of $49.
               </p>
             </div>
@@ -963,7 +963,7 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
             <h2 className="lsd-sell-cta__title">Looking to Sell Your Motorhome?</h2>
             <p className="lsd-sell-cta__body">
               If you&apos;re upgrading or no longer need your current motorhome,{" "}
-              <a href="/sell-my-caravan/" className="lsd-sell-cta__link">sell your motorhome</a>{" "}
+              <a href="/sell-my-motorhome/" className="lsd-sell-cta__link">sell your motorhome</a>{" "}
               by creating a listing on MotorhomesForSale.com.au and connect with active buyers across Australia. Your advertisement stays online until it&apos;s sold for a one-time fee of $49.
             </p>
           </div>

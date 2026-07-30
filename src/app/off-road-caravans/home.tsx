@@ -364,7 +364,7 @@ export default function OffRoadCaravansPage({ stateBands, offRoadBlogs, offRoadP
                 <span className="or-cta-sell-sub">Reach thousands of serious buyers across Australia.</span>
               </div>
             </div>
-            <a href="/sell-my-caravan/" className="or-btn or-btn--outline">Sell My Motorhome</a>
+            <a href="/sell-my-motorhome/" className="or-btn or-btn--outline">Sell My Motorhome</a>
           </div>
         </div>
       </section>
