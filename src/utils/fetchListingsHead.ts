@@ -45,20 +45,11 @@ const BASE_URL = "https://www.caravansforsale.com.au";
 const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE;
 const API_KEY = process.env.CFS_API_KEY;
 
-/** Manual TTL cache (mirrors seoCache/productCache in middleware.ts) instead of
- * Next's `next: { revalidate }` fetch Data Cache — that internal stream-teeing
- * mechanism races with bots that disconnect mid-render, throwing
- * "controller[kState].transformAlgorithm is not a function". Plain in-memory
- * Map, server-side only — doesn't touch response headers, so it has no effect
- * on Cloudflare's edge cache. */
-const headPoolCache = new Map<string, { data: ApiResponse | null; expires: number }>();
-const HEAD_POOL_CACHE_TTL = 60 * 60 * 1000; // 1 hour
-
-/** Same backend endpoint as /api/pool-listings/ (pool_test, engine=typesense) —
- * used here instead of new_optimize_code because pool_test has proven far more
- * reliable (new_optimize_code intermittently returns a PHP notice from the ACF
- * plugin instead of JSON). Response is flat (products/premium_products/etc. at
- * the top level); adapted into the nested ApiResponse shape buildListingsJsonLd
+/** Same backend endpoint as /api/pool-listings/ (pool_test) — used here instead
+ * of new_optimize_code because pool_test has proven far more reliable
+ * (new_optimize_code intermittently returns a PHP notice from the ACF plugin
+ * instead of JSON). Response is flat (products/premium_products/etc. at the
+ * top level); adapted into the nested ApiResponse shape buildListingsJsonLd
  * already expects, so no caller changes are needed. */
 async function fetchPoolListingsForHead(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -89,10 +80,7 @@ async function fetchPoolListingsForHead(
   if (filters.condition) params.set("condition", String(filters.condition));
   if (filters.search || filters.keyword) params.set("search", String(filters.search ?? filters.keyword));
 
-  const url = `${API_BASE}/pool_test?${params.toString()}&engine=typesense`;
-
-  const cached = headPoolCache.get(url);
-  if (cached && cached.expires > Date.now()) return cached.data;
+  const url = `${API_BASE}/pool_test?${params.toString()}`;
 
   let res: Response;
   try {
@@ -131,7 +119,6 @@ async function fetchPoolListingsForHead(
     },
     emp_exclusive_products: json.emp_exclusive_products ?? [],
   };
-  headPoolCache.set(url, { data, expires: Date.now() + HEAD_POOL_CACHE_TTL });
   return data;
 }
 

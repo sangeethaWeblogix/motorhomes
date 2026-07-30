@@ -94,20 +94,30 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   const [catCountLoading, setCatCountLoading] = useState(false);
   const cachedCategoryCountsRef = useRef<{name: string; slug: string; count: number}[]>([]);
 
+  // Single consolidated initial fetch — replaces the old separate
+  // /api/product-list/ (categories + states) and /api/make-details/ (makes)
+  // calls with one /api/params-count/?group_by=category,make,condition,state
+  // request. `data.make` is used directly as the makes list (popular_makes is
+  // not used here). Note this multi-field group_by combo isn't covered by the
+  // daily KV pre-warm (which only warms single-field group_by), so it always
+  // falls through to a live WP call — still one request instead of two.
   useEffect(() => {
-    fetch("/api/product-list/")
+    const controller = new AbortController();
+    fetch("/api/params-count/?group_by=category,make,condition,state", { signal: controller.signal })
       .then(r => r.ok ? r.json() : null)
       .then((res: any) => {
-        if (res?.data) {
-          setCategories(res.data.all_categories || []);
-          setStates(res.data.states || []);
+        const data = res?.data;
+        if (data) {
+          setCategories(data.category || []);
+          setCategoryCounts(data.category || []);
+          setMakes(data.make || []);
+          setMakeCounts(data.make || []);
+          setStates((data.state || []).map((s: any) => ({ name: s.name, value: s.slug })));
         }
         setCatLoading(false);
-      }).catch(() => setCatLoading(false));
-    fetch("/api/make-details/")
-      .then(r => r.ok ? r.json() : null)
-      .then((json: any) => setMakes(json?.data?.make_options || []))
-      .catch(() => {});
+      })
+      .catch(e => { if (e.name !== "AbortError") setCatLoading(false); });
+    return () => controller.abort();
   }, []);
 
   // Live category counts — same /api/params-count/?group_by=category endpoint
@@ -252,11 +262,11 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   // This fires automatically whenever stateCounts changes (i.e. whenever make or
   // other filters change), so the region dropdown is already populated when the
   // user drills into a state — no extra fetch needed on click.
+  // Only runs when a make is active — the no-make case is covered by the lazy
+  // per-state effect below (states[].regions is no longer available statically
+  // since the initial load switched to the consolidated params-count call).
   useEffect(() => {
-    if (!stateCounts.length || !currentFilters.make) {
-      setRegionCountsByState({});
-      return;
-    }
+    if (!stateCounts.length || !currentFilters.make) return;
     const controllers: AbortController[] = [];
     stateCounts.forEach((sc) => {
       if (!sc.slug) return;
@@ -333,6 +343,27 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   const [clearingAll,      setClearingAll]      = useState(false);
 
   const [locationSubView, setLocationSubView] = useState<"states" | "regions">("states");
+
+  // Live region counts for the currently-viewed state when NO make is active
+  // (e.g. the plain /listings/ page). Fetched on demand as the user opens/picks
+  // a state, since states[].regions is no longer available statically.
+  useEffect(() => {
+    if (!tempState || currentFilters.make) return;
+    const controller = new AbortController();
+    const key = tempState.toLowerCase();
+    const params = new URLSearchParams({ group_by: "region", state: key });
+    if (currentFilters.category)  params.set("category", currentFilters.category);
+    if (currentFilters.condition) params.set("condition", currentFilters.condition);
+    fetch(`/api/params-count/?${params}`, { signal: controller.signal })
+      .then(r => r.json())
+      .then(json => {
+        if (!controller.signal.aborted) {
+          setRegionCountsByState(prev => ({ ...prev, [key]: json.data ?? [] }));
+        }
+      })
+      .catch(e => { if (e.name !== "AbortError") console.error("[StateFilterBar] region fetch failed", e); });
+    return () => controller.abort();
+  }, [tempState, currentFilters.make, currentFilters.category, currentFilters.condition]);
 
   const [openModal, setOpenModal] = useState<
     "type"|"location"|"price"|"atm"|"make"|"condition"|"sleep"|"allFilters"|null
@@ -414,15 +445,13 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     return st.regions.find(r => r.name.toLowerCase() === regionName.toLowerCase() || r.value.toLowerCase() === regionName.toLowerCase())?.name;
   };
 
-  // All regions for the currently-viewed state from the static list
-  const allRegionsForState = states.find(s => s.name.toLowerCase() === tempState?.toLowerCase())?.regions ?? [];
-  // When a make is active, narrow to only regions that have listings for that make
-  // (using the pre-fetched regionCountsByState data). Falls back to the full list
-  // while the prefetch is in-flight or when no make is selected.
+  // Regions for the currently-viewed state — sourced live from regionCountsByState
+  // (fetched either via the make-scoped bulk prefetch or the no-make lazy effect
+  // above), since states[].regions is no longer available statically.
   const activeRegionCounts = tempState ? regionCountsByState[tempState.toLowerCase()] : undefined;
-  const filteredRegions = (currentFilters.make && activeRegionCounts)
-    ? allRegionsForState.filter(r => activeRegionCounts.some(rc => rc.slug === r.value && rc.count > 0))
-    : allRegionsForState;
+  const filteredRegions = (activeRegionCounts ?? [])
+    .filter(rc => rc.count > 0)
+    .map(rc => ({ name: rc.name, value: rc.slug }));
 
   // When a make filter is active, narrow the state list to only states with
   // count > 0 for that make. Falls back to the full list when no make is set
@@ -444,8 +473,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
           });
       })()
     : makeSource;
-  const availableModels = makes.find(m => m.slug === tempMake)?.models ?? [];
-  const modelSource = modelCounts.length > 0 ? modelCounts : availableModels.map(m => ({ name: m.name, slug: m.slug, count: 0 }));
+  const modelSource = modelCounts;
   const filteredModels = modelSearch
     ? (() => {
         const q = modelSearch.toLowerCase();
@@ -973,11 +1001,11 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                   <div style={{ flex:1, minWidth:130 }}>
                     <label style={{ fontSize:13, color:"#555", display:"block", marginBottom:6 }}>Model</label>
                     <select className="cfs-select-input form-select"
-                      disabled={!tempMake || (makes.find(m => m.slug === tempMake)?.models?.length ?? 0) === 0}
+                      disabled={!tempMake || modelCounts.length === 0}
                       value={tempModel ?? ""}
                       onChange={e => setTempModel(e.target.value || null)}>
                       <option value="">Any</option>
-                      {(makes.find(m => m.slug === tempMake)?.models ?? []).map(mod => (
+                      {modelCounts.map(mod => (
                         <option key={mod.slug} value={mod.slug}>{mod.name}</option>
                       ))}
                     </select>

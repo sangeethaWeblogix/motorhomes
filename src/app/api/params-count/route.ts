@@ -1,14 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { fetchParamsCountFromKV } from "@/lib/paramsCountKv";
 
 const API_KEY = process.env.CFS_API_KEY;
 
-/**
- * Fall back to the live WP API when KV has no entry (dynamic filter combos
- * created by users stacking multiple filters not covered by the daily warm).
- */
 async function fetchFromWP(searchParams: URLSearchParams): Promise<NextResponse> {
-  const url = `https://admin.caravansforsale.com.au/wp-json/cfs/v1/params_count?${searchParams.toString()}`;
+  const url = `https://admin.motorhomesforsale.com.au/wp-json/cfs/v1/params_count?${searchParams.toString()}`;
   try {
     const response = await fetch(url, {
       headers: {
@@ -41,19 +36,5 @@ async function fetchFromWP(searchParams: URLSearchParams): Promise<NextResponse>
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
-
-  // Convert URLSearchParams to a plain object for the shared KV utility
-  const paramsObj: Record<string, string> = {};
-  searchParams.forEach((v, k) => { paramsObj[k] = v; });
-
-  // 1. Check Cloudflare KV for a pre-warmed response (shared with SSR path)
-  const kvResult = await fetchParamsCountFromKV(paramsObj);
-  if (kvResult !== null) {
-    return NextResponse.json(kvResult, {
-      headers: { "X-Params-Cache": "HIT" },
-    });
-  }
-
-  // 2. KV miss — call the live WP API (dynamic combos not covered by daily warm)
   return fetchFromWP(searchParams);
 }
