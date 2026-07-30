@@ -1,6 +1,6 @@
 // src/app/api/cf7/[id]/route.ts
 import { NextResponse } from "next/server";
-const API_BASE = process.env.NEXT_PUBLIC_CFS_API_BASE;
+const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE;
 const API_KEY = process.env.CFS_API_KEY; // ✅ Add this
 
 export const fetchCaravanList = async () => {
@@ -18,7 +18,7 @@ export async function POST(
 ) {
   const id = params.id;
   // ✅ single slash; no trailing double slashes
-  const endpoint = `https://admin.caravansforsale.com.au/wp-json/contact-form-7/v1/contact-forms/${id}/feedback`;
+  const endpoint = `https://admin.motorhomesforsale.com.au/wp-json/contact-form-7/v1/contact-forms/${id}/feedback`;
 
   const formData = await req.formData();
   const resp = await fetch(endpoint, {

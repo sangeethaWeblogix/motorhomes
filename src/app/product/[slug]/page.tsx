@@ -8,7 +8,7 @@ import './product.css?=30006'
 export const dynamic = "force-dynamic";
 
 // export async function generateStaticParams() {
-//   const API_BASE = process.env.NEXT_PUBLIC_CFS_API_BASE;
+//   const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE;
 //   const API_KEY = process.env.CFS_API_KEY;
 //   if (!API_BASE) return [];
 //
@@ -99,7 +99,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 const fetchProductDetail = cache(async (slug: string) => {
-  const API_BASE = process.env.NEXT_PUBLIC_CFS_API_BASE!;
+  const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE!;
   const API_KEY = process.env.CFS_API_KEY;
   try {
     const res = await fetch(
@@ -126,7 +126,7 @@ async function fetchSimilarProducts(productId: string | number, seed: number) {
   const API_KEY = process.env.CFS_API_KEY;
   try {
     const res = await fetch(
-      `https://admin.caravansforsale.com.au/wp-json/cfs/v1/similar_products?product_id=${productId}&seed=${seed}`,
+      `https://admin.motorhomesforsale.com.au/wp-json/cfs/v1/similar_products?product_id=${productId}&seed=${seed}`,
       {
         cache: "no-store",
         headers: {
