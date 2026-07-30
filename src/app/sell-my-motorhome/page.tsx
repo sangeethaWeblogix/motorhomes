@@ -8,8 +8,8 @@ const sellPageJsonLd = {
   "@graph": [
     {
       "@type": "WebPage",
-      "@id": `${BASE_URL}/sell-my-caravan/#webpage`,
-      "url": `${BASE_URL}/sell-my-caravan/`,
+      "@id": `${BASE_URL}/sell-my-motorhome/#webpage`,
+      "url": `${BASE_URL}/sell-my-motorhome/`,
       "name": "Sell My Motorhome Online Australia | List Until Sold for $49",
       "description":
         "Sell your motorhome online across Australia for just $49. List until sold, edit anytime, pay no commission and connect directly with genuine motorhome buyers.",
@@ -18,9 +18,9 @@ const sellPageJsonLd = {
     },
     {
       "@type": "Service",
-      "@id": `${BASE_URL}/sell-my-caravan/#service`,
+      "@id": `${BASE_URL}/sell-my-motorhome/#service`,
       "name": "Private Motorhome Listing Service",
-      "url": `${BASE_URL}/sell-my-caravan/`,
+      "url": `${BASE_URL}/sell-my-motorhome/`,
       "description":
         "List your motorhome for sale on MotorhomesForSale.com.au for a one-time $49 fee. No commissions, no subscriptions, live until sold.",
       "provider": {
@@ -41,7 +41,7 @@ const sellPageJsonLd = {
     },
     {
       "@type": "FAQPage",
-      "@id": `${BASE_URL}/sell-my-caravan/#faqpage`,
+      "@id": `${BASE_URL}/sell-my-motorhome/#faqpage`,
       "mainEntity": [
         {
           "@type": "Question",

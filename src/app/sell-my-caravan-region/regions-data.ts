@@ -8,7 +8,7 @@ export interface StateInfo {
 export interface RegionInfo {
   /** Internal slug (legacy, used by old /sell-my-caravan-region/[slug] route) */
   slug: string;
-  /** Clean URL slug for new nested route: /sell-my-caravan/{state}/{pageSlug}/ */
+  /** Clean URL slug for new nested route: /sell-my-motorhome/{state}/{pageSlug}/ */
   pageSlug: string;
   label: string;
   state: StateInfo;
@@ -123,13 +123,13 @@ export function buildRegionMetadata(region: RegionInfo): Metadata {
     description: `Sell your motorhome in ${region.label} for just $49. List until sold, pay no commission and connect directly with motorhome buyers across ${region.label} and ${region.state.label}.`,
     robots: "index, follow",
     alternates: {
-      canonical: `${BASE_URL}/sell-my-caravan/${region.state.slug}/${region.pageSlug}/`,
+      canonical: `${BASE_URL}/sell-my-motorhome/${region.state.slug}/${region.pageSlug}/`,
     },
   };
 }
 
 export function buildRegionJsonLd(region: RegionInfo) {
-  const pageUrl = `${BASE_URL}/sell-my-caravan/${region.state.slug}/${region.pageSlug}/`;
+  const pageUrl = `${BASE_URL}/sell-my-motorhome/${region.state.slug}/${region.pageSlug}/`;
 
   return {
     "@context": "https://schema.org",

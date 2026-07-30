@@ -293,7 +293,7 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
               <p className="desc">List your motorhome on MotorhomesForSale.com.au — Australia&apos;s trusted marketplace to buy and sell motorhomes.</p>
               <div className="btns_two">
                 <a href="/dealer-advertising/" className="btn primary-btn">Dealer Sign Up</a>
-                <a href="/sell-my-caravan/" className="btn secondary-btn">Private Seller - Click Here</a>
+                <a href="/sell-my-motorhome/" className="btn secondary-btn">Private Seller - Click Here</a>
               </div>
             </div>
           </div>
@@ -319,8 +319,9 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
         </div>
       </div>
 
-      {/* ── Browse by Type ── */}
+      {/* ── Browse by Type — Hidden for now ──
       <HomeTypeSection typeCounts={typeCounts} />
+      */}
 
       {/* ── Find by Location ── */}
       <HomeLocationSection />

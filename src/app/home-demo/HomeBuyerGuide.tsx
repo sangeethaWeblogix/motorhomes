@@ -65,7 +65,7 @@ export default function HomeBuyerGuide() {
             <h2 className="hbg-sell-title">Looking to Sell Your Motorhome?</h2>
             <p className="hbg-sell-body">
               If you&apos;re upgrading or no longer need your current motorhome,{" "}
-              <a href="/sell-my-caravan/" className="hbg-sell-link">sell your motorhome</a>{" "}
+              <a href="/sell-my-motorhome/" className="hbg-sell-link">sell your motorhome</a>{" "}
               by creating a listing on MotorhomesForSale.com.au and connect with active buyers across Australia. Your advertisement stays online until it&apos;s sold for a one-time fee of $49.
             </p>
 

@@ -455,7 +455,7 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
         {/* Subtitle */}
         <div className="pdd-subtitle">
           <span>Have a similar motorhome to sell?</span>
-          <a href="/sell-my-caravan/" className="pdd-subtitle__link">List Your Motorhome</a>
+          <a href="/sell-my-motorhome/" className="pdd-subtitle__link">List Your Motorhome</a>
           <span className="pdd-subtitle__badge">$49 Until Sold</span>
         </div>
 
@@ -640,7 +640,7 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
             <div className="pdd-sidebar__sell">
               <strong>Thinking of selling?</strong>
               <p>Get more eyes on your motorhome today.</p>
-              <a href="/sell-my-caravan/" className="pdd-btn-sell">Sell My Motorhome</a>
+              <a href="/sell-my-motorhome/" className="pdd-btn-sell">Sell My Motorhome</a>
             </div>
           </aside>
         </div>

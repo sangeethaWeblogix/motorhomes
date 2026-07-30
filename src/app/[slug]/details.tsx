@@ -591,7 +591,7 @@ export default function BlogDetailsPage({
                 </div>
                 <div className="blog-sidebar-cta blog-sidebar-cta--sell">
                   <h3 className="blog-sidebar-cta__heading">Sell Your Motorhome Faster with Australia's Growing Motorhome Marketplace</h3>
-                  <a href="/sell-my-caravan/" className="blog-sidebar-cta__btn">
+                  <a href="/sell-my-motorhome/" className="blog-sidebar-cta__btn">
                     List Your Motorhome Now <i className="bi bi-arrow-right" />
                   </a>
                 </div>
@@ -660,7 +660,7 @@ export default function BlogDetailsPage({
           </p>
           <p className="bds-cta-body">
             <strong>Looking to sell?</strong> If you&apos;re upgrading to a newer motorhome or no longer need your current one,{" "}
-            <a href="/sell-my-caravan/" className="bds-cta-link">sell your motorhome</a>{" "}
+            <a href="/sell-my-motorhome/" className="bds-cta-link">sell your motorhome</a>{" "}
             by creating a listing on MotorhomesForSale.com.au. Your advertisement stays online until it&apos;s sold for a one-time fee of $49.
           </p>
         </div>
