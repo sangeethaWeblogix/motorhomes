@@ -8,7 +8,7 @@
   export async function GET() {
     try {
       const res = await fetch(
-        "https://admin.motorhomesforsale.com.au/wp-json/cfs/v1/sitemap/cat-price",
+        "https://admin.motorhomesforsale.com.au/wp-json/mfs/v1/sitemap/cat-price",
          {
         headers: {
           Accept: "application/json",

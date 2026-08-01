@@ -10,7 +10,7 @@ type RouteParams = { slug: string };
 async function fetchBlogDetail(slug: string) {
   try {
     const res = await fetch(
-      `https://admin.motorhomesforsale.com.au/wp-json/cfs/v1/blog-detail-new/?slug=${encodeURIComponent(
+      `https://admin.motorhomesforsale.com.au/wp-json/mfs/v1/blog-detail-new/?slug=${encodeURIComponent(
         slug
       )}`,
       { cache: "no-store", headers: { Accept: "application/json" } }

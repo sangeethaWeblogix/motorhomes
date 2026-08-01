@@ -26,7 +26,7 @@
    'nsw', 'vic', 'qld', 'sa', 'wa', 'tas', 'nt', 'act',
  ]);
 
- const API_WP = 'https://admin.motorhomesforsale.com.au/wp-json/cfs/v1';
+ const API_WP = 'https://admin.motorhomesforsale.com.au/wp-json/mfs/v1';
 
  async function isValidSuburb(suburb: string, pincode: string | undefined, apiKey: string | undefined): Promise<boolean> {
    try {
@@ -264,7 +264,7 @@
      const slug = url.pathname.replace(/^\/product\//, '').replace(/\/$/, '');
      if (slug) {
        try {
-         const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE || 'https://admin.motorhomesforsale.com.au/wp-json/cfs/v1';
+         const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE || 'https://admin.motorhomesforsale.com.au/wp-json/mfs/v1';
          const controller = new AbortController();
          const timeoutId = setTimeout(() => controller.abort(), 5000);
          const apiRes = await fetch(
@@ -337,7 +337,7 @@
        // Raw filter keys (minKg, maxKg, sleeps) must be converted to API names (from_atm, to_atm, sleep).
        const apiParams = buildApiParams(filters);
        const apiUrl =
-         "https://admin.motorhomesforsale.com.au/wp-json/cfs/v1//pool_test?" +
+         "https://admin.motorhomesforsale.com.au/wp-json/mfs/v1//pool_test?" +
          apiParams.toString();
 
        const controller = new AbortController();
