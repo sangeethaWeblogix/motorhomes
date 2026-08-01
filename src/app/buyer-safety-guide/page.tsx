@@ -15,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
     robots: robots,
 
     alternates: {
-      canonical: "https://www.caravansforsale.com.au/buyer-safety-guide/",
+      canonical: "https://www.motorhomes.vercel.app/buyer-safety-guide/",
     },
 
     openGraph: {
       title: metaTitle,
       description: metaDescription,
-      url: "https://www.caravansforsale.com.au/buyer-safety-guide/",
+      url: "https://www.motorhomes.vercel.app/buyer-safety-guide/",
       type: "article",
     },
 

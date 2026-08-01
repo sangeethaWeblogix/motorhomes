@@ -2,7 +2,7 @@
 import { MetadataRoute } from "next";
 
 // Change this to your live domain
-const BASE_URL = "https://www.caravansforsale.com.au";
+ const BASE_URL = "https://motorhomes.vercel.app";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // ✅ Static pages

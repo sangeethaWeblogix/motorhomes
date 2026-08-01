@@ -23,16 +23,16 @@ export const metadata: Metadata = {
     google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo",
   },
   alternates: {
-    canonical: "https://www.caravansforsale.com.au",
+    canonical: "https://www.motorhomes.vercel.app",
   },
   openGraph: {
     title: "Motorhomes For Sale – New & Used Motorhome Marketplace in Australia",
     description: "Browse motorhomes for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
-    url: "https://www.caravansforsale.com.au",
+    url: "https://www.motorhomes.vercel.app",
     siteName: "Motorhomes for Sale",
     images: [
       {
-        url: "https://www.caravansforsale.com.au/images/cfs-logo.png",
+        url: "https://www.motorhomes.vercel.app/images/cfs-logo.png",
         width: 800,
         height: 600,
         alt: "Motorhomes for Sale Australia",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   },
 };
 
-const BASE_URL = "https://www.caravansforsale.com.au";
+ const BASE_URL = "https://motorhomes.vercel.app";
 
 const homeJsonLd = {
   "@context": "https://schema.org",

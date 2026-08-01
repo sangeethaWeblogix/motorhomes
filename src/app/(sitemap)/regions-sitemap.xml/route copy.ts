@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 const API_URL = "https://admin.motorhomesforsale.com.au/wp-json/mfs/v1/location-search-all";
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://www.caravansforsale.com.au";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.motorhomes.vercel.app";
 
 export async function GET() {
   try {

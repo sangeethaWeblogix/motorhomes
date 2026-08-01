@@ -13,16 +13,16 @@ export const metadata: Metadata = {
     "Explore motorhome manufacturers across Australia. Find trusted builders of off-road, luxury, hybrid, pop top and touring motorhomes for every budget and lifestyle.",
   robots: "index, follow",
   alternates: {
-    canonical: "https://www.caravansforsale.com.au/caravan-manufacturers/",
+    canonical: "https://www.motorhomes.vercel.app/caravan-manufacturers/",
   },
   openGraph: {
     title: "Motorhome Manufacturers in Australia | Brands & Builders",
     description:
       "Explore motorhome manufacturers across Australia. Find trusted builders of off-road, luxury, hybrid, pop top and touring motorhomes for every budget and lifestyle.",
-    url: "https://www.caravansforsale.com.au/caravan-manufacturers/",
+    url: "https://www.motorhomes.vercel.app/caravan-manufacturers/",
     images: [
       {
-        url: "https://www.caravansforsale.com.au/images/cfs-logo.png",
+        url: "https://www.motorhomes.vercel.app/images/cfs-logo.png",
         width: 800,
         height: 600,
         alt: "Motorhome Manufacturers Australia",
