@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const API_KEY = process.env.CFS_API_KEY;
+const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE || "https://admin.motorhomesforsale.com.au/wp-json/mfs/v1";
 
 async function fetchFromWP(searchParams: URLSearchParams): Promise<NextResponse> {
-  const url = `https://admin.motorhomesforsale.com.au/wp-json/cfs/v1/params_count?${searchParams.toString()}`;
+  const url = `${API_BASE}/params_count?${searchParams.toString()}`;
   try {
     const response = await fetch(url, {
       headers: {

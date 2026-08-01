@@ -112,7 +112,11 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
           setCategoryCounts(data.category || []);
           setMakes(data.make || []);
           setMakeCounts(data.make || []);
-          setStates((data.state || []).map((s: any) => ({ name: s.name, value: s.slug })));
+          setStates((data.state || []).map((s: any) => ({
+            name: s.name,
+            value: s.slug,
+            regions: (s.region || []).map((r: any) => ({ name: r.name, value: r.slug })),
+          })));
         }
         setCatLoading(false);
       })
@@ -151,7 +155,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
       .then(r => r.json())
       .then(json => {
         if (controller.signal.aborted) return;
-        setCategoryCounts(json.data || []);
+        setCategoryCounts(json.data?.category ?? []);
         setCatCountLoading(false);
       })
       .catch(e => { if (e.name !== "AbortError") setCatCountLoading(false); });
@@ -196,11 +200,10 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   const [makeSearch,    setMakeSearch]    = useState("");
   const [modelSearch,   setModelSearch]   = useState("");
   const [makeSubView,   setMakeSubView]   = useState<"makes" | "models">("makes");
-  const [makeCounts,       setMakeCounts]       = useState<{name: string; slug: string; count: number}[]>([]);
+  const [makeCounts,       setMakeCounts]       = useState<{name: string; slug: string; count: number; model?: {name: string; slug: string; count: number}[]}[]>([]);
   const [modelCounts,      setModelCounts]      = useState<{name: string; slug: string; count: number}[]>([]);
-  const [stateCounts,      setStateCounts]      = useState<{slug: string; count: number}[]>([]);
+  const [stateCounts,      setStateCounts]      = useState<{name?: string; slug: string; count: number; region?: {name: string; slug: string; count: number}[]}[]>([]);
   const [regionCountsByState, setRegionCountsByState] = useState<Record<string, {name: string; slug: string; count: number}[]>>({});
-  const [modelCountLoading, setModelCountLoading] = useState(false);
   const [lastModelName,    setLastModelName]    = useState<string | null>(null);
 
   // Live make counts — same /api/params-count/ endpoint FilterSlider uses,
@@ -211,7 +214,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     const params = buildMakeCountParams(currentFilters);
     fetch(`/api/params-count/?${params.toString()}`, { signal: controller.signal })
       .then(r => r.json())
-      .then(json => { if (!controller.signal.aborted) setMakeCounts(json.data || []); })
+      .then(json => { if (!controller.signal.aborted) setMakeCounts(json.data?.make ?? []); })
       .catch(e => { if (e.name !== "AbortError") console.error(e); });
     return () => controller.abort();
   }, [
@@ -247,7 +250,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     params.set("group_by", "state");
     fetch(`/api/params-count/?${params.toString()}`, { signal: controller.signal })
       .then(r => r.json())
-      .then(json => { if (!controller.signal.aborted) setStateCounts(json.data || []); })
+      .then(json => { if (!controller.signal.aborted) setStateCounts(json.data?.state ?? []); })
       .catch(e => { if (e.name !== "AbortError") console.error(e); });
     return () => controller.abort();
   }, [
@@ -258,69 +261,31 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     currentFilters.keyword,
   ]);
 
-  // After state counts arrive, pre-fetch region counts for every state returned.
-  // This fires automatically whenever stateCounts changes (i.e. whenever make or
-  // other filters change), so the region dropdown is already populated when the
-  // user drills into a state — no extra fetch needed on click.
-  // Only runs when a make is active — the no-make case is covered by the lazy
-  // per-state effect below (states[].regions is no longer available statically
-  // since the initial load switched to the consolidated params-count call).
+  // Region breakdown per state is already nested inside each entry of the
+  // group_by=state response above (params_count no longer accepts group_by=region
+  // as its own value — it 400s). So instead of a second round of per-state
+  // fetches, just fan the nested data already in stateCounts out into the
+  // regionCountsByState shape the rest of the component expects.
   useEffect(() => {
     if (!stateCounts.length || !currentFilters.make) return;
-    const controllers: AbortController[] = [];
-    stateCounts.forEach((sc) => {
-      if (!sc.slug) return;
-      const ctrl = new AbortController();
-      controllers.push(ctrl);
-      const params = new URLSearchParams({ group_by: "region", state: sc.slug.toLowerCase() });
-      params.set("make", currentFilters.make!.toLowerCase());
-      if (currentFilters.category)          params.set("category", currentFilters.category);
-      if (currentFilters.condition)         params.set("condition", currentFilters.condition);
-      if (currentFilters.from_price)        params.set("from_price", String(currentFilters.from_price));
-      if (currentFilters.to_price)          params.set("to_price", String(currentFilters.to_price));
-      if (currentFilters.minKg)             params.set("from_atm", String(currentFilters.minKg));
-      if (currentFilters.maxKg)             params.set("to_atm", String(currentFilters.maxKg));
-      if (currentFilters.acustom_fromyears) params.set("acustom_fromyears", String(currentFilters.acustom_fromyears));
-      if (currentFilters.acustom_toyears)   params.set("acustom_toyears", String(currentFilters.acustom_toyears));
-      if (currentFilters.from_length)       params.set("from_length", String(currentFilters.from_length));
-      if (currentFilters.to_length)         params.set("to_length", String(currentFilters.to_length));
-      if (currentFilters.from_sleep)        params.set("from_sleep", String(currentFilters.from_sleep));
-      if (currentFilters.to_sleep)          params.set("to_sleep", String(currentFilters.to_sleep));
-      if (currentFilters.keyword)           params.set("keyword", currentFilters.keyword);
-      fetch(`/api/params-count/?${params}`, { signal: ctrl.signal })
-        .then(r => r.json())
-        .then(json => {
-          if (!ctrl.signal.aborted) {
-            setRegionCountsByState(prev => ({ ...prev, [sc.slug]: json.data ?? [] }));
-          }
-        })
-        .catch(e => { if (e.name !== "AbortError") console.error("[StateFilterBar] region prefetch failed", e); });
+    setRegionCountsByState(prev => {
+      const next = { ...prev };
+      stateCounts.forEach(sc => { if (sc.slug) next[sc.slug] = sc.region ?? []; });
+      return next;
     });
-    return () => controllers.forEach(c => c.abort());
-  }, [stateCounts]);
+  }, [stateCounts, currentFilters.make]);
 
-  // Live model counts — scoped to whichever make is currently selected in the modal.
+  // Model breakdown per make is already nested inside each entry of the
+  // group_by=make response (see "Live make counts" above) — params_count no
+  // longer accepts group_by=model as its own value. Read the matching make's
+  // nested list instead of firing a second (now-invalid) request.
   useEffect(() => {
     if (!tempMake) { setModelCounts([]); return; }
-    const controller = new AbortController();
-    setModelCountLoading(true);
-    const params = buildMakeCountParams(currentFilters);
-    params.set("make", tempMake);
-    params.delete("group_by");
-    params.set("group_by", "model");
-    fetch(`/api/params-count/?${params.toString()}`, { signal: controller.signal })
-      .then(r => r.json())
-      .then(json => {
-        if (controller.signal.aborted) return;
-        const data = json.data || [];
-        setModelCounts(data);
-        setModelCountLoading(false);
-        const matched = data.find((m: any) => m.slug === currentFilters.model);
-        if (matched) setLastModelName(matched.name);
-      })
-      .catch(e => { if (e.name !== "AbortError") { console.error(e); setModelCountLoading(false); } });
-    return () => controller.abort();
-  }, [tempMake]);
+    const data = makeCounts.find(m => m.slug === tempMake)?.model ?? [];
+    setModelCounts(data);
+    const matched = data.find(m => m.slug === currentFilters.model);
+    if (matched) setLastModelName(matched.name);
+  }, [tempMake, makeCounts, currentFilters.model]);
 
   /* ── Temp filter values ── */
   const [tempCategory,     setTempCategory]     = useState<string | null>(null);
@@ -344,26 +309,31 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
 
   const [locationSubView, setLocationSubView] = useState<"states" | "regions">("states");
 
-  // Live region counts for the currently-viewed state when NO make is active
-  // (e.g. the plain /listings/ page). Fetched on demand as the user opens/picks
-  // a state, since states[].regions is no longer available statically.
+  // Region counts when NO make is active (e.g. the plain /listings/ page).
+  // group_by=state already nests each state's region breakdown (params_count
+  // no longer accepts group_by=region as its own value), so one group_by=state
+  // call — scoped by category/condition — populates every state's regions at
+  // once instead of needing a fetch per state.
   useEffect(() => {
-    if (!tempState || currentFilters.make) return;
+    if (currentFilters.make) return;
     const controller = new AbortController();
-    const key = tempState.toLowerCase();
-    const params = new URLSearchParams({ group_by: "region", state: key });
+    const params = new URLSearchParams({ group_by: "state" });
     if (currentFilters.category)  params.set("category", currentFilters.category);
     if (currentFilters.condition) params.set("condition", currentFilters.condition);
     fetch(`/api/params-count/?${params}`, { signal: controller.signal })
       .then(r => r.json())
       .then(json => {
-        if (!controller.signal.aborted) {
-          setRegionCountsByState(prev => ({ ...prev, [key]: json.data ?? [] }));
-        }
+        if (controller.signal.aborted) return;
+        const data: { slug: string; region?: { name: string; slug: string; count: number }[] }[] = json.data?.state ?? [];
+        setRegionCountsByState(prev => {
+          const next = { ...prev };
+          data.forEach(sc => { if (sc.slug) next[sc.slug] = sc.region ?? []; });
+          return next;
+        });
       })
       .catch(e => { if (e.name !== "AbortError") console.error("[StateFilterBar] region fetch failed", e); });
     return () => controller.abort();
-  }, [tempState, currentFilters.make, currentFilters.category, currentFilters.condition]);
+  }, [currentFilters.make, currentFilters.category, currentFilters.condition]);
 
   const [openModal, setOpenModal] = useState<
     "type"|"location"|"price"|"atm"|"make"|"condition"|"sleep"|"allFilters"|null
@@ -698,10 +668,10 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
             <div className="filter-row" style={{ flex: 1, marginBottom: 0 }}>
               <div className="slider-wrapper">
                 <div className="filter-swiper">
-                  <button className={`tag${currentFilters.category ? " active" : ""}`} onClick={handleTypeOpen}>
+                  {/* <button className={`tag${currentFilters.category ? " active" : ""}`} onClick={handleTypeOpen}>
                     Motorhome Type
                     {currentFilters.category && <span className="active_filter"><i className="bi bi-circle-fill" /></span>}
-                  </button>
+                  </button> */}
 
                   <button className={`tag${(currentFilters.state || currentFilters.region || currentFilters.suburb) ? " active" : ""}`} onClick={handleLocationOpen}>
                     Location
@@ -851,7 +821,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
             <div className="filter-body">
 
               {/* Caravan Type */}
-              <div className="filter-item pt-0">
+              {/* <div className="filter-item pt-0">
                 <h4>Motorhome Type</h4>
                 <ul className="loc-state-list">
                   {catLoading && categories.length === 0 ? (
@@ -868,7 +838,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                     ))
                   )}
                 </ul>
-              </div>
+              </div> */}
 
               {/* Location */}
               <div className="filter-item">
@@ -1479,9 +1449,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                 </ul>
               ) : (
                 <ul className="loc-state-list">
-                  {modelCountLoading ? (
-                    <li className="loc-state-item" style={{ justifyContent:"center", color:"#888" }}>Loading...</li>
-                  ) : filteredModels.length === 0 ? (
+                  {filteredModels.length === 0 ? (
                     <li className="loc-state-item" style={{ color:"#888" }}>No models found</li>
                   ) : (
                     filteredModels.map(mod => {

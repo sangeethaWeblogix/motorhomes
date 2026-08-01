@@ -473,7 +473,7 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
                   <img src="/images/category.svg" width="20" height="20" alt="" />
                   <div className="pdd-specs-bar__text">
                     <span className="pdd-specs-bar__val">{shortCategory}</span>
-                    <span className="pdd-specs-bar__lbl">Motorhome Type</span>
+                    <span className="pdd-specs-bar__lbl"></span>
                   </div>
                 </div>
               )}

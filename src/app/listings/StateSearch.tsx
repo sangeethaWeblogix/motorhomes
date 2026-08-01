@@ -143,22 +143,22 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
   }, [openModal]);
 
   // ── Section components (reusable inside modal) ──
-  const TypeSection = (
-    <div className="filter-item">
-      <h4 className="filter-section-title">Motorhome Type</h4>
-      <ul className="loc-state-list">
-        {CARAVAN_TYPES.map((cat) => (
-          <li key={cat.slug} className="loc-state-item"
-            onClick={() => setTempType(tempType === cat.slug ? "All Types" : cat.slug)}>
-            <span className={`loc-checkbox${tempType === cat.slug ? " checked" : ""}`}>
-              {tempType === cat.slug && <i className="bi bi-check" style={{ color: "#fff", fontSize: 14, lineHeight: 1 }} />}
-            </span>
-            <span className="loc-state-name">{cat.name}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+  // const TypeSection = (
+  //   <div className="filter-item">
+  //     <h4 className="filter-section-title">Motorhome Type</h4>
+  //     <ul className="loc-state-list">
+  //       {CARAVAN_TYPES.map((cat) => (
+  //         <li key={cat.slug} className="loc-state-item"
+  //           onClick={() => setTempType(tempType === cat.slug ? "All Types" : cat.slug)}>
+  //           <span className={`loc-checkbox${tempType === cat.slug ? " checked" : ""}`}>
+  //             {tempType === cat.slug && <i className="bi bi-check" style={{ color: "#fff", fontSize: 14, lineHeight: 1 }} />}
+  //           </span>
+  //           <span className="loc-state-name">{cat.name}</span>
+  //         </li>
+  //       ))}
+  //     </ul>
+  //   </div>
+  // );
 
   const CondSection = (
     <div className="filter-item">
@@ -450,7 +450,7 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
           onClear={() => { setTempType("All Types"); setTempCond("All Conditions"); setTempMake(""); setTempMinPrice(""); setTempMaxPrice(""); setTempAtmMin(""); setTempAtmMax(""); setTempSleeps("Any Sleeps"); setTempRegion("All Regions"); }}
           onApply={applyAll}
           clearDisabled={false}>
-          {TypeSection}
+          {/* {TypeSection} */}
           <hr style={{ border: "none", borderTop: "1px solid #eee", margin: "4px 0" }} />
           {CondSection}
           <hr style={{ border: "none", borderTop: "1px solid #eee", margin: "4px 0" }} />
@@ -466,7 +466,7 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
         </Modal>
       )}
 
-      {openModal === "type"      && <Modal title="Motorhome Type" onClear={() => setTempType("All Types")}        onApply={applyType}    clearDisabled={tempType === "All Types"}>{TypeSection}</Modal>}
+      {/* {openModal === "type"      && <Modal title="Motorhome Type" onClear={() => setTempType("All Types")}        onApply={applyType}    clearDisabled={tempType === "All Types"}>{TypeSection}</Modal>} */}
       {openModal === "condition" && <Modal title="Condition"    onClear={() => setTempCond("All Conditions")}   onApply={applyCond}    clearDisabled={tempCond === "All Conditions"}>{CondSection}</Modal>}
       {openModal === "make"      && <Modal title="Make"         onClear={() => setTempMake("")}                 onApply={applyMake}    clearDisabled={!tempMake}>{MakeSection}</Modal>}
       {openModal === "price"     && <Modal title="Price"        onClear={() => { setTempMinPrice(""); setTempMaxPrice(""); }} onApply={applyPrice} clearDisabled={!tempMinPrice && !tempMaxPrice}>{PriceSection}</Modal>}
