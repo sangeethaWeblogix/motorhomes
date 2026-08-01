@@ -53,7 +53,7 @@ export const FILTERS_NO_STATE = [
     ],
   },
   {
-    icon: "/images/ATM.png", title: "By Weight (ATM)",
+    icon: "/images/ATM.png", title: " By Weight (GVM)",
     links: [
       { text: "Under 1500kg", href: "/listings/under-1500-kg-atm/" },
       { text: "Under 2000kg", href: "/listings/under-2000-kg-atm/" },

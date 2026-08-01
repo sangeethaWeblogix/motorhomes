@@ -64,7 +64,7 @@ const SEARCH_FILTERS = [
     ],
   },
   {
-    label: "By Weight (ATM)",
+    label: " By Weight (GVM)",
     icon: "⚖",
     links: [
       { text: "Under 1500kg", href: "/listings/?max_atm=1500&category=off-road" },

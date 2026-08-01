@@ -2,31 +2,56 @@
  import { parseSlugToFilters, type Filters } from "@/app/components/urlBuilder";
  import { buildSlugFromFilters } from "@/app/components/slugBuilter";
  import { isAllowedSingleBand } from "@/utils/seo/band-utils";
- import regionPathsData from "../cfs-paths/regions.json";
- import makesData from "../cfs-paths/makes.json";
  const API_KEY = process.env.CFS_API_KEY;
 
- /* Valid region slugs built from cfs-paths/regions.json (sitemap source of truth) */
- const VALID_REGION_SLUGS = new Set<string>(
-   (regionPathsData.paths as string[]).map(p => {
-     const part = p.split('/').find(s => s.endsWith('-region'));
-     return part ? part.replace(/-region$/, '') : '';
-   }).filter(Boolean)
- );
-
- /* Valid make slugs built from cfs-paths/makes.json — zero API dependency */
- const VALID_MAKE_SLUGS = new Set<string>(
-   (makesData.paths as string[]).map(p => p.replace(/\/$/, ''))
- );
-
- /* Valid Australian state slug parts (the bit before -state in the URL) */
- const VALID_AU_STATES = new Set([
-   'queensland', 'new-south-wales', 'victoria', 'south-australia',
-   'western-australia', 'tasmania', 'northern-territory', 'australian-capital-territory',
-   'nsw', 'vic', 'qld', 'sa', 'wa', 'tas', 'nt', 'act',
- ]);
-
  const API_WP = 'https://admin.motorhomesforsale.com.au/wp-json/mfs/v1';
+
+ /* Live make/model/state/region validation — same params_count endpoint the
+    browse filter panels use (group_by=make nests valid models per make;
+    group_by=state nests valid regions per state). Replaces the old
+    cfs-paths/*.json snapshots, which went stale against live inventory
+    (e.g. a make with real listings could still be missing from the
+    pre-generated sitemap dump and get wrongly 410'd). */
+ async function fetchParamsCount(query: string): Promise<any | null> {
+   try {
+     const controller = new AbortController();
+     const tid = setTimeout(() => controller.abort(), 5000);
+     const res = await fetch(`${API_WP}/params_count?${query}`, {
+       headers: { 'User-Agent': 'next-middleware', ...(API_KEY && { 'X-API-Key': API_KEY }) },
+       signal: controller.signal,
+       cache: 'no-store',
+     });
+     clearTimeout(tid);
+     if (!res.ok) return null;
+     const raw = await res.text();
+     const idx = raw.indexOf('{"');
+     return JSON.parse(idx > 0 ? raw.substring(idx) : raw);
+   } catch {
+     return null;
+   }
+ }
+
+ async function isValidMakeModel(makeSlug: string, modelSlug?: string): Promise<boolean> {
+   const data = await fetchParamsCount('group_by=make');
+   if (!data) return true; // API error — don't block, let the live pool check further down handle it
+   const makes = data?.data?.make ?? [];
+   const makeEntry = makes.find((m: any) => m.slug === makeSlug);
+   if (!makeEntry) return false;
+   if (!modelSlug) return true;
+   const models = makeEntry.model ?? [];
+   return models.some((mo: any) => mo.slug === modelSlug);
+ }
+
+ async function isValidStateRegion(stateSlug: string, regionSlug?: string): Promise<boolean> {
+   const data = await fetchParamsCount('group_by=state');
+   if (!data) return true;
+   const states = data?.data?.state ?? [];
+   const stateEntry = states.find((s: any) => s.slug === stateSlug);
+   if (!stateEntry) return false;
+   if (!regionSlug) return true;
+   const regions = stateEntry.region ?? [];
+   return regions.some((r: any) => r.slug === regionSlug);
+ }
 
  async function isValidSuburb(suburb: string, pincode: string | undefined, apiKey: string | undefined): Promise<boolean> {
    try {
@@ -203,25 +228,24 @@
            }
          }
 
-         // State value validation — check the slug part before -state suffix
+         // State + region validation — live check against params_count (group_by=state
+         // nests valid regions per state).
          const stateSegment = slugParts.find(s => s.endsWith('-state'));
-         if (stateSegment) {
-           const stateSlug = stateSegment.replace(/-state$/, '');
-           if (!VALID_AU_STATES.has(stateSlug)) {
+         const regionSegment = slugParts.find(s => s.endsWith('-region'));
+         const stateSlug = stateSegment ? stateSegment.replace(/-state$/, '') : undefined;
+         if (stateSlug) {
+           const regionSlug = regionSegment ? regionSegment.replace(/-region$/, '') : undefined;
+           const stateRegionOk = await isValidStateRegion(stateSlug, regionSlug);
+           if (!stateRegionOk) {
              return render410(request);
            }
          }
 
-         // Make value validation — check against cfs-paths/makes.json (sitemap source of truth)
-         if (filters.make && !VALID_MAKE_SLUGS.has(filters.make)) {
-           return render410(request);
-         }
-
-         // Region value validation — check against cfs-paths/regions.json (sitemap source of truth)
-         const regionSegment = slugParts.find(s => s.endsWith('-region'));
-         if (regionSegment) {
-           const regionSlug = regionSegment.replace(/-region$/, '');
-           if (!VALID_REGION_SLUGS.has(regionSlug)) {
+         // Make + model validation — live check against params_count (group_by=make
+         // nests valid models per make).
+         if (filters.make) {
+           const makeModelOk = await isValidMakeModel(filters.make, filters.model);
+           if (!makeModelOk) {
              return render410(request);
            }
          }

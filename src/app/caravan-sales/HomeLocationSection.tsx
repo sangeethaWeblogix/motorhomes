@@ -40,7 +40,7 @@ const FILTERS = [
   },
   {
     icon: <Image src="/images/ATM.png" alt="Weight ATM" width={24} height={24} unoptimized />,
-    label: "By Weight (ATM)",
+    label: " By Weight (GVM)",
     items: [
       { text: "Under 1500kg", href: "/listings/under-1500-kg-atm/" },
       { text: "Under 2000kg", href: "/listings/under-2000-kg-atm/" },

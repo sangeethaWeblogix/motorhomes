@@ -7,7 +7,7 @@ import {
   stateLabel,
   cleanRegionName,
   STATES,
-  TYPES_NO_STATE,
+  // TYPES_NO_STATE, // type section disabled — should not appear on the listing page
   FILTERS_NO_STATE,
   PRICE_BANDS,
   ATM_BANDS,
@@ -17,7 +17,7 @@ import {
   buildStatesForCategory,
   buildPopularRegionsForCategory,
   buildAllRegionsForState,
-  buildTypesForState,
+  // buildTypesForState, // type section disabled — should not appear on the listing page
   buildFiltersForState,
   type CountItem,
   type BrowseSectionData,
@@ -84,6 +84,7 @@ export default function StateBrowseSection({ state, region, category, initialDat
   const [makeCounts,     setMakeCounts]     = useState<CountItem[] | null>(initialData?.makeCounts ?? null);
   const [stateCounts,    setStateCounts]    = useState<CountItem[] | null>(initialData?.stateCounts ?? null);
   const [regionCounts,   setRegionCounts]   = useState<CountItem[] | null>(initialData?.regionCounts ?? null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- categoryCounts feeds the disabled Type panel below
   const [categoryCounts, setCategoryCounts] = useState<CountItem[] | null>(initialData?.categoryCounts ?? null);
   const [priceCounts,    setPriceCounts]    = useState<number[] | null>(initialData?.priceCounts ?? null);
   const [atmCounts,      setAtmCounts]      = useState<number[] | null>(initialData?.atmCounts ?? null);
@@ -287,20 +288,20 @@ export default function StateBrowseSection({ state, region, category, initialDat
       .filter((m) => m.count > 0)
       .map((m) => ({ text: m.name, href: `/listings/${m.slug}/${stateSlug}-state/${regionSlug}-region/` }));
 
-    const categoryPanel = TYPES_NO_STATE
-      .filter((t) => {
-        if (categoryCounts === null) return true;
-        const slug = t.href.match(/\/listings\/([a-z-]+)-category\//)?.[1] ?? "";
-        return (categoryCounts.find((cc) => cc.slug === slug)?.count ?? 0) > 0;
-      })
-      .map((t) => {
-        const slug = t.href.match(/\/listings\/([a-z-]+)-category\//)?.[1] ?? "";
-        return { text: t.label, href: `/listings/${slug}-category/${stateSlug}-state/${regionSlug}-region/` };
-      });
+    // const categoryPanel = TYPES_NO_STATE
+    //   .filter((t) => {
+    //     if (categoryCounts === null) return true;
+    //     const slug = t.href.match(/\/listings\/([a-z-]+)-category\//)?.[1] ?? "";
+    //     return (categoryCounts.find((cc) => cc.slug === slug)?.count ?? 0) > 0;
+    //   })
+    //   .map((t) => {
+    //     const slug = t.href.match(/\/listings\/([a-z-]+)-category\//)?.[1] ?? "";
+    //     return { text: t.label, href: `/listings/${slug}-category/${stateSlug}-state/${regionSlug}-region/` };
+    //   });
 
     const panels = [
       { icon: "/images/Budget.png",   title: `Browse Motorhomes by Price in ${regionName}`,            links: bandPanel(basePath, PRICE_BANDS, priceCounts) },
-      { icon: "/images/ATM.png",      title: `Browse Motorhomes by Weight (ATM) in ${regionName}`,      links: bandPanel(basePath, ATM_BANDS, atmCounts) },
+      { icon: "/images/ATM.png",      title: `Browse Motorhomes by Weight (GVM) in ${regionName}`,      links: bandPanel(basePath, ATM_BANDS, atmCounts) },
       { icon: "/images/Sleeping.png", title: `Browse Motorhomes by Sleeping Capacity in ${regionName}`, links: bandPanel(basePath, SLEEP_BANDS, sleepCounts) },
     ];
 
@@ -321,12 +322,14 @@ export default function StateBrowseSection({ state, region, category, initialDat
             <div className="lsd-browse__divider-v" />
 
             <div className="lsd-browse__panel">
+              {/* Type section disabled — should not appear on the listing page.
               <h3 className="lsd-browse__panel-title">{`Browse Motorhomes by Type in ${regionName}`}</h3>
               <div className="lsd-browse__pills">
                 {categoryPanel.map((c) => (
                   <a key={c.text} href={c.href} className="lsd-browse__pill">{c.text}</a>
                 ))}
               </div>
+              */}
             </div>
           </div>
 
@@ -353,7 +356,7 @@ export default function StateBrowseSection({ state, region, category, initialDat
 
     const panels = [
       { icon: "/images/Budget.png",   title: `Browse ${label} Motorhomes by Price in ${stateName}`,            links: bandPanel(basePath, PRICE_BANDS, priceCounts) },
-      { icon: "/images/ATM.png",      title: `Browse ${label} Motorhomes by Weight (ATM) in ${stateName}`,      links: bandPanel(basePath, ATM_BANDS, atmCounts) },
+      { icon: "/images/ATM.png",      title: `Browse ${label} Motorhomes by Weight (GVM) in ${stateName}`,      links: bandPanel(basePath, ATM_BANDS, atmCounts) },
       { icon: "/images/Length.png",   title: `Browse ${label} Motorhomes by Size (Length) in ${stateName}`,     links: bandPanel(basePath, LENGTH_BANDS, lengthCounts) },
       { icon: "/images/Sleeping.png", title: `Browse ${label} Motorhomes by Sleeping Capacity in ${stateName}`, links: bandPanel(basePath, SLEEP_BANDS, sleepCounts) },
     ];
@@ -404,7 +407,7 @@ export default function StateBrowseSection({ state, region, category, initialDat
 
     const panels = [
       { icon: "/images/Budget.png",   title: `Browse ${label} Motorhomes by Price in ${regionName}`,            links: bandPanel(basePath, PRICE_BANDS, priceCounts) },
-      { icon: "/images/ATM.png",      title: `Browse ${label} Motorhomes by Weight (ATM) in ${regionName}`,      links: bandPanel(basePath, ATM_BANDS, atmCounts) },
+      { icon: "/images/ATM.png",      title: `Browse ${label} Motorhomes by Weight (GVM) in ${regionName}`,      links: bandPanel(basePath, ATM_BANDS, atmCounts) },
       { icon: "/images/Length.png",   title: `Browse ${label} Motorhomes by Size (Length) in ${regionName}`,     links: bandPanel(basePath, LENGTH_BANDS, lengthCounts) },
       { icon: "/images/Sleeping.png", title: `Browse ${label} Motorhomes by Sleeping Capacity in ${regionName}`, links: bandPanel(basePath, SLEEP_BANDS, sleepCounts) },
     ];
@@ -428,11 +431,11 @@ export default function StateBrowseSection({ state, region, category, initialDat
   }
 
   const regions = hasState ? buildAllRegionsForState(state!) : STATES;
-  const types   = hasState ? buildTypesForState(state!) : TYPES_NO_STATE;
+  // const types   = hasState ? buildTypesForState(state!) : TYPES_NO_STATE;
   const filters = hasState ? buildFiltersForState(state!) : FILTERS_NO_STATE;
 
   const leftTitle  = hasState ? `Browse Motorhomes by Region in ${stateLabel(state!)}` : "Browse Motorhomes by State";
-  const rightTitle = hasState ? `Browse Motorhomes by Type in ${stateLabel(state!)}`   : "Browse Motorhomes by Type";
+  // const rightTitle = hasState ? `Browse Motorhomes by Type in ${stateLabel(state!)}`   : "Browse Motorhomes by Type";
 
   return (
     <section className="lsd-browse">
@@ -453,12 +456,14 @@ export default function StateBrowseSection({ state, region, category, initialDat
           <div className="lsd-browse__divider-v" />
 
           <div className="lsd-browse__panel">
+            {/* Type section disabled — should not appear on the listing page.
             <h3 className="lsd-browse__panel-title">{rightTitle}</h3>
             <div className="lsd-browse__type-grid">
               {types.map((t) => (
                 <a key={t.label} href={t.href} className="lsd-browse__type-card">{t.label}</a>
               ))}
             </div>
+            */}
           </div>
         </div>
 
