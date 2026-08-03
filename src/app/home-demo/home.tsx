@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import dynamic from "next/dynamic";
 
 import { type HomeBlogPost } from "@/api/home/api";
+import { type BlogPost } from "@/api/blog/api";
 import { type TypeCounts } from "@/api/homeApi/typeCounts/api";
 import HomeFeatured from "./HomeFeatured";
 import HomeStateSection from "./HomeStateSection";
@@ -17,8 +18,6 @@ import "./main.css?=27";
 
 const BlogSection = dynamic(() => import("../blogSection"), { ssr: false });
 const PostRequirement = dynamic(() => import("../postRequirement"), { ssr: false });
-
-const SEED_MAX = 15;
 
 interface Item {
   label: string;
@@ -34,11 +33,28 @@ interface Item {
   region: string;
 }
 
+type FeaturedListing = {
+  id: number;
+  name: string;
+  slug: string;
+  condition: string;
+  location: string;
+  state?: string;
+  regular_price: string;
+  sale_price: string;
+  categories: string[];
+  image_format: string[];
+  seller_type?: string;
+  berths?: string | number;
+};
+
 interface Props {
   stateBands: Item[];
   requirements: any;
   homeblog: HomeBlogPost[];
   typeCounts?: TypeCounts;
+  featured: { all: FeaturedListing[]; new: FeaturedListing[]; used: FeaturedListing[] };
+  blogPosts: BlogPost[];
 }
 /* --------------------------------- Page ---------------------------------- */
 export default function HomePage({
@@ -47,21 +63,12 @@ export default function HomePage({
   requirements,
     homeblog,
   typeCounts,
+  featured,
+  blogPosts,
 
  }: Props) {
-   
-  const [adIndex, setAdIndex] = useState<number>(0);
-  // Fresh random seed (1-15) every page load/refresh — drives the backend's
-  // randomized featured pick so the same visitor sees a different set each visit.
-  // Starts null so the featured/slider fetches below wait for the real seed
-  // instead of firing once with a placeholder and again with the real value.
-  const [seed, setSeed] = useState<number | null>(null);
 
-  useEffect(() => {
-    const fresh = Math.floor(Math.random() * SEED_MAX) + 1;
-    console.log("[HomePage] seed:", fresh);
-    setSeed(fresh);
-  }, []);
+  const [adIndex, setAdIndex] = useState<number>(0);
 
   const { matchedBanners, isMobile, isLoading: bannerLoading } = useBanners();
   const sortedHome = [...matchedBanners]
@@ -235,7 +242,7 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
       
 
       {/* ── Featured Caravans ── */}
-      <HomeFeatured seed={seed ?? undefined} />
+      <HomeFeatured items={featured.all} />
 
       {/* ── Banner Ad ── */}
       <div className="hd-banner-ad pb-4">
@@ -278,9 +285,8 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
       <HomeListingSlider
         title="New Motorhomes for Sale"
         viewAllHref="/listings/new-condition/"
-        apiUrl="/api/home-featured/?type=new"
+        items={featured.new}
         badgeVariant="new"
-        seed={seed ?? undefined}
       />
 
       {/* ── Sell CTA Banner ── */}
@@ -304,9 +310,8 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
       <HomeListingSlider
         title="Used Motorhomes for Sale"
         viewAllHref="/listings/used-condition/"
-        apiUrl="/api/home-featured/?type=used"
+        items={featured.used}
         badgeVariant="used"
-        seed={seed ?? undefined}
       />
 
       {/* ── Browse by State ── */}
@@ -339,7 +344,7 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
 
 
       {/* Latest Blog Section */}
-      <BlogSection />
+      <BlogSection posts={blogPosts} />
     </div>
   );
 }

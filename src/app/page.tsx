@@ -7,6 +7,10 @@ import { fetchStateBasedCaravans } from "@/api/homeApi/state/api";
 import { fetchRequirements } from "@/api/postRquirements/api";
 import { fetchHomePage } from "@/api/home/api";
 import { fetchTypeCounts } from "@/api/homeApi/typeCounts/api";
+import { fetchFeaturedListings } from "@/api/homeApi/featured/api";
+import { fetchBlogs } from "@/api/blog/api";
+
+const SEED_MAX = 15;
 
 export const dynamic = "force-dynamic";
 
@@ -88,16 +92,25 @@ const homeJsonLd = {
 };
 
 export default async function Page() {
+  // Fresh random seed (1-15) per request — drives the backend's randomized
+  // featured pick so the same visitor sees a different set each visit.
+  // force-dynamic above means this re-runs server-side on every request.
+  const seed = Math.floor(Math.random() * SEED_MAX) + 1;
+
   const [
     stateBands,
     requirements,
     homeblog,
     typeCounts,
+    featured,
+    blog,
   ] = await Promise.all([
     fetchStateBasedCaravans(),
     fetchRequirements(),
     fetchHomePage(),
     fetchTypeCounts(),
+    fetchFeaturedListings(seed),
+    fetchBlogs(1),
   ]);
 
   return (
@@ -111,6 +124,8 @@ export default async function Page() {
         requirements={requirements}
         homeblog={homeblog?.latest_posts ?? []}
         typeCounts={typeCounts}
+        featured={featured}
+        blogPosts={blog.items}
       />
     </>
   );
