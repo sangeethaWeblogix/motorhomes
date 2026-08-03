@@ -131,8 +131,8 @@ export default function HomeFeatured({ seed }: Props) {
                       ) : (
                         <div className="hf-card__img-placeholder" />
                       )}
-                      {/* Category pill at bottom of image */}
-                      {type && <div className="hf-card__dealer-tag">{type}</div>}
+                      {/* Category pill at bottom of image — Hidden for now */}
+                      {/* {type && <div className="hf-card__dealer-tag">{type}</div>} */}
                     </div>
 
                     {/* Body */}
