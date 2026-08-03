@@ -268,7 +268,7 @@
      'listings', 'product', 'api', '_next', 'blog', 'author', 'caravan-manufacturers',
      '410', '404', '410-new', 'images', 'fonts', 'icons',
      'demo', 'product-detail-demo',
-     'sell-my-caravan',
+     'sell-my-motorhome',
    ]);
    const pathSegments = url.pathname.split('/').filter(Boolean);
    if (pathSegments.length >= 2 && !KNOWN_MULTI_SEGMENT.has(pathSegments[0])) {
