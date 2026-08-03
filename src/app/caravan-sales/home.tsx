@@ -186,7 +186,7 @@ export default function OffRoadCaravansPage({ stateBands }: Props) {
       <HomeBuyerGuide />
 
       {/* ── Latest Blogs ── */}
-      <BlogSection />
+      <BlogSection posts={[]} />
 
 
     </div>

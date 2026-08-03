@@ -74,11 +74,11 @@ export default function AboutUs() {
                 We’re here to ensure your experience with Marketplace Network is smooth
                 and satisfactory. Please email your queries to{' '}
                 <Link
-                  href="mailto:info@caravansforsale.com.au"
+                  href="mailto:enquiries@motorhomesforsale.com.au"
                   target="_blank"
                   rel="noreferrer noopener"
                 >
-                  info@caravansforsale.com.au
+                  enquiries@motorhomesforsale.com.au
                 </Link>
               </p>
 
