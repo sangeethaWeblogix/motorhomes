@@ -659,8 +659,8 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
               <h2 className="hbg-sell-title">Looking for More Motorhomes?</h2>
               <p className="hbg-sell-body">
                 This motorhome is just one of thousands of listings available on Australia&apos;s motorhome marketplace. Browse our complete range of{" "}
-                <a href="/" className="hbg-sell-link">motorhomes for sale</a>{" "}
-                across Australia, including new motorhomes, used motorhomes, off-road motorhomes, hybrid motorhomes and family motorhomes from trusted dealers and private sellers.
+                <a href="/listings/" className="hbg-sell-link">motorhomes for sale</a>{" "}
+                across Australia, including new and used motorhomes from trusted dealers and private sellers.
               </p>
             </div>
           
@@ -686,7 +686,7 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
                           ? <Image src={imgUrl} alt={rName} fill style={{ objectFit: "cover" }} unoptimized />
                           : <div className="pdd-similar__img-placeholder" />
                         }
-                        {rCat && <span className="pdd-similar__cat-chip">{rCat}</span>}
+                        {/* {rCat && <span className="pdd-similar__cat-chip">{rCat}</span>} */}
                       </div>
                       <div className="pdd-similar__body">
                         <p className="pdd-similar__name">{rName}</p>
@@ -739,7 +739,7 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
                         ? <Image src={imgUrl} alt={rName} fill style={{ objectFit: "cover" }} unoptimized />
                         : <div className="pdd-similar__img-placeholder" />
                       }
-                      {rCat && <span className="pdd-similar__cat-chip">{rCat}</span>}
+                      {/* {rCat && <span className="pdd-similar__cat-chip">{rCat}</span>} */}
                     </div>
                     <div className="pdd-similar__body">
                       <p className="pdd-similar__name">{rName}</p>
