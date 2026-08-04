@@ -119,6 +119,15 @@
   z-index: 1;
 }
 
+.cfs-modal-swiper--zoomed {
+  cursor: grab;
+  touch-action: none;
+}
+
+.cfs-modal-swiper--zoomed:active {
+  cursor: grabbing;
+}
+
 /* Nav arrows */
 .cfs-modal-swiper .swiper-button-prev,
 .cfs-modal-swiper .swiper-button-next {
@@ -145,6 +154,37 @@
   text-align: left;
   background: #000000;
   border-top: 1px solid #181818;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cfs-zoom-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.cfs-zoom-controls button {
+  background: #181818;
+  color: #ffffff;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.cfs-zoom-controls button:hover:not(:disabled) {
+  background: #2a2a2a;
+}
+
+.cfs-zoom-controls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 /* ── Right: form panel ───────────────────────────────────────────────── */
@@ -326,8 +366,24 @@
   padding: 0 4px;
 }
 .cfs-fs-close:hover { opacity: 1; }
-.cfs-fs-swiper {
+.cfs-fs-swiper-wrap {
   flex: 1;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.cfs-fs-swiper-wrap--zoomed {
+  cursor: grab;
+  touch-action: none;
+}
+
+.cfs-fs-swiper-wrap--zoomed:active {
+  cursor: grabbing;
+}
+
+.cfs-fs-swiper {
   width: 100%;
   height: 100%;
 }
@@ -367,6 +423,10 @@
   font-size: 14px;
   text-align: left;
   background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 /* ── Responsive ─────────────────────────────────────────────────────── */

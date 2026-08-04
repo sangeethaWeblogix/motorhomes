@@ -60,7 +60,79 @@ export default function CaravanDetailModal({
   const [okMsg, setOkMsg] = useState<string | null>(null);
   const [isFinanceQuoteChecked, setFinanceQuoteChecked] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(1);
+  const [zoom, setZoom] = useState(1);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const zoomWrapRef = useRef<HTMLDivElement>(null);
+  const dragState = useRef({ dragging: false, startX: 0, startY: 0, startPanX: 0, startPanY: 0 });
   const router = useRouter();
+
+  const ZOOM_MIN = 1;
+  const ZOOM_MAX = 3;
+  const ZOOM_STEP = 0.5;
+  const zoomIn = () => { setZoom((z) => Math.min(ZOOM_MAX, +(z + ZOOM_STEP).toFixed(2))); setPan({ x: 0, y: 0 }); };
+  const zoomOut = () => { setZoom((z) => Math.max(ZOOM_MIN, +(z - ZOOM_STEP).toFixed(2))); setPan({ x: 0, y: 0 }); };
+  const resetZoom = () => { setZoom(1); setPan({ x: 0, y: 0 }); };
+
+  const clampPan = (x: number, y: number) => {
+    const el = zoomWrapRef.current;
+    if (!el || zoom <= 1) return { x: 0, y: 0 };
+    const maxX = (el.offsetWidth * (zoom - 1)) / 2;
+    const maxY = (el.offsetHeight * (zoom - 1)) / 2;
+    return { x: Math.max(-maxX, Math.min(maxX, x)), y: Math.max(-maxY, Math.min(maxY, y)) };
+  };
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    if (zoom <= 1) return;
+    if ((e.target as HTMLElement).closest(".swiper-button-prev, .swiper-button-next, .cfs-expand-btn")) return;
+    e.preventDefault();
+    dragState.current = { dragging: true, startX: e.clientX, startY: e.clientY, startPanX: pan.x, startPanY: pan.y };
+    setIsDragging(true);
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+  };
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!dragState.current.dragging) return;
+    const dx = e.clientX - dragState.current.startX;
+    const dy = e.clientY - dragState.current.startY;
+    setPan(clampPan(dragState.current.startPanX + dx, dragState.current.startPanY + dy));
+  };
+  const onPointerUp = () => { dragState.current.dragging = false; setIsDragging(false); };
+
+  // ── Mobile fullscreen lightbox: separate zoom/pan state — different swiper
+  // instance and viewport size, so it can't share the main modal's state/ref.
+  const [fsZoom, setFsZoom] = useState(1);
+  const [fsPan, setFsPan] = useState({ x: 0, y: 0 });
+  const [fsIsDragging, setFsIsDragging] = useState(false);
+  const fsZoomWrapRef = useRef<HTMLDivElement>(null);
+  const fsDragState = useRef({ dragging: false, startX: 0, startY: 0, startPanX: 0, startPanY: 0 });
+
+  const fsZoomIn = () => { setFsZoom((z) => Math.min(ZOOM_MAX, +(z + ZOOM_STEP).toFixed(2))); setFsPan({ x: 0, y: 0 }); };
+  const fsZoomOut = () => { setFsZoom((z) => Math.max(ZOOM_MIN, +(z - ZOOM_STEP).toFixed(2))); setFsPan({ x: 0, y: 0 }); };
+  const fsResetZoom = () => { setFsZoom(1); setFsPan({ x: 0, y: 0 }); };
+
+  const clampFsPan = (x: number, y: number) => {
+    const el = fsZoomWrapRef.current;
+    if (!el || fsZoom <= 1) return { x: 0, y: 0 };
+    const maxX = (el.offsetWidth * (fsZoom - 1)) / 2;
+    const maxY = (el.offsetHeight * (fsZoom - 1)) / 2;
+    return { x: Math.max(-maxX, Math.min(maxX, x)), y: Math.max(-maxY, Math.min(maxY, y)) };
+  };
+
+  const fsOnPointerDown = (e: React.PointerEvent) => {
+    if (fsZoom <= 1) return;
+    if ((e.target as HTMLElement).closest(".swiper-button-prev, .swiper-button-next, .cfs-fs-close")) return;
+    e.preventDefault();
+    fsDragState.current = { dragging: true, startX: e.clientX, startY: e.clientY, startPanX: fsPan.x, startPanY: fsPan.y };
+    setFsIsDragging(true);
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+  };
+  const fsOnPointerMove = (e: React.PointerEvent) => {
+    if (!fsDragState.current.dragging) return;
+    const dx = e.clientX - fsDragState.current.startX;
+    const dy = e.clientY - fsDragState.current.startY;
+    setFsPan(clampFsPan(fsDragState.current.startPanX + dx, fsDragState.current.startPanY + dy));
+  };
+  const fsOnPointerUp = () => { fsDragState.current.dragging = false; setFsIsDragging(false); };
 
   // Validation regex
   const NAME_RE = /^[A-Za-z][A-Za-z\s'.-]{1,49}$/;
@@ -154,6 +226,26 @@ export default function CaravanDetailModal({
     return () => { document.body.style.overflow = ""; };
   }, []);
 
+  // allowTouchMove is only read by Swiper on init — toggle the live instance
+  // directly so dragging to pan a zoomed image doesn't also get read as a
+  // slide swipe (which would fire onSlideChange and reset the zoom/pan).
+  useEffect(() => {
+    if (swiperRef.current) {
+      swiperRef.current.allowTouchMove = zoom <= 1;
+    }
+  }, [zoom]);
+
+  useEffect(() => {
+    if (fsSwiperRef.current) {
+      fsSwiperRef.current.allowTouchMove = fsZoom <= 1;
+    }
+  }, [fsZoom]);
+
+  // Start every fullscreen visit unzoomed, regardless of what the main view was at.
+  useEffect(() => {
+    if (isFullscreen) fsResetZoom();
+  }, [isFullscreen]);
+
   useEffect(() => {
     if (isOpen && initialIndex > 0) {
       setTimeout(() => { swiperRef.current?.slideTo(initialIndex, 0); }, 50);
@@ -211,15 +303,23 @@ export default function CaravanDetailModal({
             <span className="cfs-modal-price">{getDisplayPrice()}</span>
           </div>
 
-          <div className="cfs-modal-swiper">
+          <div
+            className={`cfs-modal-swiper${zoom > 1 ? " cfs-modal-swiper--zoomed" : ""}`}
+            ref={zoomWrapRef}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerLeave={onPointerUp}
+          >
             <Swiper
               modules={[Navigation, EffectFade]}
               navigation
               effect="fade"
               fadeEffect={{ crossFade: true }}
               watchOverflow={false}
+              allowTouchMove={zoom <= 1}
               onSwiper={(swiper) => { swiperRef.current = swiper; }}
-              onSlideChange={(swiper) => setCurrentSlide(swiper.realIndex + 1)}
+              onSlideChange={(swiper) => { setCurrentSlide(swiper.realIndex + 1); resetZoom(); }}
               loop={images.length > 1}
             >
               {images.map((img, idx) => (
@@ -234,8 +334,14 @@ export default function CaravanDetailModal({
                     sizes="100vw"
                     unoptimized
                     priority={idx < 2}
+                    draggable={false}
                     onClick={() => { if (window.innerWidth < 768) setIsFullscreen(true); }}
-                    style={{ cursor: "pointer" }}
+                    style={{
+                      cursor: zoom > 1 ? undefined : "pointer",
+                      transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
+                      transformOrigin: "center center",
+                      transition: isDragging ? "none" : "transform 0.2s ease",
+                    }}
                   />
                 </SwiperSlide>
               ))}
@@ -250,9 +356,14 @@ export default function CaravanDetailModal({
             </button>
           </div>
 
-          {images.length > 1 && (
+          {images.length > 0 && (
             <div className="cfs-modal-counter">
-              {currentSlide} / {images.length}
+              <span>{images.length > 1 ? `${currentSlide} / ${images.length}` : ""}</span>
+              <div className="cfs-zoom-controls">
+                <button type="button" onClick={resetZoom} disabled={zoom <= ZOOM_MIN} aria-label="Reset zoom">Reset</button>
+                <button type="button" onClick={zoomOut} disabled={zoom <= ZOOM_MIN} aria-label="Zoom out">−</button>
+                <button type="button" onClick={zoomIn} disabled={zoom >= ZOOM_MAX} aria-label="Zoom in">+</button>
+              </div>
             </div>
           )}
         </div>
@@ -267,32 +378,52 @@ export default function CaravanDetailModal({
             >
               ×
             </button>
-            <Swiper
-              modules={[Navigation]}
-              navigation
-              initialSlide={currentSlide - 1}
-              onSwiper={(s) => { fsSwiperRef.current = s; }}
-              onSlideChange={(s) => setCurrentSlide(s.realIndex + 1)}
-              loop={images.length > 1}
-              className="cfs-fs-swiper"
+            <div
+              className={`cfs-fs-swiper-wrap${fsZoom > 1 ? " cfs-fs-swiper-wrap--zoomed" : ""}`}
+              ref={fsZoomWrapRef}
+              onPointerDown={fsOnPointerDown}
+              onPointerMove={fsOnPointerMove}
+              onPointerUp={fsOnPointerUp}
+              onPointerLeave={fsOnPointerUp}
             >
-              {images.map((img, idx) => (
-                <SwiperSlide key={`fs-${idx}`}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={img} alt="" aria-hidden="true" className="cfs-slide-blur-bg" />
-                  <Image
-                    src={img}
-                    alt={`Slide ${idx + 1}`}
-                    width={0}
-                    height={0}
-                    sizes="100vw"
-                    unoptimized
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+              <Swiper
+                modules={[Navigation]}
+                navigation
+                initialSlide={currentSlide - 1}
+                onSwiper={(s) => { fsSwiperRef.current = s; }}
+                onSlideChange={(s) => { setCurrentSlide(s.realIndex + 1); fsResetZoom(); }}
+                loop={images.length > 1}
+                className="cfs-fs-swiper"
+              >
+                {images.map((img, idx) => (
+                  <SwiperSlide key={`fs-${idx}`}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={img} alt="" aria-hidden="true" className="cfs-slide-blur-bg" />
+                    <Image
+                      src={img}
+                      alt={`Slide ${idx + 1}`}
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      unoptimized
+                      draggable={false}
+                      style={{
+                        transform: `translate(${fsPan.x}px, ${fsPan.y}px) scale(${fsZoom})`,
+                        transformOrigin: "center center",
+                        transition: fsIsDragging ? "none" : "transform 0.2s ease",
+                      }}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
             <div className="cfs-fs-counter">
-              {currentSlide} / {images.length}
+              <span>{currentSlide} / {images.length}</span>
+              <div className="cfs-zoom-controls">
+                <button type="button" onClick={fsResetZoom} disabled={fsZoom <= ZOOM_MIN} aria-label="Reset zoom">Reset</button>
+                <button type="button" onClick={fsZoomOut} disabled={fsZoom <= ZOOM_MIN} aria-label="Zoom out">−</button>
+                <button type="button" onClick={fsZoomIn} disabled={fsZoom >= ZOOM_MAX} aria-label="Zoom in">+</button>
+              </div>
             </div>
           </div>
         )}
