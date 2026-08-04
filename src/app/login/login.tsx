@@ -7,7 +7,7 @@ export default function LoginPage() {
       <div className="auth-container">
         <div className="auth-sidebar">
           <div>
-            <h2>Welcome to the CFS Network</h2>
+            <h2>Welcome to the MotorhomesForSale Network</h2>
           </div>
 
           <div
@@ -18,7 +18,7 @@ export default function LoginPage() {
             {/* Private Seller */}
             <a
               className="login-card private"
-              href="https://seller.caravansforsale.com.au/seller-login/"
+              href="https://seller.motorhomesforsale.com.au/seller-login/"
               aria-label="Private Seller Login"
             >
               <div className="login-icon" aria-hidden="true">
@@ -36,7 +36,7 @@ export default function LoginPage() {
             {/* Dealer */}
             <a
               className="login-card dealer"
-              href="https://seller.caravansforsale.com.au/subscriber-login/"
+              href="https://seller.motorhomesforsale.com.au/subscriber-login/"
               aria-label="Dealer Login"
             >
               <div className="login-icon" aria-hidden="true">
