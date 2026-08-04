@@ -1,5 +1,5 @@
 .header_form {
-  background: #333;
+  background: #000000;
   margin: -30px -55px 40px;
   padding: 35px;
 }
@@ -36,7 +36,7 @@
   color: #fff;
   font-size: 30px;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .required_txt {
@@ -119,7 +119,7 @@ p.terms_text {
   border-radius: 4px;
 }
 .bg-blue4 {
-  background-color: #000000;
+  background-color: #0099da;
 }
 
 .butn,
