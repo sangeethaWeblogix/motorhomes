@@ -94,6 +94,13 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   const [catCountLoading, setCatCountLoading] = useState(false);
   const cachedCategoryCountsRef = useRef<{name: string; slug: string; count: number}[]>([]);
 
+  // Unscoped baseline from the initial combined fetch — restored when a
+  // scoped filter is cleared instead of re-fetching the exact same unscoped
+  // breakdown the combined call already gave us.
+  const baselineCategoryCountsRef = useRef<{name: string; slug: string; count: number}[]>([]);
+  const baselineMakeCountsRef = useRef<{name: string; slug: string; count: number; model?: {name: string; slug: string; count: number}[]}[]>([]);
+  const baselineRegionCountsByStateRef = useRef<Record<string, {name: string; slug: string; count: number}[]>>({});
+
   // Single consolidated initial fetch — replaces the old separate
   // /api/product-list/ (categories + states) and /api/make-details/ (makes)
   // calls with one /api/params-count/?group_by=category,make,condition,state
@@ -110,13 +117,24 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
         if (data) {
           setCategories(data.category || []);
           setCategoryCounts(data.category || []);
+          baselineCategoryCountsRef.current = data.category || [];
           setMakes(data.make || []);
           setMakeCounts(data.make || []);
+          baselineMakeCountsRef.current = data.make || [];
           setStates((data.state || []).map((s: any) => ({
             name: s.name,
             value: s.slug,
             regions: (s.region || []).map((r: any) => ({ name: r.name, value: r.slug })),
           })));
+          // Seed regionCountsByState from this same combined response (each
+          // state entry already nests its region breakdown with counts) so the
+          // no-filter initial page load doesn't need its own group_by=state call.
+          const regionMap: Record<string, { name: string; slug: string; count: number }[]> = {};
+          (data.state || []).forEach((s: any) => {
+            if (s.slug) regionMap[s.slug] = (s.region || []).map((r: any) => ({ name: r.name, slug: r.slug, count: r.count }));
+          });
+          setRegionCountsByState(regionMap);
+          baselineRegionCountsByStateRef.current = regionMap;
         }
         setCatLoading(false);
       })
@@ -129,6 +147,21 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   // model, state, etc. — but not category itself) so the Caravan Type list only
   // shows types that actually have matching results under the current filters.
   useEffect(() => {
+    // No scoping filter active — the initial combined group_by=category,make,
+    // condition,state call already fetched this exact (unscoped) category
+    // breakdown, so skip the extra round trip and keep what that call set.
+    const hasScope =
+      currentFilters.make || currentFilters.model || currentFilters.condition || currentFilters.state ||
+      currentFilters.region || currentFilters.suburb || currentFilters.pincode || currentFilters.from_price ||
+      currentFilters.to_price || currentFilters.minKg || currentFilters.maxKg || currentFilters.acustom_fromyears ||
+      currentFilters.acustom_toyears || currentFilters.from_length || currentFilters.to_length ||
+      currentFilters.from_sleep || currentFilters.to_sleep || currentFilters.keyword;
+    if (!hasScope) {
+      setCategoryCounts(baselineCategoryCountsRef.current);
+      setCatCountLoading(false);
+      return;
+    }
+
     const controller = new AbortController();
     setCatCountLoading(true);
     const params = new URLSearchParams();
@@ -210,6 +243,19 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   // re-fetched whenever any other active filter changes so the make list
   // narrows to what's actually available (not just the full static make list).
   useEffect(() => {
+    // No scoping filter active — the initial combined call already fetched
+    // this exact (unscoped) make breakdown, so reuse it instead of refetching.
+    const hasScope =
+      currentFilters.category || currentFilters.condition || currentFilters.state || currentFilters.region ||
+      currentFilters.suburb || currentFilters.pincode || currentFilters.from_price || currentFilters.to_price ||
+      currentFilters.minKg || currentFilters.maxKg || currentFilters.acustom_fromyears || currentFilters.acustom_toyears ||
+      currentFilters.from_length || currentFilters.to_length || currentFilters.from_sleep || currentFilters.to_sleep ||
+      currentFilters.keyword;
+    if (!hasScope) {
+      setMakeCounts(baselineMakeCountsRef.current);
+      return;
+    }
+
     const controller = new AbortController();
     const params = buildMakeCountParams(currentFilters);
     fetch(`/api/params-count/?${params.toString()}`, { signal: controller.signal })
@@ -316,6 +362,12 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   // once instead of needing a fetch per state.
   useEffect(() => {
     if (currentFilters.make) return;
+    // No category/condition scoping — the initial combined fetch already
+    // seeded regionCountsByState with this exact (unscoped) breakdown.
+    if (!currentFilters.category && !currentFilters.condition) {
+      setRegionCountsByState(baselineRegionCountsByStateRef.current);
+      return;
+    }
     const controller = new AbortController();
     const params = new URLSearchParams({ group_by: "state" });
     if (currentFilters.category)  params.set("category", currentFilters.category);
@@ -401,6 +453,11 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     VICTORIA:"VIC","NEW SOUTH WALES":"NSW",QUEENSLAND:"QLD","SOUTH AUSTRALIA":"SA",
     "WESTERN AUSTRALIA":"WA",TASMANIA:"TAS","NORTHERN TERRITORY":"NT","AUSTRALIAN CAPITAL TERRITORY":"ACT",
   };
+
+  // State names from the API come hyphenated (e.g. "New-south-wales") — normalize
+  // to spaces before uppercasing so multi-word states actually match AUS_ABBR
+  // instead of falling back to a truncated, meaningless abbreviation.
+  const abbrFor = (name: string) => AUS_ABBR[name.replace(/-/g, " ").toUpperCase()] ?? name.replace(/-/g, " ").toUpperCase();
 
   const formatLocationInput = (s: string) =>
     s.replace(/_/g," ").replace(/\s*-\s*/g,"  ").replace(/\s{3,}/g,"  ").trim()
@@ -522,7 +579,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     else if (f.region) { setTempRegion(null); setTempRegionRaw(f.region); }
     else { setTempRegion(null); setTempRegionRaw(null); }
     if (f.suburb && f.state) {
-      const abbr = AUS_ABBR[f.state.toUpperCase()] ?? f.state.toUpperCase();
+      const abbr = abbrFor(f.state);
       const shortAddr = [toTitleCase(f.suburb), abbr, f.pincode].filter(Boolean).join(" ");
       const fullAddr  = [toTitleCase(f.suburb), f.state.replace(/\b\w/g, c => c.toUpperCase()), f.pincode].filter(Boolean).join(" ");
       const stateSlug  = f.state.toLowerCase().replace(/\s+/g,"-") + "-state";
@@ -566,7 +623,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     setTempLengthTo(currentFilters.to_length ? Number(currentFilters.to_length) : null);
     setTempKeyword(currentFilters.keyword ?? "");
     if (currentFilters.suburb && currentFilters.state) {
-      const abbr = AUS_ABBR[currentFilters.state.toUpperCase()] ?? currentFilters.state.toUpperCase();
+      const abbr = abbrFor(currentFilters.state);
       const shortAddr = [toTitleCase(currentFilters.suburb), abbr, currentFilters.pincode].filter(Boolean).join(" ");
       const fullAddr  = [toTitleCase(currentFilters.suburb), currentFilters.state.replace(/\b\w/g, c => c.toUpperCase()), currentFilters.pincode].filter(Boolean).join(" ");
       const stateSlug  = currentFilters.state.toLowerCase().replace(/\s+/g,"-") + "-state";
@@ -754,13 +811,13 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
             )}
             {currentFilters.state && (
               <span className={`active-chip${removingChip === "state" ? " chip-removing" : ""}`}>
-                <span className="chip-label" onClick={handleLocationOpen}>{toTitleCase(currentFilters.state)}</span>
+                <span className="chip-label" onClick={handleLocationOpen}>{toTitleCase(currentFilters.state.replace(/-/g, " "))}</span>
                 <span className="chip-close" onClick={() => removeChip("state", { state:undefined, region:undefined, suburb:undefined, pincode:undefined, radius_kms:undefined })}>×</span>
               </span>
             )}
             {currentFilters.region && (
               <span className={`active-chip${removingChip === "region" ? " chip-removing" : ""}`}>
-                <span className="chip-label" onClick={handleLocationOpen}>{toTitleCase(currentFilters.region)}</span>
+                <span className="chip-label" onClick={handleLocationOpen}>{toTitleCase(currentFilters.region.replace(/-/g, " "))}</span>
                 <span className="chip-close" onClick={() => removeChip("region", { region:undefined, suburb:undefined, pincode:undefined, radius_kms:undefined })}>×</span>
               </span>
             )}
@@ -851,7 +908,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                       <option value="">Any</option>
                       {visibleStates.map(s => (
                         <option key={s.value} value={s.name}>
-                          {AUS_ABBR[s.name.toUpperCase()] ?? s.name}
+                          {abbrFor(s.name)}
                         </option>
                       ))}
                     </select>
@@ -1327,7 +1384,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                   {/* State list */}
                   <ul className="loc-state-list" style={{ display: tempSuburbSuggestion ? "none" : undefined }}>
                     {visibleStates.map(s => {
-                      const abbr = AUS_ABBR[s.name.toUpperCase()] ?? s.name.substring(0,3).toUpperCase();
+                      const abbr = abbrFor(s.name);
                       const isSelected = tempState?.toLowerCase() === s.name.toLowerCase();
                       return (
                         <li key={s.name} className={`loc-state-item${isSelected ? " selected" : ""}`} onClick={() => { setTempState(isSelected ? null : s.name); setTempRegion(null); }}>

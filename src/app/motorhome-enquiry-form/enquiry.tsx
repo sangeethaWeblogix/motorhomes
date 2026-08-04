@@ -130,7 +130,7 @@ export default function ContactSection() {
       );
 
       const res = await fetch(
-        "https://admin.motorhomesforsale.com.au/wp-json/contact-form-7/v1/contact-forms/155838/feedback",
+        "https://admin.motorhomesforsale.com.au/wp-json/contact-form-7/v1/contact-forms/71/feedback",
         { method: "POST", body: form }
       );
 
@@ -176,7 +176,7 @@ export default function ContactSection() {
                         Exclusive Offers From Select Quality Motorhome
                         Manufacturers
                       </h4>
-                      <Image
+                      {/* <Image
                         className="hidden-xs"
                         src="/images/Blog_bottom_banner.webp"
                         alt=""
@@ -185,8 +185,9 @@ export default function ContactSection() {
                         height={0}
                         sizes="100vw"
                         style={{ width: "auto", height: "auto" }}
-                      />
+                      /> */}
                     </div>
+                    
                     <p className="required_txt">
                       Fill out the form below, and we&apos;ll send you exclusive
                       deals for the best motorhomes in the market.
@@ -273,7 +274,7 @@ export default function ContactSection() {
                       </div>
 
                       {/* Caravan Type */}
-                      <div className="col-lg-6">
+                      {/* <div className="col-lg-6">
                         <div className="form-group mb-20">
                           <select
                             name="caravan-type"
@@ -298,7 +299,7 @@ export default function ContactSection() {
                             </small>
                           )}
                         </div>
-                      </div>
+                      </div> */}
 
                       {/* Condition */}
                       <div className="col-lg-6">
@@ -324,7 +325,7 @@ export default function ContactSection() {
                       </div>
 
                       {/* Budget */}
-                      <div className="col-lg-12">
+                      <div className="col-lg-6">
                         <div className="form-group mb-20">
                           <input
                             type="text"
