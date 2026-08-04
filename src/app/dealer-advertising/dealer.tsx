@@ -38,7 +38,7 @@ const DealerLandingPage = () => {
                 </p>
 
                 <a
-                  href="https://seller.caravansforsale.com.au/dealer-subscription/"
+                  href="https://seller.motorhomesforsale.com.au/dealer-subscription/"
                   className="btn white_btn"
                 >
                   Start Dealer Signup
@@ -63,7 +63,7 @@ const DealerLandingPage = () => {
                     </h2>
 
                     <p className="mb-3">
-                      Your stock deserves visibility without per-lead fees, CFS
+                      Your stock deserves visibility without per-lead fees. MotorhomesForSale.com.au
                       connects your dealership with buyers actively searching
                       for their next motorhome—so your inventory gets seen by the
                       right audience.
@@ -156,7 +156,7 @@ const DealerLandingPage = () => {
             <div className="col-12">
               <div className="comparison">
                 <h2 className="text-center">
-                  <span>Why Motorhome Dealers </span> Choose CFS
+                  <span>Why Motorhome Dealers </span> Choose MotorhomesForSale
                 </h2>
 
                 <div className="table-responsive">
@@ -164,7 +164,7 @@ const DealerLandingPage = () => {
                     <thead>
                       <tr>
                         <th className="text-start">Comparison Table</th>
-                        <th>CFS</th>
+                        <th>MotorhomesForSale</th>
                         <th>Other Marketplaces</th>
                       </tr>
                     </thead>
@@ -225,12 +225,12 @@ const DealerLandingPage = () => {
           <div className="row">
             <div className="col-lg-7 images-box">
               <img
-                src="/images/your-caravan-desktop.jpg"
+                src="/images/your-caravan-desktop-seller-2.jpg"
                 className="img-fluid d-none d-lg-block desktop-img"
                 alt="Motorhome For Sale Desktop"
               />
               <img
-                src="/images/your-caravan-mobile.png"
+                src="/images/your-caravan-mobile-2.jpg"
                 className="img-fluid d-block d-lg-none mobile-img"
                 alt="Motorhome For Sale Mobile"
               />
@@ -254,7 +254,7 @@ const DealerLandingPage = () => {
                   </ul>
 
                   <a
-                    href="https://seller.caravansforsale.com.au/dealer-subscription/"
+                    href="https://seller.motorhomesforsale.com.au/dealer-subscription/"
                     className="btn white_btn"
                   >
                     Start Dealer Signup
@@ -264,7 +264,7 @@ const DealerLandingPage = () => {
             </div>
           </div>
           {/* FAQ Section */}
-          <h2 className="mb-3">FAQ</h2>
+          <h2 className="faq-section-title">FAQ</h2>
 
           <div className="accordion" id="accordionFaq">
             {/* FAQ 1 */}

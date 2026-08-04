@@ -162,7 +162,7 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
             <span className="hd-banner__divider-line" />
           </div>
           <p className="hd-banner__subtitle">
-            Browse thousands of new and used motorhomes for sale across Australia from trusted dealers and private sellers. Compare off-road, family, touring, luxury and pop-top motorhomes to find the right van for your next adventure.
+            Browse thousands of new and used motorhomes for sale across Australia from trusted dealers and private sellers. Compare prices, layouts, features and specifications to find the right motorhome for your next adventure.
           </p>
           <div className="hd-banner__trust">
             <div className="hd-banner__trust-item">

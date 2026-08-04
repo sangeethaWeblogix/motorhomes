@@ -85,10 +85,10 @@ const sellPageJsonLd = {
         },
         {
           "@type": "Question",
-          "name": "Do I pay commission when my motorhome sells?",
+          "name": "What photos should I upload when selling my motorhome?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. MotorhomesForSale.com.au does not charge commission when your motorhome sells. You pay the one-time listing fee and keep 100% of the agreed sale price.",
+            "text": "Upload clear photos of the outside, inside, kitchen, beds, seating area, bathroom, tyres, drawbar and any included accessories. Good photos help buyers understand the condition of your motorhome and can increase enquiries.",
           },
         },
         {
@@ -105,6 +105,22 @@ const sellPageJsonLd = {
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes, but you should take normal precautions. Speak with buyers directly, meet in a safe location, confirm payment has cleared before handover and complete any required transfer paperwork for your state or territory.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "Do I pay commission when my motorhome sells?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. MotorhomesForSale.com.au does not charge commission when your motorhome sells. You pay the one-time listing fee and keep 100% of the agreed sale price.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "Can I remove my listing after my motorhome is sold?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Once your motorhome has sold, you can remove your listing so buyers know it is no longer available.",
           },
         },
       ],

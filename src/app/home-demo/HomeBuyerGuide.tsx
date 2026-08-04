@@ -36,10 +36,10 @@ export default function HomeBuyerGuide() {
               </h2>
               
               <p className="hbg-body">
-                MotorhomesForSale.com.au helps Australian buyers compare a wide range of motorhomes for sale in one convenient place. Browse affordable used motorhomes, premium new models and options designed for touring, family holidays or off-road adventures. Compare important features such as layout, ATM, tare weight, sleeping capacity, length, suspension, condition, service history and towing requirements to narrow down your choices before contacting a seller or visiting a dealership. Our easy-to-use platform makes researching and comparing motorhomes simple.
+                MotorhomesForSale.com.au helps Australian buyers browse and compare new and used motorhomes in one convenient place. Review prices, layouts, features and key specifications before contacting a private seller or visiting a dealership. Compare important details such as year, make, model, sleeping capacity, length, fuel type, transmission, tare weight, GVM and payload capacity to narrow down the options that suit your needs.
               </p>
               <p className="hbg-body">
-                Explore popular motorhome types including off-road, hybrid, pop top, touring and luxury motorhomes, while also comparing trusted motorhome brands and reputable dealers across Australia. Check whether dealers offer warranty support, finance options, trade-ins, after-sales service and detailed vehicle information before making your decision. Use our buyers guide and convenient search filters to browse listings by state, location, budget, size, weight and berth, helping you find the right motorhome for your lifestyle and travel plans.
+                Use the search filters to browse available motorhomes by state, location, price, condition, make, sleeping capacity and length. You can then compare standard features, optional upgrades, warranty coverage, finance options and trade-in availability before making your decision. When buying a used motorhome, also check its service history, registration status, overall condition and maintenance records. Our platform makes it easier to research available listings and find the right motorhome for your budget, travel plans and lifestyle.
               </p>
               
             </div>
@@ -91,7 +91,7 @@ export default function HomeBuyerGuide() {
                 </div>
                 <h3 className="hbg-why-card-title">Dealers &amp; Private Sellers</h3>
                 <div className="hbg-why-card-sep" />
-                <p className="hbg-why-card-desc">Choose from a wide range of listings from trusted dealers and private sellers.</p>
+                <p className="hbg-why-card-desc">Browse new and used motorhomes for sale from trusted dealers and private sellers across Australia.</p>
               </div>
 
               <div className="hbg-why-card">
@@ -118,7 +118,7 @@ export default function HomeBuyerGuide() {
                 </div>
                 <h3 className="hbg-why-card-title">Easy to Compare</h3>
                 <div className="hbg-why-card-sep" />
-                <p className="hbg-why-card-desc">Compare prices, features and seller details side by side to find the best match.</p>
+                <p className="hbg-why-card-desc">Compare motorhome prices, layouts and specifications side by side to find the right fit.</p>
               </div>
 
             </div>
