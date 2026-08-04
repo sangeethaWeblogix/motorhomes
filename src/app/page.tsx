@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s ",
   },
   description:
-    "Browse motorhomes for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
+    "Browse new and used motorhomes for sale across Australia. Compare prices, layouts and key specifications from trusted dealers and private sellers.",
   icons: { icon: "/favicon.ico" },
   robots: "index, follow",
   verification: {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Motorhomes For Sale – New & Used Motorhome Marketplace in Australia",
-    description: "Browse motorhomes for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
+    description: "Browse new and used motorhomes for sale across Australia. Compare prices, layouts and key specifications from trusted dealers and private sellers.",
     url: "https://www.motorhomes.vercel.app",
     siteName: "Motorhomes for Sale",
     images: [
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Motorhomes For Sale – New & Used Motorhome Marketplace in Australia",
-    description: "Browse motorhomes for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.",
+    description: "Browse new and used motorhomes for sale across Australia. Compare prices, layouts and key specifications from trusted dealers and private sellers.",
   },
 };
 

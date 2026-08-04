@@ -6,19 +6,6 @@ import React, { useState } from "react";
 import { StateData } from "../sell-my-caravan-region/states-data";
 import { getRegionsByState } from "../sell-my-caravan-region/regions-data";
 
-const CARAVAN_TYPES = [
-  { label: "Off Road Motorhomes", img: "/images/off-road.webp", href: "/listings/off-road-category/" },
-  { label: "Family Motorhomes", img: "/images/family.webp", href: "/listings/family-caravans-category/" },
-  { label: "Pop Top Motorhomes", img: "/images/pop-top.webp", href: "/listings/pop-top-category/" },
-  { label: "Hybrid Motorhomes", img: "/images/hybrid.webp", href: "/listings/hybrid-caravans-category/" },
-  { label: "Luxury Motorhomes", img: "/images/luxury.webp", href: "/listings/luxury-caravans-category/" },
-  { label: "Couples Motorhomes", img: "/images/touring.webp", href: "/listings/couples-caravans-category/" },
-  { label: "Touring Motorhomes", img: "/images/touring.webp", href: "/listings/touring-caravans-category/" },
-  { label: "Bunk Motorhomes", img: "/images/family.webp", href: "/listings/bunk-caravans-category/" },
-  { label: "Small Motorhomes", img: "/images/pop-top.webp", href: "/listings/small-caravans-category/" },
-  { label: "Used Motorhomes", img: "/images/off-road.webp", href: "/listings/used-condition/" },
-];
-
 interface StateSellerProps {
   state: StateData;
 }
@@ -153,7 +140,7 @@ export default function StateSeller({ state }: StateSellerProps) {
             </div>
 
             {/* CTA */}
-            <a href="https://seller.caravansforsale.com.au/seller-signup/" className="demo-hero__cta">
+            <a href="https://seller.motorhomesforsale.com.au/seller-signup/" className="demo-hero__cta">
               List Your Motorhome Now <i className="fa-solid fa-arrow-right" />
             </a>
           </div>{/* end demo-price-wrapper */}
@@ -245,7 +232,7 @@ export default function StateSeller({ state }: StateSellerProps) {
                     </li>
                   ))}
                 </ul>
-                <a href="https://seller.caravansforsale.com.au/seller-signup/" className="demo-reach-card__cta">
+                <a href="https://seller.motorhomesforsale.com.au/seller-signup/" className="demo-reach-card__cta">
                   List Your Motorhome Now <i className="fa-solid fa-arrow-right" />
                 </a>
               </div>
@@ -371,23 +358,6 @@ export default function StateSeller({ state }: StateSellerProps) {
         </div>
       </section>
 
-      {/* ── Caravan types ── */}
-      <section className="demo-types-section">
-        <div className="container">
-          <h2 className="demo-section-title">Sell Any Type of Motorhome</h2>
-          <div className="demo-types-grid">
-            {CARAVAN_TYPES.map((t) => (
-              <div key={t.label} className="demo-type-item">
-                <div className="demo-type-icon">
-                  <img src={t.img} alt={t.label} width={80} height={80} />
-                </div>
-                <span className="demo-type-label">{t.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── Why buyers section ── */}
       <section className="demo-why-section">
         <div className="container">
@@ -453,7 +423,7 @@ export default function StateSeller({ state }: StateSellerProps) {
             Start selling your motorhome in {stateLabel} today for just{" "}
             <strong>$49 (Inc. GST)</strong> — live until sold.
           </p>
-          <a href="https://seller.caravansforsale.com.au/seller-signup/" className="btn white_btn">
+          <a href="https://seller.motorhomesforsale.com.au/seller-signup/" className="btn white_btn">
             List Your Motorhome Now
           </a>
           <p className="demo-cta-strip__alt-link">

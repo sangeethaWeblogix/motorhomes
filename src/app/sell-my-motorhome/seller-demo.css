@@ -1748,6 +1748,18 @@
   padding: 14px 36px;
 }
 
+.demo-cta-strip__alt-link {
+  margin-top: 24px;
+  color: #000000;
+  font-size: 15px;
+}
+
+.demo-cta-strip__alt-link a {
+  color: #1aa8de;
+  
+  text-decoration: underline;
+}
+
 .white_btn {
     border: 1px solid #1aa8de;
     color: #fff;

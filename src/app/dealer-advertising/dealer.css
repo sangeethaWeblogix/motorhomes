@@ -231,7 +231,7 @@
   text-align: center;
 }
 .comparison th {
-  background: rgb(245 131 51 / 9%);
+  background: #e3f4fb;
   font-weight: 600;
   border: 1px solid #e3f4fb;
   color: #000000;
@@ -374,17 +374,54 @@
   margin-bottom: 5px;
 }
 
+.faq-section-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 32px;
+}
+
+.accordion {
+  max-width: 1024px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .accordion .card {
-  margin-bottom: 10px;
-  box-shadow: 5px 5px 3px #62626212;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  margin-bottom: 0;
+  overflow: hidden;
+  box-shadow: none;
+  transition: box-shadow 0.18s, border-color 0.18s;
+}
+
+.accordion .card:has(.collapse.show) {
+  border-color: #1aa8de;
+  box-shadow: 0 4px 20px rgba(26, 168, 222, .12);
+}
+
+.accordion .card-header {
+  background: none;
+  border: none;
+  padding: 0;
 }
 
 .accordion .card-body {
-  border-bottom: 1px solid #00000024;
+  border-bottom: none;
+  border-top: 1px solid #f5f5f5;
+  padding: 18px 24px 22px;
 }
 
 .accordion .card-body p {
-  color: #000000;
+  color: #555;
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
 }
 
 .accordion .btn-link {
@@ -397,14 +434,19 @@
 .accordion .btn {
     letter-spacing: 0;
     background-color: #fff;
-    border-bottom: 1px solid #0000001f;
+    border-bottom: none;
     justify-content: space-between;
     width: 100%;
-    padding: 10px;
+    padding: 12px 18px !important;
     font-size: 17px;
-    font-weight: 500;
+    font-weight: 600;
+    line-height: 1.45;
     display: flex;
     color: #000 !important;
+}
+
+.accordion .card:has(.collapse.show) .btn {
+  color: #1aa8de !important;
 }
 
 /* ICON WRAPPER */
@@ -413,10 +455,23 @@
   right: 15px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 18px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f5f7fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  font-size: 13px;
+  flex-shrink: 0;
+  transition: background 0.18s, color 0.18s;
 }
 
-
+.accordion .card:has(.collapse.show) .accordion-icon {
+  background: #e3f4fb;
+  color: #1aa8de;
+}
 
 .accordion .btn-link:not(.collapsed) .fa-angle-up {
   display: inline-block;

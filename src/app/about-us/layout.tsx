@@ -9,7 +9,7 @@ import { ReactNode } from "react";
      template: "%s ",
    },
    description:
-     "Motorhome Marketplace is your go-to platform for finding the perfect motorhome from the right manufacturer or dealer @ the right price.",
+     "Motorhome Marketplace is your go-to platform for finding the perfect motorhome from the right manufacturer or dealer at the right price.",
    icons: { icon: "/favicon.ico" },
    robots: "index, follow",
    verification: {

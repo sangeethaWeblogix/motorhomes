@@ -211,10 +211,10 @@ export function buildRegionJsonLd(region: RegionInfo) {
           },
           {
             "@type": "Question",
-            name: "Do I pay commission when my motorhome sells?",
+            name: "What photos should I upload when selling my motorhome?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "No. MotorhomesForSale.com.au does not charge commission when your motorhome sells. You pay the one-time listing fee and keep 100% of the agreed sale price.",
+              text: "Upload clear photos of the outside, inside, kitchen, beds, seating area, bathroom, tyres, drawbar and any included accessories. Good photos help buyers understand the condition of your motorhome and can increase enquiries.",
             },
           },
           {
@@ -231,6 +231,14 @@ export function buildRegionJsonLd(region: RegionInfo) {
             acceptedAnswer: {
               "@type": "Answer",
               text: `Yes, but you should take normal precautions. Speak with buyers directly, meet in a safe location, confirm payment has cleared before handover and complete any required transfer paperwork for ${region.state.label}`,
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Do I pay commission when my motorhome sells?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "No. MotorhomesForSale.com.au does not charge commission when your motorhome sells. You pay the one-time listing fee and keep 100% of the agreed sale price.",
             },
           },
           {

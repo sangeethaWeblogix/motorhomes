@@ -92,11 +92,11 @@ useEffect(() => {
                 <br />– Post Your Requirements
               </h3>
               <p>
-                Tell us what you&apos;re looking for and we&apos;ll match you
-                with the right motorhome for sale, from trusted dealers at a
-                fair price. Make sure your budget and expectations are
-                realistic to help us deliver the best possible outcome. See
-                some examples of what other motorhome buyers are looking for.
+                Tell us your preferred budget, location, layout and must-have
+                features, and we&apos;ll match you with the right motorhome
+                for sale. Providing clear and realistic details helps us find
+                options that better suit your needs. See examples of what
+                other motorhome buyers are currently looking for.
               </p>
               <div className="final_post_btn">
                 <a href="/motorhome-enquiry-form/" className="btn">

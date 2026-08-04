@@ -98,7 +98,6 @@ export default function FooterNav() {
         <li>
           <a href="/listings/">For Sale</a>
         </li>
-        {/* Hidden for now — Sell dropdown
         <li>
           <button
             className="sell-footer-btn"
@@ -123,7 +122,6 @@ export default function FooterNav() {
             </svg>
           </button>
         </li>
-        */}
         <li>
           <a href="/blog/">Blog</a>
         </li>
@@ -153,8 +151,7 @@ export default function FooterNav() {
       </ul>
 
       {/* Panel sits outside the <ul> — opens below the nav row without pushing any links */}
-      {/* Hidden for now — Sell dropdown panel (trigger button above is also hidden) */}
-      {false && open && (
+      {open && (
         <div className="sell-panel" id="sell-links-panel">
           {/* Header */}
           <div className="sell-panel__header">

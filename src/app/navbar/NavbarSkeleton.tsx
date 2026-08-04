@@ -23,14 +23,12 @@ export default function NavbarSkeleton() {
           </button>
           <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul className="navbar-nav mb-2 mb-lg-0">
-              {/* Hidden for now — Sell My Motorhome / Dealer Advertising
               <li className="nav-item">
                 <a className="nav-link" href="/sell-my-motorhome/">Sell My Motorhome</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/dealer-advertising/">Dealer Advertising</a>
               </li>
-              */}
               <li className="nav-item login">
                 <a className="nav-link" href="/login/">
                   <i className="bi bi-person-fill"></i> Login

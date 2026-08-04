@@ -79,19 +79,7 @@ export default function HomePage({
   const activeBanner = isMobile ? (homeMbBanner ?? homeDkBanner) : (homeDkBanner ?? homeMbBanner);
   const activeBanners = useMemo(() => activeBanner ? [activeBanner] : [], [activeBanner]);
 
-  const bannerClickUrl = useMemo(() => {
-    if (!activeBanner?.target_url) return "#";
-    try {
-      const url = new URL(activeBanner.target_url);
-      url.searchParams.set("utm_source", "caravansforsale");
-      url.searchParams.set("utm_medium", "display");
-      url.searchParams.set("utm_campaign", `${activeBanner.placement}_banner`);
-      url.searchParams.set("utm_content", `banner_${activeBanner.id}`);
-      return url.toString();
-    } catch {
-      return activeBanner.target_url;
-    }
-  }, [activeBanner]);
+  const bannerClickUrl = activeBanner?.target_url ?? "#";
   const { bannerRefs, trackClick } = useBannerTracking(activeBanners);
 const [clientIp, setClientIp] = useState<string>("");
 async function fetchClientIp(): Promise<string> {
@@ -113,13 +101,6 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
 
   const clickId = "ck_" + Math.random().toString(36).slice(2) + Date.now().toString(36);
 
-  let finalUrl = bannerClickUrl;
-  try {
-    const u = new URL(bannerClickUrl);
-    u.searchParams.set("cfs_click_id", clickId);
-    finalUrl = u.toString();
-  } catch { /* fallback to base url */ }
-
   const body = JSON.stringify({
     banner_id: Number(activeBanner.id),
     event_type: "click",
@@ -134,7 +115,7 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
   fetch(trackUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body, keepalive: true })
     .catch((err) => console.error("[home] banner click tracking failed:", err));
 
-  window.open(finalUrl, "_blank", "noopener,noreferrer");
+  window.open(bannerClickUrl, "_blank", "noopener,noreferrer");
 }, [activeBanner, bannerClickUrl, clientIp]);   // 👈 clientIp dependency-la add pannunga
 
   const bannerSectionRef = useRef<HTMLDivElement | null>(null);
@@ -181,7 +162,7 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
             <span className="hd-banner__divider-line" />
           </div>
           <p className="hd-banner__subtitle">
-            Browse thousands of new and used motorhomes for sale across Australia from trusted dealers and private sellers. Compare off-road, family, touring, luxury and pop-top motorhomes to find the right van for your next adventure.
+            Browse thousands of new and used motorhomes for sale across Australia from trusted dealers and private sellers. Compare prices, layouts, features and specifications to find the right motorhome for your next adventure.
           </p>
           <div className="hd-banner__trust">
             <div className="hd-banner__trust-item">
@@ -270,11 +251,11 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
               </picture>
             </a>
           ) : (
-            <a href="https://www.aussiefivestarcaravans.com.au/" target="_blank" rel="noopener noreferrer" className="hd-banner-ad__inner">
+            <a href="/listings/" target="_blank" rel="noopener noreferrer" className="hd-banner-ad__inner">
               <span className="hd-banner-ad__label">Advertisement</span>
               <picture>
-                <source media="(max-width: 767px)" srcSet="/images/aussiefivestar-1157x598.jpg" />
-                <img src="/images/aussiefivestar-2000x517.jpg" alt="Aussie Fivestar Caravans" className="hd-banner-ad__img" />
+                <source media="(max-width: 767px)" srcSet="/images/1157x598-mfs.jpg" />
+                <img src="/images/2000x517-mfs.jpg" alt="Motohomes For Sale" className="hd-banner-ad__img" />
               </picture>
             </a>
           )}
@@ -343,8 +324,9 @@ const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) =
         </section> */}
 
 
-      {/* Latest Blog Section */}
+      {/* Latest Blog Section — Hidden for now
       <BlogSection posts={blogPosts} />
+      */}
     </div>
   );
 }
