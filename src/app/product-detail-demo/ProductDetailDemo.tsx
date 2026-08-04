@@ -337,33 +337,29 @@ export default function ProductDetailDemo({ data, similarData }: Props) {
     return { label, value, url: makeDetailUrl(label, value, url) };
   };
 
-  const typeLinks: DetailLink[] = (categoryNames.length > 0 ? categoryNames : [getAttr("Type")].filter(Boolean))
-    .map(c => ({ href: `/listings/${slugify(c.replace(/\s*caravans?\s*/gi, " ").trim())}-category/`, text: c }));
-
   const detailRows: DetailRow[] = [
-    { label: "Type", value: (categoryNames.length > 0 ? categoryNames : [getAttr("Type")]).filter(Boolean).join(", "), url: "", links: typeLinks.length ? typeLinks : undefined },
-    makeRow("Make",               "Make"),
-    makeRow("Model",              "Model"),
-    makeRow("Year",               "Years"),
-    makeRow("Condition",          "Conditions"),
-    makeRow("Length",             "Length"),
-    makeRow("Sleeping Capacity",  "sleeps", "Sleeping Capacity"),
-    makeRow("GVM",                "ATM"),
-    makeRow("Tare Mass",          "Tare Mass", "Tare"),
-    makeRow("Axle Configuration", "Axle Configuration", "Axle"),
-    makeRow("Ball Weight",        "Ball Weight"),
-    makeRow("Payload",            "Payload"),
-    makeRow("Brakes",             "Brakes"),
-    makeRow("Suspension",         "Suspension"),
-    makeRow("Stock Number",       "Stock Number", "Stock"),
-    makeRow("VIN",                "VIN"),
-    makeRow("Registration",       "Registration"),
-    makeRow("Colour",             "Colour", "Color"),
-    makeRow("Solar",              "Solar"),
-    makeRow("Battery",            "Battery"),
-    makeRow("Air Conditioner",    "Air Conditioner", "Air Con"),
-    makeRow("Water (Fresh)",      "Water (Fresh)", "Fresh Water"),
-    makeRow("Water (Grey)",       "Water (Grey)", "Grey Water"),
+    makeRow("Make",             "Make"),
+    makeRow("Engine Make",      "Engine Make"),
+    makeRow("Model",            "Model"),
+    makeRow("Years",            "Years"),
+    makeRow("Conditions",       "Conditions"),
+    makeRow("RV Class",         "RV Class"),
+    makeRow("Length",           "Length"),
+    makeRow("Width",            "Width"),
+    makeRow("Height",           "Height"),
+    makeRow("GVM",              "ATM"),
+    makeRow("Tare Mass",        "Tare Mass", "Tare"),
+    makeRow("Payload Weight",   "Payload Weight", "Payload"),
+    makeRow("GCM",              "GCM"),
+    makeRow("Engine Capacity",  "Engine Capacity"),
+    makeRow("Engine Type",      "Engine Type"),
+    makeRow("Engine Power",     "Engine Power"),
+    makeRow("Engine Torque",    "Engine Torque"),
+    makeRow("Fuel Type",        "Fuel Type"),
+    makeRow("Transmission",     "Transmission"),
+    makeRow("Odometer",         "Odometer"),
+    makeRow("Sleeps",           "sleeps", "Sleeping Capacity"),
+    makeRow("Seats",            "Seats"),
   ].filter(r => r.value);
 
   const locationCity  = product.region?.value?.replace(/-/g, " ") ?? "";
