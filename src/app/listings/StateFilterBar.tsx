@@ -474,8 +474,17 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
 
   // Regions for the currently-viewed state — sourced live from regionCountsByState
   // (fetched either via the make-scoped bulk prefetch or the no-make lazy effect
-  // above), since states[].regions is no longer available statically.
-  const activeRegionCounts = tempState ? regionCountsByState[tempState.toLowerCase()] : undefined;
+  // above), since states[].regions is no longer available statically. Looked up
+  // by matching tempState (a display name, e.g. "New South Wales") to its slug
+  // via `states` rather than transforming the string directly — the API's name
+  // formatting (spaces vs hyphens) doesn't reliably map onto its own slug for
+  // multi-word states, so a direct tempState.toLowerCase() lookup silently
+  // missed regions for every state except the single-word ones (Queensland,
+  // Victoria, Tasmania).
+  const tempStateSlug = tempState
+    ? states.find(s => s.name.toLowerCase() === tempState.toLowerCase() || s.value.toLowerCase() === tempState.toLowerCase())?.value
+    : undefined;
+  const activeRegionCounts = tempStateSlug ? regionCountsByState[tempStateSlug.toLowerCase()] : undefined;
   const filteredRegions = (activeRegionCounts ?? [])
     .filter(rc => rc.count > 0)
     .map(rc => ({ name: rc.name, value: rc.slug }));
