@@ -39,7 +39,7 @@ const FILTERS = [
     ],
   },
   {
-    icon: <Image src="/images/ATM.png" alt="Weight ATM" width={24} height={24} unoptimized />,
+    icon: <Image src="/images/ATM.png" alt="WeightGVM" width={24} height={24} unoptimized />,
     label: " By Weight (GVM)",
     items: [
       { text: "Under 1500kg", href: "/listings/off-road-category/under-1500-kg-atm/" },

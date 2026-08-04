@@ -69,7 +69,7 @@ export function buildSlugFromFilters(f: Filters): string {
   else if (fromPrice) segments.push(`over-${fromPrice}`);
   else if (toPrice) segments.push(`under-${toPrice}`);
 
-  // 6) ATM (kg)
+  // 6)GVM (kg)
   const minKg = asNum(f.minKg);
   const maxKg = asNum(f.maxKg);
   if (minKg !== undefined && maxKg !== undefined) {

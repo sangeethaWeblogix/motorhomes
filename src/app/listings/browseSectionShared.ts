@@ -121,11 +121,11 @@ export const PRICE_BANDS = [
 ];
 
 export const ATM_BANDS = [
-  { text: "Under 1500kg", href: "/listings/under-1500-kg-atm/", query: "to_atm=1500" },
-  { text: "Under 2000kg", href: "/listings/under-2000-kg-atm/", query: "to_atm=2000" },
-  { text: "Under 2500kg", href: "/listings/under-2500-kg-atm/", query: "to_atm=2500" },
-  { text: "Under 3000kg", href: "/listings/under-3000-kg-atm/", query: "to_atm=3000" },
-  { text: "Over 3000kg",  href: "/listings/over-3000-kg-atm/",  query: "from_atm=3000" },
+  { text: "Under 1500kg", href: "/listings/under-1500-kg-atm/", query: "to_gvm=1500" },
+  { text: "Under 2000kg", href: "/listings/under-2000-kg-atm/", query: "to_gvm=2000" },
+  { text: "Under 2500kg", href: "/listings/under-2500-kg-atm/", query: "to_gvm=2500" },
+  { text: "Under 3000kg", href: "/listings/under-3000-kg-atm/", query: "to_gvm=3000" },
+  { text: "Over 3000kg",  href: "/listings/over-3000-kg-atm/",  query: "from_gvm=3000" },
 ];
 
 export const LENGTH_BANDS = [

@@ -71,7 +71,7 @@
    },
    {
      q: "How should I price my motorhome?",
-     a: <p>Check similar motorhomes for sale before setting your price. Compare by make, model, year, condition, length, ATM, tare weight, sleeping capacity, features and location. A realistic asking price can help attract more genuine buyers.</p>,
+     a: <p>Check similar motorhomes for sale before setting your price. Compare by make, model, year, condition, length,GVM, tare weight, sleeping capacity, features and location. A realistic asking price can help attract more genuine buyers.</p>,
    },
    {
      q: "Is it safe to sell my motorhome privately online?",
@@ -334,7 +334,7 @@
                </div>
                <ul className="demo-guide-card__list">
                  <li>Photos: exterior, interior, beds, kitchen, tyres and accessories.</li>
-                 <li>Details: make, model, year, ATM, tare, length and sleeps.</li>
+                 <li>Details: make, model, year,GVM, tare, length and sleeps.</li>
                  <li>Condition, rego, service history, upgrades and asking price.</li>
                </ul>
              </div>

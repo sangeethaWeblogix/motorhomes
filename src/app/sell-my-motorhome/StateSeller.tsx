@@ -64,7 +64,7 @@ export default function StateSeller({ state }: StateSellerProps) {
     },
     {
       q: "How should I price my motorhome?",
-      a: <p>Check similar motorhomes for sale in {stateLabel} before setting your price. Compare by make, model, year, condition, length, ATM, tare weight, sleeping capacity, features and location. A realistic asking price can help attract more genuine buyers.</p>,
+      a: <p>Check similar motorhomes for sale in {stateLabel} before setting your price. Compare by make, model, year, condition, length,GVM, tare weight, sleeping capacity, features and location. A realistic asking price can help attract more genuine buyers.</p>,
     },
     {
       q: "Is it safe to sell my motorhome privately online?",
@@ -293,7 +293,7 @@ export default function StateSeller({ state }: StateSellerProps) {
               </div>
               <ul className="demo-guide-card__list">
                 <li>Photos: exterior, interior, kitchen, bathroom, tyres, accessories.</li>
-                <li>Details: make, model, year, ATM, tare, length, sleeps, condition.</li>
+                <li>Details: make, model, year,GVM, tare, length, sleeps, condition.</li>
                 <li>Extras: rego, service history, inclusions, price, location.</li>
               </ul>
             </div>

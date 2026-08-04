@@ -220,8 +220,8 @@ function buildPoolRequestUrl(urlPath, seed) {
   if (pincode)    params.set('pincode',           pincode);
   if (fromPrice)  params.set('from_price',        fromPrice);
   if (toPrice)    params.set('to_price',          toPrice);
-  if (minKg)      params.set('from_atm',          minKg);
-  if (maxKg)      params.set('to_atm',            maxKg);
+  if (minKg)      params.set('from_gvm',          minKg);
+  if (maxKg)      params.set('to_gvm',            maxKg);
   if (fromSleep)  params.set('from_sleep',        fromSleep);
   if (toSleep)    params.set('to_sleep',          toSleep);
   if (fromYear)   params.set('acustom_fromyears', fromYear);

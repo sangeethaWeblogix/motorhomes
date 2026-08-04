@@ -217,15 +217,15 @@ function ListingCard({
 
   const price    = formatPrice(item.sale_price || item.regular_price);
   const isNew    = item.condition?.toLowerCase() === "new";
-  const type     = toTitleCase((item.categories?.[0] ?? "").replace(/-/g, " "));
+  const rawType  = toTitleCase((item.categories?.[0] ?? "").replace(/-/g, " "));
+ 
   const sellerType = toTitleCase(item.seller_type ?? "");
   const lenFmt   = formatLength(item.length);
   const isDealer = item.seller_type !== "private";
 
   // Always 4 slots so grid rows are the same height across all cards
   const specSlots = [
-    { icon: "/images/category.svg", text: type    || "" },
-    { icon: "/images/length.svg",   text: lenFmt  || "" },
+     { icon: "/images/length.svg",   text: lenFmt  || "" },
     { icon: "/images/weight.svg",   text: item.kg || "" },
     { icon: "",                     text: "" },
   ];

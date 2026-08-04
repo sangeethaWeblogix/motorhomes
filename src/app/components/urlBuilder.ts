@@ -106,7 +106,7 @@ export function parseSlugToFilters(
       filters.pincode = part;
       return;
     }
-    // ATM: support canonical and legacy patterns
+    //GVM: support canonical and legacy patterns
     if (part.includes("-kg-atm")) {
       const canon = part.match(/^between-(\d+)-kg-(\d+)-kg-atm$/);
       if (canon) {

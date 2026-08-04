@@ -71,8 +71,8 @@ const buildMakeCountParams = (filters: FilterState): URLSearchParams => {
   if (filters.pincode)           params.set("pincode", filters.pincode);
   if (filters.from_price)        params.set("from_price", String(filters.from_price));
   if (filters.to_price)          params.set("to_price", String(filters.to_price));
-  if (filters.minKg)             params.set("from_atm", String(filters.minKg));
-  if (filters.maxKg)             params.set("to_atm", String(filters.maxKg));
+  if (filters.minKg)             params.set("from_gvm", String(filters.minKg));
+  if (filters.maxKg)             params.set("to_gvm", String(filters.maxKg));
   if (filters.acustom_fromyears) params.set("acustom_fromyears", String(filters.acustom_fromyears));
   if (filters.acustom_toyears)   params.set("acustom_toyears", String(filters.acustom_toyears));
   if (filters.from_length)       params.set("from_length", String(filters.from_length));
@@ -174,8 +174,8 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     if (currentFilters.pincode)            params.set("pincode", currentFilters.pincode);
     if (currentFilters.from_price)         params.set("from_price", String(currentFilters.from_price));
     if (currentFilters.to_price)           params.set("to_price", String(currentFilters.to_price));
-    if (currentFilters.minKg)              params.set("from_atm", String(currentFilters.minKg));
-    if (currentFilters.maxKg)              params.set("to_atm", String(currentFilters.maxKg));
+    if (currentFilters.minKg)              params.set("from_gvm", String(currentFilters.minKg));
+    if (currentFilters.maxKg)              params.set("to_gvm", String(currentFilters.maxKg));
     if (currentFilters.acustom_fromyears)  params.set("acustom_fromyears", String(currentFilters.acustom_fromyears));
     if (currentFilters.acustom_toyears)    params.set("acustom_toyears", String(currentFilters.acustom_toyears));
     if (currentFilters.from_length)        params.set("from_length", String(currentFilters.from_length));
@@ -284,8 +284,8 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     if (currentFilters.condition)         params.set("condition", currentFilters.condition);
     if (currentFilters.from_price)        params.set("from_price", String(currentFilters.from_price));
     if (currentFilters.to_price)          params.set("to_price", String(currentFilters.to_price));
-    if (currentFilters.minKg)             params.set("from_atm", String(currentFilters.minKg));
-    if (currentFilters.maxKg)             params.set("to_atm", String(currentFilters.maxKg));
+    if (currentFilters.minKg)             params.set("from_gvm", String(currentFilters.minKg));
+    if (currentFilters.maxKg)             params.set("to_gvm", String(currentFilters.maxKg));
     if (currentFilters.acustom_fromyears) params.set("acustom_fromyears", String(currentFilters.acustom_fromyears));
     if (currentFilters.acustom_toyears)   params.set("acustom_toyears", String(currentFilters.acustom_toyears));
     if (currentFilters.from_length)       params.set("from_length", String(currentFilters.from_length));
@@ -556,7 +556,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   const handlePriceSearch = () => { updateFiltersAndURL({ from_price: tempPriceFrom ?? undefined, to_price: tempPriceTo ?? undefined }); setOpenModal(null); };
   const handlePriceClear  = () => { setTempPriceFrom(null); setTempPriceTo(null); updateFiltersAndURL({ from_price: undefined, to_price: undefined }); setOpenModal(null); };
 
-  /* ── ATM ── */
+  /* ──GVM ── */
   const handleAtmOpen   = () => { setTempAtmFrom(currentFilters.minKg ? Number(currentFilters.minKg) : null); setTempAtmTo(currentFilters.maxKg ? Number(currentFilters.maxKg) : null); setOpenModal("atm"); };
   const handleAtmSearch = () => { updateFiltersAndURL({ minKg: tempAtmFrom ?? undefined, maxKg: tempAtmTo ?? undefined }); setOpenModal(null); };
   const handleAtmClear  = () => { setTempAtmFrom(null); setTempAtmTo(null); updateFiltersAndURL({ minKg: undefined, maxKg: undefined }); setOpenModal(null); };
@@ -760,7 +760,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                   </button>
 
                   <button className={`tag${(currentFilters.minKg || currentFilters.maxKg) ? " active" : ""}`} onClick={handleAtmOpen}>
-                    ATM
+                   GVM
                     {(currentFilters.minKg || currentFilters.maxKg) && <span className="active_filter"><i className="bi bi-circle-fill" /></span>}
                   </button>
 
@@ -1076,12 +1076,12 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                 </div>
               </div>
 
-              {/* ATM */}
+              {/*GVM */}
               <div className="filter-item">
-                <h4>ATM (kg)</h4>
+                <h4>GVM (kg)</h4>
                 <div style={{ display:"flex", gap:12, flexWrap:"wrap" }}>
                   <div style={{ flex:1, minWidth:130 }}>
-                    <label style={{ fontSize:13, color:"#555", display:"block", marginBottom:6 }}>Min ATM</label>
+                    <label style={{ fontSize:13, color:"#555", display:"block", marginBottom:6 }}>MinGVM</label>
                     <select className="cfs-select-input form-select" value={tempAtmFrom ?? ""}
                       onChange={e => setTempAtmFrom(e.target.value ? Number(e.target.value) : null)}>
                       <option value="">Any</option>
@@ -1091,7 +1091,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                     </select>
                   </div>
                   <div style={{ flex:1, minWidth:130 }}>
-                    <label style={{ fontSize:13, color:"#555", display:"block", marginBottom:6 }}>Max ATM</label>
+                    <label style={{ fontSize:13, color:"#555", display:"block", marginBottom:6 }}>MaxGVM</label>
                     <select className="cfs-select-input form-select" value={tempAtmTo ?? ""}
                       onChange={e => setTempAtmTo(e.target.value ? Number(e.target.value) : null)}>
                       <option value="">Any</option>
@@ -1576,11 +1576,11 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
         </div>
       )}
 
-      {/* ── ATM Modal ── */}
+      {/* ──GVM Modal ── */}
       {openModal === "atm" && (
         <div className="filter-overlay">
           <div className="filter-modal">
-            <div className="filter-header"><h3>ATM</h3>{closeBtn}</div>
+            <div className="filter-header"><h3>GVM</h3>{closeBtn}</div>
             <div className="filter-body">
               <div className="row">
                 <div className="col-lg-6">

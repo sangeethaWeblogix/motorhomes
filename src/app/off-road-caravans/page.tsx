@@ -155,7 +155,7 @@ const schemaJsonLd = {
         {
           "@type": "Question",
           "name": "Do I need a special vehicle to tow an off road motorhome?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Off road motorhomes are heavier and wider than standard motorhomes. You'll need a high-capacity 4WD with a tow bar rated to the motorhome's ATM. Always check the motorhome's ATM and the tow vehicle's GVM and tow rating before purchasing." },
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Off road motorhomes are heavier and wider than standard motorhomes. You'll need a high-capacity 4WD with a tow bar rated to the motorhome'sGVM. Always check the motorhome'sGVM and the tow vehicle's GVM and tow rating before purchasing." },
         },
         {
           "@type": "Question",

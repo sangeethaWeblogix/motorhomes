@@ -126,7 +126,7 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
   const activeCond    = filters.condition !== "All Conditions";
   const activeMake    = !!filters.make;
   const activePrice   = !!(filters.minPrice || filters.maxPrice);
-  const activeAtm     = filters.atm !== "Any ATM";
+  const activeAtm     = filters.atm !== "AnyGVM";
   const activeSleeps  = filters.sleeps !== "Any Sleeps";
   const activeRegion  = filters.region !== "All Regions";
   const totalActive   = [activeType, activeCond, activeMake, activePrice, activeAtm, activeSleeps, activeRegion].filter(Boolean).length;
@@ -420,7 +420,7 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
               {activeAtm && (
                 <span className="active-chip">
                   <span className="chip-label" onClick={() => openSection("atm")}>{filters.atm}</span>
-                  <span className="chip-close" onClick={() => { onChange({ ...filters, atm: "Any ATM" }); onSearch(); }}>×</span>
+                  <span className="chip-close" onClick={() => { onChange({ ...filters, atm: "AnyGVM" }); onSearch(); }}>×</span>
                 </span>
               )}
               {activeSleeps && (

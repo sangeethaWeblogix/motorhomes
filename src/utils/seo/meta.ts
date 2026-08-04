@@ -28,13 +28,13 @@ function fmtKg(n: string): string {
 }
 
 function getBandText(parsed: ReturnType<typeof parseSlugToFilters>): string {
-  // ATM (weight)
+  //GVM (weight)
   const minKg = parsed.minKg ? String(parsed.minKg) : null;
   const maxKg = parsed.maxKg ? String(parsed.maxKg) : null;
   let atmPart = "";
-  if (minKg && maxKg) atmPart = `${fmtKg(minKg)} - ${fmtKg(maxKg)} ATM`;
-  else if (maxKg)     atmPart = `Under ${fmtKg(maxKg)} ATM`;
-  else if (minKg)     atmPart = `Over ${fmtKg(minKg)} ATM`;
+  if (minKg && maxKg) atmPart = `${fmtKg(minKg)} - ${fmtKg(maxKg)}GVM`;
+  else if (maxKg)     atmPart = `Under ${fmtKg(maxKg)}GVM`;
+  else if (minKg)     atmPart = `Over ${fmtKg(minKg)}GVM`;
 
   // Price
   const from = parsed.from_price ? String(parsed.from_price) : null;
@@ -60,7 +60,7 @@ function getBandText(parsed: ReturnType<typeof parseSlugToFilters>): string {
   else if (toLen)       lengthPart = `Under ${toLen}ft`;
   else if (fromLen)     lengthPart = `Over ${fromLen}ft`;
 
-  // Combine all parts — ATM before price, matching API seo_v2.h1 format
+  // Combine all parts —GVM before price, matching API seo_v2.h1 format
   return [atmPart, pricePart, sleepPart, lengthPart].filter(Boolean).join(" ");
 }
 

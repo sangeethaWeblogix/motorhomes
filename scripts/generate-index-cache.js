@@ -210,8 +210,8 @@ function buildApiParams(filters) {
   if (filters.condition)         p.append('condition',         filters.condition);
   if (filters.from_price)        p.append('from_price',        filters.from_price);
   if (filters.to_price)          p.append('to_price',          filters.to_price);
-  if (filters.minKg)             p.append('from_atm',          filters.minKg);
-  if (filters.maxKg)             p.append('to_atm',            filters.maxKg);
+  if (filters.minKg)             p.append('from_gvm',          filters.minKg);
+  if (filters.maxKg)             p.append('to_gvm',            filters.maxKg);
   if (filters.from_length)       p.append('from_length',       filters.from_length);
   if (filters.to_length)         p.append('to_length',         filters.to_length);
   if (filters.from_sleep)        p.append('from_sleep',        filters.from_sleep);
@@ -326,8 +326,8 @@ function buildPoolRequestUrl(urlPath, seed) {
   if (pincode)    params.set('pincode',           pincode);
   if (fromPrice)  params.set('from_price',        fromPrice);
   if (toPrice)    params.set('to_price',          toPrice);
-  if (fromAtm)    params.set('from_atm',          fromAtm);
-  if (toAtm)      params.set('to_atm',            toAtm);
+  if (fromAtm)    params.set('from_gvm',          fromAtm);
+  if (toAtm)      params.set('to_gvm',            toAtm);
   if (fromSleep)  params.set('from_sleep',        fromSleep);
   if (toSleep)    params.set('to_sleep',          toSleep);
   if (fromYear)   params.set('acustom_fromyears', fromYear);
