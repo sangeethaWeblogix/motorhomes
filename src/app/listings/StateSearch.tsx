@@ -9,7 +9,7 @@ interface Filters {
   make: string;
   minPrice: string;
   maxPrice: string;
-  atm: string;
+  gvm: string;
   sleeps: string;
   region: string;
 }
@@ -47,7 +47,7 @@ const PRICE_PRESETS = [
   { label: "Over $100k",  min: "100000", max: "" },
 ];
 
-const ATM_PRESETS = [
+const GVM_PRESETS = [
   { label: "Under 2000kg",    min: "", max: "2000" },
   { label: "2000 – 2500kg",   min: "2000", max: "2500" },
   { label: "2500 – 3000kg",   min: "2500", max: "3000" },
@@ -62,7 +62,7 @@ const SLEEP_PRESETS = [
 ];
 
 
-type ModalSection = "all" | "type" | "condition" | "make" | "price" | "atm" | "sleeps" | "region" | null;
+type ModalSection = "all" | "type" | "condition" | "make" | "price" | "gvm" | "sleeps" | "region" | null;
 
 export default function StateSearch({ filters, onChange, onSearch, onClear }: Props) {
   const [openModal, setOpenModal] = useState<ModalSection>(null);
@@ -73,8 +73,8 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
   const [tempMake,     setTempMake]     = useState(filters.make);
   const [tempMinPrice, setTempMinPrice] = useState(filters.minPrice);
   const [tempMaxPrice, setTempMaxPrice] = useState(filters.maxPrice);
-  const [tempAtmMin,   setTempAtmMin]   = useState("");
-  const [tempAtmMax,   setTempAtmMax]   = useState("");
+  const [tempGvmMin,   setTempGvmMin]   = useState("");
+  const [tempGvmMax,   setTempGvmMax]   = useState("");
   const [tempSleeps,   setTempSleeps]   = useState(filters.sleeps);
   const [tempRegion,   setTempRegion]   = useState(filters.region);
   const [makeSearch,   setMakeSearch]   = useState("");
@@ -105,7 +105,7 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
   const applyCond     = () => commitAndSearch({ condition: tempCond });
   const applyMake     = () => commitAndSearch({ make: tempMake });
   const applyPrice    = () => commitAndSearch({ minPrice: tempMinPrice, maxPrice: tempMaxPrice });
-  const applyAtm      = () => commitAndSearch({ atm: `${tempAtmMin}-${tempAtmMax}` });
+  const applyGvm      = () => commitAndSearch({ gvm: `${tempGvmMin}-${tempGvmMax}` });
   const applySleeps   = () => commitAndSearch({ sleeps: tempSleeps });
   const applyRegion   = () => commitAndSearch({ region: tempRegion });
 
@@ -126,10 +126,10 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
   const activeCond    = filters.condition !== "All Conditions";
   const activeMake    = !!filters.make;
   const activePrice   = !!(filters.minPrice || filters.maxPrice);
-  const activeAtm     = filters.atm !== "AnyGVM";
+  const activeGvm     = filters.gvm !== "Any GVM";
   const activeSleeps  = filters.sleeps !== "Any Sleeps";
   const activeRegion  = filters.region !== "All Regions";
-  const totalActive   = [activeType, activeCond, activeMake, activePrice, activeAtm, activeSleeps, activeRegion].filter(Boolean).length;
+  const totalActive   = [activeType, activeCond, activeMake, activePrice, activeGvm, activeSleeps, activeRegion].filter(Boolean).length;
 
   // Close on overlay click
   const overlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -228,15 +228,15 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
     </div>
   );
 
-  const AtmSection = (
+  const GvmSection = (
     <div className="filter-item">
-      <h4 className="filter-section-title">Weight (ATM)</h4>
+      <h4 className="filter-section-title">Weight (GVM)</h4>
       <ul className="loc-state-list">
-        {ATM_PRESETS.map((a) => {
-          const sel = `${tempAtmMin}-${tempAtmMax}` === `${a.min}-${a.max}`;
+        {GVM_PRESETS.map((a) => {
+          const sel = `${tempGvmMin}-${tempGvmMax}` === `${a.min}-${a.max}`;
           return (
             <li key={a.label} className="loc-state-item"
-              onClick={() => { setTempAtmMin(sel ? "" : a.min); setTempAtmMax(sel ? "" : a.max); }}>
+              onClick={() => { setTempGvmMin(sel ? "" : a.min); setTempGvmMax(sel ? "" : a.max); }}>
               <span className={`loc-checkbox${sel ? " checked" : ""}`}>
                 {sel && <i className="bi bi-check" style={{ color: "#fff", fontSize: 14, lineHeight: 1 }} />}
               </span>
@@ -365,9 +365,9 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
                       : "Price"}
                     {activePrice && <span className="active_filter"><i className="bi bi-circle-fill" /></span>}
                   </button>
-                  <button className={`tag${activeAtm ? " active" : ""}`} onClick={() => openSection("atm")}>
-                    {activeAtm ? filters.atm : "ATM"}
-                    {activeAtm && <span className="active_filter"><i className="bi bi-circle-fill" /></span>}
+                  <button className={`tag${activeGvm ? " active" : ""}`} onClick={() => openSection("gvm")}>
+                    {activeGvm ? filters.gvm : "GVM"}
+                    {activeGvm && <span className="active_filter"><i className="bi bi-circle-fill" /></span>}
                   </button>
                   <button className={`tag${activeSleeps ? " active" : ""}`} onClick={() => openSection("sleeps")}>
                     {activeSleeps ? filters.sleeps : "Sleeps"}
@@ -417,10 +417,10 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
                   <span className="chip-close" onClick={() => { onChange({ ...filters, minPrice: "", maxPrice: "" }); onSearch(); }}>×</span>
                 </span>
               )}
-              {activeAtm && (
+              {activeGvm && (
                 <span className="active-chip">
-                  <span className="chip-label" onClick={() => openSection("atm")}>{filters.atm}</span>
-                  <span className="chip-close" onClick={() => { onChange({ ...filters, atm: "AnyGVM" }); onSearch(); }}>×</span>
+                  <span className="chip-label" onClick={() => openSection("gvm")}>{filters.gvm}</span>
+                  <span className="chip-close" onClick={() => { onChange({ ...filters, gvm: "Any GVM" }); onSearch(); }}>×</span>
                 </span>
               )}
               {activeSleeps && (
@@ -447,7 +447,7 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
       {/* Combined "All Filters" modal */}
       {openModal === "all" && (
         <Modal title="Filters"
-          onClear={() => { setTempType("All Types"); setTempCond("All Conditions"); setTempMake(""); setTempMinPrice(""); setTempMaxPrice(""); setTempAtmMin(""); setTempAtmMax(""); setTempSleeps("Any Sleeps"); setTempRegion("All Regions"); }}
+          onClear={() => { setTempType("All Types"); setTempCond("All Conditions"); setTempMake(""); setTempMinPrice(""); setTempMaxPrice(""); setTempGvmMin(""); setTempGvmMax(""); setTempSleeps("Any Sleeps"); setTempRegion("All Regions"); }}
           onApply={applyAll}
           clearDisabled={false}>
           {/* {TypeSection} */}
@@ -458,7 +458,7 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
           <hr style={{ border: "none", borderTop: "1px solid #eee", margin: "4px 0" }} />
           {PriceSection}
           <hr style={{ border: "none", borderTop: "1px solid #eee", margin: "4px 0" }} />
-          {AtmSection}
+          {GvmSection}
           <hr style={{ border: "none", borderTop: "1px solid #eee", margin: "4px 0" }} />
           {SleepsSection}
           <hr style={{ border: "none", borderTop: "1px solid #eee", margin: "4px 0" }} />
@@ -470,7 +470,7 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
       {openModal === "condition" && <Modal title="Condition"    onClear={() => setTempCond("All Conditions")}   onApply={applyCond}    clearDisabled={tempCond === "All Conditions"}>{CondSection}</Modal>}
       {openModal === "make"      && <Modal title="Make"         onClear={() => setTempMake("")}                 onApply={applyMake}    clearDisabled={!tempMake}>{MakeSection}</Modal>}
       {openModal === "price"     && <Modal title="Price"        onClear={() => { setTempMinPrice(""); setTempMaxPrice(""); }} onApply={applyPrice} clearDisabled={!tempMinPrice && !tempMaxPrice}>{PriceSection}</Modal>}
-      {openModal === "atm"       && <Modal title="ATM Weight"   onClear={() => { setTempAtmMin(""); setTempAtmMax(""); }}    onApply={applyAtm}   clearDisabled={!tempAtmMin && !tempAtmMax}>{AtmSection}</Modal>}
+      {openModal === "gvm"       && <Modal title="GVM Weight"   onClear={() => { setTempGvmMin(""); setTempGvmMax(""); }}    onApply={applyGvm}   clearDisabled={!tempGvmMin && !tempGvmMax}>{GvmSection}</Modal>}
       {openModal === "sleeps"    && <Modal title="Sleeping Capacity" onClear={() => setTempSleeps("Any Sleeps")} onApply={applySleeps} clearDisabled={tempSleeps === "Any Sleeps"}>{SleepsSection}</Modal>}
       {openModal === "region"    && <Modal title="Region"       onClear={() => setTempRegion("All Regions")}    onApply={applyRegion}  clearDisabled={tempRegion === "All Regions"}>{RegionSection}</Modal>}
     </>

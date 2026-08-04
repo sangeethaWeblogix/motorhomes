@@ -302,7 +302,7 @@ export default function ProductDetailDemo({ data, similarData }: Props) {
     : location;
   const shortCategory = categoryNames[0]?.replace(/\s+caravans?$/i, '').trim() ?? categoryNames[0];
   const shortSleeps   = getAttr("sleeps").replace(/\s+people?$/i, '').trim();
-  const shortAtm      = getAttr("ATM");
+  const shortGvm      = getAttr("ATM");
 
   /* helper: find first matching attribute with value + url */
   const pickFull = (...labels: string[]): { value: string; url: string } => {
@@ -328,7 +328,7 @@ export default function ProductDetailDemo({ data, similarData }: Props) {
     if (L === "condition" || L === "conditions") return v ? `/listings/${slugify(v)}-condition/` : "";
     if (L === "sleeping capacity" || L === "sleep" || L === "sleeps") { const n = toInt(v); return n ? `/listings/under-${n}-people-sleeping-capacity/` : ""; }
     if (L === "length") { const n = toInt(v); return n ? `/listings/under-${n}-length-in-feet/` : ""; }
-    if (L === "atm") { const n = toInt(v); return n ? `/listings/under-${n}-kg-atm/` : ""; }
+    if (L === "gvm") { const n = toInt(v); return n ? `/listings/under-${n}-kg-gvm/` : ""; }
     return "";
   };
 
@@ -348,7 +348,7 @@ export default function ProductDetailDemo({ data, similarData }: Props) {
     makeRow("Condition",          "Conditions"),
     makeRow("Length",             "Length"),
     makeRow("Sleeping Capacity",  "sleeps", "Sleeping Capacity"),
-    makeRow("ATM",                "ATM"),
+    makeRow("GVM",                "ATM"),
     makeRow("Tare Mass",          "Tare Mass", "Tare"),
     makeRow("Axle Configuration", "Axle Configuration", "Axle"),
     makeRow("Ball Weight",        "Ball Weight"),
@@ -486,12 +486,12 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
                   </div>
                 </div>
               )}
-              {shortAtm && (
+              {shortGvm && (
                 <div className="pdd-specs-bar__item">
                   <img src="/images/weight.svg" width="20" height="20" alt="" />
                   <div className="pdd-specs-bar__text">
-                    <span className="pdd-specs-bar__val">{shortAtm}</span>
-                    <span className="pdd-specs-bar__lbl">ATM</span>
+                    <span className="pdd-specs-bar__val">{shortGvm}</span>
+                    <span className="pdd-specs-bar__lbl">GVM</span>
                   </div>
                 </div>
               )}

@@ -52,7 +52,7 @@ interface Props {
 }
 
 const PRICE_OPTIONS  = [10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,125000,150000,175000,200000,225000,250000,275000,300000];
-const ATM_OPTIONS    = [600,800,1000,1250,1500,1750,2000,2250,2500,2750,3000,3500,4000,4500];
+const GVM_OPTIONS    = [600,800,1000,1250,1500,1750,2000,2250,2500,2750,3000,3500,4000,4500];
 const SLEEP_OPTIONS  = [1,2,3,4,5,6,7];
 const YEAR_OPTIONS   = [2027,2026,2025,2024,2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012,2011,2010,2009,2008,2007,2006,2005,2004,2000,1975];
 const LENGTH_OPTIONS = [12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28];
@@ -341,8 +341,8 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   const [tempCondition,    setTempCondition]    = useState<string | null>(null);
   const [tempPriceFrom,    setTempPriceFrom]    = useState<number | null>(null);
   const [tempPriceTo,      setTempPriceTo]      = useState<number | null>(null);
-  const [tempAtmFrom,      setTempAtmFrom]      = useState<number | null>(null);
-  const [tempAtmTo,        setTempAtmTo]        = useState<number | null>(null);
+  const [tempGvmFrom,      setTempGvmFrom]      = useState<number | null>(null);
+  const [tempGvmTo,        setTempGvmTo]        = useState<number | null>(null);
   const [tempSleepFrom,    setTempSleepFrom]    = useState<number | null>(null);
   const [tempSleepTo,      setTempSleepTo]      = useState<number | null>(null);
   const [tempYearFrom,     setTempYearFrom]     = useState<number | null>(null);
@@ -388,7 +388,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   }, [currentFilters.make, currentFilters.category, currentFilters.condition]);
 
   const [openModal, setOpenModal] = useState<
-    "type"|"location"|"price"|"atm"|"make"|"condition"|"sleep"|"allFilters"|null
+    "type"|"location"|"price"|"gvm"|"make"|"condition"|"sleep"|"allFilters"|null
   >(null);
 
   /* ── Keyword search suggestions — same /api/home-search/ endpoint the
@@ -557,9 +557,9 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   const handlePriceClear  = () => { setTempPriceFrom(null); setTempPriceTo(null); updateFiltersAndURL({ from_price: undefined, to_price: undefined }); setOpenModal(null); };
 
   /* ──GVM ── */
-  const handleAtmOpen   = () => { setTempAtmFrom(currentFilters.minKg ? Number(currentFilters.minKg) : null); setTempAtmTo(currentFilters.maxKg ? Number(currentFilters.maxKg) : null); setOpenModal("atm"); };
-  const handleAtmSearch = () => { updateFiltersAndURL({ minKg: tempAtmFrom ?? undefined, maxKg: tempAtmTo ?? undefined }); setOpenModal(null); };
-  const handleAtmClear  = () => { setTempAtmFrom(null); setTempAtmTo(null); updateFiltersAndURL({ minKg: undefined, maxKg: undefined }); setOpenModal(null); };
+  const handleGvmOpen   = () => { setTempGvmFrom(currentFilters.minKg ? Number(currentFilters.minKg) : null); setTempGvmTo(currentFilters.maxKg ? Number(currentFilters.maxKg) : null); setOpenModal("gvm"); };
+  const handleGvmSearch = () => { updateFiltersAndURL({ minKg: tempGvmFrom ?? undefined, maxKg: tempGvmTo ?? undefined }); setOpenModal(null); };
+  const handleGvmClear  = () => { setTempGvmFrom(null); setTempGvmTo(null); updateFiltersAndURL({ minKg: undefined, maxKg: undefined }); setOpenModal(null); };
 
   /* ── Sleep ── */
   const handleSleepOpen   = () => { setTempSleepFrom(currentFilters.from_sleep ? Number(currentFilters.from_sleep) : null); setTempSleepTo(currentFilters.to_sleep ? Number(currentFilters.to_sleep) : null); setOpenModal("sleep"); };
@@ -619,8 +619,8 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     setTempCondition(currentFilters.condition?.toLowerCase() ?? null);
     setTempPriceFrom(currentFilters.from_price ? Number(currentFilters.from_price) : null);
     setTempPriceTo(currentFilters.to_price ? Number(currentFilters.to_price) : null);
-    setTempAtmFrom(currentFilters.minKg ? Number(currentFilters.minKg) : null);
-    setTempAtmTo(currentFilters.maxKg ? Number(currentFilters.maxKg) : null);
+    setTempGvmFrom(currentFilters.minKg ? Number(currentFilters.minKg) : null);
+    setTempGvmTo(currentFilters.maxKg ? Number(currentFilters.maxKg) : null);
     setTempSleepFrom(currentFilters.from_sleep ? Number(currentFilters.from_sleep) : null);
     setTempSleepTo(currentFilters.to_sleep ? Number(currentFilters.to_sleep) : null);
     setTempMake(currentFilters.make ?? null);
@@ -669,8 +669,8 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
       condition:         tempCondition ?? undefined,
       from_price:        tempPriceFrom ?? undefined,
       to_price:          tempPriceTo ?? undefined,
-      minKg:             tempAtmFrom ?? undefined,
-      maxKg:             tempAtmTo ?? undefined,
+      minKg:             tempGvmFrom ?? undefined,
+      maxKg:             tempGvmTo ?? undefined,
       from_sleep:        tempSleepFrom ?? undefined,
       to_sleep:          tempSleepTo ?? undefined,
       make:              tempMake ?? undefined,
@@ -759,7 +759,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                     {(currentFilters.from_price || currentFilters.to_price) && <span className="active_filter"><i className="bi bi-circle-fill" /></span>}
                   </button>
 
-                  <button className={`tag${(currentFilters.minKg || currentFilters.maxKg) ? " active" : ""}`} onClick={handleAtmOpen}>
+                  <button className={`tag${(currentFilters.minKg || currentFilters.maxKg) ? " active" : ""}`} onClick={handleGvmOpen}>
                    GVM
                     {(currentFilters.minKg || currentFilters.maxKg) && <span className="active_filter"><i className="bi bi-circle-fill" /></span>}
                   </button>
@@ -849,15 +849,15 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
               </span>
             )}
             {(currentFilters.minKg || currentFilters.maxKg) && (
-              <span className={`active-chip${removingChip === "atm" ? " chip-removing" : ""}`}>
-                <span className="chip-label" onClick={handleAtmOpen}>
+              <span className={`active-chip${removingChip === "gvm" ? " chip-removing" : ""}`}>
+                <span className="chip-label" onClick={handleGvmOpen}>
                   {currentFilters.minKg && currentFilters.maxKg
                     ? `${Number(currentFilters.minKg).toLocaleString()} – ${Number(currentFilters.maxKg).toLocaleString()} kg`
                     : currentFilters.minKg
                       ? `From ${Number(currentFilters.minKg).toLocaleString()} kg`
                       : `Upto ${Number(currentFilters.maxKg).toLocaleString()} kg`}
                 </span>
-                <span className="chip-close" onClick={() => removeChip("atm", { minKg:undefined, maxKg:undefined })}>×</span>
+                <span className="chip-close" onClick={() => removeChip("gvm", { minKg:undefined, maxKg:undefined })}>×</span>
               </span>
             )}
             {(currentFilters.from_sleep || currentFilters.to_sleep) && (
@@ -1082,20 +1082,20 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                 <div style={{ display:"flex", gap:12, flexWrap:"wrap" }}>
                   <div style={{ flex:1, minWidth:130 }}>
                     <label style={{ fontSize:13, color:"#555", display:"block", marginBottom:6 }}>MinGVM</label>
-                    <select className="cfs-select-input form-select" value={tempAtmFrom ?? ""}
-                      onChange={e => setTempAtmFrom(e.target.value ? Number(e.target.value) : null)}>
+                    <select className="cfs-select-input form-select" value={tempGvmFrom ?? ""}
+                      onChange={e => setTempGvmFrom(e.target.value ? Number(e.target.value) : null)}>
                       <option value="">Any</option>
-                      {ATM_OPTIONS.filter(a => !tempAtmTo || a < tempAtmTo).map(a => (
+                      {GVM_OPTIONS.filter(a => !tempGvmTo || a < tempGvmTo).map(a => (
                         <option key={a} value={a}>{a.toLocaleString()} kg</option>
                       ))}
                     </select>
                   </div>
                   <div style={{ flex:1, minWidth:130 }}>
                     <label style={{ fontSize:13, color:"#555", display:"block", marginBottom:6 }}>MaxGVM</label>
-                    <select className="cfs-select-input form-select" value={tempAtmTo ?? ""}
-                      onChange={e => setTempAtmTo(e.target.value ? Number(e.target.value) : null)}>
+                    <select className="cfs-select-input form-select" value={tempGvmTo ?? ""}
+                      onChange={e => setTempGvmTo(e.target.value ? Number(e.target.value) : null)}>
                       <option value="">Any</option>
-                      {ATM_OPTIONS.filter(a => !tempAtmFrom || a > tempAtmFrom).map(a => (
+                      {GVM_OPTIONS.filter(a => !tempGvmFrom || a > tempGvmFrom).map(a => (
                         <option key={a} value={a}>{a.toLocaleString()} kg</option>
                       ))}
                     </select>
@@ -1577,7 +1577,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
       )}
 
       {/* ──GVM Modal ── */}
-      {openModal === "atm" && (
+      {openModal === "gvm" && (
         <div className="filter-overlay">
           <div className="filter-modal">
             <div className="filter-header"><h3>GVM</h3>{closeBtn}</div>
@@ -1586,26 +1586,26 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                 <div className="col-lg-6">
                   <div className="location-item">
                     <label>Min</label>
-                    <select className="cfs-select-input form-select" value={tempAtmFrom ?? ""} onChange={e => setTempAtmFrom(e.target.value ? Number(e.target.value) : null)}>
+                    <select className="cfs-select-input form-select" value={tempGvmFrom ?? ""} onChange={e => setTempGvmFrom(e.target.value ? Number(e.target.value) : null)}>
                       <option value="">Any</option>
-                      {ATM_OPTIONS.map(v => <option key={v} value={v}>{v} kg</option>)}
+                      {GVM_OPTIONS.map(v => <option key={v} value={v}>{v} kg</option>)}
                     </select>
                   </div>
                 </div>
                 <div className="col-lg-6">
                   <div className="location-item">
                     <label>Max</label>
-                    <select className="cfs-select-input form-select" value={tempAtmTo ?? ""} onChange={e => setTempAtmTo(e.target.value ? Number(e.target.value) : null)}>
+                    <select className="cfs-select-input form-select" value={tempGvmTo ?? ""} onChange={e => setTempGvmTo(e.target.value ? Number(e.target.value) : null)}>
                       <option value="">Any</option>
-                      {ATM_OPTIONS.filter(v => !tempAtmFrom || v > tempAtmFrom).map(v => <option key={v} value={v}>{v} kg</option>)}
+                      {GVM_OPTIONS.filter(v => !tempGvmFrom || v > tempGvmFrom).map(v => <option key={v} value={v}>{v} kg</option>)}
                     </select>
                   </div>
                 </div>
               </div>
             </div>
             <div className="filter-footer">
-              <button className="clear" onClick={handleAtmClear} style={{ opacity:(tempAtmFrom||tempAtmTo)?1:0.4, cursor:(tempAtmFrom||tempAtmTo)?"pointer":"not-allowed" }}>Clear filters</button>
-              <button className={`search${(tempAtmFrom||tempAtmTo)?" active":""}`} onClick={handleAtmSearch}>Search</button>
+              <button className="clear" onClick={handleGvmClear} style={{ opacity:(tempGvmFrom||tempGvmTo)?1:0.4, cursor:(tempGvmFrom||tempGvmTo)?"pointer":"not-allowed" }}>Clear filters</button>
+              <button className={`search${(tempGvmFrom||tempGvmTo)?" active":""}`} onClick={handleGvmSearch}>Search</button>
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@ export function validateFilters(filters: Filters): boolean {
     10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000,
     125000, 150000, 175000, 200000, 225000, 250000, 275000, 300000,
   ];
-  const validATM = [
+  const validGVM = [
     600, 800, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3500, 4000,
     4500,
   ];
@@ -29,8 +29,8 @@ export function validateFilters(filters: Filters): boolean {
 
   // ---GVM validation ---
   if (
-    (filters.minKg && !validATM.includes(Number(filters.minKg))) ||
-    (filters.maxKg && !validATM.includes(Number(filters.maxKg)))
+    (filters.minKg && !validGVM.includes(Number(filters.minKg))) ||
+    (filters.maxKg && !validGVM.includes(Number(filters.maxKg)))
   )
     return false;
 

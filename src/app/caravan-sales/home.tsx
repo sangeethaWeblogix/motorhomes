@@ -67,11 +67,11 @@ const SEARCH_FILTERS = [
     label: " By Weight (GVM)",
     icon: "⚖",
     links: [
-      { text: "Under 1500kg", href: "/listings/?max_atm=1500&category=off-road" },
-      { text: "Under 2000kg", href: "/listings/?max_atm=2000&category=off-road" },
-      { text: "Under 2500kg", href: "/listings/?max_atm=2500&category=off-road" },
-      { text: "Under 3000kg", href: "/listings/?max_atm=3000&category=off-road" },
-      { text: "Over 3000kg",  href: "/listings/?min_atm=3000&category=off-road" },
+      { text: "Under 1500kg", href: "/listings/?max_gvm=1500&category=off-road" },
+      { text: "Under 2000kg", href: "/listings/?max_gvm=2000&category=off-road" },
+      { text: "Under 2500kg", href: "/listings/?max_gvm=2500&category=off-road" },
+      { text: "Under 3000kg", href: "/listings/?max_gvm=3000&category=off-road" },
+      { text: "Over 3000kg",  href: "/listings/?min_gvm=3000&category=off-road" },
     ],
   },
   {

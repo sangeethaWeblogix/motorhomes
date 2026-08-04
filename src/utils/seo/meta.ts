@@ -31,10 +31,10 @@ function getBandText(parsed: ReturnType<typeof parseSlugToFilters>): string {
   //GVM (weight)
   const minKg = parsed.minKg ? String(parsed.minKg) : null;
   const maxKg = parsed.maxKg ? String(parsed.maxKg) : null;
-  let atmPart = "";
-  if (minKg && maxKg) atmPart = `${fmtKg(minKg)} - ${fmtKg(maxKg)}GVM`;
-  else if (maxKg)     atmPart = `Under ${fmtKg(maxKg)}GVM`;
-  else if (minKg)     atmPart = `Over ${fmtKg(minKg)}GVM`;
+  let gvmPart = "";
+  if (minKg && maxKg) gvmPart = `${fmtKg(minKg)} - ${fmtKg(maxKg)}GVM`;
+  else if (maxKg)     gvmPart = `Under ${fmtKg(maxKg)}GVM`;
+  else if (minKg)     gvmPart = `Over ${fmtKg(minKg)}GVM`;
 
   // Price
   const from = parsed.from_price ? String(parsed.from_price) : null;
@@ -61,7 +61,7 @@ function getBandText(parsed: ReturnType<typeof parseSlugToFilters>): string {
   else if (fromLen)     lengthPart = `Over ${fromLen}ft`;
 
   // Combine all parts —GVM before price, matching API seo_v2.h1 format
-  return [atmPart, pricePart, sleepPart, lengthPart].filter(Boolean).join(" ");
+  return [gvmPart, pricePart, sleepPart, lengthPart].filter(Boolean).join(" ");
 }
 
 export function generateTitleFromFilters(

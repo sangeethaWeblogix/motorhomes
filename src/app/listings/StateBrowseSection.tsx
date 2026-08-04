@@ -10,7 +10,7 @@ import {
   // TYPES_NO_STATE, // type section disabled — should not appear on the listing page
   FILTERS_NO_STATE,
   PRICE_BANDS,
-  ATM_BANDS,
+  GVM_BANDS,
   LENGTH_BANDS,
   SLEEP_BANDS,
   categoryLabel,
@@ -48,13 +48,13 @@ async function fetchBandCount(scope: Record<string, string>, query: string): Pro
 }
 
 async function fetchAllBandCounts(scope: Record<string, string>) {
-  const [price, atm, length, sleep] = await Promise.all([
+  const [price, gvm, length, sleep] = await Promise.all([
     Promise.all(PRICE_BANDS.map((b) => fetchBandCount(scope, b.query))),
-    Promise.all(ATM_BANDS.map((b) => fetchBandCount(scope, b.query))),
+    Promise.all(GVM_BANDS.map((b) => fetchBandCount(scope, b.query))),
     Promise.all(LENGTH_BANDS.map((b) => fetchBandCount(scope, b.query))),
     Promise.all(SLEEP_BANDS.map((b) => fetchBandCount(scope, b.query))),
   ]);
-  return { price, atm, length, sleep };
+  return { price, gvm, length, sleep };
 }
 
 interface Props {
@@ -87,7 +87,7 @@ export default function StateBrowseSection({ state, region, category, initialDat
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- categoryCounts feeds the disabled Type panel below
   const [categoryCounts, setCategoryCounts] = useState<CountItem[] | null>(initialData?.categoryCounts ?? null);
   const [priceCounts,    setPriceCounts]    = useState<number[] | null>(initialData?.priceCounts ?? null);
-  const [atmCounts,      setAtmCounts]      = useState<number[] | null>(initialData?.atmCounts ?? null);
+  const [gvmCounts,      setGvmCounts]      = useState<number[] | null>(initialData?.gvmCounts ?? null);
   const [lengthCounts,   setLengthCounts]   = useState<number[] | null>(initialData?.lengthCounts ?? null);
   const [sleepCounts,    setSleepCounts]    = useState<number[] | null>(initialData?.sleepCounts ?? null);
 
@@ -115,7 +115,7 @@ export default function StateBrowseSection({ state, region, category, initialDat
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryOnly, category]);
 
-  // State + region (no category) — Popular Make/Category + Price/ATM/Sleep.
+  // State + region (no category) — Popular Make/Category + Price/GVM/Sleep.
   useEffect(() => {
     if (!stateRegionMode || (initialData && isInitialFilters)) return;
     let cancelled = false;
@@ -124,44 +124,44 @@ export default function StateBrowseSection({ state, region, category, initialDat
     fetchGroupCounts("category", scope).then((d) => { if (!cancelled) setCategoryCounts(d); });
     Promise.all(PRICE_BANDS.map((b) => fetchBandCount(scope, b.query)))
       .then((counts) => { if (!cancelled) setPriceCounts(counts); });
-    Promise.all(ATM_BANDS.map((b) => fetchBandCount(scope, b.query)))
-      .then((counts) => { if (!cancelled) setAtmCounts(counts); });
+    Promise.all(GVM_BANDS.map((b) => fetchBandCount(scope, b.query)))
+      .then((counts) => { if (!cancelled) setGvmCounts(counts); });
     Promise.all(SLEEP_BANDS.map((b) => fetchBandCount(scope, b.query)))
       .then((counts) => { if (!cancelled) setSleepCounts(counts); });
     return () => { cancelled = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stateRegionMode, state, region]);
 
-  // Category + state (no region) — Region/Make + Price/ATM/Length/Sleep.
+  // Category + state (no region) — Region/Make + Price/GVM/Length/Sleep.
   useEffect(() => {
     if (!categoryStateMode || (initialData && isInitialFilters)) return;
     let cancelled = false;
     const scope = { category: category!, state: state! };
     fetchGroupCounts("region", scope).then((d) => { if (!cancelled) setRegionCounts(d); });
     fetchGroupCounts("make", scope).then((d) => { if (!cancelled) setMakeCounts(d); });
-    fetchAllBandCounts(scope).then(({ price, atm, length, sleep }) => {
+    fetchAllBandCounts(scope).then(({ price, gvm, length, sleep }) => {
       if (cancelled) return;
-      setPriceCounts(price); setAtmCounts(atm); setLengthCounts(length); setSleepCounts(sleep);
+      setPriceCounts(price); setGvmCounts(gvm); setLengthCounts(length); setSleepCounts(sleep);
     });
     return () => { cancelled = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryStateMode, category, state]);
 
-  // Category + state + region (all three) — Make + Price/ATM/Length/Sleep.
+  // Category + state + region (all three) — Make + Price/GVM/Length/Sleep.
   useEffect(() => {
     if (!categoryStateRegionMode || (initialData && isInitialFilters)) return;
     let cancelled = false;
     const scope = { category: category!, state: state!, region: region! };
     fetchGroupCounts("make", scope).then((d) => { if (!cancelled) setMakeCounts(d); });
-    fetchAllBandCounts(scope).then(({ price, atm, length, sleep }) => {
+    fetchAllBandCounts(scope).then(({ price, gvm, length, sleep }) => {
       if (cancelled) return;
-      setPriceCounts(price); setAtmCounts(atm); setLengthCounts(length); setSleepCounts(sleep);
+      setPriceCounts(price); setGvmCounts(gvm); setLengthCounts(length); setSleepCounts(sleep);
     });
     return () => { cancelled = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryStateRegionMode, category, state, region]);
 
-  // Shared shape for the "By Budget/ATM/Length/Sleep"-style vertical-list
+  // Shared shape for the "By Budget/GVM/Length/Sleep"-style vertical-list
   // filter columns used by every dynamic mode below.
   const bandPanel = (basePath: string, bands: typeof PRICE_BANDS, counts: number[] | null) =>
     bands
@@ -301,7 +301,7 @@ export default function StateBrowseSection({ state, region, category, initialDat
 
     const panels = [
       { icon: "/images/Budget.png",   title: `Browse Motorhomes by Price in ${regionName}`,            links: bandPanel(basePath, PRICE_BANDS, priceCounts) },
-      { icon: "/images/ATM.png",      title: `Browse Motorhomes by Weight (GVM) in ${regionName}`,      links: bandPanel(basePath, ATM_BANDS, atmCounts) },
+      { icon: "/images/ATM.png",      title: `Browse Motorhomes by Weight (GVM) in ${regionName}`,      links: bandPanel(basePath, GVM_BANDS, gvmCounts) },
       { icon: "/images/Sleeping.png", title: `Browse Motorhomes by Sleeping Capacity in ${regionName}`, links: bandPanel(basePath, SLEEP_BANDS, sleepCounts) },
     ];
 
@@ -356,7 +356,7 @@ export default function StateBrowseSection({ state, region, category, initialDat
 
     const panels = [
       { icon: "/images/Budget.png",   title: `Browse ${label} Motorhomes by Price in ${stateName}`,            links: bandPanel(basePath, PRICE_BANDS, priceCounts) },
-      { icon: "/images/ATM.png",      title: `Browse ${label} Motorhomes by Weight (GVM) in ${stateName}`,      links: bandPanel(basePath, ATM_BANDS, atmCounts) },
+      { icon: "/images/ATM.png",      title: `Browse ${label} Motorhomes by Weight (GVM) in ${stateName}`,      links: bandPanel(basePath, GVM_BANDS, gvmCounts) },
       { icon: "/images/Length.png",   title: `Browse ${label} Motorhomes by Size (Length) in ${stateName}`,     links: bandPanel(basePath, LENGTH_BANDS, lengthCounts) },
       { icon: "/images/Sleeping.png", title: `Browse ${label} Motorhomes by Sleeping Capacity in ${stateName}`, links: bandPanel(basePath, SLEEP_BANDS, sleepCounts) },
     ];
@@ -407,7 +407,7 @@ export default function StateBrowseSection({ state, region, category, initialDat
 
     const panels = [
       { icon: "/images/Budget.png",   title: `Browse ${label} Motorhomes by Price in ${regionName}`,            links: bandPanel(basePath, PRICE_BANDS, priceCounts) },
-      { icon: "/images/ATM.png",      title: `Browse ${label} Motorhomes by Weight (GVM) in ${regionName}`,      links: bandPanel(basePath, ATM_BANDS, atmCounts) },
+      { icon: "/images/ATM.png",      title: `Browse ${label} Motorhomes by Weight (GVM) in ${regionName}`,      links: bandPanel(basePath, GVM_BANDS, gvmCounts) },
       { icon: "/images/Length.png",   title: `Browse ${label} Motorhomes by Size (Length) in ${regionName}`,     links: bandPanel(basePath, LENGTH_BANDS, lengthCounts) },
       { icon: "/images/Sleeping.png", title: `Browse ${label} Motorhomes by Sleeping Capacity in ${regionName}`, links: bandPanel(basePath, SLEEP_BANDS, sleepCounts) },
     ];

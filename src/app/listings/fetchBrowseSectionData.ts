@@ -1,6 +1,6 @@
 import {
   PRICE_BANDS,
-  ATM_BANDS,
+  GVM_BANDS,
   LENGTH_BANDS,
   SLEEP_BANDS,
   type CountItem,
@@ -58,13 +58,13 @@ async function fetchBandCountServer(scope: Record<string, string>, query: string
 }
 
 async function fetchAllBandCountsServer(scope: Record<string, string>) {
-  const [price, atm, length, sleep] = await Promise.all([
+  const [price, gvm, length, sleep] = await Promise.all([
     Promise.all(PRICE_BANDS.map((b) => fetchBandCountServer(scope, b.query))),
-    Promise.all(ATM_BANDS.map((b) => fetchBandCountServer(scope, b.query))),
+    Promise.all(GVM_BANDS.map((b) => fetchBandCountServer(scope, b.query))),
     Promise.all(LENGTH_BANDS.map((b) => fetchBandCountServer(scope, b.query))),
     Promise.all(SLEEP_BANDS.map((b) => fetchBandCountServer(scope, b.query))),
   ]);
-  return { price, atm, length, sleep };
+  return { price, gvm, length, sleep };
 }
 
 /** Server-side mirror of StateBrowseSection's four client-fetch modes — run
@@ -100,14 +100,14 @@ export async function fetchBrowseSectionData(
 
   if (stateRegionMode) {
     const scope = { state: state!, region: region! };
-    const [makeCounts, categoryCounts, priceCounts, atmCounts, sleepCounts] = await Promise.all([
+    const [makeCounts, categoryCounts, priceCounts, gvmCounts, sleepCounts] = await Promise.all([
       fetchGroupCountsServer("make", scope),
       fetchGroupCountsServer("category", scope),
       Promise.all(PRICE_BANDS.map((b) => fetchBandCountServer(scope, b.query))),
-      Promise.all(ATM_BANDS.map((b) => fetchBandCountServer(scope, b.query))),
+      Promise.all(GVM_BANDS.map((b) => fetchBandCountServer(scope, b.query))),
       Promise.all(SLEEP_BANDS.map((b) => fetchBandCountServer(scope, b.query))),
     ]);
-    return { makeCounts, categoryCounts, priceCounts, atmCounts, sleepCounts };
+    return { makeCounts, categoryCounts, priceCounts, gvmCounts, sleepCounts };
   }
 
   if (categoryStateMode) {
@@ -121,7 +121,7 @@ export async function fetchBrowseSectionData(
       regionCounts,
       makeCounts,
       priceCounts: bands.price,
-      atmCounts: bands.atm,
+      gvmCounts: bands.gvm,
       lengthCounts: bands.length,
       sleepCounts: bands.sleep,
     };
@@ -136,7 +136,7 @@ export async function fetchBrowseSectionData(
     return {
       makeCounts,
       priceCounts: bands.price,
-      atmCounts: bands.atm,
+      gvmCounts: bands.gvm,
       lengthCounts: bands.length,
       sleepCounts: bands.sleep,
     };

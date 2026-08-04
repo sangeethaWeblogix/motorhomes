@@ -42,12 +42,12 @@ const FILTERS = [
     icon: <Image src="/images/ATM.png" alt="WeightGVM" width={24} height={24} unoptimized />,
     label: " By Weight (GVM)",
     items: [
-      { text: "Under 1500kg", href: "/listings/under-1500-kg-atm/" },
-      { text: "Under 2000kg", href: "/listings/under-2000-kg-atm/" },
-      { text: "Under 2500kg", href: "/listings/under-2500-kg-atm/" },
-      { text: "Under 3000kg", href: "/listings/under-3000-kg-atm/" },
+      { text: "Under 1500kg", href: "/listings/under-1500-kg-gvm/" },
+      { text: "Under 2000kg", href: "/listings/under-2000-kg-gvm/" },
+      { text: "Under 2500kg", href: "/listings/under-2500-kg-gvm/" },
+      { text: "Under 3000kg", href: "/listings/under-3000-kg-gvm/" },
        
-      { text: "Over 3000kg",  href: "/listings/over-3000-kg-atm/" },
+      { text: "Over 3000kg",  href: "/listings/over-3000-kg-gvm/" },
        
     ],
   },

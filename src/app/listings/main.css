@@ -785,7 +785,7 @@ input.loc-search-input:focus { box-shadow: 0 0 0 1.5px #7e7e7e !important; }
   grid-template-columns: repeat(2, 1fr);
 }
 
-/* 3-column variant (e.g. state+region mode's Price/ATM/Sleep) */
+/* 3-column variant (e.g. state+region mode's Price/GVM/Sleep) */
 .lsd-browse__row2--three {
   grid-template-columns: repeat(3, 1fr);
 }

@@ -180,6 +180,11 @@ const nextConfig: NextConfig = {
 
       // ── Blog URL redirects ────────────────────────────────────────────────
       { source: "/best-off-road-caravans-in-australia-2026/", destination: "/best-off-road-caravans-australia/", permanent: true },
+
+      // ── ATM renamed to GVM: old sitemap filenames → new ones ──────────────
+      { source: "/category-atm-sitemap.xml", destination: "/category-gvm-sitemap.xml", permanent: true },
+      { source: "/region-atm-sitemap.xml", destination: "/region-gvm-sitemap.xml", permanent: true },
+      { source: "/state-atm-sitemap.xml", destination: "/state-gvm-sitemap.xml", permanent: true },
     ];
   },
   async headers() {

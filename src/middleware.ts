@@ -167,6 +167,15 @@
    const requestHeaders = new Headers(request.headers);
    requestHeaders.set('x-pathname', url.pathname);
 
+   /* 301: legacy "-kg-atm" weight-band slugs → "-kg-gvm" (site renamed ATM to GVM).
+      Must run before the canonical-slug 410 check below, since buildSlugFromFilters
+      now only ever emits "-kg-gvm" — an unredirected "-kg-atm" URL would otherwise
+      mismatch its own canonical form and get 410'd instead of redirected. */
+   if (url.pathname.startsWith('/listings') && url.pathname.includes('-kg-atm')) {
+     url.pathname = url.pathname.replace(/-kg-atm/g, '-kg-gvm');
+     return NextResponse.redirect(url, 301);
+   }
+
    /* 🚫 Block /page/N/ path segments OR ?page= query param → HTTP 410 Gone (no redirect) */
    if (
      (/\/page\/\d+/i.test(url.pathname) && !url.pathname.startsWith('/blog/')) ||
