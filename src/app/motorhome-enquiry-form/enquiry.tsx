@@ -11,7 +11,7 @@ type FormState = {
   "your-phone": string;
   "you-postcode": string; // keep as-is since your CF7 works with this key
   "your-message": string;
-  "caravan-type": "";
+  // "caravan-type": "";
   condition: "";
   budget: "";
 };
@@ -25,7 +25,7 @@ export default function ContactSection() {
     "your-phone": "",
     "you-postcode": "",
     "your-message": "",
-    "caravan-type": "",
+    // "caravan-type": "",
     condition: "",
     budget: "",
   });
@@ -78,9 +78,9 @@ export default function ContactSection() {
     }
 
     // Caravan type
-    if (!formData["caravan-type"].trim()) {
-      next["caravan-type"] = "Type is required.";
-    }
+    // if (!formData["caravan-type"].trim()) {
+    //   next["caravan-type"] = "Type is required.";
+    // }
 
     // Condition
     if (!formData["condition"].trim()) {
@@ -121,7 +121,7 @@ export default function ContactSection() {
       form.append("your-email", formData["your-email"]);
       form.append("your-phone", formData["your-phone"]);
       form.append("you-postcode", formData["you-postcode"]);
-      form.append("caravan-type", formData["caravan-type"]);
+      // form.append("caravan-type", formData["caravan-type"]);
       form.append("condition", formData.condition);
       form.append("budget", formData.budget);
       form.append("your-message", formData["your-message"]);
@@ -145,7 +145,7 @@ export default function ContactSection() {
           "your-phone": "",
           "you-postcode": "",
           "your-message": "",
-          "caravan-type": "",
+          // "caravan-type": "",
           condition: "",
           budget: "",
         });
@@ -313,8 +313,7 @@ export default function ContactSection() {
                           >
                             <option value="">Select Condition</option>
                             <option value="New">New</option>
-                            <option value="Near New">Near New</option>
-                            <option value="Used">Used</option>
+                             <option value="Used">Used</option>
                           </select>
                           {errors.condition && (
                             <small className="text-danger">

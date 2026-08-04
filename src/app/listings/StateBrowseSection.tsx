@@ -29,7 +29,7 @@ async function fetchGroupCounts(groupBy: string, scope: Record<string, string>):
     const res = await fetch(`/api/params-count/?${qs.toString()}`);
     if (!res.ok) return [];
     const json = await res.json();
-    return json?.data ?? [];
+    return json?.data?.[groupBy] ?? [];
   } catch {
     return [];
   }

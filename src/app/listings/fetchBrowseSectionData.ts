@@ -28,7 +28,7 @@ async function fetchGroupCountsServer(
     });
     if (!res.ok) return [];
     const json = await res.json();
-    return json?.data ?? [];
+    return json?.data?.[groupBy] ?? [];
   } catch {
     return [];
   }
