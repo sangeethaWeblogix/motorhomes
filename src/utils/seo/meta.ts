@@ -153,7 +153,7 @@ export async function metaFromSlug(
 
   const title = generateTitleFromFilters(parsed);
   const description =
-    "Browse motorhomes for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.";
+    "Browse new and used motorhomes for sale across Australia. Compare prices, layouts, sleeping capacity and key specifications from dealers and private sellers.";
 
   return {
     title: { absolute: title },
