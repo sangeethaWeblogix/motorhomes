@@ -195,16 +195,25 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
       return;
     }
     if (seo.meta_title) document.title = seo.meta_title;
-    if (seo.meta_description) {
+
+    // "Used" condition view, no other filters — override just the meta
+    // description tag with fixed copy instead of the API's meta_description.
+    const isUsedOnlyPage = filters.condition?.toLowerCase() === "used" &&
+      Object.entries(filters).every(([k, v]) => k === "condition" || v === undefined || v === "" || v === null);
+    const metaDescription = isUsedOnlyPage
+      ? "Browse new and used motorhomes for sale across Australia. Compare prices, layouts, sleeping capacity and key specifications from dealers and private sellers."
+      : seo.meta_description;
+
+    if (metaDescription) {
       let tag = document.querySelector('meta[name="description"]');
       if (!tag) {
         tag = document.createElement("meta");
         tag.setAttribute("name", "description");
         document.head.appendChild(tag);
       }
-      tag.setAttribute("content", seo.meta_description);
+      tag.setAttribute("content", metaDescription);
     }
-  }, [seo]);
+  }, [seo, filters]);
 
   // Restore page from ?clickid= on mount (hard refresh / shared link) before
   // the grids below fetch anything, so they fetch the right page just once.
