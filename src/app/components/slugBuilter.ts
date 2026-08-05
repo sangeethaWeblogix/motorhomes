@@ -25,7 +25,7 @@ function modelSlug(model: string): string {
 }
 export function buildSlugFromFilters(f: Filters): string {
   const segments: string[] = [];
-  // const DEFAULT_RADIUS = 50;
+  const DEFAULT_RADIUS = 25;
   // 1) Make / Model
   if (f.make) segments.push(toSlug(f.make));
   if (f.model) segments.push(modelSlug(f.model));
@@ -123,9 +123,9 @@ if (fromYear !== undefined && toYear !== undefined) {
   const query = new URLSearchParams();
 
   // Add radius_kms to query only if it's number greater than default
-  // if (typeof f.radius_kms === "number" && f.radius_kms > DEFAULT_RADIUS) {
-  //   query.set("radius_kms", String(f.radius_kms));
-  // }
+  if (suburb && Number(f.radius_kms) > DEFAULT_RADIUS) {
+    query.set("radius_kms", String(f.radius_kms));
+  }
   // 9) Search (APPEND at the end — never replace other segments)
   if (f.search) {
     // Normalize for SEO URL: spaces → hyphen, remove junk
