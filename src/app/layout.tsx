@@ -119,7 +119,7 @@ import fetchListingsForHead, { buildListingsJsonLd, buildBreadcrumbs } from "@/u
       if (xRobots === "noindex") {
         slugRobots = "noindex";
         slugCanonical = `https://www.motorhomes.vercel.app/listings/${slugParts.join("/")}/`;
-        slugDescription = "Browse motorhomes for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.";
+        slugDescription = "Browse new and used motorhomes for sale across Australia. Compare prices, layouts, sleeping capacity and key specifications from dealers and private sellers.";
       } else {
         // try {
           // All SEO from metaFromSlug — pure computation, no API call
@@ -133,7 +133,7 @@ import fetchListingsForHead, { buildListingsJsonLd, buildBreadcrumbs } from "@/u
           if (meta.title && typeof meta.title === "object" && "absolute" in meta.title) {
             slugTitle = (meta.title as { absolute: string }).absolute;
           }
-          slugDescription = "Browse motorhomes for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.";
+          slugDescription = "Browse new and used motorhomes for sale across Australia. Compare prices, layouts, sleeping capacity and key specifications from dealers and private sellers.";
         // } catch {
         //   const parts = slugParts
         //     .map((p: string) =>
