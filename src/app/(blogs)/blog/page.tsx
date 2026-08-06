@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   icons: { icon: "/favicon.ico" },
   robots: "index, follow",
   alternates: {
-    canonical: "https://www.motorhomes.vercel.app/blog/",
+    canonical: "https://www.motorhomesforsale.com.au/blog/",
 
    },
 };
@@ -27,19 +27,19 @@ export default async function BlogPage() {
       name: "Motorhomes for Sale Blog",
       description:
         "Latest news, in-depth reviews, and expert advice on the latest in the motorhome market.",
-      url: "https://www.motorhomes.vercel.app/blog/",
+      url: "https://www.motorhomesforsale.com.au/blog/",
       publisher: {
         "@type": "Organization",
         name: "Motorhomes for Sale",
-        url: "https://www.motorhomes.vercel.app",
+        url: "https://www.motorhomesforsale.com.au",
       },
     },
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.motorhomes.vercel.app/" },
-        { "@type": "ListItem", position: 2, name: "Blog", item: "https://www.motorhomes.vercel.app/blog/" },
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.motorhomesforsale.com.au/" },
+        { "@type": "ListItem", position: 2, name: "Blog", item: "https://www.motorhomesforsale.com.au/blog/" },
       ],
     },
     ...(data.items.length > 0

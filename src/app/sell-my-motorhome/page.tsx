@@ -1,7 +1,7 @@
 import SellerDemo from "./seller-demo";
 import "./seller-demo.css";
 
- const BASE_URL = "https://motorhomes.vercel.app";
+ const BASE_URL = "https://www.motorhomesforsale.com.au";
 
 const sellPageJsonLd = {
   "@context": "https://schema.org",

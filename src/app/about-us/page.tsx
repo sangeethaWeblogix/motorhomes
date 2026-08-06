@@ -1,7 +1,7 @@
 import About from "./about";
 import "./about.css";
 
-const BASE_URL = "https://www.motorhomes.vercel.app";
+const BASE_URL = "https://www.motorhomesforsale.com.au";
 
 const aboutPageJsonLd = {
   "@context": "https://schema.org",

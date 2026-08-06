@@ -12,16 +12,16 @@ export const metadata: Metadata = {
     "Discover a diverse range of top-tier motorhome manufacturers specializing in off-road, compact poptops, touring models, luxury editions & innovative hybrids.",
   robots: "index, follow",
   alternates: {
-    canonical: "https://www.motorhomes.vercel.app/caravan-manufacturers/all/",
+    canonical: "https://www.motorhomesforsale.com.au/caravan-manufacturers/all/",
   },
   openGraph: {
     title: "Full List of Top Quality Motorhome Manufacturers in Australia",
     description:
       "Discover a diverse range of top-tier motorhome manufacturers specializing in off-road, compact poptops, touring models, luxury editions & innovative hybrids.",
-    url: "https://www.motorhomes.vercel.app/caravan-manufacturers/all/",
+    url: "https://www.motorhomesforsale.com.au/caravan-manufacturers/all/",
     images: [
       {
-        url: "https://www.motorhomes.vercel.app/images/cfs-logo.png",
+        url: "https://www.motorhomesforsale.com.au/images/cfs-logo.png",
         width: 800,
         height: 600,
         alt: "Motorhome Manufacturers Australia",

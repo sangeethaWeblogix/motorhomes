@@ -39,7 +39,7 @@ export async function generateMetadata({
     seo.metadescription ||
     post.short_description ||
     "Read more on Motorhomes for Sale.";
-  const canonical = `https://www.motorhomes.vercel.app/${slug}/`;
+  const canonical = `https://www.motorhomesforsale.com.au/${slug}/`;
 
   return {
     title,
@@ -77,7 +77,7 @@ export default async function Layout({
   const post = data?.data?.blog_detail || {};
   const seo = data?.seo || {};
 
-  const canonical = `https://www.motorhomes.vercel.app/${slug}/`;
+  const canonical = `https://www.motorhomesforsale.com.au/${slug}/`;
   const title = seo.metatitle || post.title || "Motorhomes for Sale Blog";
   const description =
     seo.metadescription ||
@@ -87,7 +87,7 @@ export default async function Layout({
   const bannerImage =
     post.banner_image ||
     post.image ||
-    "https://www.motorhomes.vercel.app/load.svg";
+    "https://www.motorhomesforsale.com.au/load.svg";
 
   // ✅ JSON-LD schema (Google Rich Result compatible)
   const jsonLd = {
@@ -108,14 +108,14 @@ export default async function Layout({
     author: {
       "@type": "Person",
       name: "Tom",
-      url: "https://www.motorhomes.vercel.app/author/tom/",
+      url: "https://www.motorhomesforsale.com.au/author/tom/",
     },
     publisher: {
       "@type": "Organization",
       name: "Motorhomes for Sale",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.motorhomes.vercel.app/images/cfs-logo-black.svg",
+        url: "https://www.motorhomesforsale.com.au/images/cfs-logo-black.svg",
         width: 300,
         height: 60,
       },

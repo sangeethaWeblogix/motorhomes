@@ -26,7 +26,7 @@ title: "Latest News, Reviews & Advice",
       "Latest news, in-depth reviews, and expert advice on the latest in the motorhome market. Stay informed and make smarter decisions.",
   },
   alternates: {
-    canonical: "https://www.motorhomes.vercel.app/blog/",
+    canonical: "https://www.motorhomesforsale.com.au/blog/",
   },
    
 };

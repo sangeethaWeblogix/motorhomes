@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Find the best motorhome sales across Australia. Browse thousands of new and used motorhomes from trusted dealers and private sellers. Compare prices, types, and locations to find your perfect motorhome.",
   robots: "index, follow",
   alternates: {
-    canonical: "https://www.motorhomes.vercel.app/caravan-sales/",
+    canonical: "https://www.motorhomesforsale.com.au/caravan-sales/",
   },
 };
 

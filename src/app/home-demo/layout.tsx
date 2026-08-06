@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:"Browse motorhomes for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity",
   robots: "noindex, nofollow",
   alternates: {
-    canonical: "https://www.motorhomes.vercel.app/home-demo/",
+    canonical: "https://www.motorhomesforsale.com.au/home-demo/",
   },
 };
 

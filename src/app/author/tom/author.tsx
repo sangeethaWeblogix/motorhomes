@@ -91,7 +91,7 @@ const loading = !data || !blogPosts || blogPosts.length === 0 && data.totalPages
               <div className="author-info">
                 <p>
                   Tom is a passionate motorhome enthusiast and content writer at{" "}
-                  <Link href="https://www.motorhomes.vercel.app/">
+                  <Link href="https://www.motorhomesforsale.com.au/">
                     MotorhomesForSale.com.au
                   </Link>{" "}
                   — Australia’s trusted destination for buying, selling, and

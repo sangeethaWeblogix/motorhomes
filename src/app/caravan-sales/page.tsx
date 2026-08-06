@@ -13,7 +13,7 @@ import { fetchHomePage } from "@/api/home/api";
 
 export const revalidate = 86400;
 
-const CANONICAL = "https://www.motorhomes.vercel.app/caravan-sales/";
+const CANONICAL = "https://www.motorhomesforsale.com.au/caravan-sales/";
 
 const schemaJsonLd = {
   "@context": "https://schema.org",
@@ -26,13 +26,13 @@ const schemaJsonLd = {
       "description": "Find the best motorhome sales across Australia. Browse thousands of new and used motorhomes from trusted dealers and private sellers.",
       "inLanguage": "en-AU",
       "breadcrumb": { "@id": `${CANONICAL}#breadcrumb` },
-      "isPartOf": { "@type": "WebSite", "url": "https://www.motorhomes.vercel.app/" },
+      "isPartOf": { "@type": "WebSite", "url": "https://www.motorhomesforsale.com.au/" },
     },
     {
       "@type": "BreadcrumbList",
       "@id": `${CANONICAL}#breadcrumb`,
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home",          "item": "https://www.motorhomes.vercel.app/" },
+        { "@type": "ListItem", "position": 1, "name": "Home",          "item": "https://www.motorhomesforsale.com.au/" },
         { "@type": "ListItem", "position": 2, "name": "Motorhome Sales", "item": CANONICAL },
       ],
     },
