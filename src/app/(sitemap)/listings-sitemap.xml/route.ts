@@ -17,7 +17,7 @@ const auth = Buffer.from(
 ).toString("base64");
 
   const res = await fetch(
-    `https://www.admin.caravansforsale.com.au/wp-json/wc/v3/products?per_page=100&page=${page}&_fields=slug`,
+    `https://admin.motorhomesforsale.com.au/wp-json/wc/v3/products?per_page=100&page=${page}&_fields=slug`,
     {
       headers: {
         Authorization: `Basic ${auth}`,
@@ -49,6 +49,7 @@ export async function GET() {
     const today = new Date().toISOString().split("T")[0];
 
     const urls = allProducts
+      .filter((product: { slug?: string }) => !!product.slug)
       .map(
         (product: { slug: string }) => `
           <url>
