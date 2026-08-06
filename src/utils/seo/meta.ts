@@ -108,7 +108,7 @@ export async function metaFromSlug(
   filters: string[] = [],
   searchParams: Record<string, string | string[] | undefined> = {}
 ): Promise<Metadata> {
-   const BASE_URL = "https://motorhomes.vercel.app";
+   const BASE_URL = "https://www.motorhomesforsale.com.au";
 
   const parsed = parseSlugToFilters(filters, searchParams);
 
@@ -169,7 +169,7 @@ export async function metaFromSlug(
       url: canonical,
       images: [
         {
-          url: "https://www.motorhomes.vercel.app/images/cfs-logo.png",
+          url: "https://www.motorhomesforsale.com.au/images/cfs-logo.png",
           width: 800,
           height: 600,
           alt: "Motorhomes for Sale Australia",

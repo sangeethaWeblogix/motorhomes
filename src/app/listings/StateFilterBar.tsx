@@ -645,6 +645,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
       setTempSuburbInput(""); setTempSuburbSuggestion(null);
     }
     setSuburbLocationSuggestions([]); setShowSuburbSuggestions(false);
+    setTempSuburbRadius(currentFilters.radius_kms ? Number(currentFilters.radius_kms) : RADIUS_OPTIONS[0]);
     const matchedState = states.find(s => s.name?.toLowerCase() === (currentFilters.state ?? "").toLowerCase() || s.value?.toLowerCase() === (currentFilters.state ?? "").toLowerCase());
     setTempState(matchedState?.name ?? currentFilters.state ?? null);
     const matchedRegion = matchedState?.regions?.find(r => r.name?.toLowerCase() === (currentFilters.region ?? "").toLowerCase() || r.value?.toLowerCase() === (currentFilters.region ?? "").toLowerCase());
@@ -679,6 +680,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
       region:            (regionOverride ?? tempRegion)?.toLowerCase() ?? undefined,
       suburb:            suburbName ?? undefined,
       pincode:           pincodeValue ?? undefined,
+      radius_kms:        suburbName ? tempSuburbRadius : undefined,
       acustom_fromyears: tempYearFrom ?? undefined,
       acustom_toyears:   tempYearTo ?? undefined,
       from_length:       tempLengthFrom ?? undefined,
@@ -946,7 +948,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                     <input
                       className="loc-search-input"
                       placeholder="Search suburb, postcode, state, region"
-                      value={tempSuburbSuggestion && !tempSuburbInput ? tempSuburbSuggestion.short_address : formatted(tempSuburbInput)}
+                      value={tempSuburbSuggestion && !tempSuburbInput ? tempSuburbSuggestion.address : formatted(tempSuburbInput)}
                       onFocus={() => { if (!tempSuburbSuggestion) setShowSuburbSuggestions(true); }}
                       onChange={e => {
                         setShowSuburbSuggestions(true);
@@ -1004,6 +1006,32 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                     </ul>
                   )}
                 </div>
+                {tempSuburbSuggestion && !tempSuburbInput && tempSuburbSuggestion.uri.split("/").filter(Boolean).length >= 3 && (
+                  <div style={{ marginTop:14 }}>
+                    <div className="cfs-radius-label">Search surrounding area</div>
+                    <div className="cfs-radius-wrap">
+                      {(() => {
+                        const idx = Math.max(0, RADIUS_OPTIONS.indexOf(tempSuburbRadius as (typeof RADIUS_OPTIONS)[number]));
+                        const pct = (idx / (RADIUS_OPTIONS.length - 1)) * 100;
+                        return (
+                          <>
+                            <div className="cfs-radius-tooltip" style={{ left:`calc(${pct}% + ${18 - 0.36*pct}px)` }}>{tempSuburbRadius}km</div>
+                            <div className="cfs-radius-track-wrap">
+                              <input type="range" className="cfs-radius-slider" min={0} max={RADIUS_OPTIONS.length-1} step={1} value={idx}
+                                style={{ background:`linear-gradient(to right,#0088c6 0%,#0088c6 ${pct}%,#ddd ${pct}%,#ddd 100%)` }}
+                                onChange={e => setTempSuburbRadius(RADIUS_OPTIONS[parseInt(e.target.value,10)])} aria-label="Search radius" />
+                              {RADIUS_OPTIONS.map((km,i) => {
+                                const tp = (i/(RADIUS_OPTIONS.length-1))*100;
+                                return <span key={i} className={`cfs-radius-tick${i<idx?" active":i===idx?" current":""}`} style={{ left:`calc(${tp}% + ${9-0.18*tp}px)` }} title={`${km}km`} />;
+                              })}
+                            </div>
+                            <div className="cfs-radius-range"><span>{RADIUS_OPTIONS[0]}km</span><span>{RADIUS_OPTIONS[RADIUS_OPTIONS.length-1].toLocaleString()}km</span></div>
+                          </>
+                        );
+                      })()}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Condition */}

@@ -74,12 +74,12 @@ import fetchListingsForHead, { buildListingsJsonLd, buildBreadcrumbs } from "@/u
       "/caravan-manufacturers/": {
         title: "Top 10 Motorhome Manufacturers in Australia: Best Brands of 2024",
         description: "See how top Australian motorhome manufacturers excel with the best in innovative designs, quality construction, cost efficiency, and expert craftsmanship.",
-        canonical: "https://www.motorhomes.vercel.app/caravan-manufacturers/",
+        canonical: "https://www.motorhomesforsale.com.au/caravan-manufacturers/",
       },
       "/off-road-caravans-manufacturers/": {
         title: "Top Off-Road Motorhome Manufacturers in Australia: Best Brands 2024",
         description: "Discover Australia's leading off-road motorhome manufacturers. Compare top brands known for rugged build quality, innovative design, and outback-ready performance.",
-        canonical: "https://www.motorhomes.vercel.app/off-road-caravans-manufacturers/",
+        canonical: "https://www.motorhomesforsale.com.au/off-road-caravans-manufacturers/",
       },
     };
     const staticMeta = STATIC_META[pathname] ?? null;
@@ -100,7 +100,7 @@ import fetchListingsForHead, { buildListingsJsonLd, buildBreadcrumbs } from "@/u
       const listingsData = await fetchListingsForHead(normalizedPath);
       if (listingsData) {
         const crumbs = buildBreadcrumbs(pathname);
-        const pageUrl = `https://www.motorhomes.vercel.app${normalizedPath}`;
+        const pageUrl = `https://www.motorhomesforsale.com.au${normalizedPath}`;
         const { collectionPageLd, searchResultsLd } = buildListingsJsonLd(
           listingsData,
           pageUrl,
@@ -118,7 +118,7 @@ import fetchListingsForHead, { buildListingsJsonLd, buildBreadcrumbs } from "@/u
       // Middleware signals 0 products via x-robots: noindex — use it directly, no API call needed
       if (xRobots === "noindex") {
         slugRobots = "noindex";
-        slugCanonical = `https://www.motorhomes.vercel.app/listings/${slugParts.join("/")}/`;
+        slugCanonical = `https://www.motorhomesforsale.com.au/listings/${slugParts.join("/")}/`;
         slugDescription = "Browse new and used motorhomes for sale across Australia. Compare prices, layouts, sleeping capacity and key specifications from dealers and private sellers.";
       } else {
         // try {
@@ -145,7 +145,7 @@ import fetchListingsForHead, { buildListingsJsonLd, buildBreadcrumbs } from "@/u
         //   slugTitle = parts.length
         //     ? `${parts.join(" ")} Motorhomes for Sale in Australia`
         //     : "Motorhomes for Sale in Australia";
-        //   slugCanonical = `https://www.motorhomes.vercel.app/listings/${slugParts.join("/")}/`;
+        //   slugCanonical = `https://www.motorhomesforsale.com.au/listings/${slugParts.join("/")}/`;
         //   slugDescription = "Browse caravans for sale across Australia. Compare prices on off-road, hybrid, pop top, touring, luxury models with size, weight & sleeping capacity.";
         //   slugRobots = "index, follow";
         // }
@@ -196,56 +196,56 @@ import fetchListingsForHead, { buildListingsJsonLd, buildBreadcrumbs } from "@/u
                   "@graph": [
                     {
                       "@type": "WebSite",
-                      "@id": "https://www.motorhomes.vercel.app/#website",
-                      "url": "https://www.motorhomes.vercel.app/",
+                      "@id": "https://www.motorhomesforsale.com.au/#website",
+                      "url": "https://www.motorhomesforsale.com.au/",
                       "name": "Motorhomes For Sale",
                       "alternateName": "Motorhomes For Sale by Marketplace Network",
                     },
                     {
                       "@type": "Organization",
-                      "@id": "https://www.motorhomes.vercel.app/#organization",
+                      "@id": "https://www.motorhomesforsale.com.au/#organization",
                       "name": "Marketplace Network Pty Ltd",
                       "legalName": "Marketplace Network Pty Ltd",
                       "taxID": "ABN 70 694 987 052",
-                      "url": "https://www.motorhomes.vercel.app/",
+                      "url": "https://www.motorhomesforsale.com.au/",
                       "logo": {
                         "@type": "ImageObject",
-                        "url": "https://www.motorhomes.vercel.app/images/cfs-logo-black.svg",
+                        "url": "https://www.motorhomesforsale.com.au/images/cfs-logo-black.svg",
                         "caption": "Motorhomes For Sale by Marketplace Network",
                       },
                       "contactPoint": {
                         "@type": "ContactPoint",
                         "contactType": "customer service",
-                        "url": "https://www.motorhomes.vercel.app/contact/",
+                        "url": "https://www.motorhomesforsale.com.au/contact/",
                         "availableLanguage": "en",
                         "areaServed": "AU",
                       },
                     },
                     {
                       "@type": "ContactPage",
-                      "@id": "https://www.motorhomes.vercel.app/contact/#webpage",
-                      "url": "https://www.motorhomes.vercel.app/contact/",
+                      "@id": "https://www.motorhomesforsale.com.au/contact/#webpage",
+                      "url": "https://www.motorhomesforsale.com.au/contact/",
                       "name": "Contact Us | Get in Touch with Motorhomes For Sale",
-                      "isPartOf": { "@id": "https://www.motorhomes.vercel.app/#website" },
-                      "about": { "@id": "https://www.motorhomes.vercel.app/#organization" },
+                      "isPartOf": { "@id": "https://www.motorhomesforsale.com.au/#website" },
+                      "about": { "@id": "https://www.motorhomesforsale.com.au/#organization" },
                       "description": "Have a question about buying, selling, or dealer advertising solutions? Fill out our online contact form to get in touch with the Motorhomes For Sale customer support team.",
-                      "breadcrumb": { "@id": "https://www.motorhomes.vercel.app/contact/#breadcrumb" },
+                      "breadcrumb": { "@id": "https://www.motorhomesforsale.com.au/contact/#breadcrumb" },
                     },
                     {
                       "@type": "BreadcrumbList",
-                      "@id": "https://www.motorhomes.vercel.app/contact/#breadcrumb",
+                      "@id": "https://www.motorhomesforsale.com.au/contact/#breadcrumb",
                       "itemListElement": [
                         {
                           "@type": "ListItem",
                           "position": 1,
                           "name": "Home",
-                          "item": "https://www.motorhomes.vercel.app/",
+                          "item": "https://www.motorhomesforsale.com.au/",
                         },
                         {
                           "@type": "ListItem",
                           "position": 2,
                           "name": "Contact Us",
-                          "item": "https://www.motorhomes.vercel.app/contact/",
+                          "item": "https://www.motorhomesforsale.com.au/contact/",
                         },
                       ],
                     },

@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
- const BASE_URL = "https://motorhomes.vercel.app";
+ const BASE_URL = "https://www.motorhomesforsale.com.au";
 
 export default function robots(): MetadataRoute.Robots {
   return {

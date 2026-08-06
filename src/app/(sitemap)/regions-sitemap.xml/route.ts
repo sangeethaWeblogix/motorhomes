@@ -3,7 +3,7 @@ import regionsData from "../../../../cfs-paths/regions.json";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://www.motorhomes.vercel.app/listings/";
+  "https://www.motorhomesforsale.com.au/listings/";
 
 export async function GET() {
   try {

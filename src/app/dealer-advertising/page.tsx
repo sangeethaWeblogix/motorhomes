@@ -5,20 +5,20 @@ const schemaGraph = [
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "@id": "https://www.motorhomes.vercel.app/dealer-advertising/#webpage",
-    "url": "https://www.motorhomes.vercel.app/dealer-advertising/",
+    "@id": "https://www.motorhomesforsale.com.au/dealer-advertising/#webpage",
+    "url": "https://www.motorhomesforsale.com.au/dealer-advertising/",
     "name": "Motorhome Dealer Advertising | Unlimited Listings $299/Month | MotorhomesForSale",
     "description": "Advertise your motorhome dealership on MotorhomesForSale.com.au. Unlimited listings, zero lead fees, $299/month (inc. GST). Cancel anytime.",
-    "isPartOf": { "@id": "https://www.motorhomes.vercel.app/#website" },
-    "breadcrumb": { "@id": "https://www.motorhomes.vercel.app/dealer-advertising/#breadcrumb" },
+    "isPartOf": { "@id": "https://www.motorhomesforsale.com.au/#website" },
+    "breadcrumb": { "@id": "https://www.motorhomesforsale.com.au/dealer-advertising/#breadcrumb" },
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "@id": "https://www.motorhomes.vercel.app/dealer-advertising/#breadcrumb",
+    "@id": "https://www.motorhomesforsale.com.au/dealer-advertising/#breadcrumb",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.motorhomes.vercel.app/" },
-      { "@type": "ListItem", "position": 2, "name": "Dealer Advertising", "item": "https://www.motorhomes.vercel.app/dealer-advertising/" },
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.motorhomesforsale.com.au/" },
+      { "@type": "ListItem", "position": 2, "name": "Dealer Advertising", "item": "https://www.motorhomesforsale.com.au/dealer-advertising/" },
     ],
   },
   {
@@ -28,10 +28,10 @@ const schemaGraph = [
     "provider": {
       "@type": "Organization",
       "name": "Motorhomes For Sale",
-      "url": "https://www.motorhomes.vercel.app/",
+      "url": "https://www.motorhomesforsale.com.au/",
     },
     "description": "Unlimited motorhome listings on MotorhomesForSale.com.au for $299/month (inc. GST). Zero lead fees, no lock-in contracts, automatic inventory sync.",
-    "url": "https://www.motorhomes.vercel.app/dealer-advertising/",
+    "url": "https://www.motorhomesforsale.com.au/dealer-advertising/",
     "areaServed": { "@type": "Country", "name": "Australia" },
     "offers": {
       "@type": "Offer",

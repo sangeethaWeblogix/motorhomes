@@ -7,7 +7,7 @@
     "build": "next build && node scripts/update-kv-build-id.js",
     "start": "next start",
     "lint": "next lint",
-    "warm": "node scripts/warm-cache.mjs https://www.motorhomes.vercel.app",
+    "warm": "node scripts/warm-cache.mjs https://www.motorhomesforsale.com.au",
     "warm:staging": "node scripts/warm-cache.mjs"
   },
   "dependencies": {

@@ -16,12 +16,12 @@ import { ReactNode } from "react";
      google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ this auto generates <meta name="google-site-verification" />
    },
    alternates: {
-    canonical: "https://www.motorhomes.vercel.app/privacy-policy/",
+    canonical: "https://www.motorhomesforsale.com.au/privacy-policy/",
 
    },
    
    openGraph: {
-      url: "https://www.motorhomes.vercel.app/privacy-policy/",
+      url: "https://www.motorhomesforsale.com.au/privacy-policy/",
      title: "Privacy Policy - caravansforsale.com.au - Motorhome Marketplace",
        description:
      "Learn about Motorhome Marketplace's privacy policy on data collection, usage, security measures, and your rights regarding your information.",

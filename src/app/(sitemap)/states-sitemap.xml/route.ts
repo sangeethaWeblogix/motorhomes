@@ -3,7 +3,7 @@ import statesData from "../../../../cfs-paths/states.json";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://www.motorhomes.vercel.app/listings/";
+  "https://www.motorhomesforsale.com.au/listings/";
 
 export async function GET() {
   try {

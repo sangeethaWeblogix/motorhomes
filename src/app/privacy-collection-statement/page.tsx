@@ -15,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
     robots: robots,
 
     alternates: {
-      canonical: "https://www.motorhomes.vercel.app/privacy-collection-statement/",
+      canonical: "https://www.motorhomesforsale.com.au/privacy-collection-statement/",
     },
 
     openGraph: {
       title: metaTitle,
       description: metaDescription,
-      url: "https://www.motorhomes.vercel.app/privacy-collection-statement/",
+      url: "https://www.motorhomesforsale.com.au/privacy-collection-statement/",
       type: "article",
     },
 
