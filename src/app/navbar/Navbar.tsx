@@ -99,14 +99,12 @@ export default function Navbar() {
                   <a className="nav-link" href="/listings/">Buy</a>
                 </li>
 
-                {/* Hidden for now — Sell My Motorhome / Dealer Advertising
                 <li className="nav-item">
                   <a className="nav-link" href="/sell-my-motorhome/">Sell My Motorhome</a>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="/dealer-advertising/">Dealer Advertising</a>
                 </li>
-                */}
 
                 <li className="nav-item login">
                   <a className="nav-link" href="/login/">
@@ -122,10 +120,8 @@ export default function Navbar() {
                 {hamOpen && (
                   <div className="ham-dropdown">
                     <a href="/listings/" className="ham-item">Motorhome Listings</a>
-                    {/* Hidden for now — Sell My Motorhome / Dealer Advertising
                     <a href="/sell-my-motorhome/" className="ham-item">Sell My Motorhome</a>
                     <a href="/dealer-advertising/" className="ham-item">Dealer Advertising</a>
-                    */}
                     <a href="/blog/" className="ham-item">Blog</a>
                     <a href="/about-us/" className="ham-item">About</a>
                     <a href="/contact/" className="ham-item">Contact</a>
@@ -197,10 +193,8 @@ export default function Navbar() {
                 </ul>
               </div>
               <div className="sidenav-cta">
-                {/* Hidden for now — Sell My Motorhome / Dealer Advertising
                 <a href="/sell-my-motorhome/" className="sidenav-cta-link" onClick={closeNav}>Sell My Motorhome</a>
                 <a href="/dealer-advertising/" className="sidenav-cta-link" onClick={closeNav}>Dealer Advertising</a>
-                */}
                 <a href="/login/" className="sidenav-cta-login" onClick={closeNav}>
                   <i className="bi bi-person-fill"></i> Login
                 </a>
