@@ -104,6 +104,12 @@
    return BOT_USER_AGENTS.some(bot => ua.includes(bot));
  }
 
+ /** True only for the actual /listings route — not paths that merely start with
+  *  the same string prefix (e.g. /listings-sitemap.xml, /listings-demo). */
+ function isListingsPath(pathname: string): boolean {
+   return pathname === '/listings' || pathname.startsWith('/listings/');
+ }
+
  /* Helper: redirect to /404 */
  function gone404(request: NextRequest): NextResponse {
    return NextResponse.redirect(new URL('/404', request.url), { status: 302 });
@@ -171,7 +177,7 @@
       Must run before the canonical-slug 410 check below, since buildSlugFromFilters
       now only ever emits "-kg-gvm" — an unredirected "-kg-atm" URL would otherwise
       mismatch its own canonical form and get 410'd instead of redirected. */
-   if (url.pathname.startsWith('/listings') && url.pathname.includes('-kg-atm')) {
+   if (isListingsPath(url.pathname) && url.pathname.includes('-kg-atm')) {
      url.pathname = url.pathname.replace(/-kg-atm/g, '-kg-gvm');
      return NextResponse.redirect(url, 301);
    }
@@ -185,7 +191,7 @@
    }
 
    /* 🚫 Listings: forbidden segments, unknown params, OR wrong URL order → 410 */
-   if (url.pathname.startsWith('/listings')) {
+   if (isListingsPath(url.pathname)) {
      const segments = url.pathname.split('/').filter(Boolean);
      const hasForbiddenSegment = segments.some(s => /(page|feed)/i.test(s));
 
@@ -285,7 +291,7 @@
    }
 
    /* 🤖 Bot Detection — listing and product pages not early-returned so they get 0-product/410 check */
-   if (isBot(userAgent) && !url.pathname.startsWith('/listings') && !url.pathname.startsWith('/product/')) {
+   if (isBot(userAgent) && !isListingsPath(url.pathname) && !url.pathname.startsWith('/product/')) {
      console.log(`🤖 Bot detected: ${userAgent.substring(0, 50)}...`);
      const response = NextResponse.next({ request: { headers: requestHeaders } });
      response.headers.set('X-Is-Bot', 'true');
@@ -335,7 +341,7 @@
      !url.pathname.includes('.') &&
      !url.pathname.startsWith('/api') &&
      !url.pathname.startsWith('/_next') &&
-      !url.pathname.startsWith('/listings')
+      !isListingsPath(url.pathname)
    ) {
      url.pathname = `${url.pathname}/`;
      return NextResponse.redirect(url, 308);
@@ -354,7 +360,7 @@
    /* 3️⃣ SEO Middleware (LISTINGS ONLY) */
    let robotsHeader = "index, follow";
 
-   if (url.pathname.startsWith("/listings")) {
+   if (isListingsPath(url.pathname)) {
      try {
        const slugParts = url.pathname
          .replace("/listings", "")
@@ -458,7 +464,7 @@
    /* 4️⃣ Create response */
    const response = NextResponse.next({ request: { headers: requestHeaders } });
 
-   if (url.pathname.startsWith("/listings")) {
+   if (isListingsPath(url.pathname)) {
      response.headers.set("X-Robots-Tag", robotsHeader);
    }
 

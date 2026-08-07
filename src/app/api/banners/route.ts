@@ -2,43 +2,42 @@
 // src/app/api/banners/route.ts
 import { NextResponse } from "next/server";
 
-const PLACEMENTS = ["listings", "home"];
+// NOTE: intentionally no query string here — the WP host's nginx proxy cache
+// (X-Proxy-Cache) keys on the full URL including query params, so the
+// previous "?placement=...&limit=50&paged=1" variant was stuck serving a
+// stale cached response after banner images were updated. The plain
+// no-query-string URL was a cache miss and returned live data. This is a
+// workaround, not a real fix — once this exact URL gets cached too, the same
+// staleness can recur. The proxy cache config on the WP host needs fixing
+// for a durable solution.
+const BANNERS_URL = "https://admin.motorhomesforsale.com.au/wp-json/ads-manager/v1/banners/";
 
 export async function GET() {
   try {
-    const results = await Promise.allSettled(
-      PLACEMENTS.map(async (placement) => {
-        const url = `https://admin.motorhomesforsale.com.au/wp-json/ads-manager/v1/banners?placement=${placement}&limit=50&paged=1`;
+    const res = await fetch(BANNERS_URL, {
+      headers: { "User-Agent": "Mozilla/5.0" },
+      cache: "no-store",
+    });
 
-        const res = await fetch(url, {
-          headers: { "User-Agent": "Mozilla/5.0" },
-          cache: "no-store",
-        });
+    if (!res.ok) {
+      console.error(`❌ banners fetch failed: ${res.status}`);
+      return NextResponse.json([], { status: 500 });
+    }
 
-        if (!res.ok) {
-          console.error(`❌ ${placement}: ${res.status}`);
-          return [];
-        }
+    const raw = await res.text();
+    const idx = raw.search(/[[{]/);
+    let data: any = [];
+    if (idx !== -1) {
+      try {
+        data = JSON.parse(idx > 0 ? raw.substring(idx) : raw);
+      } catch {
+        data = [];
+      }
+    }
 
-        const raw = await res.text();
-        const idx = raw.search(/[[{]/);
-        if (idx === -1) return [];
-        let data;
-        try {
-          data = JSON.parse(idx > 0 ? raw.substring(idx) : raw);
-        } catch {
-          return [];
-        }
-        return Array.isArray(data) ? data : data.data || [];
-      })
-    );
-
-    const merged = results.flatMap((r) =>
-      r.status === "fulfilled" ? r.value : []
-    );
-
-    const unique = merged.filter(
-      (banner, index, self) =>
+    const all = Array.isArray(data) ? data : data.data || [];
+    const unique = all.filter(
+      (banner: { id: unknown }, index: number, self: { id: unknown }[]) =>
         index === self.findIndex((b) => b.id === banner.id)
     );
 

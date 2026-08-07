@@ -21,10 +21,15 @@ type ListResp = {
 
 export async function fetchRequirements(): Promise<Requirement[]> {
   if (!API_BASE) return [];
-  const url = `${API_BASE}/cara_req`;
+  // NOTE: the WP host's proxy cache is keyed on the exact URL including query
+  // string, and the plain "/cara_req" URL is stuck serving a stale cached
+  // "no enquiries found" response. "?debug=1" is a cache-busting workaround
+  // (same class of fix as the banners API) — not a real fix; the proxy cache
+  // config on the WP host still needs correcting for a durable solution.
+  const url = `${API_BASE}/cara_req?debug=1`;
   try {
     const res = await fetch(url, {
-      next: { revalidate: 86400 },
+      cache: "no-store",
       headers: {
         Accept: "application/json",
         ...(API_KEY && { "X-API-Key": API_KEY }),

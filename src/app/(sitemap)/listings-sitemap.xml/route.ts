@@ -7,8 +7,8 @@ export const dynamic = "force-dynamic";
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://www.motorhomesforsale.com.au";
 
-const CONSUMER_KEY = "ck_73393ca56ac29867aa71c9beeba4714a49c4116b";
-const CONSUMER_SECRET = "cs_b554ee636b76bf9968bbe181695a6fb2b4b180b1";
+const CONSUMER_KEY = "ck_24892a914e4550390c782178b2720c9ff6423124";
+const CONSUMER_SECRET = "cs_3efc7ccb27007dc988bf17096281a557567e6c1b";
 
 async function fetchProducts(page: number) {
 const auth = Buffer.from(
@@ -17,7 +17,7 @@ const auth = Buffer.from(
 ).toString("base64");
 
   const res = await fetch(
-    `https://www.admin.caravansforsale.com.au/wp-json/wc/v3/products?per_page=100&page=${page}&_fields=slug`,
+    `https://admin.motorhomesforsale.com.au/wp-json/wc/v3/products?per_page=100&page=${page}&_fields=slug`,
     {
       headers: {
         Authorization: `Basic ${auth}`,
@@ -49,6 +49,7 @@ export async function GET() {
     const today = new Date().toISOString().split("T")[0];
 
     const urls = allProducts
+      .filter((product: { slug?: string }) => !!product.slug)
       .map(
         (product: { slug: string }) => `
           <url>
