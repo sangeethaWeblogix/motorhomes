@@ -96,11 +96,15 @@ img {
   justify-content: center;
 }
 
-.btn:hover,
-.btn:focus {
-  background: #0099da;
+.btn:hover {
+  background: #0099da !important;
   border-color: transparent !important;
   color: #fff;
+}
+
+.btn:focus-visible {
+  outline: 2px solid #0099da;
+  outline-offset: 2px;
 }
 
 .banner_ad_now {

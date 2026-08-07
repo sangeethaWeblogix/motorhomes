@@ -23,10 +23,9 @@ export default function AboutUs() {
               <h4 className="wp-block-heading">Discover Your Perfect Motorhome</h4>
               <p>
                 <strong>Extensive Data :</strong> Explore thousands of new and used
-                motorhomes available on Marketplace Network. With a diverse range of off
-                road, hybrid, luxury, family &amp; touring motorhomes to choose from, we
-                are confident that you’ll find the perfect motorhome to suit your needs
-                and preferences.
+                motorhomes available on Marketplace Network. With a wide range of
+                motorhomes to choose from, we are confident that you’ll find the perfect
+                motorhome to suit your needs and preferences.
               </p>
 
               <h4 className="wp-block-heading">
@@ -34,7 +33,6 @@ export default function AboutUs() {
               </h4>
               <p>
                 We have identified specific motorhome manufacturers who build quality
-                motorhomes in various categories including off road, on road, touring
                 motorhomes. These manufacturers don’t spend big on advertising and do not
                 participate much on the show. However, the quality of the van is as good
                 as or even better than the big brands who spend big on their marketing.
