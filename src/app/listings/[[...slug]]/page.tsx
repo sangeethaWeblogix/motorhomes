@@ -18,8 +18,9 @@ function isPathIndexed(urlPath: string): boolean {
     const csvPath = path.join(process.cwd(), "src", "app", "url.csv");
     const raw = fs.readFileSync(csvPath, "utf-8");
     const set = new Set<string>();
-    for (const line of raw.split("\n").slice(1)) {
-      const u = line.split("\t")[1];
+    // One URL per line — no header row, no tab-separated columns.
+    for (const line of raw.split("\n")) {
+      const u = line.trim();
       if (u) set.add(u.replace(/^https?:\/\/[^/]+/, "").trim().toLowerCase().replace(/\/+$/, ""));
     }
     _indexedPaths = set;
