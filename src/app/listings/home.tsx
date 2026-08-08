@@ -754,7 +754,7 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
           {filters.category === 'off-road' && (
             <section className="lsd-offroad-extra"><div className="container">
               <h2 className="lsd-offroad-extra__title">{seed % 2 === 0 ? "Find Your Ideal Off Road Motorhome" : "Search and Compare Off Road Motorhomes"}</h2>
-              <p className="lsd-offroad-extra__body">Browse live motorhome listings from across the country, then compare <a href="https://www.motorhomesforsale.com.au/off-road-caravans/">off road motorhomes in Australia</a> using search filters by price, location, weight, length and sleeping capacity while exploring manufacturer and model reviews.</p>
+              <p className="lsd-offroad-extra__body">Browse live motorhome listings from across the country, then compare <a href="https://www.motorhomesforsale.com.au/off-road-motorhomes/">off road motorhomes in Australia</a> using search filters by price, location, weight, length and sleeping capacity while exploring manufacturer and model reviews.</p>
             </div></section>
           )}
           <div className="lsd-sell-cta">
@@ -899,7 +899,7 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
         {filters.category === 'off-road' && (
           <section className="lsd-offroad-extra"><div className="container">
             <h2 className="lsd-offroad-extra__title">{seed % 2 === 0 ? "Find Your Ideal Off Road Motorhome" : "Search and Compare Off Road Motorhomes"}</h2>
-            <p className="lsd-offroad-extra__body">Browse live motorhome listings from across the country, then compare <a href="https://www.motorhomesforsale.com.au/off-road-caravans/">off road motorhomes in Australia</a> using search filters by price, location, weight, length and sleeping capacity while exploring manufacturer and model reviews.</p>
+            <p className="lsd-offroad-extra__body">Browse live motorhome listings from across the country, then compare <a href="https://www.motorhomesforsale.com.au/off-road-motorhomes/">off road motorhomes in Australia</a> using search filters by price, location, weight, length and sleeping capacity while exploring manufacturer and model reviews.</p>
           </div></section>
         )}
         <div className="lsd-sell-cta">
@@ -963,7 +963,7 @@ export default function StateHome({ initialFilters, browseData, initialPool, ini
       {filters.category === 'off-road' && (
         <section className="lsd-offroad-extra"><div className="container">
           <h2 className="lsd-offroad-extra__title">{seed % 2 === 0 ? "Find Your Ideal Off Road Motorhome" : "Search and Compare Off Road Motorhomes"}</h2>
-          <p className="lsd-offroad-extra__body">Browse live motorhome listings from across the country, then compare <a href="https://www.motorhomesforsale.com.au/off-road-caravans/">off road motorhomes in Australia</a> using search filters by price, location, weight, length and sleeping capacity while exploring manufacturer and model reviews.</p>
+          <p className="lsd-offroad-extra__body">Browse live motorhome listings from across the country, then compare <a href="https://www.motorhomesforsale.com.au/off-road-motorhomes/">off road motorhomes in Australia</a> using search filters by price, location, weight, length and sleeping capacity while exploring manufacturer and model reviews.</p>
         </div></section>
       )}
       <div className="lsd-sell-cta">

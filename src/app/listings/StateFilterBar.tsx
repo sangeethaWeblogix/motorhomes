@@ -1,7 +1,6 @@
 "use client";
 import "../components/filter.css";
 import { useState, useEffect, useRef } from "react";
-import CategorySkeleton from "../components/CategorySkeleton";
 import SearchSuggestionSkeleton from "../components/Searchsuggestionskeleton ";
 import { fetchLocations } from "@/api/location/api";
 import { fetchHomeSearchList, fetchKeywordSuggestions } from "@/api/homeSearch/api";
@@ -63,7 +62,6 @@ const LENGTH_OPTIONS = [12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28];
  * active filters, matching production's live /api/params-count/ behaviour. */
 const buildMakeCountParams = (filters: FilterState): URLSearchParams => {
   const params = new URLSearchParams();
-  if (filters.category)          params.set("category", filters.category);
   if (filters.condition)         params.set("condition", filters.condition);
   if (filters.state)             params.set("state", String(filters.state).toLowerCase());
   if (filters.region)            params.set("region", filters.region);
@@ -86,38 +84,27 @@ const buildMakeCountParams = (filters: FilterState): URLSearchParams => {
 
 export default function StateFilterBar({ currentFilters, onFilterChange, onClearAll }: Props) {
   /* ── Data ── */
-  const [categories, setCategories] = useState<{name: string; slug: string}[]>([]);
   const [states,     setStates]     = useState<StateOption[]>([]);
   const [makes,      setMakes]      = useState<{name: string; slug: string; models?: {name: string; slug: string}[]}[]>([]);
   const [catLoading, setCatLoading] = useState(true);
-  const [categoryCounts, setCategoryCounts] = useState<{name: string; slug: string; count: number}[]>([]);
-  const [catCountLoading, setCatCountLoading] = useState(false);
-  const cachedCategoryCountsRef = useRef<{name: string; slug: string; count: number}[]>([]);
 
   // Unscoped baseline from the initial combined fetch — restored when a
   // scoped filter is cleared instead of re-fetching the exact same unscoped
   // breakdown the combined call already gave us.
-  const baselineCategoryCountsRef = useRef<{name: string; slug: string; count: number}[]>([]);
   const baselineMakeCountsRef = useRef<{name: string; slug: string; count: number; model?: {name: string; slug: string; count: number}[]}[]>([]);
   const baselineRegionCountsByStateRef = useRef<Record<string, {name: string; slug: string; count: number}[]>>({});
 
   // Single consolidated initial fetch — replaces the old separate
-  // /api/product-list/ (categories + states) and /api/make-details/ (makes)
-  // calls with one /api/params-count/?group_by=category,make,condition,state
-  // request. `data.make` is used directly as the makes list (popular_makes is
-  // not used here). Note this multi-field group_by combo isn't covered by the
-  // daily KV pre-warm (which only warms single-field group_by), so it always
-  // falls through to a live WP call — still one request instead of two.
+  // /api/product-list/ (states) and /api/make-details/ (makes) calls with one
+  // /api/params-count/?group_by=make,condition,state request. `data.make` is
+  // used directly as the makes list (popular_makes is not used here).
   useEffect(() => {
     const controller = new AbortController();
-    fetch("/api/params-count/?group_by=category,make,condition,state", { signal: controller.signal })
+    fetch("/api/params-count/?group_by=make,condition,state", { signal: controller.signal })
       .then(r => r.ok ? r.json() : null)
       .then((res: any) => {
         const data = res?.data;
         if (data) {
-          setCategories(data.category || []);
-          setCategoryCounts(data.category || []);
-          baselineCategoryCountsRef.current = data.category || [];
           setMakes(data.make || []);
           setMakeCounts(data.make || []);
           baselineMakeCountsRef.current = data.make || [];
@@ -141,80 +128,6 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
       .catch(e => { if (e.name !== "AbortError") setCatLoading(false); });
     return () => controller.abort();
   }, []);
-
-  // Live category counts — same /api/params-count/?group_by=category endpoint
-  // production's Listings.tsx uses, scoped to every OTHER active filter (make,
-  // model, state, etc. — but not category itself) so the Caravan Type list only
-  // shows types that actually have matching results under the current filters.
-  useEffect(() => {
-    // No scoping filter active — the initial combined group_by=category,make,
-    // condition,state call already fetched this exact (unscoped) category
-    // breakdown, so skip the extra round trip and keep what that call set.
-    const hasScope =
-      currentFilters.make || currentFilters.model || currentFilters.condition || currentFilters.state ||
-      currentFilters.region || currentFilters.suburb || currentFilters.pincode || currentFilters.from_price ||
-      currentFilters.to_price || currentFilters.minKg || currentFilters.maxKg || currentFilters.acustom_fromyears ||
-      currentFilters.acustom_toyears || currentFilters.from_length || currentFilters.to_length ||
-      currentFilters.from_sleep || currentFilters.to_sleep || currentFilters.keyword;
-    if (!hasScope) {
-      setCategoryCounts(baselineCategoryCountsRef.current);
-      setCatCountLoading(false);
-      return;
-    }
-
-    const controller = new AbortController();
-    setCatCountLoading(true);
-    const params = new URLSearchParams();
-    if (currentFilters.make)               params.set("make", currentFilters.make);
-    if (currentFilters.model)              params.set("model", currentFilters.model);
-    if (currentFilters.condition)          params.set("condition", currentFilters.condition);
-    if (currentFilters.state)              params.set("state", String(currentFilters.state).toLowerCase());
-    if (currentFilters.region)             params.set("region", currentFilters.region);
-    if (currentFilters.suburb)             params.set("suburb", currentFilters.suburb);
-    if (currentFilters.pincode)            params.set("pincode", currentFilters.pincode);
-    if (currentFilters.from_price)         params.set("from_price", String(currentFilters.from_price));
-    if (currentFilters.to_price)           params.set("to_price", String(currentFilters.to_price));
-    if (currentFilters.minKg)              params.set("from_gvm", String(currentFilters.minKg));
-    if (currentFilters.maxKg)              params.set("to_gvm", String(currentFilters.maxKg));
-    if (currentFilters.acustom_fromyears)  params.set("acustom_fromyears", String(currentFilters.acustom_fromyears));
-    if (currentFilters.acustom_toyears)    params.set("acustom_toyears", String(currentFilters.acustom_toyears));
-    if (currentFilters.from_length)        params.set("from_length", String(currentFilters.from_length));
-    if (currentFilters.to_length)          params.set("to_length", String(currentFilters.to_length));
-    if (currentFilters.from_sleep)         params.set("from_sleep", String(currentFilters.from_sleep));
-    if (currentFilters.to_sleep)           params.set("to_sleep", String(currentFilters.to_sleep));
-    if (currentFilters.keyword)            params.set("keyword", currentFilters.keyword);
-    params.set("group_by", "category");
-    fetch(`/api/params-count/?${params.toString()}`, { signal: controller.signal })
-      .then(r => r.json())
-      .then(json => {
-        if (controller.signal.aborted) return;
-        setCategoryCounts(json.data?.category ?? []);
-        setCatCountLoading(false);
-      })
-      .catch(e => { if (e.name !== "AbortError") setCatCountLoading(false); });
-    return () => controller.abort();
-  }, [
-    currentFilters.make, currentFilters.model, currentFilters.condition, currentFilters.state, currentFilters.region,
-    currentFilters.suburb, currentFilters.pincode, currentFilters.from_price, currentFilters.to_price,
-    currentFilters.minKg, currentFilters.maxKg, currentFilters.acustom_fromyears, currentFilters.acustom_toyears,
-    currentFilters.from_length, currentFilters.to_length, currentFilters.from_sleep, currentFilters.to_sleep,
-    currentFilters.keyword,
-  ]);
-
-  // Cache the last non-empty result so a transient 0-count response (or one
-  // where the backend returns no breakdown at all) doesn't flash an empty list.
-  useEffect(() => {
-    if (categoryCounts.length > 0) cachedCategoryCountsRef.current = categoryCounts;
-  }, [categoryCounts]);
-
-  // Only show caravan types that actually have matching results under the
-  // current filters — falls back to the full static list before the first
-  // count response arrives (or if the API returned no breakdown at all).
-  const visibleCategories = categoryCounts.length > 0
-    ? categories.filter(c => categoryCounts.some(cc => cc.slug === c.slug && cc.count > 0))
-    : cachedCategoryCountsRef.current.length > 0
-      ? categories.filter(c => cachedCategoryCountsRef.current.some(cc => cc.slug === c.slug && cc.count > 0))
-      : categories;
 
   /* ── Suburb search ── */
   const RADIUS_OPTIONS = [25, 50, 100, 250, 500, 1000] as const;
@@ -334,7 +247,6 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   }, [tempMake, makeCounts, currentFilters.model]);
 
   /* ── Temp filter values ── */
-  const [tempCategory,     setTempCategory]     = useState<string | null>(null);
   const [tempState,        setTempState]        = useState<string | null>(null);
   const [tempRegion,       setTempRegion]       = useState<string | null>(null);
   const [tempRegionRaw,    setTempRegionRaw]    = useState<string | null>(null);
@@ -541,11 +453,6 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     setTimeout(() => setClearingAll(false), 300);
   };
 
-  /* ── Type ── */
-  const handleTypeOpen = () => { setTempCategory(currentFilters.category ?? null); setOpenModal("type"); };
-  const handleTypeSearch = () => { updateFiltersAndURL({ category: tempCategory ?? undefined }); setOpenModal(null); };
-  const handleTypeClear  = () => { setTempCategory(null); updateFiltersAndURL({ category: undefined }); setOpenModal(null); };
-
   /* ── Condition ── */
   const handleConditionOpen   = () => { setTempCondition(currentFilters.condition?.toLowerCase() ?? null); setOpenModal("condition"); };
   const handleConditionSearch = () => { updateFiltersAndURL({ condition: tempCondition ?? undefined }); setOpenModal(null); };
@@ -615,7 +522,6 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
 
   /* ── All Filters (combined modal) ── */
   const handleAllFiltersOpen = () => {
-    setTempCategory(currentFilters.category ?? null);
     setTempCondition(currentFilters.condition?.toLowerCase() ?? null);
     setTempPriceFrom(currentFilters.from_price ? Number(currentFilters.from_price) : null);
     setTempPriceTo(currentFilters.to_price ? Number(currentFilters.to_price) : null);
@@ -666,7 +572,6 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
       regionOverride = parts[1]?.replace(/-region$/, "").replace(/-/g, " ");
     }
     const updates: Partial<FilterState> = {
-      category:          tempCategory ?? undefined,
       condition:         tempCondition ?? undefined,
       from_price:        tempPriceFrom ?? undefined,
       to_price:          tempPriceTo ?? undefined,
@@ -694,7 +599,6 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
 
   /* ── Active filter count (for Filters badge) ── */
   const activeFilterCount = [
-    currentFilters.category,
     currentFilters.state || currentFilters.region || currentFilters.suburb,
     currentFilters.condition,
     currentFilters.make,
@@ -736,11 +640,6 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
             <div className="filter-row" style={{ flex: 1, marginBottom: 0 }}>
               <div className="slider-wrapper">
                 <div className="filter-swiper">
-                  {/* <button className={`tag${currentFilters.category ? " active" : ""}`} onClick={handleTypeOpen}>
-                    Motorhome Type
-                    {currentFilters.category && <span className="active_filter"><i className="bi bi-circle-fill" /></span>}
-                  </button> */}
-
                   <button className={`tag${(currentFilters.state || currentFilters.region || currentFilters.suburb) ? " active" : ""}`} onClick={handleLocationOpen}>
                     Location
                     {(currentFilters.state || currentFilters.region || currentFilters.suburb) && <span className="active_filter"><i className="bi bi-circle-fill" /></span>}
@@ -778,7 +677,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
       </div>
 
       {/* ── Active chips row ── */}
-      {(currentFilters.category || currentFilters.state || currentFilters.region || currentFilters.suburb ||
+      {(currentFilters.state || currentFilters.region || currentFilters.suburb ||
         currentFilters.make || currentFilters.model || currentFilters.from_price || currentFilters.to_price ||
         currentFilters.minKg || currentFilters.maxKg || currentFilters.condition ||
         currentFilters.from_sleep || currentFilters.to_sleep) && (
@@ -812,12 +711,6 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
               <span className={`active-chip${removingChip === "condition" ? " chip-removing" : ""}`}>
                 <span className="chip-label" onClick={handleConditionOpen}>{currentFilters.condition.toLowerCase() === "new" ? "New" : "Used"}</span>
                 <span className="chip-close" onClick={() => removeChip("condition", { condition: undefined })}>×</span>
-              </span>
-            )}
-            {currentFilters.category && (
-              <span className={`active-chip${removingChip === "category" ? " chip-removing" : ""}`}>
-                <span className="chip-label" onClick={handleTypeOpen}>{toTitleCase(categories.find(c => c.slug === currentFilters.category)?.name ?? currentFilters.category!.replace(/-/g," "))}</span>
-                <span className="chip-close" onClick={() => removeChip("category", { category: undefined })}>×</span>
               </span>
             )}
             {currentFilters.state && (
@@ -888,25 +781,6 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
             <div className="filter-header"><h3>Filters</h3>{closeBtn}</div>
             <div className="filter-body">
 
-              {/* Caravan Type */}
-              {/* <div className="filter-item pt-0">
-                <h4>Motorhome Type</h4>
-                <ul className="loc-state-list">
-                  {catLoading && categories.length === 0 ? (
-                    <CategorySkeleton />
-                  ) : (
-                    visibleCategories.map(cat => (
-                      <li key={cat.slug} className="loc-state-item"
-                        onClick={() => setTempCategory(tempCategory === cat.slug ? null : cat.slug)}>
-                        <span className={`loc-checkbox${tempCategory === cat.slug ? " checked" : ""}`}>
-                          {tempCategory === cat.slug && <i className="bi bi-check" style={{ color:"#fff", fontSize:14, lineHeight:1 }} />}
-                        </span>
-                        <span className="loc-state-name">{cat.name}</span>
-                      </li>
-                    ))
-                  )}
-                </ul>
-              </div> */}
 
               {/* Location */}
               <div className="filter-item">
@@ -1265,37 +1139,6 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
             <div className="filter-footer">
               <button className="clear" onClick={handleAllFiltersClear}>Clear filters</button>
               <button className="search active" onClick={handleAllFiltersSearch}>Search</button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ── Caravan Type Modal ── */}
-      {openModal === "type" && (
-        <div className="filter-overlay">
-          <div className="filter-modal">
-            <div className="filter-header"><h3>Motorhome Type</h3>{closeBtn}</div>
-            <div className="filter-body">
-              <div className="filter-item pt-0">
-                <ul className="loc-state-list">
-                  {catLoading && categories.length === 0 ? (
-                    <CategorySkeleton />
-                  ) : (
-                    visibleCategories.map(cat => (
-                      <li key={cat.slug} className="loc-state-item" onClick={() => setTempCategory(tempCategory === cat.slug ? null : cat.slug)}>
-                        <span className={`loc-checkbox${tempCategory === cat.slug ? " checked" : ""}`}>
-                          {tempCategory === cat.slug && <i className="bi bi-check" style={{ color:"#fff", fontSize:14, lineHeight:1 }} />}
-                        </span>
-                        <span className="loc-state-name">{cat.name}</span>
-                      </li>
-                    ))
-                  )}
-                </ul>
-              </div>
-            </div>
-            <div className="filter-footer">
-              <button className="clear" onClick={handleTypeClear} style={{ opacity: tempCategory ? 1 : 0.4, cursor: tempCategory ? "pointer" : "not-allowed" }}>Clear filters</button>
-              <button className={`search${tempCategory ? " active" : ""}`} onClick={handleTypeSearch}>Search</button>
             </div>
           </div>
         </div>

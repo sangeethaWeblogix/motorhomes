@@ -72,6 +72,20 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
+      // ── off-road-caravans renamed to off-road-motorhomes ──────────────────
+      {
+        source: "/off-road-caravans/",
+        destination: "/off-road-motorhomes/",
+        permanent: true,
+      },
+
+      // ── caravan-sales renamed to motorhome-sales ───────────────────────────
+      {
+        source: "/caravan-sales/",
+        destination: "/motorhome-sales/",
+        permanent: true,
+      },
+
       // ── caravan-enquiry-form renamed to motorhome-enquiry-form ────────────
       {
         source: "/caravan-enquiry-form/",

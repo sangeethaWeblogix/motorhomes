@@ -111,7 +111,7 @@ async function fetchOffRoadModelBlogs(seed: number): Promise<any[]> {
 
 export const revalidate = 86400;
 
-const CANONICAL = "https://www.motorhomesforsale.com.au/off-road-caravans/";
+const CANONICAL = "https://www.motorhomesforsale.com.au/off-road-motorhomes/";
 
 const schemaJsonLd = {
   "@context": "https://schema.org",

@@ -13,7 +13,7 @@ import { fetchHomePage } from "@/api/home/api";
 
 export const revalidate = 86400;
 
-const CANONICAL = "https://www.motorhomesforsale.com.au/caravan-sales/";
+const CANONICAL = "https://www.motorhomesforsale.com.au/motorhome-sales/";
 
 const schemaJsonLd = {
   "@context": "https://schema.org",

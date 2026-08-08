@@ -59,10 +59,10 @@ export function parseSlugToFilters(
     if (!part) return;
 
     // --- Typed segments ---
-    if (part.endsWith("-category")) {
-      filters.category = part.replace("-category", "");
-      return;
-    }
+    // "-category" is intentionally NOT parsed here — this site has no category
+    // filter. Any "*-category" slug segment falls through unrecognized, so the
+    // canonical-slug rebuild in middleware.ts won't include it and the mismatch
+    // sends the request to the standard 410 path.
 
     if (part.endsWith("-condition")) {
       const slug = part.replace("-condition", "").toLowerCase();

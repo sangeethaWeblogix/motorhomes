@@ -7,8 +7,9 @@ function buildIndexableSet(): Set<string> {
     const content = fs.readFileSync(filePath, "utf-8");
     const BASE = "https://www.motorhomesforsale.com.au";
     const set = new Set<string>();
-    for (const line of content.split(/\r?\n/).slice(1)) {
-      const url = line.split("\t")[1]?.trim();
+    // One URL per line — no header row, no tab-separated columns.
+    for (const line of content.split(/\r?\n/)) {
+      const url = line.trim();
       if (!url) continue;
       let p = url.startsWith(BASE) ? url.slice(BASE.length) : url;
       if (!p.endsWith("/")) p += "/";
