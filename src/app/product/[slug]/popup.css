@@ -316,6 +316,8 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  text-align: center;
+  text-decoration: none;
   cursor: pointer;
   transition: background 0.2s;
 }
