@@ -185,23 +185,30 @@ export default function StateBrowseSection({ state, region, category, initialDat
     </>
   );
 
-  const renderFilterCols = (panels: { icon: string; title: string; links: { text: string; href: string }[] }[], rowClass: string) => (
-    <div className={`lsd-browse__row2 ${rowClass}`}>
-      {panels.map((p) => (
-        <div key={p.title} className="lsd-browse__filter-col">
-          <div className="lsd-browse__filter-head">
-            <Image src={p.icon} alt={p.title} width={20} height={20} unoptimized />
-            <span className="lsd-browse__filter-title">{p.title}</span>
+  const renderFilterCols = (panels: { icon: string; title: string; links: { text: string; href: string }[] }[], rowClass: string) => {
+    // Bands with zero matching listings return an empty links array (once counts
+    // have actually loaded — see bandPanel's `?? 1` loading fallback above), so
+    // hide those columns rather than showing a title with nothing under it.
+    const visiblePanels = panels.filter((p) => p.links.length > 0);
+    if (visiblePanels.length === 0) return null;
+    return (
+      <div className={`lsd-browse__row2 ${rowClass}`}>
+        {visiblePanels.map((p) => (
+          <div key={p.title} className="lsd-browse__filter-col">
+            <div className="lsd-browse__filter-head">
+              <Image src={p.icon} alt={p.title} width={20} height={20} unoptimized />
+              <span className="lsd-browse__filter-title">{p.title}</span>
+            </div>
+            <div className="lsd-browse__filter-links">
+              {p.links.map((l) => (
+                <a key={l.text} href={l.href} className="lsd-browse__filter-link">{l.text}</a>
+              ))}
+            </div>
           </div>
-          <div className="lsd-browse__filter-links">
-            {p.links.map((l) => (
-              <a key={l.text} href={l.href} className="lsd-browse__filter-link">{l.text}</a>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
+        ))}
+      </div>
+    );
+  };
 
   if (categoryOnly) {
     const label = categoryLabel(category!);
