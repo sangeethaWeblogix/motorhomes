@@ -10,9 +10,12 @@ type FormState = {
   "your-message": string;
 };
 
+type MessageType = "success" | "warning" | "error" | "";
+
 export default function ContactSection() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState<MessageType>("");
   const [formData, setFormData] = useState<FormState>({
     "your-name": "",
     "your-email": "",
@@ -58,10 +61,12 @@ export default function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage("");
+    setMessageType("");
 
     if (loading) return; // guard
     if (!validate()) {
-      setMessage("⚠️ All fields are required. Description is optional.");
+      setMessage("All fields are required. Description is optional.");
+      setMessageType("warning");
       return;
     }
 
@@ -87,7 +92,8 @@ export default function ContactSection() {
       const data = await res.json();
 
       if (data.status === "mail_sent") {
-        setMessage("✅ Message sent successfully!");
+        setMessage("Message sent successfully!");
+        setMessageType("success");
         // clear form + errors
         setFormData({
           "your-name": "",
@@ -98,11 +104,13 @@ export default function ContactSection() {
         });
         setErrors({});
       } else {
-        setMessage("❌ Error: " + (data.message || "Failed to send message."));
+        setMessage(data.message || "Failed to send message.");
+        setMessageType("error");
       }
     } catch (err) {
       console.error(err);
-      setMessage("❌ Something went wrong.");
+      setMessage("Something went wrong.");
+      setMessageType("error");
     } finally {
       setLoading(false);
     }
@@ -132,9 +140,24 @@ export default function ContactSection() {
 
                   {/* Show server message */}
                   {message && (
-                    <p className="text-center mb-2" aria-live="polite">
-                      {message}
-                    </p>
+                    <div
+                      className={`contact-alert contact-alert--${messageType}`}
+                      role="status"
+                      aria-live="polite"
+                    >
+                      <span className="contact-alert__icon" aria-hidden="true">
+                        {messageType === "success" && (
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                        )}
+                        {messageType === "warning" && (
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 9v4" /><path d="M12 17h.01" /><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" /></svg>
+                        )}
+                        {messageType === "error" && (
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="15" y1="9" x2="9" y2="15" /><line x1="9" y1="9" x2="15" y2="15" /></svg>
+                        )}
+                      </span>
+                      <span>{message}</span>
+                    </div>
                   )}
 
                   <div className="row">

@@ -37,8 +37,8 @@ export function buildSlugFromFilters(f: Filters): string {
     segments.push(`${slug}-condition`);
   }
 
-  // 3) Category
-  if (f.category) segments.push(`${toSlug(f.category)}-category`);
+  // Category is intentionally never emitted — this site has no category
+  // filter, so any incoming "*-category" slug won't round-trip and gets 410'd.
 
   // 4) Location
    const state = cleanSlug(f.state);

@@ -1,9 +1,7 @@
  "use client";
 
 import { Card, CardContent, Typography, Button } from "@mui/material";
-import Image from "next/image";
 import Link from "next/link";
-import TickIcon from "../../../public/images/tick.jpg";
 
 export default function ThankYouClient() {
   return (
@@ -25,28 +23,19 @@ export default function ThankYouClient() {
         }}
       >
         <CardContent>
-          <div
-            style={{
-              width: 80,
-              height: 80,
-              margin: "0 auto 20px",
-              borderRadius: "50%",
-              backgroundColor: "#22c55e",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Image
-              src={TickIcon}
-              alt="Success"
-              width={40}
-              height={40}
-              style={{ objectFit: "contain" }}
-            />
-          </div>
+          <i
+            className="bi bi-check-circle-fill"
+            style={{ fontSize: 80, color: "#22c55e", display: "inline-block", marginBottom: 20 }}
+            aria-hidden="true"
+          />
+          <span className="visually-hidden">Success</span>
 
-          <Typography variant="h5" fontWeight="bold" gutterBottom>
+          <Typography
+            variant="h5"
+            fontWeight="bold"
+            gutterBottom
+            sx={{ fontFamily: "inherit" }}
+          >
             Thank you for submitting your information with{" "}
             <Link
               href="/"
@@ -57,7 +46,12 @@ export default function ThankYouClient() {
             .
           </Typography>
 
-          <Typography variant="body1" color="text.secondary" gutterBottom>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            gutterBottom
+            sx={{ fontFamily: "inherit" }}
+          >
             Your motorhome dealer will contact you as soon as possible.
           </Typography>
 
@@ -66,9 +60,10 @@ export default function ThankYouClient() {
               variant="contained"
               sx={{
                 mt: 3,
-                backgroundColor: "orange",
+                fontFamily: "inherit",
+                backgroundColor: "#1aa8de",
                 color: "white",
-                "&:hover": { backgroundColor: "#0099da" },
+                "&:hover": { backgroundColor: "#0088c6" },
               }}
             >
               Go Back
