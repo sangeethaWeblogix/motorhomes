@@ -165,8 +165,11 @@ export default function CaravanDetailModal({
     setErrors(validate(form));
   };
 
-  const onSubmit = async (e: React.FormEvent) => {
+  const onSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+
+    if (submitting) return;
+
     const v = validate(form);
     setErrors(v);
     setTouched({
@@ -558,13 +561,17 @@ export default function CaravanDetailModal({
               <a href="/terms-conditions" target="_blank">Terms and Conditions</a>.
             </p>
 
-            <button
-              type="submit"
+            
+            <a
+              href="#"
               className="cfs-modal-submit"
-              disabled={submitting}
+              aria-disabled={submitting}
+              style={submitting ? { pointerEvents: "none", opacity: 0.7 } : undefined}
+              onClick={onSubmit}
             >
               {submitting ? "Sending..." : "Send Enquiry"}
-            </button>
+            </a>
+            
           </form>
         </div>
       </div>

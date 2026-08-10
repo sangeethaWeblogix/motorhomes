@@ -88,18 +88,18 @@ const BREADCRUMB_PRIORITY: Array<{
   {
     label: (f) => {
       if (!f.from_price && !f.to_price) return null;
-      if (f.from_price && f.to_price) return `$${Number(f.from_price).toLocaleString()} – $${Number(f.to_price).toLocaleString()}`;
-      if (f.from_price) return `From $${Number(f.from_price).toLocaleString()}`;
-      return `Upto $${Number(f.to_price).toLocaleString()}`;
+      if (f.from_price && f.to_price) return `$${Number(f.from_price).toLocaleString("en-US")} – $${Number(f.to_price).toLocaleString("en-US")}`;
+      if (f.from_price) return `From $${Number(f.from_price).toLocaleString("en-US")}`;
+      return `Upto $${Number(f.to_price).toLocaleString("en-US")}`;
     },
     hrefFilters: (f) => ({ from_price: f.from_price, to_price: f.to_price }),
   },
   {
     label: (f) => {
       if (!f.minKg && !f.maxKg) return null;
-      if (f.minKg && f.maxKg) return `${Number(f.minKg).toLocaleString()} – ${Number(f.maxKg).toLocaleString()} kg`;
-      if (f.minKg) return `From ${Number(f.minKg).toLocaleString()} kg`;
-      return `Upto ${Number(f.maxKg).toLocaleString()} kg`;
+      if (f.minKg && f.maxKg) return `${Number(f.minKg).toLocaleString("en-US")} – ${Number(f.maxKg).toLocaleString("en-US")} kg`;
+      if (f.minKg) return `From ${Number(f.minKg).toLocaleString("en-US")} kg`;
+      return `Upto ${Number(f.maxKg).toLocaleString("en-US")} kg`;
     },
     hrefFilters: (f) => ({ minKg: f.minKg, maxKg: f.maxKg }),
   },

@@ -842,10 +842,10 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
               <span className={`active-chip${removingChip === "price" ? " chip-removing" : ""}`}>
                 <span className="chip-label" onClick={handlePriceOpen}>
                   {currentFilters.from_price && currentFilters.to_price
-                    ? `$${Number(currentFilters.from_price).toLocaleString()} – $${Number(currentFilters.to_price).toLocaleString()}`
+                    ? `$${Number(currentFilters.from_price).toLocaleString("en-US")} – $${Number(currentFilters.to_price).toLocaleString("en-US")}`
                     : currentFilters.from_price
-                      ? `From $${Number(currentFilters.from_price).toLocaleString()}`
-                      : `Upto $${Number(currentFilters.to_price).toLocaleString()}`}
+                      ? `From $${Number(currentFilters.from_price).toLocaleString("en-US")}`
+                      : `Upto $${Number(currentFilters.to_price).toLocaleString("en-US")}`}
                 </span>
                 <span className="chip-close" onClick={() => removeChip("price", { from_price:undefined, to_price:undefined })}>×</span>
               </span>
@@ -854,10 +854,10 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
               <span className={`active-chip${removingChip === "gvm" ? " chip-removing" : ""}`}>
                 <span className="chip-label" onClick={handleGvmOpen}>
                   {currentFilters.minKg && currentFilters.maxKg
-                    ? `${Number(currentFilters.minKg).toLocaleString()} – ${Number(currentFilters.maxKg).toLocaleString()} kg`
+                    ? `${Number(currentFilters.minKg).toLocaleString("en-US")} – ${Number(currentFilters.maxKg).toLocaleString("en-US")} kg`
                     : currentFilters.minKg
-                      ? `From ${Number(currentFilters.minKg).toLocaleString()} kg`
-                      : `Upto ${Number(currentFilters.maxKg).toLocaleString()} kg`}
+                      ? `From ${Number(currentFilters.minKg).toLocaleString("en-US")} kg`
+                      : `Upto ${Number(currentFilters.maxKg).toLocaleString("en-US")} kg`}
                 </span>
                 <span className="chip-close" onClick={() => removeChip("gvm", { minKg:undefined, maxKg:undefined })}>×</span>
               </span>
@@ -1025,7 +1025,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                                 return <span key={i} className={`cfs-radius-tick${i<idx?" active":i===idx?" current":""}`} style={{ left:`calc(${tp}% + ${9-0.18*tp}px)` }} title={`${km}km`} />;
                               })}
                             </div>
-                            <div className="cfs-radius-range"><span>{RADIUS_OPTIONS[0]}km</span><span>{RADIUS_OPTIONS[RADIUS_OPTIONS.length-1].toLocaleString()}km</span></div>
+                            <div className="cfs-radius-range"><span>{RADIUS_OPTIONS[0]}km</span><span>{RADIUS_OPTIONS[RADIUS_OPTIONS.length-1].toLocaleString("en-US")}km</span></div>
                           </>
                         );
                       })()}
@@ -1087,7 +1087,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                       onChange={e => setTempPriceFrom(e.target.value ? Number(e.target.value) : null)}>
                       <option value="">Any</option>
                       {PRICE_OPTIONS.filter(p => !tempPriceTo || p < tempPriceTo).map(p => (
-                        <option key={p} value={p}>${p.toLocaleString()}</option>
+                        <option key={p} value={p}>${p.toLocaleString("en-US")}</option>
                       ))}
                     </select>
                   </div>
@@ -1097,7 +1097,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                       onChange={e => setTempPriceTo(e.target.value ? Number(e.target.value) : null)}>
                       <option value="">Any</option>
                       {PRICE_OPTIONS.filter(p => !tempPriceFrom || p > tempPriceFrom).map(p => (
-                        <option key={p} value={p}>${p.toLocaleString()}</option>
+                        <option key={p} value={p}>${p.toLocaleString("en-US")}</option>
                       ))}
                     </select>
                   </div>
@@ -1114,7 +1114,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                       onChange={e => setTempGvmFrom(e.target.value ? Number(e.target.value) : null)}>
                       <option value="">Any</option>
                       {GVM_OPTIONS.filter(a => !tempGvmTo || a < tempGvmTo).map(a => (
-                        <option key={a} value={a}>{a.toLocaleString()} kg</option>
+                        <option key={a} value={a}>{a.toLocaleString("en-US")} kg</option>
                       ))}
                     </select>
                   </div>
@@ -1124,7 +1124,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                       onChange={e => setTempGvmTo(e.target.value ? Number(e.target.value) : null)}>
                       <option value="">Any</option>
                       {GVM_OPTIONS.filter(a => !tempGvmFrom || a > tempGvmFrom).map(a => (
-                        <option key={a} value={a}>{a.toLocaleString()} kg</option>
+                        <option key={a} value={a}>{a.toLocaleString("en-US")} kg</option>
                       ))}
                     </select>
                   </div>
@@ -1408,7 +1408,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                                       return <span key={i} className={`cfs-radius-tick${i<idx?" active":i===idx?" current":""}`} style={{ left:`calc(${tp}% + ${9-0.18*tp}px)` }} title={`${km}km`} />;
                                     })}
                                   </div>
-                                  <div className="cfs-radius-range"><span>{RADIUS_OPTIONS[0]}km</span><span>{RADIUS_OPTIONS[RADIUS_OPTIONS.length-1].toLocaleString()}km</span></div>
+                                  <div className="cfs-radius-range"><span>{RADIUS_OPTIONS[0]}km</span><span>{RADIUS_OPTIONS[RADIUS_OPTIONS.length-1].toLocaleString("en-US")}km</span></div>
                                 </>
                               );
                             })()}
@@ -1581,7 +1581,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                     <label>Min</label>
                     <select className="cfs-select-input form-select" value={tempPriceFrom ?? ""} onChange={e => setTempPriceFrom(e.target.value ? Number(e.target.value) : null)}>
                       <option value="">Any</option>
-                      {PRICE_OPTIONS.map(v => <option key={v} value={v}>${v.toLocaleString()}</option>)}
+                      {PRICE_OPTIONS.map(v => <option key={v} value={v}>${v.toLocaleString("en-US")}</option>)}
                     </select>
                   </div>
                 </div>
@@ -1590,7 +1590,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                     <label>Max</label>
                     <select className="cfs-select-input form-select" value={tempPriceTo ?? ""} onChange={e => setTempPriceTo(e.target.value ? Number(e.target.value) : null)}>
                       <option value="">Any</option>
-                      {PRICE_OPTIONS.filter(v => !tempPriceFrom || v > tempPriceFrom).map(v => <option key={v} value={v}>${v.toLocaleString()}</option>)}
+                      {PRICE_OPTIONS.filter(v => !tempPriceFrom || v > tempPriceFrom).map(v => <option key={v} value={v}>${v.toLocaleString("en-US")}</option>)}
                     </select>
                   </div>
                 </div>

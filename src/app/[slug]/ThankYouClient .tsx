@@ -48,7 +48,13 @@ export default function ThankYouClient() {
 
           <Typography variant="h5" fontWeight="bold" gutterBottom>
             Thank you for submitting your information with{" "}
-            <span style={{ color: "#000" }}>motorhomesforsale.com.au</span>.
+            <Link
+              href="/"
+              style={{ color: "#000", textDecoration: "none" }}
+            >
+              motorhomesforsale.com.au
+            </Link>
+            .
           </Typography>
 
           <Typography variant="body1" color="text.secondary" gutterBottom>

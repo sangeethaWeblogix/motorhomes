@@ -360,8 +360,8 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
                   <button className={`tag${activePrice ? " active" : ""}`} onClick={() => openSection("price")}>
                     {activePrice
                       ? filters.minPrice && filters.maxPrice
-                        ? `$${Number(filters.minPrice).toLocaleString()} – $${Number(filters.maxPrice).toLocaleString()}`
-                        : filters.minPrice ? `From $${Number(filters.minPrice).toLocaleString()}` : `Up to $${Number(filters.maxPrice).toLocaleString()}`
+                        ? `$${Number(filters.minPrice).toLocaleString("en-US")} – $${Number(filters.maxPrice).toLocaleString("en-US")}`
+                        : filters.minPrice ? `From $${Number(filters.minPrice).toLocaleString("en-US")}` : `Up to $${Number(filters.maxPrice).toLocaleString("en-US")}`
                       : "Price"}
                     {activePrice && <span className="active_filter"><i className="bi bi-circle-fill" /></span>}
                   </button>
@@ -411,8 +411,8 @@ export default function StateSearch({ filters, onChange, onSearch, onClear }: Pr
                 <span className="active-chip">
                   <span className="chip-label" onClick={() => openSection("price")}>
                     {filters.minPrice && filters.maxPrice
-                      ? `$${Number(filters.minPrice).toLocaleString()} – $${Number(filters.maxPrice).toLocaleString()}`
-                      : filters.minPrice ? `From $${Number(filters.minPrice).toLocaleString()}` : `Up to $${Number(filters.maxPrice).toLocaleString()}`}
+                      ? `$${Number(filters.minPrice).toLocaleString("en-US")} – $${Number(filters.maxPrice).toLocaleString("en-US")}`
+                      : filters.minPrice ? `From $${Number(filters.minPrice).toLocaleString("en-US")}` : `Up to $${Number(filters.maxPrice).toLocaleString("en-US")}`}
                   </span>
                   <span className="chip-close" onClick={() => { onChange({ ...filters, minPrice: "", maxPrice: "" }); onSearch(); }}>×</span>
                 </span>
