@@ -376,7 +376,7 @@
        // Raw filter keys (minKg, maxKg, sleeps) must be converted to API names (from_gvm, to_gvm, sleep).
        const apiParams = buildApiParams(filters);
        const apiUrl =
-         "https://admin.motorhomesforsale.com.au/wp-json/mfs/v1//pool_test?" +
+         "https://admin.motorhomesforsale.com.au/wp-json/mfs/v1/pool_test?" +
          apiParams.toString();
 
        const controller = new AbortController();
@@ -406,7 +406,7 @@
          // 0 regular products:
          //   - empExclusive also empty → 410 (Vercel shows its own Gone page — no content anyway)
          //   - empExclusive has items  → 200 noindex (Vercel intercepts 410+rewrite, page must show exclusive content)
-         const products = data?.data?.products ?? [];
+         const products = data?.products ?? [];
          const empExclusive = data?.emp_exclusive_products ?? [];
          if (products.length === 0) {
            if (empExclusive.length === 0) {
