@@ -129,11 +129,11 @@ const getPriceRangeLinks = (price: number): { label: string; href: string }[] =>
   const links: { label: string; href: string }[] = [];
   const hi1 = PRICE_STEPS[upperIdx];
   const lo1 = PRICE_STEPS[upperIdx - 1];
-  links.push({ label: `Motorhomes for Sale near $${lo1.toLocaleString()} to $${hi1.toLocaleString()}`, href: `/listings/?from_price=${lo1}&to_price=${hi1}` });
+  links.push({ label: `Motorhomes for Sale near $${lo1.toLocaleString("en-US")} to $${hi1.toLocaleString("en-US")}`, href: `/listings/?from_price=${lo1}&to_price=${hi1}` });
   if (upperIdx >= 2) {
     const hi2 = PRICE_STEPS[upperIdx - 1];
     const lo2 = PRICE_STEPS[upperIdx - 2];
-    links.push({ label: `Motorhomes for Sale near $${lo2.toLocaleString()} to $${hi2.toLocaleString()}`, href: `/listings/?from_price=${lo2}&to_price=${hi2}` });
+    links.push({ label: `Motorhomes for Sale near $${lo2.toLocaleString("en-US")} to $${hi2.toLocaleString("en-US")}`, href: `/listings/?from_price=${lo2}&to_price=${hi2}` });
   }
   return links;
 };
@@ -395,8 +395,8 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
     state ? { label: `Motorhomes for Sale in ${state}`, href: `/listings/${slugify(state)}-state/` } : null,
     locationCity ? { label: `Motorhomes for Sale in ${locationCity}`, href: `/listings/${slugify(state)}-state/${slugify(locationCity)}-region/` } : null,
     shortCategory ? { label: `${shortCategory} Motorhomes for Sale`, href: `/listings/${slugify(shortCategory)}-category/` } : null,
-    priceHi ? { label: `Motorhomes Under $${priceHi.toLocaleString()}`, href: `/listings/under-${priceHi}/` } : null,
-    (priceHi && priceLo) ? { label: `Motorhomes Between $${priceLo.toLocaleString()} to $${priceHi.toLocaleString()}`, href: `/listings/between-${priceLo}-${priceHi}/` } : null,
+    priceHi ? { label: `Motorhomes Under $${priceHi.toLocaleString("en-US")}`, href: `/listings/under-${priceHi}/` } : null,
+    (priceHi && priceLo) ? { label: `Motorhomes Between $${priceLo.toLocaleString("en-US")} to $${priceHi.toLocaleString("en-US")}`, href: `/listings/between-${priceLo}-${priceHi}/` } : null,
     { label: `All Motorhomes for Sale`, href: `/listings/` },
   ].filter(Boolean) as { label: string; href: string }[];
 

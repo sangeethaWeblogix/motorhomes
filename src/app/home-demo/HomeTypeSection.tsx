@@ -75,7 +75,7 @@ export default function HomeTypeSection({ typeCounts }: Props) {
               </h3>
               <p className="htype-card__desc">{t.desc}</p>
               <span className="htype-card__count">
-                {(typeCounts?.[t.category] ?? 0).toLocaleString()} listings{" "}
+                {(typeCounts?.[t.category] ?? 0).toLocaleString("en-US")} listings{" "}
                 <i className="bi bi-chevron-right" />
               </span>
             </a>

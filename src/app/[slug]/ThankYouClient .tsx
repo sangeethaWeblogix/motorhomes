@@ -37,7 +37,13 @@ export default function ThankYouClient() {
             sx={{ fontFamily: "inherit" }}
           >
             Thank you for submitting your information with{" "}
-            <span style={{ color: "#000" }}>motorhomesforsale.com.au</span>.
+            <Link
+              href="/"
+              style={{ color: "#000", textDecoration: "none" }}
+            >
+              motorhomesforsale.com.au
+            </Link>
+            .
           </Typography>
 
           <Typography

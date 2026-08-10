@@ -93,6 +93,8 @@ export function useEnquiryForm(product: Product) {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (submitting) return;
+
     const v = validate();
     setErrors(v);
 

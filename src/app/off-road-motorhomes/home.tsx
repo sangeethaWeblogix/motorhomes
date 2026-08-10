@@ -239,19 +239,19 @@ export default function OffRoadCaravansPage({ stateBands, offRoadBlogs, offRoadP
             <div className="or-snapshot__row">
               <div className="or-snapshot__item">
                 <img src="/images/caravan_black.png" alt="" className="or-snapshot__icon" />
-                <div className="or-snapshot__value">{offRoadCount.toLocaleString()}</div>
+                <div className="or-snapshot__value">{offRoadCount.toLocaleString("en-US")}</div>
                 <div className="or-snapshot__label">Off Road Motorhomes<br />For Sale Now</div>
               </div>
               <div className="or-snapshot__divider" />
               <div className="or-snapshot__item">
                 <img src="/images/dollar_au.png" alt="" className="or-snapshot__icon or-snapshot__icon--sm" />
-                <div className="or-snapshot__value">{offRoadPriceMin && offRoadPriceMax ? `$${offRoadPriceMin.toLocaleString()} – $${offRoadPriceMax.toLocaleString()}` : "–"}</div>
+                <div className="or-snapshot__value">{offRoadPriceMin && offRoadPriceMax ? `$${offRoadPriceMin.toLocaleString("en-US")} – $${offRoadPriceMax.toLocaleString("en-US")}` : "–"}</div>
                 <div className="or-snapshot__label">Off Road Motorhome<br />Price Range</div>
               </div>
               <div className="or-snapshot__divider" />
               <div className="or-snapshot__item">
                 <img src="/images/good.png" alt="" className="or-snapshot__icon" />
-                <div className="or-snapshot__value">{offRoadUsedPriceMin && offRoadUsedPriceMax ? `$${offRoadUsedPriceMin.toLocaleString()} – $${offRoadUsedPriceMax.toLocaleString()}` : "–"}</div>
+                <div className="or-snapshot__value">{offRoadUsedPriceMin && offRoadUsedPriceMax ? `$${offRoadUsedPriceMin.toLocaleString("en-US")} – $${offRoadUsedPriceMax.toLocaleString("en-US")}` : "–"}</div>
                 <div className="or-snapshot__label">Used Off Road<br />Price Range</div>
               </div>
               <div className="or-snapshot__divider" />
