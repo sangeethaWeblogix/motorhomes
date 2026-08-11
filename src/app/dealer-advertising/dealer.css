@@ -449,6 +449,13 @@
   color: #1aa8de !important;
 }
 
+/* Override the global .btn:hover (solid blue background) — it clashes
+   with the blue text used above for the open state. */
+.accordion .btn:hover {
+  background: #f5f7fa !important;
+  border-color: transparent !important;
+}
+
 /* ICON WRAPPER */
 .accordion .accordion-icon {
   position: absolute;
