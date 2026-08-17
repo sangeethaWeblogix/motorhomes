@@ -36,12 +36,15 @@ async function fetchGroupCounts(groupBy: string, scope: Record<string, string>):
 }
 
 async function fetchBandCount(scope: Record<string, string>, query: string): Promise<number> {
+  const bandParams: Record<string, string> = { ...scope };
+  new URLSearchParams(query).forEach((v, k) => { bandParams[k] = v; });
+
   try {
-    const qs = new URLSearchParams({ per_page: "1", ...scope });
-    const res = await fetch(`/api/pool-listings/?${qs.toString()}&${query}`, { cache: "no-store" });
+    const qs = new URLSearchParams(bandParams);
+    const res = await fetch(`/api/product-exists-check/?${qs.toString()}`, { cache: "no-store" });
     if (!res.ok) return 0;
     const json = await res.json();
-    return json?.data?.pagination?.total_products ?? json?.pagination?.total_products ?? 0;
+    return json?.count ?? (json?.exists ? 1 : 0);
   } catch {
     return 0;
   }
