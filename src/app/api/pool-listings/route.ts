@@ -1,8 +1,18 @@
 
 import { NextRequest, NextResponse } from "next/server";
+import { encodeObfuscated } from "@/lib/obfuscation";
 
 const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE;
 const API_KEY = process.env.CFS_API_KEY;
+
+// Body is obfuscated (see @/lib/obfuscation) so the raw JSON isn't readable
+// straight off the DevTools Network "Preview"/"Response" tab.
+function obf(data: unknown, init?: ResponseInit): NextResponse {
+  return new NextResponse(encodeObfuscated(data), {
+    ...init,
+    headers: { ...init?.headers, "Content-Type": "text/plain; charset=utf-8" },
+  });
+}
 
 async function fetchPoolTest(url: string, signal: AbortSignal) {
   const res = await fetch(url, {
@@ -49,21 +59,21 @@ export async function GET(request: NextRequest) {
         try {
           const body = data ?? JSON.parse(raw);
           console.log("[WP API pool_test] 410 body:", body);
-          return NextResponse.json(body, { status: 410 });
+          return obf(body, { status: 410 });
         } catch {
-          return NextResponse.json({ success: false }, { status: 410 });
+          return obf({ success: false }, { status: 410 });
         }
       }
       console.log(`[WP API pool_test] non-OK status: ${res.status}`);
       if (data?.ts_debug || data?.message) {
         console.error(`[WP API pool_test] error message: ${data?.message}`, "ts_debug:", data?.ts_debug);
       }
-      return NextResponse.json({ success: false }, { status: res.status });
+      return obf({ success: false }, { status: res.status });
     }
 
     if (!data) {
       console.log("[WP API pool_test] JSON parse failed. Raw response:", raw.substring(0, 500));
-      return NextResponse.json({ success: false, error: "invalid_json" }, { status: 502 });
+      return obf({ success: false, error: "invalid_json" }, { status: 502 });
     }
 
     console.log("[WP API pool_test] summary:", {
@@ -76,12 +86,12 @@ export async function GET(request: NextRequest) {
       exclusive_products: data?.exclusive_products?.length ?? data?.data?.exclusive_products?.length ?? 0,
     });
 
-    return NextResponse.json(data);
+    return obf(data);
   } catch (err: any) {
     clearTimeout(timeoutId);
     console.error("[WP API pool_test] Error:", err);
     const status = err?.name === "AbortError" ? 504 : 500;
     console.log(`[WP API pool_test] fetch error (${status}):`, err?.message);
-    return NextResponse.json({ success: false }, { status });
+    return obf({ success: false }, { status });
   }
 }

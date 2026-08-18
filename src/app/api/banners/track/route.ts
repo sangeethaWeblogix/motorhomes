@@ -1,9 +1,8 @@
+import { NextResponse } from "next/server";
 import { encodeObfuscated, readObfuscatedBody } from "@/lib/obfuscation";
 
-const API_KEY = process.env.CFS_API_KEY; // ✅ Added
-
-function obf(data: unknown): Response {
-  return new Response(encodeObfuscated(data), {
+function obf(data: unknown): NextResponse {
+  return new NextResponse(encodeObfuscated(data), {
     headers: { "Content-Type": "text/plain; charset=utf-8" },
   });
 }
@@ -12,30 +11,27 @@ export async function POST(req: Request) {
   try {
     const body = await readObfuscatedBody(req);
 
-    // ✅ Get user IP from headers
     const ip =
       req.headers.get("x-forwarded-for") ||
       req.headers.get("x-real-ip") ||
       "unknown";
-
     const user_agent = req.headers.get("user-agent") || "";
-  console.log("IP:", ip);
-  console.log("IPUA:", user_agent);
-    // 🔥 Your existing API call (move here)
+
     await fetch(
-      "https://admin.motorhomesforsale.com.au/wp-json/mfs/v1/update-clicks",
+      "https://admin.motorhomesforsale.com.au/wp-json/ads-manager/v1/banners/track",
       {
         method: "POST",
-       headers: {
-          "Content-Type": "application/json",
-          ...(API_KEY && { "X-API-Key": API_KEY }), // ✅ Added
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          product_id: body.product_id,
-          ip,
+          banner_id: body.banner_id,
+          event_type: body.event_type,
+          session_id: body.session_id,
+          page_url: body.page_url,
+          device_type: body.device_type,
           user_agent,
+          ip_address: ip,
         }),
-      }
+      },
     );
 
     return obf({ success: true });

@@ -1,3 +1,5 @@
+import { decodeObfuscated } from "@/lib/obfuscation";
+
  const API_LOCATION = process.env.NEXT_PUBLIC_MFS_API_BASE;
 // api/links/api.ts
 const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE;
@@ -35,7 +37,7 @@ export const fetchLocations = async (keyword: string) => {
 
   if (!res.ok) throw new Error("Location API failed");
 
-  const data = await res.json();
+  const data = decodeObfuscated<any>(await res.text());
 
   // ✅ Maintain API order: State → Region → Pincode
   const orderedResults = [

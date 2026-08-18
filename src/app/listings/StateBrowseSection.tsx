@@ -22,13 +22,13 @@ import {
   type CountItem,
   type BrowseSectionData,
 } from "./browseSectionShared";
+import { parseObfuscatedResponse } from "@/lib/obfuscation";
 
 async function fetchGroupCounts(groupBy: string, scope: Record<string, string>): Promise<CountItem[]> {
   try {
     const qs = new URLSearchParams({ group_by: groupBy, ...scope });
     const res = await fetch(`/api/params-count/?${qs.toString()}`);
-    if (!res.ok) return [];
-    const json = await res.json();
+    const json = await parseObfuscatedResponse(res);
     return json?.data?.[groupBy] ?? [];
   } catch {
     return [];
@@ -42,8 +42,7 @@ async function fetchBandCount(scope: Record<string, string>, query: string): Pro
   try {
     const qs = new URLSearchParams(bandParams);
     const res = await fetch(`/api/product-exists-check/?${qs.toString()}`, { cache: "no-store" });
-    if (!res.ok) return 0;
-    const json = await res.json();
+    const json = await parseObfuscatedResponse(res);
     return json?.count ?? (json?.exists ? 1 : 0);
   } catch {
     return 0;

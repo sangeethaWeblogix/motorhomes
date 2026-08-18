@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useEnquiryForm } from "@/app/components/ListContent/enquiryform";
+import { parseObfuscatedResponse, encodeObfuscated } from "@/lib/obfuscation";
 import { Listing, SeoV2, buildFeaturedOrder } from "./listingShared";
 
 export type { Listing, SeoV2 };
@@ -206,7 +207,6 @@ function ListingCard({
   spotlight?: boolean;
   onContact: (item: Listing) => void;
 }) {
-  console.log("ooo", item)
   const images = getImages(item);
   const [idx, setIdx] = useState(0);
   const href   = `/product/${item.slug ?? item.id}/`;
@@ -230,33 +230,23 @@ function ListingCard({
     { icon: "",                     text: "" },
   ];
 
-  
-  // Remove all the lazy loading state and just load all images immediately
-   const getIP = async () => {
-    try {
-      const res = await fetch("https://api.ipify.org?format=json");
-     const data = await res.json();
-      return data.ip || "";
-    } catch {
-      return "";
-   }
-   };
+
  const postTrackClick = async (product_id: number) => {
     try {
-      await fetch("/api/track-click", {
+      await fetch("/api/track-click/", {
         method: "POST",
-       headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ product_id }),
+       headers: { "Content-Type": "text/plain" },
+        body: encodeObfuscated({ product_id }),
       });
    } catch {}
    };
 
      const postTrackEvent = async (product_id: number) => {
     try {
-       await fetch("/api/track", {
+       await fetch("/api/track/", {
         method: "POST",
-         headers: { "Content-Type": "application/json" },
-         body: JSON.stringify({ product_id }),
+         headers: { "Content-Type": "text/plain" },
+         body: encodeObfuscated({ product_id }),
        });
      } catch {}
    };
@@ -464,16 +454,10 @@ export default function StateListingGrid({ title, viewAllHref, apiUrl, items: ex
     if (externalMode || !apiUrl) return;
     setFetchLoading(true);
     const requestUrl = `${apiUrl}&page=${page}`;
-    // Logged as an absolute URL so devtools renders it as a clickable link —
-    // click it to open the raw JSON response in a new tab.
-    const absoluteUrl = new URL(requestUrl, window.location.origin).toString();
-    console.log(`[StateListingGrid] "${title}" API:`, absoluteUrl);
 
     fetch(requestUrl, { cache: "no-store" })
-      .then((r) => (r.ok ? r.json() : null))
+      .then((r) => parseObfuscatedResponse(r))
       .then((json) => {
-        console.log(`[StateListingGrid] "${title}" API response:`, json);
-
         // pool_test returns products/premium_products/exclusive_products at the
         // top level; new_optimize_code nests them under `data` — support both shapes.
         const products: Listing[]      = json?.data?.products ?? json?.products ?? [];
@@ -481,21 +465,6 @@ export default function StateListingGrid({ title, viewAllHref, apiUrl, items: ex
         const exclusivesRaw: Listing[] = json?.data?.exclusive_products ?? json?.exclusive_products ?? [];
         const empExclusivesRaw: Listing[] = json?.data?.emp_exclusive_products ?? json?.emp_exclusive_products ?? [];
         const totalCount: number = json?.data?.counts?.total_count ?? json?.counts?.total_count ?? products.length;
-
-        // Split `products` by whatever slot_bucket value actually comes back —
-        // the API isn't limited to just featured/new/used (e.g. "featured_core"
-        // also shows up), so group dynamically rather than hardcoding 3 buckets.
-        const productsBySlotBucket = new Map<string, Listing[]>();
-        for (const p of products) {
-          const key = p.slot_bucket || "(none)";
-          if (!productsBySlotBucket.has(key)) productsBySlotBucket.set(key, []);
-          productsBySlotBucket.get(key)!.push(p);
-        }
-        for (const [bucket, items] of productsBySlotBucket) {
-          console.log(`[StateListingGrid] "${title}" slot_bucket=${bucket}:`, items);
-        }
-        console.log(`[StateListingGrid] "${title}" slot_bucket=premium:`, premiumsRaw);
-        console.log(`[StateListingGrid] "${title}" slot_bucket=exclusive:`, exclusivesRaw);
 
         // Featured (and combined) grid: slots 1 & 2 are regular featured vans,
         // slot 3 is the exclusive spotlight van, slots 4 & 5 are premium vans,

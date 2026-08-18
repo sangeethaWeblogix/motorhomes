@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from "react";
 import SearchSuggestionSkeleton from "../components/Searchsuggestionskeleton ";
 import { fetchLocations } from "@/api/location/api";
 import { fetchHomeSearchList, fetchKeywordSuggestions } from "@/api/homeSearch/api";
+import { parseObfuscatedResponse } from "@/lib/obfuscation";
+import type { InitialParamsCount } from "./fetchInitialParamsCount";
 
 type KeywordItem = { label: string; url?: string };
 
@@ -48,6 +50,9 @@ interface Props {
   currentFilters: FilterState;
   onFilterChange: (f: FilterState) => void;
   onClearAll: () => void;
+  /** Server-fetched make/state counts — seeds the dropdowns from the first
+   * render and skips the redundant client-side combined fetch on mount. */
+  initialParamsCount?: InitialParamsCount | null;
 }
 
 const PRICE_OPTIONS  = [10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,125000,150000,175000,200000,225000,250000,275000,300000];
@@ -82,26 +87,50 @@ const buildMakeCountParams = (filters: FilterState): URLSearchParams => {
   return params;
 };
 
-export default function StateFilterBar({ currentFilters, onFilterChange, onClearAll }: Props) {
+/** Same shape the /api/params-count/?group_by=make,condition,state combined
+ * response nests each state's region breakdown in — shared by the initial
+ * state (server-fetched) and the client fallback fetch below. */
+function paramsCountToStates(data?: InitialParamsCount | null): StateOption[] {
+  return (data?.state || []).map((s) => ({
+    name: s.name,
+    value: s.slug,
+    regions: (s.region || []).map((r) => ({ name: r.name, value: r.slug })),
+  }));
+}
+function paramsCountToRegionMap(data?: InitialParamsCount | null): Record<string, { name: string; slug: string; count: number }[]> {
+  const regionMap: Record<string, { name: string; slug: string; count: number }[]> = {};
+  (data?.state || []).forEach((s) => {
+    if (s.slug) regionMap[s.slug] = s.region || [];
+  });
+  return regionMap;
+}
+
+export default function StateFilterBar({ currentFilters, onFilterChange, onClearAll, initialParamsCount }: Props) {
   /* ── Data ── */
-  const [states,     setStates]     = useState<StateOption[]>([]);
-  const [makes,      setMakes]      = useState<{name: string; slug: string; models?: {name: string; slug: string}[]}[]>([]);
-  const [catLoading, setCatLoading] = useState(true);
+  const [states,     setStates]     = useState<StateOption[]>(() => paramsCountToStates(initialParamsCount));
+  const [makes,      setMakes]      = useState<{name: string; slug: string; models?: {name: string; slug: string}[]}[]>(initialParamsCount?.make ?? []);
+  const [catLoading, setCatLoading] = useState(!initialParamsCount);
 
   // Unscoped baseline from the initial combined fetch — restored when a
   // scoped filter is cleared instead of re-fetching the exact same unscoped
   // breakdown the combined call already gave us.
-  const baselineMakeCountsRef = useRef<{name: string; slug: string; count: number; model?: {name: string; slug: string; count: number}[]}[]>([]);
-  const baselineRegionCountsByStateRef = useRef<Record<string, {name: string; slug: string; count: number}[]>>({});
+  const baselineMakeCountsRef = useRef<{name: string; slug: string; count: number; model?: {name: string; slug: string; count: number}[]}[]>(initialParamsCount?.make ?? []);
+  const baselineRegionCountsByStateRef = useRef<Record<string, {name: string; slug: string; count: number}[]>>(paramsCountToRegionMap(initialParamsCount));
 
   // Single consolidated initial fetch — replaces the old separate
   // /api/product-list/ (states) and /api/make-details/ (makes) calls with one
   // /api/params-count/?group_by=make,condition,state request. `data.make` is
   // used directly as the makes list (popular_makes is not used here).
+  //
+  // Server-side (page.tsx's fetchInitialParamsCount) already fetches this for
+  // the initial render — skipped entirely here when that data is present, so
+  // no client-visible request fires on page load. Only fires as a fallback if
+  // the server-side fetch failed (initialParamsCount is null/undefined).
   useEffect(() => {
+    if (initialParamsCount) { setCatLoading(false); return; }
     const controller = new AbortController();
     fetch("/api/params-count/?group_by=make,condition,state", { signal: controller.signal })
-      .then(r => r.ok ? r.json() : null)
+      .then(r => parseObfuscatedResponse(r))
       .then((res: any) => {
         const data = res?.data;
         if (data) {
@@ -127,6 +156,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
       })
       .catch(e => { if (e.name !== "AbortError") setCatLoading(false); });
     return () => controller.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /* ── Suburb search ── */
@@ -146,10 +176,10 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   const [makeSearch,    setMakeSearch]    = useState("");
   const [modelSearch,   setModelSearch]   = useState("");
   const [makeSubView,   setMakeSubView]   = useState<"makes" | "models">("makes");
-  const [makeCounts,       setMakeCounts]       = useState<{name: string; slug: string; count: number; model?: {name: string; slug: string; count: number}[]}[]>([]);
+  const [makeCounts,       setMakeCounts]       = useState<{name: string; slug: string; count: number; model?: {name: string; slug: string; count: number}[]}[]>(initialParamsCount?.make ?? []);
   const [modelCounts,      setModelCounts]      = useState<{name: string; slug: string; count: number}[]>([]);
   const [stateCounts,      setStateCounts]      = useState<{name?: string; slug: string; count: number; region?: {name: string; slug: string; count: number}[]}[]>([]);
-  const [regionCountsByState, setRegionCountsByState] = useState<Record<string, {name: string; slug: string; count: number}[]>>({});
+  const [regionCountsByState, setRegionCountsByState] = useState<Record<string, {name: string; slug: string; count: number}[]>>(() => paramsCountToRegionMap(initialParamsCount));
   const [lastModelName,    setLastModelName]    = useState<string | null>(null);
 
   // Live make counts — same /api/params-count/ endpoint FilterSlider uses,
@@ -172,8 +202,8 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     const controller = new AbortController();
     const params = buildMakeCountParams(currentFilters);
     fetch(`/api/params-count/?${params.toString()}`, { signal: controller.signal })
-      .then(r => r.json())
-      .then(json => { if (!controller.signal.aborted) setMakeCounts(json.data?.make ?? []); })
+      .then(r => parseObfuscatedResponse(r))
+      .then(json => { if (!controller.signal.aborted) setMakeCounts(json?.data?.make ?? []); })
       .catch(e => { if (e.name !== "AbortError") console.error(e); });
     return () => controller.abort();
   }, [
@@ -208,8 +238,8 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     if (currentFilters.keyword)           params.set("keyword", currentFilters.keyword);
     params.set("group_by", "state");
     fetch(`/api/params-count/?${params.toString()}`, { signal: controller.signal })
-      .then(r => r.json())
-      .then(json => { if (!controller.signal.aborted) setStateCounts(json.data?.state ?? []); })
+      .then(r => parseObfuscatedResponse(r))
+      .then(json => { if (!controller.signal.aborted) setStateCounts(json?.data?.state ?? []); })
       .catch(e => { if (e.name !== "AbortError") console.error(e); });
     return () => controller.abort();
   }, [
@@ -285,10 +315,10 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     if (currentFilters.category)  params.set("category", currentFilters.category);
     if (currentFilters.condition) params.set("condition", currentFilters.condition);
     fetch(`/api/params-count/?${params}`, { signal: controller.signal })
-      .then(r => r.json())
+      .then(r => parseObfuscatedResponse(r))
       .then(json => {
         if (controller.signal.aborted) return;
-        const data: { slug: string; region?: { name: string; slug: string; count: number }[] }[] = json.data?.state ?? [];
+        const data: { slug: string; region?: { name: string; slug: string; count: number }[] }[] = json?.data?.state ?? [];
         setRegionCountsByState(prev => {
           const next = { ...prev };
           data.forEach(sc => { if (sc.slug) next[sc.slug] = sc.region ?? []; });

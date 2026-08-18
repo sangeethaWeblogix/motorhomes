@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { encodeObfuscated } from "@/lib/obfuscation";
 
 type Banner = {
   id: number;
@@ -24,36 +25,19 @@ export function useBannerTracking(banners: Banner[]) {
     return "desktop";
   };
 
-  const getIP = async () => {
-    try {
-      const res = await fetch("https://api.ipify.org?format=json");
-      const data = await res.json();
-      return data.ip || "";
-    } catch {
-      return "";
-    }
-  };
-
   const track = async (bannerId: number, eventType: "click" | "impression") => {
-    const ip = await getIP();
-
     try {
-      await fetch(
-        `${process.env.NEXT_PUBLIC_CF7_BASE || "https://admin.motorhomesforsale.com.au"}/wp-json/ads-manager/v1/banners/track`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            banner_id: bannerId,
-            event_type: eventType,
-            session_id: getSessionId(),
-            page_url: window.location.href,
-            device_type: getDeviceType(),
-            user_agent: navigator.userAgent,
-            ip_address: ip,
-          }),
-        },
-      );
+      await fetch("/api/banners/track/", {
+        method: "POST",
+        headers: { "Content-Type": "text/plain" },
+        body: encodeObfuscated({
+          banner_id: bannerId,
+          event_type: eventType,
+          session_id: getSessionId(),
+          page_url: window.location.href,
+          device_type: getDeviceType(),
+        }),
+      });
     } catch (e) {}
   };
 

@@ -1,11 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
+import { encodeObfuscated } from "@/lib/obfuscation";
 
 const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE;
 const API_KEY = process.env.CFS_API_KEY;
 
+// Body is obfuscated (see @/lib/obfuscation) so the raw JSON isn't readable
+// straight off the DevTools Network "Preview"/"Response" tab.
+function obf(data: unknown, init?: ResponseInit): NextResponse {
+  return new NextResponse(encodeObfuscated(data), {
+    ...init,
+    headers: { ...init?.headers, "Content-Type": "text/plain; charset=utf-8" },
+  });
+}
+
 export async function GET(req: NextRequest) {
   if (!API_BASE) {
-    return NextResponse.json({ error: "Missing API base" }, { status: 500 });
+    return obf({ error: "Missing API base" }, { status: 500 });
   }
 
   const keyword = req.nextUrl.searchParams.get("keyword");
@@ -23,7 +33,7 @@ export async function GET(req: NextRequest) {
     });
 
     if (!res.ok) {
-      return NextResponse.json(
+      return obf(
         { error: `Upstream API failed: ${res.status}` },
         { status: res.status }
       );
@@ -32,11 +42,11 @@ export async function GET(req: NextRequest) {
     const text = await res.text();
     try {
       const data = JSON.parse(text);
-      return NextResponse.json(data);
+      return obf(data);
     } catch {
-      return NextResponse.json({ error: "Invalid upstream response" }, { status: 502 });
+      return obf({ error: "Invalid upstream response" }, { status: 502 });
     }
   } catch {
-    return NextResponse.json({ error: "Network error" }, { status: 502 });
+    return obf({ error: "Network error" }, { status: 502 });
   }
 }

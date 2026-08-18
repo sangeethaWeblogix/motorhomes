@@ -3,6 +3,7 @@ import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
 import "@fortawesome/fontawesome-free/css/solid.min.css";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { encodeObfuscated } from "@/lib/obfuscation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -501,8 +502,8 @@ export default function ClientLogger({
   try {
     await fetch("/api/track-product/", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ product_id }),
+      headers: { "Content-Type": "text/plain" },
+      body: encodeObfuscated({ product_id }),
     });
   } catch {}
 };

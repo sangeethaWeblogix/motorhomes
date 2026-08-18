@@ -16,6 +16,7 @@
   // import NextTopLoader from "nextjs-toploader";
 import NavigationHistory from "@/components/NavigationHistory";
 import { BannerProvider } from "@/components/BannerHandler";
+import { fetchBanners } from "@/api/banners/api";
 import GlobalErrorTracker from "@/components/GlobalErrorTracker";
 import { headers } from "next/headers";
 import { metaFromSlug } from "@/utils/seo/meta";
@@ -51,6 +52,9 @@ import fetchListingsForHead, { buildListingsJsonLd, buildBreadcrumbs } from "@/u
     const h = await headers();
     const pathname = h.get("x-pathname") ?? "";
     const xRobots = h.get("x-robots") ?? "";
+    // Kicked off here, awaited just before render so it overlaps with the
+    // productMeta/listingsForHead fetches below instead of blocking on them.
+    const bannersPromise = fetchBanners();
     const isListingSlug =
       pathname.startsWith("/listings/") &&
       pathname !== "/listings/" &&
@@ -151,6 +155,8 @@ import fetchListingsForHead, { buildListingsJsonLd, buildBreadcrumbs } from "@/u
         // }
       }
     }
+
+    const initialBanners = await bannersPromise;
 
     return (
       <html lang="en">
@@ -325,7 +331,7 @@ import fetchListingsForHead, { buildListingsJsonLd, buildBreadcrumbs } from "@/u
           showSpinner={false}
         /> */}
           <GlobalErrorTracker />
-          <BannerProvider>
+          <BannerProvider initialBanners={initialBanners}>
           {children}
           </BannerProvider>
                     </main>

@@ -1,4 +1,6 @@
 // src/api/homeSearch/api.ts
+import { decodeObfuscated } from "@/lib/obfuscation";
+
 const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE;
 const API_KEY = process.env.CFS_API_KEY; // ✅ Add this
 
@@ -55,7 +57,7 @@ export async function fetchHomeSearchList(): Promise<HomeSearchItem[]> {
   if (!res.ok) throw new Error(`HomeSearch API failed: ${res.status}`);
 
   try {
-    const json = await res.json();
+    const json = decodeObfuscated<unknown>(await res.text());
     return extractList(json);
   } catch {
     return [];
@@ -73,7 +75,7 @@ export async function fetchKeywordSuggestions(
 
   let json: { success?: boolean; data?: { keyword?: string; url?: string; id?: string | number }[] };
   try {
-    json = await res.json();
+    json = decodeObfuscated(await res.text());
   } catch {
     return [];
   }

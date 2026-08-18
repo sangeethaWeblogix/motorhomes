@@ -81,42 +81,15 @@ export default function HomePage({
 
   const bannerClickUrl = activeBanner?.target_url ?? "#";
   const { bannerRefs, trackClick } = useBannerTracking(activeBanners);
-const [clientIp, setClientIp] = useState<string>("");
-async function fetchClientIp(): Promise<string> {
-  try {
-    const res = await fetch("https://api.ipify.org?format=json");
-    const data = await res.json();
-    return data.ip || "";
-  } catch {
-    return "";
-  }
-}
 
-useEffect(() => {
-  fetchClientIp().then(setClientIp);
-}, []);
-const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
-  if (!activeBanner) return;
-  e.preventDefault();
+  const handleBannerClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!activeBanner) return;
+    e.preventDefault();
 
-  const clickId = "ck_" + Math.random().toString(36).slice(2) + Date.now().toString(36);
+    trackClick(Number(activeBanner.id));
 
-  const body = JSON.stringify({
-    banner_id: Number(activeBanner.id),
-    event_type: "click",
-    click_id: clickId,
-    session_id: sessionStorage.getItem("blr_session") || "home_" + Date.now(),
-    page_url: window.location.href,
-    device_type: window.innerWidth < 768 ? "mobile" : "desktop",
-    user_agent: navigator.userAgent,
-    ip_address: clientIp,   // 👈 fix: hardcoded "" -> state value
-  });
-  const trackUrl = `${process.env.NEXT_PUBLIC_CF7_BASE || "https://admin.motorhomesforsale.com.au"}/wp-json/ads-manager/v1/banners/track`;
-  fetch(trackUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body, keepalive: true })
-    .catch((err) => console.error("[home] banner click tracking failed:", err));
-
-  window.open(bannerClickUrl, "_blank", "noopener,noreferrer");
-}, [activeBanner, bannerClickUrl, clientIp]);   // 👈 clientIp dependency-la add pannunga
+    window.open(bannerClickUrl, "_blank", "noopener,noreferrer");
+  }, [activeBanner, bannerClickUrl, trackClick]);
 
   const bannerSectionRef = useRef<HTMLDivElement | null>(null);
 
