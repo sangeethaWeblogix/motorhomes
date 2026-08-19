@@ -64,7 +64,7 @@ const LENGTH_OPTIONS = [12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28];
 /** Same param shape as FilterSlider's buildMakeCountParams — make/model excluded
  * on purpose (they're what group_by is counting), everything else included so
  * the make/model list narrows to what's actually available under the other
- * active filters, matching production's live /api/params-count/ behaviour. */
+ * active filters, matching production's live /api/d2/ behaviour. */
 const buildMakeCountParams = (filters: FilterState): URLSearchParams => {
   const params = new URLSearchParams();
   if (filters.condition)         params.set("condition", filters.condition);
@@ -87,7 +87,7 @@ const buildMakeCountParams = (filters: FilterState): URLSearchParams => {
   return params;
 };
 
-/** Same shape the /api/params-count/?group_by=make,condition,state combined
+/** Same shape the /api/d2/?group_by=make,condition,state combined
  * response nests each state's region breakdown in — shared by the initial
  * state (server-fetched) and the client fallback fetch below. */
 function paramsCountToStates(data?: InitialParamsCount | null): StateOption[] {
@@ -119,7 +119,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
 
   // Single consolidated initial fetch — replaces the old separate
   // /api/product-list/ (states) and /api/make-details/ (makes) calls with one
-  // /api/params-count/?group_by=make,condition,state request. `data.make` is
+  // /api/d2/?group_by=make,condition,state request. `data.make` is
   // used directly as the makes list (popular_makes is not used here).
   //
   // Server-side (page.tsx's fetchInitialParamsCount) already fetches this for
@@ -129,7 +129,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   useEffect(() => {
     if (initialParamsCount) { setCatLoading(false); return; }
     const controller = new AbortController();
-    fetch(obfuscateUrl("/api/params-count/?group_by=make,condition,state"), { signal: controller.signal })
+    fetch(obfuscateUrl("/api/d2/?group_by=make,condition,state"), { signal: controller.signal })
       .then(r => parseObfuscatedResponse(r))
       .then((res: any) => {
         const data = res?.data;
@@ -182,7 +182,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   const [regionCountsByState, setRegionCountsByState] = useState<Record<string, {name: string; slug: string; count: number}[]>>(() => paramsCountToRegionMap(initialParamsCount));
   const [lastModelName,    setLastModelName]    = useState<string | null>(null);
 
-  // Live make counts — same /api/params-count/ endpoint FilterSlider uses,
+  // Live make counts — same /api/d2/ endpoint FilterSlider uses,
   // re-fetched whenever any other active filter changes so the make list
   // narrows to what's actually available (not just the full static make list).
   useEffect(() => {
@@ -201,7 +201,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
 
     const controller = new AbortController();
     const params = buildMakeCountParams(currentFilters);
-    fetch(obfuscateUrl(`/api/params-count/?${params.toString()}`), { signal: controller.signal })
+    fetch(obfuscateUrl(`/api/d2/?${params.toString()}`), { signal: controller.signal })
       .then(r => parseObfuscatedResponse(r))
       .then(json => { if (!controller.signal.aborted) setMakeCounts(json?.data?.make ?? []); })
       .catch(e => { if (e.name !== "AbortError") console.error(e); });
@@ -215,7 +215,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   ]);
 
   // Live state counts — only used when a make filter is active (e.g. /listings/jayco/).
-  // Calls /api/params-count/?make={make}&group_by=state so the state list narrows
+  // Calls /api/d2/?make={make}&group_by=state so the state list narrows
   // to only the states that actually have listings for that make.
   // Result is pre-warmed in KV by cfs-params-cache-warmer.php section 4.
   useEffect(() => {
@@ -237,7 +237,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     if (currentFilters.to_sleep)          params.set("to_sleep", String(currentFilters.to_sleep));
     if (currentFilters.keyword)           params.set("keyword", currentFilters.keyword);
     params.set("group_by", "state");
-    fetch(obfuscateUrl(`/api/params-count/?${params.toString()}`), { signal: controller.signal })
+    fetch(obfuscateUrl(`/api/d2/?${params.toString()}`), { signal: controller.signal })
       .then(r => parseObfuscatedResponse(r))
       .then(json => { if (!controller.signal.aborted) setStateCounts(json?.data?.state ?? []); })
       .catch(e => { if (e.name !== "AbortError") console.error(e); });
@@ -314,7 +314,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     const params = new URLSearchParams({ group_by: "state" });
     if (currentFilters.category)  params.set("category", currentFilters.category);
     if (currentFilters.condition) params.set("condition", currentFilters.condition);
-    fetch(obfuscateUrl(`/api/params-count/?${params}`), { signal: controller.signal })
+    fetch(obfuscateUrl(`/api/d2/?${params}`), { signal: controller.signal })
       .then(r => parseObfuscatedResponse(r))
       .then(json => {
         if (controller.signal.aborted) return;

@@ -27,7 +27,7 @@ import { parseObfuscatedResponse, obfuscateUrl } from "@/lib/obfuscation";
 async function fetchGroupCounts(groupBy: string, scope: Record<string, string>): Promise<CountItem[]> {
   try {
     const qs = new URLSearchParams({ group_by: groupBy, ...scope });
-    const res = await fetch(obfuscateUrl(`/api/params-count/?${qs.toString()}`));
+    const res = await fetch(obfuscateUrl(`/api/d2/?${qs.toString()}`));
     const json = await parseObfuscatedResponse(res);
     return json?.data?.[groupBy] ?? [];
   } catch {
@@ -171,7 +171,7 @@ export default function StateBrowseSection({ state, region, category, initialDat
       .map((b) => ({ text: b.text, href: `${basePath}${b.href.replace("/listings", "")}` }));
 
   // group_by-based panels (make/state/region/category) only know what to show
-  // once their /api/params-count/ response arrives — unlike the band panels
+  // once their /api/d2/ response arrives — unlike the band panels
   // above, there's no "show everything" fallback that's safe to filter later.
   // While that fetch is still in flight (count state === null), render
   // shimmer pills instead of nothing so a slow response doesn't look empty.

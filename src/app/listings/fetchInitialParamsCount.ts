@@ -1,5 +1,5 @@
 /** Server-side counterpart to StateFilterBar's initial combined
- * /api/params-count/?group_by=make,condition,state fetch — called during SSR
+ * /api/d2/?group_by=make,condition,state fetch — called during SSR
  * so the make/state dropdown data lands in the initial render instead of a
  * client-visible request firing on every page load. */
 

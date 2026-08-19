@@ -18,7 +18,7 @@ export const dynamic = "force-dynamic";
 const SEED_MAX = 15;
 
 // Cache the indexed-URL set for the lifetime of this server instance
-// (same approach as /api/indexed-url/route.ts — read once, never re-read).
+// (same approach as /api/d3/route.ts — read once, never re-read).
 let _indexedPaths: Set<string> | null = null;
 function isPathIndexed(urlPath: string): boolean {
   if (!_indexedPaths) {
@@ -66,7 +66,7 @@ export default async function LocationStateDemoPage({
   // Determine isIndexed server-side so fetchInitialPool buckets products
   // correctly (featured/new/used split vs combined grid) from the first byte.
   // Without this, SSR always uses isIndexed=true and the client-side
-  // /api/indexed-url/ check then triggers a second pool fetch to fix the layout.
+  // /api/d3/ check then triggers a second pool fetch to fix the layout.
   const canonicalPath = buildListingsSlug(initialFilters);
   const isIndexed = isPathIndexed(canonicalPath);
 

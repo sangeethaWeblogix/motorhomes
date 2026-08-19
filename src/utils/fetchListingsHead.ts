@@ -45,7 +45,7 @@ type ApiResponse = {
 const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE;
 const API_KEY = process.env.CFS_API_KEY;
 
-/** Same backend endpoint as /api/pool-listings/ (pool_test) — used here instead
+/** Same backend endpoint as /api/d1/ (pool_test) — used here instead
  * of new_optimize_code because pool_test has proven far more reliable
  * (new_optimize_code intermittently returns a PHP notice from the ACF plugin
  * instead of JSON). Response is flat (products/premium_products/etc. at the

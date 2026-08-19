@@ -57,7 +57,7 @@ interface Props {
   /**
    * Server-determined isIndexed value — passed separately so non-indexed pages
    * that have initialPool=null still initialise isIndexed correctly without
-   * waiting for the async /api/indexed-url/ client check (which causes an
+   * waiting for the async /api/d3/ client check (which causes an
    * extra pool re-fetch when it flips the default true → false).
    */
   serverIsIndexed?: boolean;
@@ -116,7 +116,7 @@ export default function StateHome({
   const initialPropConsumed = useRef(initialPool == null || serverIsIndexed === false);
   // Snapshot of the most-recently-consumed preload data, keyed by poolApiUrl.
   // Used to re-bucket without a live fetch when only `isIndexed` changes (e.g.
-  // the async /api/indexed-url/ check resolves to a different value than the
+  // the async /api/d3/ check resolves to a different value than the
   // preload's is_indexed). Cleared whenever poolApiUrl changes (filter change).
   const preloadSnapshotRef = useRef<{
     poolApiUrl: string;
@@ -129,13 +129,13 @@ export default function StateHome({
     isIndexed: boolean;  // is_indexed value from the preload — authoritative source
   } | null>(null);
   // Set to true synchronously in the mount effect when window.__INITIAL_POOL__
-  // is detected. This lets the /api/indexed-url/ callback (which can fire as a
+  // is detected. This lets the /api/d3/ callback (which can fire as a
   // microtask from browser-cached responses, BEFORE the pool effect macro task
   // runs and saves the snapshot) suppress setIsIndexed calls that would corrupt
   // the layout before the preload is even consumed. Cleared when the pool effect
   // first runs (at which point preloadSnapshotRef takes over as the guard).
   const preloadReadRef = useRef(false);
-  // Skips the /api/indexed-url/ effect's very first run when the server
+  // Skips the /api/d3/ effect's very first run when the server
   // already resolved isIndexed for these initial filters — it only needs to
   // re-check after a real client-side filter change (pushState, no fresh SSR).
   const indexedCheckConsumed = useRef(serverIsIndexed === undefined);
@@ -247,7 +247,7 @@ export default function StateHome({
     // preload object embedded by the cache generator. Batching setIsIndexed here
     // with setReady means the pool effect fires once with the correct isIndexed
     // value, preventing the secondary pool re-fetch that occurs when the async
-    // /api/indexed-url/ check resolves to a different value than the default.
+    // /api/d3/ check resolves to a different value than the default.
     //
     // Note: this used to also force a live client re-fetch on plain SSR/Vercel
     // responses (no KV preload) to avoid "frozen" products under ISR caching.
@@ -263,7 +263,7 @@ export default function StateHome({
         // regardless of whether is_indexed is present (pool_test doesn't return
         // is_indexed at the top level, so that check was always false before).
         // The pool effect will either consume the preload (URL match) or fall
-        // through to a live fetch. Either way, /api/indexed-url/ must not fire
+        // through to a live fetch. Either way, /api/d3/ must not fire
         // setIsIndexed until after that first pool-effect run completes.
         preloadReadRef.current = true;
         if (typeof preload.is_indexed === "boolean") {
@@ -281,7 +281,7 @@ export default function StateHome({
         if (freshSeo) setSeo(freshSeo);
       }
     } catch {
-      // ignore — isIndexed will be corrected by the async /api/indexed-url/ check
+      // ignore — isIndexed will be corrected by the async /api/d3/ check
     }
 
     setReady(true);
@@ -316,7 +316,7 @@ export default function StateHome({
       return;
     }
     const canonicalPath = buildListingsSlug(filters);
-    fetch(obfuscateUrl(`/api/indexed-url/?path=${encodeURIComponent(canonicalPath)}`))
+    fetch(obfuscateUrl(`/api/d3/?path=${encodeURIComponent(canonicalPath)}`))
       .then((r) => parseObfuscatedResponse(r))
       .then((json) => {
         // Suppress if either:
@@ -335,7 +335,7 @@ export default function StateHome({
 
   // Page 1 uses ONE shared pool call, split by slot_bucket into
   // Featured/New/Used — instead of 3 separate condition-locked API calls.
-  const poolApiUrl = buildApiUrl("/api/pool-listings/?per_page=24", filters, seed);
+  const poolApiUrl = buildApiUrl("/api/d1/?per_page=24", filters, seed);
 
   useEffect(() => {
     // Wait for the real session seed to load (see the mount effect above) —
@@ -352,7 +352,7 @@ export default function StateHome({
       return;
     }
     // `isIndexed` starts as the `true` default and flips to its real value
-    // once the async /api/indexed-url/ check resolves — since this effect
+    // once the async /api/d3/ check resolves — since this effect
     // depends on `isIndexed`, it fires once with that stale default and
     // again with the real value. The two requests race with no cancellation,
     // so if the stale-`isIndexed` response happens to land last, it overwrites
@@ -403,7 +403,7 @@ export default function StateHome({
       handleTotalPages(totalPages);
       setPoolLoading(false);
 
-      // Save a snapshot so that if isIndexed changes later (e.g. /api/indexed-url/
+      // Save a snapshot so that if isIndexed changes later (e.g. /api/d3/
       // returns a different value than the embedded is_indexed), the pool effect
       // can re-bucket from this data instead of making a live fetch that would
       // overwrite the correct preload content.
@@ -424,7 +424,7 @@ export default function StateHome({
 
     // If only isIndexed changed (same filter context / poolApiUrl) and we have
     // a preload snapshot, re-bucket from it instead of making a live request.
-    // This prevents the async /api/indexed-url/ check from overwriting correct
+    // This prevents the async /api/d3/ check from overwriting correct
     // preload data when it disagrees with the embedded is_indexed value.
     if (preloadSnapshotRef.current && preloadSnapshotRef.current.poolApiUrl === poolApiUrl) {
       const snap = preloadSnapshotRef.current;
@@ -432,7 +432,7 @@ export default function StateHome({
       const { products, premiumsRaw, exclusivesRaw, empExclusivesRaw } = snap;
       // Use snap.isIndexed (the is_indexed embedded in the preload), NOT the
       // current isIndexed state — which may have been overridden by the async
-      // /api/indexed-url/ check. The preload value is authoritative.
+      // /api/d3/ check. The preload value is authoritative.
       const snapIsIndexed = snap.isIndexed;
       if (empExclusivesRaw.length > 0 && products.length === 0) {
         setPool({ featured: empExclusivesRaw.map((p) => ({ ...p, is_exclusive: true })), new: [], used: [] });
@@ -455,7 +455,7 @@ export default function StateHome({
     }
 
     // Filter changed (or no snapshot) — clear the snapshot and do a live fetch.
-    // Also clear preloadReadRef so subsequent /api/indexed-url/ callbacks (for
+    // Also clear preloadReadRef so subsequent /api/d3/ callbacks (for
     // the new filter context) can update isIndexed normally.
     preloadSnapshotRef.current = null;
     preloadReadRef.current = false;
@@ -553,8 +553,8 @@ export default function StateHome({
       conditionSeoConsumed.current = true;
       return;
     }
-    const newUrl = `${buildApiUrl("/api/pool-listings/?per_page=1", filters, seed, "New")}&page=1`;
-    const usedUrl = `${buildApiUrl("/api/pool-listings/?per_page=1", filters, seed, "Used")}&page=1`;
+    const newUrl = `${buildApiUrl("/api/d1/?per_page=1", filters, seed, "New")}&page=1`;
+    const usedUrl = `${buildApiUrl("/api/d1/?per_page=1", filters, seed, "Used")}&page=1`;
 
     fetch(obfuscateUrl(newUrl), { cache: "no-store" })
       .then((r) => parseObfuscatedResponse(r))
@@ -892,7 +892,7 @@ export default function StateHome({
   }
 
   // page > 1 — single combined grid, StateListingGrid self-fetches via apiUrl
-  const allUrl = buildApiUrl("/api/pool-listings/?per_page=24", filters, seed);
+  const allUrl = buildApiUrl("/api/d1/?per_page=24", filters, seed);
 
   return (
     <div className="lsd-page">

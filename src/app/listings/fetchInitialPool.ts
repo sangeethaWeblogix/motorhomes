@@ -4,7 +4,7 @@
  * Priority:
  *  1. WordPress pool_test directly (when seed > 0) — bypasses Cloudflare's pool cache
  *     which strips `seed` from its cache key, returning the same pool for all seeds.
- *  2. /api/pool-listings/ — live fetch through Cloudflare → WP (seed=0 fallback)
+ *  2. /api/d1/ — live fetch through Cloudflare → WP (seed=0 fallback)
  *
  * The parsed result is passed as `initialPool` to StateHome so the SSR HTML
  * contains real product listings from the first byte.
@@ -21,7 +21,7 @@ const APP_URL         = process.env.NEXT_PUBLIC_APP_URL || "https://www.motorhom
 const WP_API_BASE     = process.env.NEXT_PUBLIC_MFS_API_BASE;
 const WP_API_KEY      = process.env.CFS_API_KEY;
 
-/** Build the /api/pool-listings/ query string from the full FilterState. */
+/** Build the /api/d1/ query string from the full FilterState. */
 function buildApiParams(filters: FilterState, seed: number, perPage = 24): URLSearchParams {
   const params = new URLSearchParams({ orderby: "default", per_page: String(perPage), page: "1", seed: String(seed || 1) });
   if (filters.state)              params.set("state",             String(filters.state));
@@ -107,7 +107,7 @@ function parsePoolJson(json: any, isIndexed: boolean, displaySeed: number): Init
  * Live fetch — two paths:
  *  - seed > 0: call WordPress pool_test directly (bypasses Cloudflare pool cache
  *    which strips `seed` from its key, so all seeds would hit the same entry).
- *  - seed = 0: call via /api/pool-listings/ through Cloudflare (normal fallback).
+ *  - seed = 0: call via /api/d1/ through Cloudflare (normal fallback).
  */
 async function fetchFromApi(filters: FilterState, seed: number, perPage = 24): Promise<any | null> {
   const params = buildApiParams(filters, seed, perPage);
@@ -133,9 +133,9 @@ async function fetchFromApi(filters: FilterState, seed: number, perPage = 24): P
     }
   }
 
-  // Default: go through /api/pool-listings/ (Cloudflare orange-cloud → WP).
+  // Default: go through /api/d1/ (Cloudflare orange-cloud → WP).
   try {
-    const res = await fetch(`${APP_URL}/api/pool-listings/?${params.toString()}`, {
+    const res = await fetch(`${APP_URL}/api/d1/?${params.toString()}`, {
       cache: "no-store",
     });
     return await parseObfuscatedResponse(res);

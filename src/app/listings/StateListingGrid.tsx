@@ -243,7 +243,7 @@ function ListingCard({
 
      const postTrackEvent = async (product_id: number) => {
     try {
-       await fetch("/api/track/", {
+       await fetch("/api/d4/", {
         method: "POST",
          headers: { "Content-Type": "text/plain" },
          body: encodeObfuscated({ product_id }),
