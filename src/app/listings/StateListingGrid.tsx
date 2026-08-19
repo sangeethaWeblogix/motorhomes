@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useEnquiryForm } from "@/app/components/ListContent/enquiryform";
-import { parseObfuscatedResponse, encodeObfuscated } from "@/lib/obfuscation";
+import { parseObfuscatedResponse, encodeObfuscated, obfuscateUrl } from "@/lib/obfuscation";
 import { Listing, SeoV2, buildFeaturedOrder } from "./listingShared";
 
 export type { Listing, SeoV2 };
@@ -455,7 +455,7 @@ export default function StateListingGrid({ title, viewAllHref, apiUrl, items: ex
     setFetchLoading(true);
     const requestUrl = `${apiUrl}&page=${page}`;
 
-    fetch(requestUrl, { cache: "no-store" })
+    fetch(obfuscateUrl(requestUrl), { cache: "no-store" })
       .then((r) => parseObfuscatedResponse(r))
       .then((json) => {
         // pool_test returns products/premium_products/exclusive_products at the

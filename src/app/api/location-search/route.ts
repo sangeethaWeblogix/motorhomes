@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { encodeObfuscated } from "@/lib/obfuscation";
+import { encodeObfuscated, readObfuscatedQuery } from "@/lib/obfuscation";
 
 const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE;
 const API_KEY = process.env.CFS_API_KEY;
@@ -14,7 +14,8 @@ function obf(data: unknown, init?: ResponseInit): NextResponse {
 }
 
 export async function GET(req: NextRequest) {
-  const keyword = req.nextUrl.searchParams.get("keyword") ?? "";
+  const searchParams = readObfuscatedQuery(req.nextUrl.searchParams);
+  const keyword = searchParams.get("keyword") ?? "";
 
   if (!API_BASE) {
     return obf({ message: "API base not configured" }, { status: 500 });

@@ -1,4 +1,4 @@
-import { decodeObfuscated } from "@/lib/obfuscation";
+import { decodeObfuscated, obfuscateUrl } from "@/lib/obfuscation";
 
  const API_LOCATION = process.env.NEXT_PUBLIC_MFS_API_BASE;
 // api/links/api.ts
@@ -31,7 +31,7 @@ export const fetchLocations = async (keyword: string) => {
   if (!keyword || keyword.trim().length < 2) return [];
 
   const res = await fetch(
-    `/api/location-search/?keyword=${encodeURIComponent(keyword)}`,
+    obfuscateUrl(`/api/location-search/?keyword=${encodeURIComponent(keyword)}`),
     { headers: { Accept: "application/json" } }
   );
 

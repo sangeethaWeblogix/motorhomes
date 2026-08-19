@@ -1,5 +1,5 @@
 // src/api/homeSearch/api.ts
-import { decodeObfuscated } from "@/lib/obfuscation";
+import { decodeObfuscated, obfuscateUrl } from "@/lib/obfuscation";
 
 const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE;
 const API_KEY = process.env.CFS_API_KEY; // ✅ Add this
@@ -68,7 +68,7 @@ export async function fetchKeywordSuggestions(
   query: string,
   signal?: AbortSignal
 ): Promise<KeywordSuggestion[]> {
-  const url = `/api/home-search/?keyword=${encodeURIComponent(query)}`;
+  const url = obfuscateUrl(`/api/home-search/?keyword=${encodeURIComponent(query)}`);
 
   const res = await fetch(url, { cache: "no-store", signal });
   if (!res.ok) throw new Error(`Keyword API failed: ${res.status}`);

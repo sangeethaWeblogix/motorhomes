@@ -1,6 +1,6 @@
 
 import { NextRequest, NextResponse } from "next/server";
-import { encodeObfuscated } from "@/lib/obfuscation";
+import { encodeObfuscated, readObfuscatedQuery } from "@/lib/obfuscation";
 
 const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE;
 const API_KEY = process.env.CFS_API_KEY;
@@ -40,7 +40,7 @@ async function fetchPoolTest(url: string, signal: AbortSignal) {
 }
 
 export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
+  const searchParams = readObfuscatedQuery(request.nextUrl.searchParams);
   const params = searchParams.toString();
   const url = `${API_BASE}/pool_test?${params}`;
 

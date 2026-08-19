@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { encodeObfuscated } from "@/lib/obfuscation";
+import { encodeObfuscated, readObfuscatedQuery } from "@/lib/obfuscation";
 
 const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE;
 const API_KEY = process.env.CFS_API_KEY;
@@ -18,7 +18,8 @@ export async function GET(req: NextRequest) {
     return obf({ error: "Missing API base" }, { status: 500 });
   }
 
-  const keyword = req.nextUrl.searchParams.get("keyword");
+  const searchParams = readObfuscatedQuery(req.nextUrl.searchParams);
+  const keyword = searchParams.get("keyword");
   const url = keyword
     ? `${API_BASE}/home_search_new?keyword=${encodeURIComponent(keyword)}`
     : `${API_BASE}/home_search_new`;

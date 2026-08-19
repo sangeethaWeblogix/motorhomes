@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { encodeObfuscated } from "@/lib/obfuscation";
+import { encodeObfuscated, readObfuscatedQuery } from "@/lib/obfuscation";
 
 const API_KEY = process.env.CFS_API_KEY;
 const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE || "https://admin.motorhomesforsale.com.au/wp-json/mfs/v1";
@@ -46,6 +46,6 @@ async function fetchFromWP(searchParams: URLSearchParams): Promise<NextResponse>
 }
 
 export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
+  const searchParams = readObfuscatedQuery(request.nextUrl.searchParams);
   return fetchFromWP(searchParams);
 }

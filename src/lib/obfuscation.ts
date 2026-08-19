@@ -59,3 +59,34 @@ export async function readObfuscatedBody<T = any>(req: Request): Promise<T> {
   const text = await req.text();
   return decodeObfuscated<T>(text);
 }
+
+/**
+ * Wraps a request URL's query string in a single opaque `q` token so filter
+ * values (state, make, price, etc.) aren't plain-readable in the DevTools
+ * Network tab's request URL/Name column. A URL with no query string passes
+ * through unchanged. Pair with `readObfuscatedQuery` on the route handler.
+ */
+export function obfuscateUrl(url: string): string {
+  const qIndex = url.indexOf("?");
+  if (qIndex === -1) return url;
+  const base = url.slice(0, qIndex);
+  const qs = url.slice(qIndex + 1);
+  if (!qs) return url;
+  return `${base}?q=${encodeURIComponent(encodeObfuscated(qs))}`;
+}
+
+/**
+ * Drop-in replacement for `request.nextUrl.searchParams` on a route whose
+ * client sent its query string wrapped via `obfuscateUrl`. Falls back to the
+ * params as-is when `q` isn't present, so server-side callers that hit the
+ * same route with a plain query string keep working unchanged.
+ */
+export function readObfuscatedQuery(searchParams: URLSearchParams): URLSearchParams {
+  const q = searchParams.get("q");
+  if (!q) return searchParams;
+  try {
+    return new URLSearchParams(decodeObfuscated<string>(q));
+  } catch {
+    return searchParams;
+  }
+}

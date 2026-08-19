@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import SearchSuggestionSkeleton from "../components/Searchsuggestionskeleton ";
 import { fetchLocations } from "@/api/location/api";
 import { fetchHomeSearchList, fetchKeywordSuggestions } from "@/api/homeSearch/api";
-import { parseObfuscatedResponse } from "@/lib/obfuscation";
+import { parseObfuscatedResponse, obfuscateUrl } from "@/lib/obfuscation";
 import type { InitialParamsCount } from "./fetchInitialParamsCount";
 
 type KeywordItem = { label: string; url?: string };
@@ -129,7 +129,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
   useEffect(() => {
     if (initialParamsCount) { setCatLoading(false); return; }
     const controller = new AbortController();
-    fetch("/api/params-count/?group_by=make,condition,state", { signal: controller.signal })
+    fetch(obfuscateUrl("/api/params-count/?group_by=make,condition,state"), { signal: controller.signal })
       .then(r => parseObfuscatedResponse(r))
       .then((res: any) => {
         const data = res?.data;
@@ -201,7 +201,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
 
     const controller = new AbortController();
     const params = buildMakeCountParams(currentFilters);
-    fetch(`/api/params-count/?${params.toString()}`, { signal: controller.signal })
+    fetch(obfuscateUrl(`/api/params-count/?${params.toString()}`), { signal: controller.signal })
       .then(r => parseObfuscatedResponse(r))
       .then(json => { if (!controller.signal.aborted) setMakeCounts(json?.data?.make ?? []); })
       .catch(e => { if (e.name !== "AbortError") console.error(e); });
@@ -237,7 +237,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     if (currentFilters.to_sleep)          params.set("to_sleep", String(currentFilters.to_sleep));
     if (currentFilters.keyword)           params.set("keyword", currentFilters.keyword);
     params.set("group_by", "state");
-    fetch(`/api/params-count/?${params.toString()}`, { signal: controller.signal })
+    fetch(obfuscateUrl(`/api/params-count/?${params.toString()}`), { signal: controller.signal })
       .then(r => parseObfuscatedResponse(r))
       .then(json => { if (!controller.signal.aborted) setStateCounts(json?.data?.state ?? []); })
       .catch(e => { if (e.name !== "AbortError") console.error(e); });
@@ -314,7 +314,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
     const params = new URLSearchParams({ group_by: "state" });
     if (currentFilters.category)  params.set("category", currentFilters.category);
     if (currentFilters.condition) params.set("condition", currentFilters.condition);
-    fetch(`/api/params-count/?${params}`, { signal: controller.signal })
+    fetch(obfuscateUrl(`/api/params-count/?${params}`), { signal: controller.signal })
       .then(r => parseObfuscatedResponse(r))
       .then(json => {
         if (controller.signal.aborted) return;

@@ -12,7 +12,7 @@ import type { BrowseSectionData } from "./browseSectionShared";
 import StateContent from "./StateContent";
 import { buildApiUrl, buildListingsSlug, buildFilterBreadcrumbs } from "./urlUtils";
 import { seededShuffle } from "./seededShuffle";
-import { parseObfuscatedResponse } from "@/lib/obfuscation";
+import { parseObfuscatedResponse, obfuscateUrl } from "@/lib/obfuscation";
 import type { InitialParamsCount } from "./fetchInitialParamsCount";
 // import { useBanners } from "@/components/BannerHandler";
 // import { useBannerTracking } from "@/hooks/useBannerTracking";
@@ -316,7 +316,7 @@ export default function StateHome({
       return;
     }
     const canonicalPath = buildListingsSlug(filters);
-    fetch(`/api/indexed-url/?path=${encodeURIComponent(canonicalPath)}`)
+    fetch(obfuscateUrl(`/api/indexed-url/?path=${encodeURIComponent(canonicalPath)}`))
       .then((r) => parseObfuscatedResponse(r))
       .then((json) => {
         // Suppress if either:
@@ -556,12 +556,12 @@ export default function StateHome({
     const newUrl = `${buildApiUrl("/api/pool-listings/?per_page=1", filters, seed, "New")}&page=1`;
     const usedUrl = `${buildApiUrl("/api/pool-listings/?per_page=1", filters, seed, "Used")}&page=1`;
 
-    fetch(newUrl, { cache: "no-store" })
+    fetch(obfuscateUrl(newUrl), { cache: "no-store" })
       .then((r) => parseObfuscatedResponse(r))
       .then((json) => setNewSeo(json?.data?.seo_v2 ?? json?.seo_v2 ?? null))
       .catch(() => setNewSeo(null));
 
-    fetch(usedUrl, { cache: "no-store" })
+    fetch(obfuscateUrl(usedUrl), { cache: "no-store" })
       .then((r) => parseObfuscatedResponse(r))
       .then((json) => setUsedSeo(json?.data?.seo_v2 ?? json?.seo_v2 ?? null))
       .catch(() => setUsedSeo(null));
