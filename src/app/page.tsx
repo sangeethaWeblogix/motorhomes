@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     siteName: "Motorhomes for Sale",
     images: [
       {
-        url: "https://www.motorhomesforsale.com.au/images/cfs-logo.png",
+        url: "https://www.motorhomesforsale.com.au/images/mfs-logo.png",
         width: 800,
         height: 600,
         alt: "Motorhomes for Sale Australia",
@@ -76,7 +76,7 @@ const homeJsonLd = {
       "url": BASE_URL,
       "logo": {
         "@type": "ImageObject",
-        "url": `${BASE_URL}/images/cfs-logo-black.png`,
+        "url": `${BASE_URL}/images/mfs-logo-black.png`,
       },
       "contactPoint": {
         "@type": "ContactPoint",

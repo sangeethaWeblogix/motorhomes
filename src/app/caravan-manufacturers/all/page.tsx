@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     url: "https://www.motorhomesforsale.com.au/caravan-manufacturers/all/",
     images: [
       {
-        url: "https://www.motorhomesforsale.com.au/images/cfs-logo.png",
+        url: "https://www.motorhomesforsale.com.au/images/mfs-logo.png",
         width: 800,
         height: 600,
         alt: "Motorhome Manufacturers Australia",

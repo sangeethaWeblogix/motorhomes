@@ -216,7 +216,7 @@ import fetchListingsForHead, { buildListingsJsonLd, buildBreadcrumbs } from "@/u
                       "url": "https://www.motorhomesforsale.com.au/",
                       "logo": {
                         "@type": "ImageObject",
-                        "url": "https://www.motorhomesforsale.com.au/images/cfs-logo-black.svg",
+                        "url": "https://www.motorhomesforsale.com.au/images/mfs-logo-black.svg",
                         "caption": "Motorhomes For Sale by Marketplace Network",
                       },
                       "contactPoint": {
