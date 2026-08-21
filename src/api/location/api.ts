@@ -1,3 +1,5 @@
+import { decodeObfuscated, obfuscateUrl } from "@/lib/obfuscation";
+
  const API_LOCATION = process.env.NEXT_PUBLIC_MFS_API_BASE;
 // api/links/api.ts
 const API_BASE = process.env.NEXT_PUBLIC_MFS_API_BASE;
@@ -29,13 +31,13 @@ export const fetchLocations = async (keyword: string) => {
   if (!keyword || keyword.trim().length < 2) return [];
 
   const res = await fetch(
-    `/api/location-search/?keyword=${encodeURIComponent(keyword)}`,
+    obfuscateUrl(`/api/location-search/?keyword=${encodeURIComponent(keyword)}`),
     { headers: { Accept: "application/json" } }
   );
 
   if (!res.ok) throw new Error("Location API failed");
 
-  const data = await res.json();
+  const data = decodeObfuscated<any>(await res.text());
 
   // ✅ Maintain API order: State → Region → Pincode
   const orderedResults = [

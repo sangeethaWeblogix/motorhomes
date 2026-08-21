@@ -23,10 +23,10 @@ export async function POST(req: Request) {
   console.log("IPUA:", user_agent);
     // 🔥 Your existing API call (move here)
     await fetch(
-      "https://admin.motorhomesforsale.com.au/wp-json/mfs/v1/update-clicks",
+      "https://admin.motorhomesforsale.com.au/wp-json/mfs/v1/update-impressions",
       {
         method: "POST",
-       headers: {
+         headers: {
           "Content-Type": "application/json",
           ...(API_KEY && { "X-API-Key": API_KEY }), // ✅ Added
         },

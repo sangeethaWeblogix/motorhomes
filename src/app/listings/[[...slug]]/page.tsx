@@ -5,13 +5,20 @@ import StateHome from "../home";
 import { parseDemoFilters, buildListingsSlug } from "../urlUtils";
 import { metaFromSlug } from "@/utils/seo/meta";
 import { fetchBrowseSectionData } from "../fetchBrowseSectionData";
-import { fetchInitialPool } from "../fetchInitialPool";
+import { fetchInitialPool, fetchConditionSeo } from "../fetchInitialPool";
+import { fetchInitialParamsCount } from "../fetchInitialParamsCount";
 import "../../globals.css";
 
-export const revalidate = 86400;
+// Rendered fresh on every request (no ISR cache) — the shuffled product order
+// and the make/state counts must be live per visit, and none of it should
+// require a client-visible follow-up fetch (see fetchInitialPool's displaySeed
+// and fetchInitialParamsCount for how each piece is produced server-side).
+export const dynamic = "force-dynamic";
+
+const SEED_MAX = 15;
 
 // Cache the indexed-URL set for the lifetime of this server instance
-// (same approach as /api/indexed-url/route.ts — read once, never re-read).
+// (same approach as /api/d3/route.ts — read once, never re-read).
 let _indexedPaths: Set<string> | null = null;
 function isPathIndexed(urlPath: string): boolean {
   if (!_indexedPaths) {
@@ -59,20 +66,39 @@ export default async function LocationStateDemoPage({
   // Determine isIndexed server-side so fetchInitialPool buckets products
   // correctly (featured/new/used split vs combined grid) from the first byte.
   // Without this, SSR always uses isIndexed=true and the client-side
-  // /api/indexed-url/ check then triggers a second pool fetch to fix the layout.
+  // /api/d3/ check then triggers a second pool fetch to fix the layout.
   const canonicalPath = buildListingsSlug(initialFilters);
   const isIndexed = isPathIndexed(canonicalPath);
 
   // shuffle_seed is injected by the HTML cache warmer (e.g. ?shuffle_seed=3) so
   // each KV HTML variant gets a genuinely different product pool from WordPress.
+  // 0 for a normal live request — the API call itself goes through the
+  // CF-cached path; freshness for those requests comes from displaySeed below.
   const shuffleSeed = typeof query.shuffle_seed === "string"
     ? (parseInt(query.shuffle_seed, 10) || 0)
     : 0;
 
-  const [browseData, initialPool] = await Promise.all([
+  // Local-only re-shuffle seed, fresh per request — reproduces the "different
+  // order every visit" behavior that used to require a client-side re-fetch.
+  const displaySeed = Math.floor(Math.random() * SEED_MAX) + 1;
+
+  const [browseData, initialPool, initialParamsCount, newSeo, usedSeo] = await Promise.all([
     fetchBrowseSectionData(initialFilters),
-    fetchInitialPool(initialFilters, isIndexed, shuffleSeed),
+    fetchInitialPool(initialFilters, isIndexed, shuffleSeed, displaySeed),
+    fetchInitialParamsCount(),
+    isIndexed ? fetchConditionSeo(initialFilters, "New", shuffleSeed) : Promise.resolve(null),
+    isIndexed ? fetchConditionSeo(initialFilters, "Used", shuffleSeed) : Promise.resolve(null),
   ]);
 
-  return <StateHome initialFilters={initialFilters} browseData={browseData} initialPool={initialPool} serverIsIndexed={isIndexed} />;
+  return (
+    <StateHome
+      initialFilters={initialFilters}
+      browseData={browseData}
+      initialPool={initialPool}
+      serverIsIndexed={isIndexed}
+      initialParamsCount={initialParamsCount}
+      initialNewSeo={newSeo}
+      initialUsedSeo={usedSeo}
+    />
+  );
 }

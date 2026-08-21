@@ -4,7 +4,7 @@
  * Priority:
  *  1. WordPress pool_test directly (when seed > 0) — bypasses Cloudflare's pool cache
  *     which strips `seed` from its cache key, returning the same pool for all seeds.
- *  2. /api/pool-listings/ — live fetch through Cloudflare → WP (seed=0 fallback)
+ *  2. /api/d1/ — live fetch through Cloudflare → WP (seed=0 fallback)
  *
  * The parsed result is passed as `initialPool` to StateHome so the SSR HTML
  * contains real product listings from the first byte.
@@ -13,15 +13,17 @@
 import { Listing, SeoV2, buildFeaturedOrder } from "./listingShared";
 import type { InitialPool } from "./home";
 import type { FilterState } from "./StateFilterBar";
+import { seededShuffle } from "./seededShuffle";
+import { parseObfuscatedResponse } from "@/lib/obfuscation";
 
 const APP_URL         = process.env.NEXT_PUBLIC_APP_URL || "https://www.motorhomesforsale.com.au";
 // Direct WP API — used when seed > 0 to bypass Cloudflare's pool cache (which strips seed).
 const WP_API_BASE     = process.env.NEXT_PUBLIC_MFS_API_BASE;
 const WP_API_KEY      = process.env.CFS_API_KEY;
 
-/** Build the /api/pool-listings/ query string from the full FilterState. */
-function buildApiParams(filters: FilterState, seed: number): URLSearchParams {
-  const params = new URLSearchParams({ orderby: "default", per_page: "24", page: "1", seed: String(seed || 1) });
+/** Build the /api/d1/ query string from the full FilterState. */
+function buildApiParams(filters: FilterState, seed: number, perPage = 24): URLSearchParams {
+  const params = new URLSearchParams({ orderby: "default", per_page: String(perPage), page: "1", seed: String(seed || 1) });
   if (filters.state)              params.set("state",             String(filters.state));
   if (filters.region)             params.set("region",            String(filters.region));
   if (filters.category)           params.set("category",          String(filters.category));
@@ -47,8 +49,15 @@ function buildApiParams(filters: FilterState, seed: number): URLSearchParams {
   return params;
 }
 
-/** Parse a raw pool_test JSON response into the InitialPool shape. */
-function parsePoolJson(json: any, isIndexed: boolean): InitialPool | null {
+/** Parse a raw pool_test JSON response into the InitialPool shape.
+ *
+ * @param displaySeed  Purely a local re-shuffle seed (mirrors what the client
+ *   used to compute randomly on every mount) — it never touches the API
+ *   request, so it adds zero extra backend load. Applying it here means the
+ *   server-rendered order is already "fresh-looking" per request, so the
+ *   client no longer needs its own live re-fetch just to reshuffle.
+ */
+function parsePoolJson(json: any, isIndexed: boolean, displaySeed: number): InitialPool | null {
   const seo: SeoV2 | null = json?.data?.seo_v2 ?? json?.seo_v2 ?? null;
   const products: Listing[]         = json?.data?.products         ?? json?.products         ?? [];
   const premiumsRaw: Listing[]      = json?.data?.premium_products  ?? json?.premium_products  ?? [];
@@ -67,17 +76,26 @@ function parsePoolJson(json: any, isIndexed: boolean): InitialPool | null {
   let usedItems: Listing[] = [];
 
   if (isIndexed) {
-    const featuredSource = products.filter((p) => p.slot_bucket === "featured");
+    const featuredSource = seededShuffle(
+      products.filter((p) => p.slot_bucket === "featured"),
+      displaySeed
+    );
     featured = buildFeaturedOrder(featuredSource, premiumsRaw, exclusivesRaw);
     const featuredIds = new Set(featured.map((p) => p.id));
-    newItems  = products.filter((p) => p.slot_bucket === "new"  && !p.is_premium && !p.is_exclusive && !featuredIds.has(p.id));
-    usedItems = products.filter((p) => p.slot_bucket === "used" && !p.is_premium && !p.is_exclusive && !featuredIds.has(p.id));
+    newItems  = seededShuffle(
+      products.filter((p) => p.slot_bucket === "new"  && !p.is_premium && !p.is_exclusive && !featuredIds.has(p.id)),
+      displaySeed + 1000
+    );
+    usedItems = seededShuffle(
+      products.filter((p) => p.slot_bucket === "used" && !p.is_premium && !p.is_exclusive && !featuredIds.has(p.id)),
+      displaySeed + 2000
+    );
   } else {
     // Non-indexed: combined grid, no slot splitting
     const totalC = totalCount === 0 && empExclusivesRaw.length > 0;
     featured = totalC
       ? empExclusivesRaw
-      : buildFeaturedOrder(products, premiumsRaw, exclusivesRaw);
+      : buildFeaturedOrder(seededShuffle(products, displaySeed), premiumsRaw, exclusivesRaw);
     newItems  = [];
     usedItems = [];
   }
@@ -89,10 +107,10 @@ function parsePoolJson(json: any, isIndexed: boolean): InitialPool | null {
  * Live fetch — two paths:
  *  - seed > 0: call WordPress pool_test directly (bypasses Cloudflare pool cache
  *    which strips `seed` from its key, so all seeds would hit the same entry).
- *  - seed = 0: call via /api/pool-listings/ through Cloudflare (normal fallback).
+ *  - seed = 0: call via /api/d1/ through Cloudflare (normal fallback).
  */
-async function fetchFromApi(filters: FilterState, seed: number): Promise<any | null> {
-  const params = buildApiParams(filters, seed);
+async function fetchFromApi(filters: FilterState, seed: number, perPage = 24): Promise<any | null> {
+  const params = buildApiParams(filters, seed, perPage);
 
   // When a specific seed is requested, the Cloudflare Worker's pool cache must be
   // bypassed — it normalises its cache key by deleting `seed`, so every seed would
@@ -115,39 +133,57 @@ async function fetchFromApi(filters: FilterState, seed: number): Promise<any | n
     }
   }
 
-  // Default: go through /api/pool-listings/ (Cloudflare orange-cloud → WP).
+  // Default: go through /api/d1/ (Cloudflare orange-cloud → WP).
   try {
-    const res = await fetch(`${APP_URL}/api/pool-listings/?${params.toString()}`, {
+    const res = await fetch(`${APP_URL}/api/d1/?${params.toString()}`, {
       cache: "no-store",
     });
-    if (!res.ok) return null;
-    return await res.json();
+    return await parseObfuscatedResponse(res);
   } catch {
     return null;
   }
 }
 
 /**
- * Fetch the initial pool for SSR/ISR rendering.
+ * Fetch the initial pool for SSR rendering.
  *
- * @param seed  Passed through to the live API — used by the HTML cache warmer,
- *              which passes ?shuffle_seed=N so each cached HTML variant gets a
- *              genuinely different product pool.
+ * @param seed        Passed through to the live API — used by the HTML cache
+ *                    warmer, which passes ?shuffle_seed=N so each cached HTML
+ *                    variant gets a genuinely different product pool. 0 for a
+ *                    normal live request (goes through the CF-cached path).
+ * @param displaySeed Local-only re-shuffle seed, always a fresh random value
+ *                    per request — see parsePoolJson for why this never
+ *                    touches the API call itself.
  */
 export async function fetchInitialPool(
   filters: FilterState,
   isIndexed = true,
-  seed = 0
+  seed = 0,
+  displaySeed = 1
 ): Promise<InitialPool | null> {
   const apiJson = await fetchFromApi(filters, seed);
   if (apiJson) {
-    const parsed = parsePoolJson(apiJson, isIndexed);
+    const parsed = parsePoolJson(apiJson, isIndexed, displaySeed);
     if (parsed) {
-      console.log(`[fetchInitialPool] API OK seed=${seed} (${parsed.featured.length + parsed.new.length + parsed.used.length} products)`);
+      console.log(`[fetchInitialPool] API OK seed=${seed} displaySeed=${displaySeed} (${parsed.featured.length + parsed.new.length + parsed.used.length} products)`);
       return parsed;
     }
   }
 
   console.log(`[fetchInitialPool] API failed for filters: ${JSON.stringify(filters)}`);
   return null;
+}
+
+/**
+ * Server-side counterpart to home.tsx's condition-locked New/Used seo_v2
+ * fetch — same endpoint/params, called during SSR so no client-visible
+ * request is needed just to populate those two section titles.
+ */
+export async function fetchConditionSeo(
+  filters: FilterState,
+  condition: "New" | "Used",
+  seed = 0
+): Promise<SeoV2 | null> {
+  const apiJson = await fetchFromApi({ ...filters, condition }, seed, 1);
+  return apiJson?.data?.seo_v2 ?? apiJson?.seo_v2 ?? null;
 }

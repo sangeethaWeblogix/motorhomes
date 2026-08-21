@@ -34,15 +34,29 @@ type BannerContextType = {
 
 const BannerContext = createContext<BannerContextType | undefined>(undefined);
 
-export function BannerProvider({ children }: { children: ReactNode }) {
-  const [allBanners, setAllBanners] = useState<FullBanner[]>([]);
+export function BannerProvider({
+  children,
+  initialBanners,
+}: {
+  children: ReactNode;
+  initialBanners?: FullBanner[];
+}) {
+  const [allBanners, setAllBanners] = useState<FullBanner[]>(initialBanners ?? []);
   const [matchedBanners, setMatchedBanners] = useState<FullBanner[]>([]);
   const [isMobile, setIsMobile] = useState(false);
   const [currentHomeBannerIndex, setCurrentHomeBannerIndex] = useState(0);
   const pathname = usePathname();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!initialBanners);
 
   useEffect(() => {
+    // Banners are fetched server-side (root layout) and passed in as
+    // initialBanners so no client-visible request hits the Network tab.
+    // This effect only runs as a fallback if the server fetch came back empty.
+    if (initialBanners && initialBanners.length > 0) {
+      setIsLoading(false);
+      return;
+    }
+
     async function fetchAllBanners() {
       try {
         setIsLoading(true);
@@ -67,6 +81,7 @@ export function BannerProvider({ children }: { children: ReactNode }) {
       }
     }
     fetchAllBanners();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

@@ -22,13 +22,13 @@ import {
   type CountItem,
   type BrowseSectionData,
 } from "./browseSectionShared";
+import { parseObfuscatedResponse, obfuscateUrl } from "@/lib/obfuscation";
 
 async function fetchGroupCounts(groupBy: string, scope: Record<string, string>): Promise<CountItem[]> {
   try {
     const qs = new URLSearchParams({ group_by: groupBy, ...scope });
-    const res = await fetch(`/api/params-count/?${qs.toString()}`);
-    if (!res.ok) return [];
-    const json = await res.json();
+    const res = await fetch(obfuscateUrl(`/api/d2/?${qs.toString()}`));
+    const json = await parseObfuscatedResponse(res);
     return json?.data?.[groupBy] ?? [];
   } catch {
     return [];
@@ -36,12 +36,14 @@ async function fetchGroupCounts(groupBy: string, scope: Record<string, string>):
 }
 
 async function fetchBandCount(scope: Record<string, string>, query: string): Promise<number> {
+  const bandParams: Record<string, string> = { ...scope };
+  new URLSearchParams(query).forEach((v, k) => { bandParams[k] = v; });
+
   try {
-    const qs = new URLSearchParams({ per_page: "1", ...scope });
-    const res = await fetch(`/api/pool-listings/?${qs.toString()}&${query}`, { cache: "no-store" });
-    if (!res.ok) return 0;
-    const json = await res.json();
-    return json?.data?.pagination?.total_products ?? json?.pagination?.total_products ?? 0;
+    const qs = new URLSearchParams(bandParams);
+    const res = await fetch(obfuscateUrl(`/api/product-exists-check/?${qs.toString()}`), { cache: "no-store" });
+    const json = await parseObfuscatedResponse(res);
+    return json?.count ?? (json?.exists ? 1 : 0);
   } catch {
     return 0;
   }
@@ -169,7 +171,7 @@ export default function StateBrowseSection({ state, region, category, initialDat
       .map((b) => ({ text: b.text, href: `${basePath}${b.href.replace("/listings", "")}` }));
 
   // group_by-based panels (make/state/region/category) only know what to show
-  // once their /api/params-count/ response arrives — unlike the band panels
+  // once their /api/d2/ response arrives — unlike the band panels
   // above, there's no "show everything" fallback that's safe to filter later.
   // While that fetch is still in flight (count state === null), render
   // shimmer pills instead of nothing so a slow response doesn't look empty.

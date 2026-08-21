@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { encodeObfuscated, readObfuscatedQuery } from "@/lib/obfuscation";
 
 // url.csv is the curated list of /listings/ URLs that are actually meant to
 // be indexed/crawled — everything else (condition-only pages, deep filter
@@ -31,7 +32,12 @@ function loadIndexedPaths(): Set<string> {
 }
 
 export async function GET(request: NextRequest) {
-  const targetPath = request.nextUrl.searchParams.get("path") ?? "";
+  const searchParams = readObfuscatedQuery(request.nextUrl.searchParams);
+  const targetPath = searchParams.get("path") ?? "";
   const indexed = loadIndexedPaths().has(normalize(targetPath));
-  return NextResponse.json({ indexed });
+  // Body is obfuscated (see @/lib/obfuscation) so it isn't plain-readable
+  // straight off the DevTools Network "Preview"/"Response" tab.
+  return new NextResponse(encodeObfuscated({ indexed }), {
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
+  });
 }

@@ -1,9 +1,17 @@
 import { NextResponse } from "next/server";
+import { encodeObfuscated, readObfuscatedBody } from "@/lib/obfuscation";
+
 const API_KEY = process.env.CFS_API_KEY; // ✅ Added
+
+function obf(data: unknown): NextResponse {
+  return new NextResponse(encodeObfuscated(data), {
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
+  });
+}
 
 export async function POST(req: Request) {
   try {
-    const { product_id } = await req.json();
+    const { product_id } = await readObfuscatedBody(req);
 
     const ip = req.headers.get("x-forwarded-for") || "";
     const user_agent = req.headers.get("user-agent") || "";
@@ -41,10 +49,8 @@ export async function POST(req: Request) {
       }
     );
 
-    return NextResponse.json({ success: true });
+    return obf({ success: true });
   } catch (e) {
-      const message = e instanceof Error ? e.message : "Unknown error";
-
-    return NextResponse.json({ error: true, });
+    return obf({ error: true });
   }
 }
