@@ -23,9 +23,6 @@ export const metadata: Metadata = {
     "Browse new and used motorhomes for sale across Australia. Compare prices, layouts and key specifications from trusted dealers and private sellers.",
   icons: { icon: "/favicon.ico" },
   robots: "index, follow",
-  verification: {
-    google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo",
-  },
   alternates: {
     canonical: "https://www.motorhomesforsale.com.au",
   },

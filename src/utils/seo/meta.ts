@@ -159,9 +159,6 @@ export async function metaFromSlug(
     title: { absolute: title },
     description,
     robots: { index: robotsResult.index },
-    verification: {
-      google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo",
-    },
     alternates: { canonical, languages: {}, media: {} },
     openGraph: {
       title,

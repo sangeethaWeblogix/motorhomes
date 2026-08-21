@@ -43,9 +43,6 @@ export async function generateMetadata({
       title: "Thank You",
       description: "Your enquiry was submitted successfully.",
       robots: "noindex, nofollow",
-      verification: {
-        google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ Google site verification
-      },
       alternates: {
         canonical: `https://www.motorhomesforsale.com.au/${slug}/`,
       },
@@ -75,9 +72,6 @@ export async function generateMetadata({
     robots,
     alternates: {
       canonical: canonicalUrl, // ✅ canonical link
-    },
-    verification: {
-      google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ this auto generates <meta name="google-site-verification" />
     },
     openGraph: {
       title,

@@ -13,9 +13,6 @@ import { ReactNode } from "react";
      "Have a question about motorhomes in Australia? Contact Motorhomes For Sale for support, inquiries, or help finding your next motorhome today.",
    icons: { icon: "/favicon.ico" },
    robots: "index, follow",
-   verification: {
-     google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ this auto generates <meta name="google-site-verification" />
-   },
    alternates: {
     canonical: "https://www.motorhomesforsale.com.au/contact/",
    },

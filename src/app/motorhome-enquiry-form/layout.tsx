@@ -12,9 +12,6 @@ import { ReactNode } from "react";
      "Fill out our motorhome enquiry form to receive exclusive offers from select quality motorhome manufacturers. Get the best motorhome deals sent directly to you.",
    icons: { icon: "/favicon.ico" },
    robots: "index, follow",
-   verification: {
-     google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo", // ✅ this auto generates <meta name="google-site-verification" />
-   },
    alternates: {
     canonical: "https://www.motorhomesforsale.com.au/motorhome-enquiry-form/",
    },
