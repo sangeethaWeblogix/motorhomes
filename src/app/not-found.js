@@ -9,15 +9,6 @@ export const metadata = {
 };
 
 export default function NotFoundPage() {
-  const categories = [
-    { name: "Off Road Motorhomes", slug: "off-road-category" },
-    { name: "Hybrid Motorhomes", slug: "hybrid-category" },
-    { name: "Pop Top Motorhomes", slug: "pop-top-category" },
-    { name: "Luxury Motorhomes", slug: "luxury-category" },
-    { name: "Family Motorhomes", slug: "family-category" },
-    { name: "Touring Motorhomes", slug: "touring-category" },
-  ];
-
   const states = [
     {
       name: "Australian Capital Territory",
@@ -57,32 +48,16 @@ export default function NotFoundPage() {
           </a>
         </div>
 
-        {/* ✅ Browse by Type & State Side by Side */}
         <div className="browse-grid">
-          {/* Left: Category */}
           <div className="browse-column">
-            <h4>Browse by Type:</h4>
-            <ul>
-              {categories.map((cat) => (
-                <li key={cat.slug}>
-                  <a href={`/listings/${cat.slug}/`}>{cat.name}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Right: State */}
-          <div className="browse-column">
-            <h4>Browse by State:</h4>
-            <ul>
+            <h4>Browse by State</h4>
+            <div className="browse-pills">
               {states.map((state) => (
-                <li key={state.slug}>
-                  <a href={`/listings/${state.slug}/`}>
-                    {state.name}
-                  </a>
-                </li>
+                <a key={state.slug} href={`/listings/${state.slug}/`} className="browse-pill">
+                  {state.name}
+                </a>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
       </div>
