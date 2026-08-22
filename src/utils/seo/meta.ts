@@ -159,9 +159,6 @@ export async function metaFromSlug(
     title: { absolute: title },
     description,
     robots: { index: robotsResult.index },
-    verification: {
-      google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo",
-    },
     alternates: { canonical, languages: {}, media: {} },
     openGraph: {
       title,
@@ -169,7 +166,7 @@ export async function metaFromSlug(
       url: canonical,
       images: [
         {
-          url: "https://www.motorhomesforsale.com.au/images/cfs-logo.png",
+          url: "https://www.motorhomesforsale.com.au/images/mfs-logo.png",
           width: 800,
           height: 600,
           alt: "Motorhomes for Sale Australia",

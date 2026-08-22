@@ -81,7 +81,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description,
     robots: seo.index === "noindex" ? "noindex, nofollow" : "index, follow",
     alternates: { canonical: canonicalUrl },
-    verification: { google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo" },
     openGraph: {
       title,
       description,

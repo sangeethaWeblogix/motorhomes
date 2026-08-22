@@ -174,7 +174,7 @@ export default function Navbar() {
           <div className="sidenav-panel sidenav-panel-main">
             <div className="sidenav-header">
               <a href="/" onClick={closeNav} className="sidenav-logo-link">
-                <Image src="/images/cfs-logo-black.svg" alt="Motorhomes For Sale" width={120} height={40} className="sidenav-logo-img" />
+                <Image src="/images/mfs-logo-black.svg" alt="Motorhomes For Sale" width={120} height={40} className="sidenav-logo-img" />
               </a>
               <button className="sidenav-close" onClick={closeNav} aria-label="Close menu">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none">

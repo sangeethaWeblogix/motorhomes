@@ -115,7 +115,7 @@ export default async function Layout({
       name: "Motorhomes for Sale",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.motorhomesforsale.com.au/images/cfs-logo-black.svg",
+        url: "https://www.motorhomesforsale.com.au/images/mfs-logo-black.svg",
         width: 300,
         height: 60,
       },

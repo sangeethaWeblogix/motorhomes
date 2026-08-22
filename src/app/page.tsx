@@ -23,9 +23,6 @@ export const metadata: Metadata = {
     "Browse new and used motorhomes for sale across Australia. Compare prices, layouts and key specifications from trusted dealers and private sellers.",
   icons: { icon: "/favicon.ico" },
   robots: "index, follow",
-  verification: {
-    google: "6tT6MT6AJgGromLaqvdnyyDQouJXq0VHS-7HC194xEo",
-  },
   alternates: {
     canonical: "https://www.motorhomesforsale.com.au",
   },
@@ -36,7 +33,7 @@ export const metadata: Metadata = {
     siteName: "Motorhomes for Sale",
     images: [
       {
-        url: "https://www.motorhomesforsale.com.au/images/cfs-logo.png",
+        url: "https://www.motorhomesforsale.com.au/images/mfs-logo.png",
         width: 800,
         height: 600,
         alt: "Motorhomes for Sale Australia",
@@ -79,7 +76,7 @@ const homeJsonLd = {
       "url": BASE_URL,
       "logo": {
         "@type": "ImageObject",
-        "url": `${BASE_URL}/images/cfs-logo-black.png`,
+        "url": `${BASE_URL}/images/mfs-logo-black.png`,
       },
       "contactPoint": {
         "@type": "ContactPoint",

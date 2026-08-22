@@ -6,7 +6,7 @@ export default function NavbarSkeleton() {
           <a className="navbar-brand" href="/">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/cfs-logo-black.svg"
+              src="/images/mfs-logo-black.svg"
               alt="Motorhomes For Sale"
               width={150}
               height={50}
