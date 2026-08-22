@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useMemo, useCallback, memo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useEnquiryForm } from "@/app/components/ListContent/enquiryform";
-import { encodeObfuscated } from "@/lib/obfuscation";
+import { encodeObfuscated, parseObfuscatedResponse } from "@/lib/obfuscation";
 import CaravanDetailModal from "@/app/product/[slug]/CaravanDetailModal";
 import "./demo.css";
 
@@ -401,6 +401,11 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
     { label: `All Motorhomes for Sale`, href: `/listings/` },
   ].filter(Boolean) as { label: string; href: string }[];
 
+  useEffect(() => {
+    console.log("[product-detail] full response:", data);
+    console.log("[similar-products] response:", similarData);
+  }, [data, similarData]);
+
   const [safeHtml, setSafeHtml] = useState("");
   useEffect(() => {
     if (product.description) {
@@ -415,7 +420,10 @@ const priceUpperIdx = !isPOA ? PRICE_STEPS.findIndex(s => s >= displayPrice) : -
       method: "POST",
       headers: { "Content-Type": "text/plain" },
       body: encodeObfuscated({ product_id: Number(productId) }),
-    }).catch(() => {});
+    })
+      .then((r) => parseObfuscatedResponse(r))
+      .then((res) => console.log("[track-product] response:", res))
+      .catch(() => {});
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product.id]);
 

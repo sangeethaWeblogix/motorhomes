@@ -103,7 +103,7 @@ const fetchProductDetail = cache(async (slug: string) => {
   const API_KEY = process.env.CFS_API_KEY;
   try {
     const res = await fetch(
-      `${API_BASE}/product-detail-new/?slug=${encodeURIComponent(slug)}`,
+      `${API_BASE}/product-detail-new?slug=${encodeURIComponent(slug)}`,
       {
         cache: "no-store",
         headers: {
