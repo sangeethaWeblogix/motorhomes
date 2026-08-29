@@ -29,9 +29,6 @@ const FILTERS = [
     icon: <Image src="/images/Budget.png" alt="Budget" width={24} height={24} unoptimized />,
     label: "By Your Budget",
     items: [
-      { text: "Under $30,000",       href: "/listings/under-30000/" },
-      { text: "$30,000 – $40,000",   href: "/listings/between-30000-40000/" },
-      { text: "$40,000 – $50,000",   href: "/listings/between-40000-50000/" },
       { text: "$50,000 – $70,000",   href: "/listings/between-50000-70000/" },
       { text: "$70,000 – $80,000",   href: "/listings/between-70000-80000/" },
       { text: "$80,000 – $100,000",  href: "/listings/between-80000-100000/" },
