@@ -20,14 +20,24 @@
       );
   
       const data = await res.json();
-  
+
       if (!data?.success || !Array.isArray(data.paths)) {
         throw new Error("Invalid sitemap API response");
       }
-  
-      
-  
-      const urls = data.paths
+
+      // The site's current "By Budget" price bands (home page + /listings/
+      // browse section) — merged in since the backend's auto-generated price
+      // list hasn't caught up to these yet.
+      const HOMEPAGE_PRICE_BANDS = [
+        "under-100000/",
+        "between-100000-150000/",
+        "between-150000-200000/",
+        "between-200000-300000/",
+        "over-300000/",
+      ];
+      const paths = Array.from(new Set([...data.paths, ...HOMEPAGE_PRICE_BANDS]));
+
+      const urls = paths
         .map(
           (path: string) => `
     <url>

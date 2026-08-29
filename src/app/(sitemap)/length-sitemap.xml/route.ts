@@ -19,14 +19,24 @@
       );
   
       const data = await res.json();
-  
+
       if (!data?.success || !Array.isArray(data.paths)) {
         throw new Error("Invalid sitemap API response");
       }
-  
-      
-  
-      const urls = data.paths
+
+      // The site's current "By Size (Length)" bands (home page + /listings/
+      // browse section) — merged in since the backend's auto-generated length
+      // list hasn't caught up to these yet.
+      const HOMEPAGE_LENGTH_BANDS = [
+        "under-20-length-in-feet/",
+        "between-20-23-length-in-feet/",
+        "between-23-26-length-in-feet/",
+        "between-26-30-length-in-feet/",
+        "over-30-length-in-feet/",
+      ];
+      const paths = Array.from(new Set([...data.paths, ...HOMEPAGE_LENGTH_BANDS]));
+
+      const urls = paths
         .map(
           (path: string) => `
     <url>

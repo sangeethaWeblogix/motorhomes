@@ -38,8 +38,11 @@ const DealerLandingPage = () => {
                 </p>
 
                 <a
-                  href="https://seller.motorhomesforsale.com.au/dealer-subscription/"
+                  aria-disabled="true"
+                  tabIndex={-1}
+                  onClick={(e) => e.preventDefault()}
                   className="btn white_btn"
+                  style={{ opacity: 0.5, cursor: "not-allowed", pointerEvents: "none" }}
                 >
                   Start Dealer Signup
                 </a>
@@ -254,8 +257,11 @@ const DealerLandingPage = () => {
                   </ul>
 
                   <a
-                    href="https://seller.motorhomesforsale.com.au/dealer-subscription/"
+                    aria-disabled="true"
+                    tabIndex={-1}
+                    onClick={(e) => e.preventDefault()}
                     className="btn white_btn"
+                    style={{ opacity: 0.5, cursor: "not-allowed", pointerEvents: "none" }}
                   >
                     Start Dealer Signup
                   </a>
