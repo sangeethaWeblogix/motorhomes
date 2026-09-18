@@ -37,6 +37,11 @@ export const PRICE_BANDS_ORDERED = [
   "between-275000-300000",
   "under-300000",
   "over-200000",
+  // Current "By Budget" bands on the home page / /listings/ browse section.
+  "between-100000-150000",
+  "between-150000-200000",
+  "between-200000-300000",
+  "over-300000",
 ];
 
 export const GVM_BANDS_ORDERED = [
@@ -55,6 +60,11 @@ export const GVM_BANDS_ORDERED = [
   "under-4000-kg-gvm",
   "under-4500-kg-gvm",
   "over-3500-kg-gvm",
+  // Current "By Weight (GVM)" bands on the home page / /listings/ browse section.
+  "between-3500-kg-4500-kg-gvm",
+  "between-4500-kg-6000-kg-gvm",
+  "between-6000-kg-8000-kg-gvm",
+  "over-8000-kg-gvm",
 ];
 
 export const SLEEP_BANDS_ORDERED = [
@@ -97,6 +107,11 @@ export const LENGTH_BANDS_ORDERED = [
   "between-26-28-length-in-feet",
   "under-28-length-in-feet",
   "over-24-length-in-feet",
+  // Current "By Size (Length)" bands on the home page / /listings/ browse section.
+  "between-20-23-length-in-feet",
+  "between-23-26-length-in-feet",
+  "between-26-30-length-in-feet",
+  "over-30-length-in-feet",
 ];
 
 export const ALLOWED_PRICE_BANDS  = new Set(PRICE_BANDS_ORDERED);

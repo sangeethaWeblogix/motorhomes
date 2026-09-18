@@ -665,11 +665,22 @@ export default function StateHome({
               <nav className="lsd-breadcrumb" aria-label="Breadcrumb">
                 <Link href="/">Home</Link>
                 <svg width="12" height="20" viewBox="0 0 24 24" fill="none" stroke="#3e3e3e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, display: "block" }} aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
-                <Link href="/listings/">Motorhomes for Sale</Link>
-                {buildFilterBreadcrumbs(filters).map((crumb) => (
+                {(() => {
+                  const crumbs = buildFilterBreadcrumbs(filters);
+                  return crumbs.length > 0 ? (
+                    <Link href="/listings/">Motorhomes for Sale</Link>
+                  ) : (
+                    <span className="lsd-breadcrumb__current" aria-current="page">Motorhomes for Sale</span>
+                  );
+                })()}
+                {buildFilterBreadcrumbs(filters).map((crumb, i, arr) => (
                   <span key={crumb.href}>
                     <svg width="12" height="20" viewBox="0 0 24 24" fill="none" stroke="#3e3e3e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, display: "block" }} aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
-                    <Link href={crumb.href}>{crumb.label}</Link>
+                    {i === arr.length - 1 ? (
+                      <span className="lsd-breadcrumb__current" aria-current="page">{crumb.label}</span>
+                    ) : (
+                      <Link href={crumb.href}>{crumb.label}</Link>
+                    )}
                   </span>
                 ))}
               </nav>
@@ -805,11 +816,22 @@ export default function StateHome({
             <nav className="lsd-breadcrumb" aria-label="Breadcrumb">
               <Link href="/">Home</Link>
               <svg width="12" height="20" viewBox="0 0 24 24" fill="none" stroke="#3e3e3e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, display: "block" }} aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
-              <Link href="/listings/">Motorhomes for Sale</Link>
-              {buildFilterBreadcrumbs(filters).map((crumb) => (
+              {(() => {
+                const crumbs = buildFilterBreadcrumbs(filters);
+                return crumbs.length > 0 ? (
+                  <Link href="/listings/">Motorhomes for Sale</Link>
+                ) : (
+                  <span className="lsd-breadcrumb__current" aria-current="page">Motorhomes for Sale</span>
+                );
+              })()}
+              {buildFilterBreadcrumbs(filters).map((crumb, i, arr) => (
                 <span key={crumb.href}>
                   <svg width="12" height="20" viewBox="0 0 24 24" fill="none" stroke="#3e3e3e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, display: "block" }} aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
-                  <Link href={crumb.href}>{crumb.label}</Link>
+                  {i === arr.length - 1 ? (
+                    <span className="lsd-breadcrumb__current" aria-current="page">{crumb.label}</span>
+                  ) : (
+                    <Link href={crumb.href}>{crumb.label}</Link>
+                  )}
                 </span>
               ))}
             </nav>

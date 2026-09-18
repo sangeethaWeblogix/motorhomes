@@ -20,14 +20,24 @@
       );
   
       const data = await res.json();
-  
+
       if (!data?.success || !Array.isArray(data.paths)) {
         throw new Error("Invalid sitemap API response");
       }
-  
-      
-  
-      const urls = data.paths
+
+      // The site's current "By Weight (GVM)" bands (home page + /listings/
+      // browse section) — merged in since the backend's auto-generated GVM
+      // list hasn't caught up to these yet.
+      const HOMEPAGE_GVM_BANDS = [
+        "under-3500-kg-gvm/",
+        "between-3500-kg-4500-kg-gvm/",
+        "between-4500-kg-6000-kg-gvm/",
+        "between-6000-kg-8000-kg-gvm/",
+        "over-8000-kg-gvm/",
+      ];
+      const paths = Array.from(new Set([...data.paths, ...HOMEPAGE_GVM_BANDS]));
+
+      const urls = paths
         .map(
           (path: string) => `
     <url>
