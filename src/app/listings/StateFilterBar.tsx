@@ -790,7 +790,7 @@ export default function StateFilterBar({ currentFilters, onFilterChange, onClear
                 <span className="chip-label" onClick={handleSleepOpen}>
                   {currentFilters.from_sleep && currentFilters.to_sleep
                     ? String(currentFilters.from_sleep) === String(currentFilters.to_sleep)
-                      ? `${currentFilters.from_sleep} Berths`
+                      ? `${currentFilters.from_sleep} Berth`
                       : `${currentFilters.from_sleep} – ${currentFilters.to_sleep} Berths`
                     : currentFilters.from_sleep
                       ? `From ${currentFilters.from_sleep} Berths`
