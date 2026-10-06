@@ -4,81 +4,6 @@
  import { isAllowedSingleBand } from "@/utils/seo/band-utils";
  const API_KEY = process.env.CFS_API_KEY;
 
- const API_WP = 'https://admin.motorhomesforsale.com.au/wp-json/mfs/v1';
-
- /* Live make/model/state/region validation — same params_count endpoint the
-    browse filter panels use (group_by=make nests valid models per make;
-    group_by=state nests valid regions per state). Replaces the old
-    cfs-paths/*.json snapshots, which went stale against live inventory
-    (e.g. a make with real listings could still be missing from the
-    pre-generated sitemap dump and get wrongly 410'd). */
- async function fetchParamsCount(query: string): Promise<any | null> {
-   try {
-     const controller = new AbortController();
-     const tid = setTimeout(() => controller.abort(), 5000);
-     const res = await fetch(`${API_WP}/params_count?${query}`, {
-       headers: { 'User-Agent': 'next-middleware', ...(API_KEY && { 'X-API-Key': API_KEY }) },
-       signal: controller.signal,
-       cache: 'no-store',
-     });
-     clearTimeout(tid);
-     if (!res.ok) return null;
-     const raw = await res.text();
-     const idx = raw.indexOf('{"');
-     return JSON.parse(idx > 0 ? raw.substring(idx) : raw);
-   } catch {
-     return null;
-   }
- }
-
- async function isValidMakeModel(makeSlug: string, modelSlug?: string): Promise<boolean> {
-   const data = await fetchParamsCount('group_by=make');
-   if (!data) return true; // API error — don't block, let the live pool check further down handle it
-   const makes = data?.data?.make ?? [];
-   const makeEntry = makes.find((m: any) => m.slug === makeSlug);
-   if (!makeEntry) return false;
-   if (!modelSlug) return true;
-   const models = makeEntry.model ?? [];
-   return models.some((mo: any) => mo.slug === modelSlug);
- }
-
- async function isValidStateRegion(stateSlug: string, regionSlug?: string): Promise<boolean> {
-   const data = await fetchParamsCount('group_by=state');
-   if (!data) return true;
-   const states = data?.data?.state ?? [];
-   const stateEntry = states.find((s: any) => s.slug === stateSlug);
-   if (!stateEntry) return false;
-   if (!regionSlug) return true;
-   const regions = stateEntry.region ?? [];
-   return regions.some((r: any) => r.slug === regionSlug);
- }
-
- async function isValidSuburb(suburb: string, pincode: string | undefined, apiKey: string | undefined): Promise<boolean> {
-   try {
-     const controller = new AbortController();
-     const tid = setTimeout(() => controller.abort(), 5000);
-     const res = await fetch(`${API_WP}/location-search?keyword=${encodeURIComponent(suburb)}`, {
-       headers: { 'User-Agent': 'next-middleware', ...(apiKey && { 'X-API-Key': apiKey }) },
-       signal: controller.signal,
-       cache: 'no-store',
-     });
-     clearTimeout(tid);
-     if (res.ok) {
-       const data = await res.json();
-       const results: { uri?: string }[] = data?.pincode_location_region_state ?? [];
-       const suburbSlug = suburb.replace(/\s+/g, '-').toLowerCase();
-       return results.some(r => {
-         if (!r.uri) return false;
-         const u = r.uri.toLowerCase();
-         return pincode
-           ? u.includes(`${suburbSlug}-${pincode}-suburb`) || u.includes(`/${suburbSlug}-suburb/${pincode}`)
-           : u.includes(`${suburbSlug}-suburb`);
-       });
-     }
-   } catch {}
-   return true; // allow through on API error — don't block valid requests
- }
-
  /* ──────────────────────────────────────────────
     Bot Detection
  ────────────────────────────────────────────── */
@@ -243,35 +168,11 @@
            }
          }
 
-         // State + region validation — live check against params_count (group_by=state
-         // nests valid regions per state).
-         const stateSegment = slugParts.find(s => s.endsWith('-state'));
-         const regionSegment = slugParts.find(s => s.endsWith('-region'));
-         const stateSlug = stateSegment ? stateSegment.replace(/-state$/, '') : undefined;
-         if (stateSlug) {
-           const regionSlug = regionSegment ? regionSegment.replace(/-region$/, '') : undefined;
-           const stateRegionOk = await isValidStateRegion(stateSlug, regionSlug);
-           if (!stateRegionOk) {
-             return render410(request);
-           }
-         }
-
-         // Make + model validation — live check against params_count (group_by=make
-         // nests valid models per make).
-         if (filters.make) {
-           const makeModelOk = await isValidMakeModel(filters.make, filters.model);
-           if (!makeModelOk) {
-             return render410(request);
-           }
-         }
-
-         // Suburb value validation — check against location-search API (live)
-         if (filters.suburb) {
-           const suburbOk = await isValidSuburb(filters.suburb, filters.pincode, API_KEY);
-           if (!suburbOk) {
-             return render410(request);
-           }
-         }
+         // State/region, make/model, and suburb are intentionally NOT 410'd for
+         // unrecognized values anymore — an unrecognized combo just means the
+         // live product-count check further down returns 0 results, which
+         // already renders the normal "0 products" page (noindex, no 410)
+         // instead of a Gone page.
        } catch {
          // parse error → let page component handle it
        }
@@ -403,19 +304,13 @@
            data = {};
          }
 
-         // 0 regular products:
-         //   - empExclusive also empty → 410 (Vercel shows its own Gone page — no content anyway)
-         //   - empExclusive has items  → 200 noindex (Vercel intercepts 410+rewrite, page must show exclusive content)
+         // 0 regular products → render the normal page (noindex), never 410.
+         // If the backend has emp_exclusive_products for this combo, the page
+         // itself shows those as a fallback; either way this is just a
+         // "0 products" result page, not a dead URL.
          const products = data?.products ?? [];
-         const empExclusive = data?.emp_exclusive_products ?? [];
          if (products.length === 0) {
-           if (empExclusive.length === 0) {
-             // Don't 410 from middleware — ISR/page component handles empty state
-             robotsHeader = "noindex, nofollow";
-           } else {
-             const rewriteUrl = new URL(`/api/listings-410/${slugParts.join('/')}${url.search}`, request.url);
-             return NextResponse.rewrite(rewriteUrl);
-           }
+           robotsHeader = "noindex, nofollow";
          } else {
            const seo = data?.seo_v2 ?? data?.seo ?? {};
            const rawIndex = String(seo?.index ?? "").toLowerCase().trim();
@@ -436,23 +331,9 @@
            }
          }
        } else if (apiRes.status === 410) {
-         // WordPress returns 410 for 0 products — set noindex but let ISR/page handle display
-         try {
-           const raw410 = await apiRes.text();
-           const idx410 = raw410.indexOf('{"');
-           const data410 = JSON.parse(idx410 > 0 ? raw410.substring(idx410) : raw410);
-           const empExclusive410 = data410?.emp_exclusive_products ?? [];
-           if (empExclusive410.length === 0) {
-             robotsHeader = "noindex, nofollow";
-             // Don't render410 — let ISR serve cached HTML
-           } else {
-             const rewriteUrl410 = new URL(`/api/listings-410/${slugParts.join('/')}${url.search}`, request.url);
-             return NextResponse.rewrite(rewriteUrl410);
-           }
-         } catch {
-           robotsHeader = "noindex, nofollow";
-           // Don't render410 — let ISR serve cached HTML
-         }
+         // WordPress returns 410 for 0 products — still just a "0 products"
+         // result, not a dead URL. Render normally with noindex.
+         robotsHeader = "noindex, nofollow";
        }
      } catch (error: any) {
        if (error?.name !== "AbortError") {

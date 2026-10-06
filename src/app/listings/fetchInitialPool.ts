@@ -65,7 +65,7 @@ function parsePoolJson(json: any, isIndexed: boolean, displaySeed: number): Init
   const empExclusivesRaw: Listing[] = json?.data?.emp_exclusive_products ?? json?.emp_exclusive_products ?? [];
   const totalCount: number          = json?.data?.counts?.total_count ?? json?.counts?.total_count ?? products.length;
 
-  if (!products.length && !premiumsRaw.length) return null;
+  if (!products.length && !premiumsRaw.length && !empExclusivesRaw.length) return null;
 
   const totalProducts = json?.data?.pagination?.total_products ?? json?.pagination?.total_products ?? totalCount;
   const perPage = 24;
